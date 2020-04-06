@@ -2,8 +2,15 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
+
 import model.Configuration;
 
+/**
+ * Panel which contains every visual component about the configuration menu of the
+ * Completed-GamesRegister program.
+ * 
+ * @author Alejandro Batres
+ */
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
 	public JButton btAutoSaveON, btAutoSaveOFF, btAutoBackupON, btAutoBackupOFF, btChange, btAccept, btReturn;
@@ -13,17 +20,21 @@ public class ConfigurationPanel extends JPanel{
 	
 	/*
 	 * PASOS SIGUIENTES PARA NO PERDERSE XD:
-	 * 1. Fijar en la parte superior al titulo "Menu de configuracion"
-	 * 2. Todas las opciones de configuracion dejarlas en un panel que tenga
-	 * 	la posibilidad de desplazarse con una barra de desplazamiento lateral
-	 * 3. Dejar las opciones de "Aplicar" y "Regresar" en la parte inferior
+	 * 4. Agregar siguientes opciones:
+	 *  - Reset configurations to default
+	 *  - Delete ALL data (it'll request password confirmation)
+	 *  - Languages (NOT TOTALLY CONFIRMED)
+	 *  
 	 * */
 	public ConfigurationPanel(){
-		this.setLayout(new GridBagLayout());
-		this.setBackground(Configuration.getBackgroundColor());
+		this.setLayout(new BorderLayout());
+		this.setBackground(Configuration.getPrimaryColor());
 		initComponents();
 	}
 	
+	/**
+	 * Initializes every visual component inside of the ConfigurationPanel panel.
+	 */
 	private void initComponents(){
 		Dimension dimBt = new Dimension(62,22);
 		Font fntBt = new Font("Open Sans",1,14);
@@ -32,10 +43,27 @@ public class ConfigurationPanel extends JPanel{
 		Color fontColor = Configuration.getFontColor();
 		Color buttonColor = Configuration.getButtonColor();
 		
+		// Establishing the title (lol)
+		
 		JLabel lbTitle = new JLabel("Menú de configuración");
-		lbTitle.setHorizontalAlignment(JLabel.LEFT);
-		lbTitle.setFont(new Font("Open Sans",1,22));
+		lbTitle.setHorizontalAlignment(JLabel.CENTER);
+		lbTitle.setFont(new Font("Open Sans",1,24));
+		lbTitle.setPreferredSize(new Dimension(0,75));
 		lbTitle.setForeground(fontColor);
+		
+		// Establishing panel of all options
+		
+		JPanel pGeneralOptions = new JPanel(new GridBagLayout());
+		pGeneralOptions.setBackground(Configuration.getBackgroundColor());
+		JScrollPane scrollOptions = new JScrollPane(pGeneralOptions);
+		scrollOptions.setViewportView(pGeneralOptions);
+		scrollOptions.setBorder(BorderFactory.createLineBorder(pGeneralOptions.getBackground()));
+		scrollOptions.setPreferredSize(new Dimension(20,800));
+		scrollOptions.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollOptions.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollOptions.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
+		
+		// - Establishing the auto-save options
 		
 		JPanel pAutoSave = new JPanel(new FlowLayout());
 		pAutoSave.setBackground(Configuration.transparent);
@@ -58,6 +86,8 @@ public class ConfigurationPanel extends JPanel{
 		btAutoSaveOFF.setForeground(fontColor);
 		btAutoSaveOFF.setPreferredSize(dimBt);
 		
+		// - Establishing the auto-backup options
+		
 		JPanel pAutoBackup = new JPanel(new FlowLayout());
 		pAutoBackup.setBackground(Configuration.transparent);
 		JLabel lbAutoBackup1 = new JLabel("Respaldo automático");
@@ -79,6 +109,8 @@ public class ConfigurationPanel extends JPanel{
 		btAutoBackupOFF.setForeground(fontColor);
 		btAutoBackupOFF.setPreferredSize(dimBt);
 		
+		// - Establishing the theme options
+		
 		JPanel pThemes = new JPanel(new FlowLayout());
 		pThemes.setBackground(Configuration.transparent);
 		JLabel lbThemes = new JLabel("Tema del programa (requiere reinicio): ");
@@ -98,11 +130,13 @@ public class ConfigurationPanel extends JPanel{
 			pThemes.add(bt);
 		}
 		
+		// - Establishing the password options
+		
 		JPanel pPass = new JPanel(new GridLayout(5,1,5,3));
 		pPass.setBackground(Configuration.getPrimaryColor());
 		pPass.setPreferredSize(new Dimension(560,180));
 		JPanel pPassInfo = new JPanel(new FlowLayout());
-		pPassInfo.setBackground(Configuration.getPrimaryColor());
+		pPassInfo.setBackground(pPass.getBackground());
 		JLabel lbChangePass = new JLabel("Cambiar contraseña.");
 		lbChangePass.setHorizontalAlignment(JLabel.CENTER);
 		lbChangePass.setFont(fntLbPlain);
@@ -114,7 +148,7 @@ public class ConfigurationPanel extends JPanel{
 		pPassInfo.add(lbChangePass);
 		pPassInfo.add(lbPassMessage);
 		JPanel pSubPass = new JPanel(new FlowLayout());
-		pSubPass.setBackground(Configuration.transparent);
+		pSubPass.setBackground(pPass.getBackground());
 		JLabel lbPass = new JLabel("Contraseña actual:");
 		lbPass.setFont(fntLbPlain);
 		lbPass.setForeground(fontColor);
@@ -126,7 +160,7 @@ public class ConfigurationPanel extends JPanel{
 		pSubPass.add(lbPass);
 		pSubPass.add(txtPass);
 		JPanel pSubNewPass = new JPanel(new FlowLayout());
-		pSubNewPass.setBackground(Configuration.transparent);
+		pSubNewPass.setBackground(pPass.getBackground());
 		JLabel lbNewPass = new JLabel("Contraseña nueva:");
 		lbNewPass.setFont(fntLbPlain);
 		lbNewPass.setForeground(fontColor);
@@ -138,7 +172,7 @@ public class ConfigurationPanel extends JPanel{
 		pSubNewPass.add(lbNewPass);
 		pSubNewPass.add(txtNewPass);
 		JPanel pSubConfirmNewPass = new JPanel(new FlowLayout());
-		pSubConfirmNewPass.setBackground(Configuration.transparent);
+		pSubConfirmNewPass.setBackground(pPass.getBackground());
 		JLabel lbConfirmNewPass = new JLabel("Confirmar contraseña nueva:");
 		lbConfirmNewPass.setFont(fntLbPlain);
 		lbConfirmNewPass.setForeground(fontColor);
@@ -150,7 +184,7 @@ public class ConfigurationPanel extends JPanel{
 		pSubConfirmNewPass.add(lbConfirmNewPass);
 		pSubConfirmNewPass.add(txtConfirmNewPass);
 		JPanel pButtonPass = new JPanel(new FlowLayout());
-		pButtonPass.setBackground(Configuration.transparent);
+		pButtonPass.setBackground(pPass.getBackground());
 		btChange = new JButton("Cambiar");
 		btChange.setFont(fntBt);
 		btChange.setBackground(buttonColor);
@@ -163,13 +197,15 @@ public class ConfigurationPanel extends JPanel{
 		pPass.add(pSubConfirmNewPass);
 		pPass.add(pButtonPass);
 		
+		// Establishing panel which contains "Accept" and "Return" options
+		
 		JPanel pOptions = new JPanel(new FlowLayout());
-		pOptions.setBackground(Configuration.transparent);
+		pOptions.setBackground(Configuration.getPrimaryColor());
 		btAccept = new JButton("Aplicar");
 		btAccept.setFont(fntBt);
 		btAccept.setBackground(buttonColor);
 		btAccept.setForeground(fontColor);
-		btAccept.setPreferredSize(new Dimension(140,22));
+		btAccept.setPreferredSize(new Dimension(200,30));
 		btReturn = new JButton("Regresar");
 		btReturn.setFont(fntBt);
 		btReturn.setBackground(btAccept.getBackground());
@@ -177,45 +213,53 @@ public class ConfigurationPanel extends JPanel{
 		btReturn.setPreferredSize(btAccept.getPreferredSize());
 		pOptions.add(btAccept);
 		pOptions.add(btReturn);
+
+		add(lbTitle,BorderLayout.NORTH);
 		
 		GridBagConstraints support = new GridBagConstraints();
-		support.insets = new Insets(0,0,14,0);
 		support.gridx = 0;
 		support.gridy = 0;
-		support.gridwidth = 3;
-		add(lbTitle,support);
 		support.insets = new Insets(2,2,0,2);
-		support.gridy++;
 		support.gridwidth = 1;
-		add(pAutoSave,support);
+		pGeneralOptions.add(pAutoSave,support);
 		support.gridx = 1;
-		add(btAutoSaveON,support);
+		pGeneralOptions.add(btAutoSaveON,support);
 		support.gridx = 2;
-		add(btAutoSaveOFF,support);
+		pGeneralOptions.add(btAutoSaveOFF,support);
 		support.gridy++;
 		support.gridx = 0;
-		add(pAutoBackup,support);
+		pGeneralOptions.add(pAutoBackup,support);
 		support.gridx = 1;
-		add(btAutoBackupON,support);
+		pGeneralOptions.add(btAutoBackupON,support);
 		support.gridx = 2;
-		add(btAutoBackupOFF,support);
+		pGeneralOptions.add(btAutoBackupOFF,support);
 		support.gridy++;
 		support.gridx = 0;
 		support.gridwidth = 3;
-		add(pThemes,support);
+		pGeneralOptions.add(pThemes,support);
 		support.gridy++;
-		add(pPass,support);
-		support.insets = new Insets(10,0,0,0);
-		support.gridy++;
-		add(pOptions,support);
+		pGeneralOptions.add(pPass,support);
+		
+		add(scrollOptions,BorderLayout.CENTER);
+		add(pOptions,BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Shows a message next to the lbChangePass label about password configurations.
+	 * Actually, it runs {@code setVisible(true)} from lbPassMessage label.
+	 * 
+	 * @param message containing information about the password change success
+	 * @param color of the message
+	 */
 	public void enablePassMessage(String message, Color color){
 		lbPassMessage.setForeground(color);
 		lbPassMessage.setText(message);
 		lbPassMessage.setVisible(true);
 	}
-	
+	/**
+	 * Hides the message about password configurations. Actually, it runs {@code 
+	 * setVisible(false)} from lbPassMessage label.
+	 */
 	public void disablePassMessage(){
 		lbPassMessage.setVisible(false);
 		lbPassMessage.setForeground(Color.white);

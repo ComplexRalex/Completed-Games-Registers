@@ -3,6 +3,8 @@ package controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -142,7 +144,8 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 				e1.printStackTrace();
 			}
 		}
-		if(source == view.btReturn) JOptionPane.showMessageDialog(view, "Aun no se ha implementado todo :)");
+		if(source == view.btReturn)
+			JOptionPane.showMessageDialog(view, "Aun no se ha implementado todo :)");
 	}
 
 	@Override
