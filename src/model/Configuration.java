@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import exception.CouldNotLoadFileException;
 import exception.CouldNotSaveFileException;
@@ -21,6 +20,7 @@ public class Configuration implements Serializable{
 	public static final int NIGHT_THEME = 2;
 
 	private static int universalTheme;
+	private static String currentLanguage;
 	public static final Color[][] THEME_COLORS = {
 			{	// Light Colors
 				new Color(10,10,10),	// Font Color
@@ -47,16 +47,19 @@ public class Configuration implements Serializable{
 	private boolean autoSave;
 	private boolean autoBackup;
 	private int theme;
+	private String lang;
 	
 	public Configuration(){
 		password = "noespassword".toCharArray();
 		autoSave = true;
 		autoBackup = false;
 		theme = universalTheme = LIGHT_THEME;
+		lang = currentLanguage = "English";
+		Languages.initialize();
 	}
 	
 	public boolean saveConfiguration() throws FileNotFoundException, CouldNotSaveFileException{
-		FileOutputStream f = new FileOutputStream(ConfigPaths.configPath);
+		FileOutputStream f = new FileOutputStream(Paths.configPath);
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(this);
@@ -69,7 +72,7 @@ public class Configuration implements Serializable{
 	}
 	
 	public boolean loadConfiguration() throws FileNotFoundException, ClassNotFoundException, CouldNotLoadFileException{
-		FileInputStream f = new FileInputStream(ConfigPaths.configPath);
+		FileInputStream f = new FileInputStream(Paths.configPath);
 		try{
 			ObjectInputStream o = new ObjectInputStream(f);
 			Configuration file = (Configuration)o.readObject();
@@ -78,6 +81,7 @@ public class Configuration implements Serializable{
 			this.autoSave = file.autoSave;
 			this.autoBackup = file.autoBackup;
 			Configuration.universalTheme = this.theme = file.theme;
+			this.lang = file.lang;
 			return true;
 		}
 		catch(IOException e){
@@ -151,5 +155,16 @@ public class Configuration implements Serializable{
 		catch(IndexOutOfBoundsException e){
 			return THEME_COLORS[0][3];
 		}
+	}
+	public static String currentLanguage(){
+		return currentLanguage;
+	}
+	public void setLanguage(String lang){
+		for(String l: Languages.available)
+			if(lang == l){
+				this.lang = currentLanguage = lang;
+				return;
+			}
+		this.lang = currentLanguage = "English";
 	}
 }

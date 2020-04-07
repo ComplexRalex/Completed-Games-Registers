@@ -1,6 +1,6 @@
 package model;
 
-public class ConfigPaths{
+public class Paths{
 	private static final String srcPath = "src/";
 	public static final String imagePath = srcPath+"image/";
 	public static final String infoConsolePath = srcPath+"console/info/";

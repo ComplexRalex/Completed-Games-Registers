@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import exception.*;
-import model.ConfigPaths;
+import model.Paths;
 import model.HTMLGameRegister;
 
 /*
@@ -31,7 +31,7 @@ public class GameRegister{
 	}
 	
 	public void saveGameStats() throws FileNotFoundException, CouldNotSaveFileException{
-		FileOutputStream f = new FileOutputStream(ConfigPaths.savePath+"save.dat");
+		FileOutputStream f = new FileOutputStream(Paths.savePath+"save.dat");
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(gameStats);
@@ -45,7 +45,7 @@ public class GameRegister{
 	
 	@SuppressWarnings("unchecked")
 	public void loadGameStats() throws FileNotFoundException, ClassNotFoundException, CouldNotLoadFileException{
-		FileInputStream f = new FileInputStream(ConfigPaths.savePath+"save.dat");
+		FileInputStream f = new FileInputStream(Paths.savePath+"save.dat");
 		try{
 			ObjectInputStream o = new ObjectInputStream(f);
 			gameStats = (ArrayList<GameStat>)o.readObject();
@@ -59,7 +59,7 @@ public class GameRegister{
 	}
 	
 	public void doBackup() throws FileNotFoundException, CouldNotBackupFileException{
-		FileOutputStream f = new FileOutputStream(ConfigPaths.backupsPath+"backup"+(Configuration.backupCount)+".dat");
+		FileOutputStream f = new FileOutputStream(Paths.backupsPath+"backup"+(Configuration.backupCount)+".dat");
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(gameStats);
@@ -107,8 +107,8 @@ public class GameRegister{
 	}
 	
 	public void generateHTMLPage() throws CouldNotCreateHTMLFileException, HTMLTemplateNotFoundException{
-		HTMLGameRegister.openFileOutput(ConfigPaths.htmlPath);
-		HTMLGameRegister.writeTemplatePage(ConfigPaths.htmlPath+"/templates/template.html");
+		HTMLGameRegister.openFileOutput(Paths.htmlPath);
+		HTMLGameRegister.writeTemplatePage(Paths.htmlPath+"/templates/template.html");
 		HTMLGameRegister.writeGameIndexPage(gameStats);
 		HTMLGameRegister.writeGameListPage(gameStats);
 		HTMLGameRegister.closeFileOutput();

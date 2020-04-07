@@ -18,6 +18,7 @@ import javax.swing.JRadioButton;
 
 import exception.CouldNotSaveFileException;
 import model.Configuration;
+import model.Languages;
 import view.ConfigurationPanel;
 
 public class ConfigurationController implements ActionListener, FocusListener, KeyListener{
@@ -126,11 +127,11 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 			if(model.checkPassword(view.txtPass.getPassword())){
 				if(Configuration.checkPasswords(view.txtNewPass.getPassword(), view.txtConfirmNewPass.getPassword())){
 					model.changePassword(view.txtNewPass.getPassword());
-					view.enablePassMessage("Se ha actualizado la contraseña.",Color.green);
+					view.enablePassMessage(Languages.loadMessage("cf_pass_ad_fy"),Color.green);
 				}else
-					view.enablePassMessage("La confirmacion es incorrecta.",Color.red);
+					view.enablePassMessage(Languages.loadMessage("cf_pass_ad_hn_1"),Color.red);
 			}else
-				view.enablePassMessage("La cotraseña ingresada es incorrecta.",Color.red);
+				view.enablePassMessage(Languages.loadMessage("cf_pass_ad_hn_2"),Color.red);
 		}else
 			view.disablePassMessage();
 		if(source == view.btAccept){
