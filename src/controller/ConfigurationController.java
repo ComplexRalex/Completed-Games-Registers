@@ -3,8 +3,6 @@ package controller;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -12,7 +10,7 @@ import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 
 import javax.swing.AbstractButton;
-import javax.swing.JFrame;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
@@ -47,32 +45,38 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		view.btAutoSaveOFF.addActionListener(this);
 		view.btAutoSaveOFF.addFocusListener(this);
 		view.btAutoSaveOFF.addKeyListener(this);
+		
 		view.btAutoBackupON.addActionListener(this);
 		view.btAutoBackupON.addFocusListener(this);
 		view.btAutoBackupON.addKeyListener(this);
 		view.btAutoBackupOFF.addActionListener(this);
 		view.btAutoBackupOFF.addFocusListener(this);
 		view.btAutoBackupOFF.addKeyListener(this);
-		view.btChange.addActionListener(this);
-		view.btChange.addFocusListener(this);
-		view.btChange.addKeyListener(this);
-		view.btAccept.addActionListener(this);
-		view.btAccept.addFocusListener(this);
-		view.btAccept.addKeyListener(this);
-		view.btReturn.addActionListener(this);
-		view.btReturn.addFocusListener(this);
-		view.btReturn.addKeyListener(this);
+		
 		for(JRadioButton bt: view.btTheme){
 			bt.addActionListener(this);
 			bt.addFocusListener(this);
 			bt.addKeyListener(this);
 		}
+		
+		view.cbLang.addActionListener(this);
+		
 		view.txtPass.addFocusListener(this);
 		view.txtPass.addKeyListener(this);
 		view.txtNewPass.addFocusListener(this);
 		view.txtNewPass.addKeyListener(this);
 		view.txtConfirmNewPass.addFocusListener(this);
 		view.txtConfirmNewPass.addKeyListener(this);
+		view.btChange.addActionListener(this);
+		view.btChange.addFocusListener(this);
+		view.btChange.addKeyListener(this);
+		
+		view.btAccept.addActionListener(this);
+		view.btAccept.addFocusListener(this);
+		view.btAccept.addKeyListener(this);
+		view.btReturn.addActionListener(this);
+		view.btReturn.addFocusListener(this);
+		view.btReturn.addKeyListener(this);
 		
 		obtainInitialConfig();
 		
@@ -81,39 +85,41 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	}
 	
 	public void obtainInitialConfig(){
-		if(model.getAutoSave()) view.btAutoSaveON.setEnabled(false);
-		else view.btAutoSaveOFF.setEnabled(false);
+		if(model.getAutoSave()) view.toggleEnabledButton(view.btAutoSaveON, false, Configuration.colorON);
+		else view.toggleEnabledButton(view.btAutoSaveOFF, false, Configuration.colorOFF);
 		
-		if(model.getAutoBackup()) view.btAutoBackupON.setEnabled(false);
-		else view.btAutoBackupOFF.setEnabled(false);
+		if(model.getAutoBackup()) view.toggleEnabledButton(view.btAutoBackupON, false, Configuration.colorON);
+		else view.toggleEnabledButton(view.btAutoBackupOFF, false, Configuration.colorOFF);
 		
 		view.btTheme[model.getTheme()].setSelected(true);
+		
+		view.cbLang.setSelectedItem(Configuration.currentLanguage());
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		AbstractButton source = (AbstractButton)e.getSource();
+		Object source = e.getSource();
 		if(source == view.btAutoSaveON || source == view.btAutoSaveOFF)
 			if(source == view.btAutoSaveON){
-				view.btAutoSaveON.setEnabled(false);
-				view.btAutoSaveOFF.setEnabled(true);
+				view.toggleEnabledButton(view.btAutoSaveON, false, Configuration.colorON);
+				view.toggleEnabledButton(view.btAutoSaveOFF, true, Configuration.getButtonColor());
 				view.btAutoSaveOFF.requestFocusInWindow();
 				model.enableAutoSave(true);
 			}else{
-				view.btAutoSaveON.setEnabled(true);
-				view.btAutoSaveOFF.setEnabled(false);
+				view.toggleEnabledButton(view.btAutoSaveON, true, Configuration.getButtonColor());
+				view.toggleEnabledButton(view.btAutoSaveOFF, false, Configuration.colorOFF);
 				view.btAutoSaveON.requestFocusInWindow();
 				model.enableAutoSave(false);
 			}
 		if(source == view.btAutoBackupON || source == view.btAutoBackupOFF)
 			if(source == view.btAutoBackupON){
-				view.btAutoBackupON.setEnabled(false);
-				view.btAutoBackupOFF.setEnabled(true);
+				view.toggleEnabledButton(view.btAutoBackupON, false, Configuration.colorON);
+				view.toggleEnabledButton(view.btAutoBackupOFF, true, Configuration.getButtonColor());
 				view.btAutoBackupOFF.requestFocusInWindow();
 				model.enableAutoBackup(true);
 			}else{
-				view.btAutoBackupON.setEnabled(true);
-				view.btAutoBackupOFF.setEnabled(false);
+				view.toggleEnabledButton(view.btAutoBackupON, true, Configuration.getButtonColor());
+				view.toggleEnabledButton(view.btAutoBackupOFF, false, Configuration.colorOFF);
 				view.btAutoBackupON.requestFocusInWindow();
 				model.enableAutoBackup(false);
 			}
@@ -123,6 +129,8 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 					model.changeTheme(i);
 					break;
 				}
+		if(source == view.cbLang)
+			model.setLanguage((String)view.cbLang.getSelectedItem());
 		if(source == view.btChange){
 			if(model.checkPassword(view.txtPass.getPassword())){
 				if(Configuration.checkPasswords(view.txtNewPass.getPassword(), view.txtConfirmNewPass.getPassword())){

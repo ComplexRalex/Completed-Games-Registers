@@ -15,7 +15,7 @@ import model.Languages;
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
 	public JButton btAutoSaveON, btAutoSaveOFF, btAutoBackupON, btAutoBackupOFF, btChange, btResetConfig, btWipeOut, btAccept, btReturn;
-	public JComboBox cbLang;
+	public JComboBox<String> cbLang;
 	public JRadioButton btTheme[];
 	public JPasswordField txtPass, txtNewPass, txtConfirmNewPass;
 	public JLabel lbConfigMessage, lbPassMessage;
@@ -138,8 +138,17 @@ public class ConfigurationPanel extends JPanel{
 		
 		// - Establishing language options (work in progress)
 		
-		//cbLang = new JComboBox(Languages.available);
-		//cbLang.set
+		JPanel pLang = new JPanel(new FlowLayout());
+		pLang.setBackground(Configuration.getBackgroundColor());
+		JLabel lbLang = new JLabel(Languages.loadMessage("cf_lang"));
+		lbLang.setFont(fntLbPlain);
+		lbLang.setForeground(fontColor);
+		pLang.add(lbLang);
+		cbLang = new JComboBox<String>(Languages.available);
+		cbLang.setFont(fntBt);
+		cbLang.setBackground(Configuration.getBackgroundColor());
+		cbLang.setForeground(fontColor);
+		pLang.add(cbLang);
 		
 		// - Establishing the password options
 		
@@ -207,6 +216,8 @@ public class ConfigurationPanel extends JPanel{
 		pPass.add(pSubNewPass);
 		pPass.add(pSubConfirmNewPass);
 		pPass.add(pButtonPass);
+		
+		// - Establishing check-box 
 				
 		// Establishing panel which contains "Accept" and "Return" options
 		
@@ -239,10 +250,25 @@ public class ConfigurationPanel extends JPanel{
 		support.gridwidth = 3;
 		pGeneralOptions.add(pThemes,support);
 		support.gridy++;
+		pGeneralOptions.add(pLang,support);
+		support.gridy++;
 		pGeneralOptions.add(pPass,support);
 		
 		add(scrollOptions,BorderLayout.CENTER);
 		add(pOptions,BorderLayout.SOUTH);
+	}
+	
+	/**
+	 * Toggle button state between "Enabled" and "Disabled" and changes its
+	 * color.
+	 *
+	 * @param button component to change its state
+	 * @param flag value being button's new state
+	 * @param color the life! (button)
+	 */
+	public void toggleEnabledButton(JButton button, boolean flag, Color color){
+		button.setEnabled(flag);
+		button.setBackground(color);
 	}
 	
 	/**

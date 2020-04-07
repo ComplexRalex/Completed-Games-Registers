@@ -14,13 +14,16 @@ import exception.CouldNotSaveFileException;
 
 public class Configuration implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public static int backupCount = 0;
 	public static final int LIGHT_THEME = 0;
 	public static final int DARK_THEME = 1;
 	public static final int NIGHT_THEME = 2;
 
+
+	public static int backupCount;
 	private static int universalTheme;
 	private static String currentLanguage;
+	public static final Color colorON = new Color(110,220,116);
+	public static final Color colorOFF = new Color(220,90,90);
 	public static final Color[][] THEME_COLORS = {
 			{	// Light Colors
 				new Color(10,10,10),	// Font Color
@@ -43,9 +46,11 @@ public class Configuration implements Serializable{
 	};
 	public static final Color transparent = new Color(0f,0f,0f,0.0001f);
 	
+	// 
 	private char[] password;
 	private boolean autoSave;
 	private boolean autoBackup;
+	private int bckCount;
 	private int theme;
 	private String lang;
 	
@@ -81,7 +86,7 @@ public class Configuration implements Serializable{
 			this.autoSave = file.autoSave;
 			this.autoBackup = file.autoBackup;
 			Configuration.universalTheme = this.theme = file.theme;
-			this.lang = file.lang;
+			this.lang = currentLanguage = file.lang;
 			return true;
 		}
 		catch(IOException e){

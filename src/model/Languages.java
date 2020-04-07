@@ -41,7 +41,7 @@ public class Languages{
 		languages.get("English").put("cf_pass_ad_fy", "The password has been updated.");
 		languages.get("English").put("cf_pass_ad_hn_1", "Wrong confirmation.");
 		languages.get("English").put("cf_pass_ad_hn_2", "Wrong password.");
-		languages.get("English").put("cf_lang", "Languages:");
+		languages.get("English").put("cf_lang", "Program language:");
 		languages.get("English").put("cf_reset_cf", "Reset configuration to default:");
 		languages.get("English").put("cf_wipeout", "Wipe out all data:");
 	}
@@ -68,7 +68,7 @@ public class Languages{
 		languages.get("Spanish").put("cf_pass_ad_fy", "Se ha actualizado la contraseña.");
 		languages.get("Spanish").put("cf_pass_ad_hn_1", "La confirmacion es incorrecta.");
 		languages.get("Spanish").put("cf_pass_ad_hn_2", "La cotraseña ingresada es incorrecta.");
-		languages.get("Spanish").put("cf_lang", "Idiomas:");
+		languages.get("Spanish").put("cf_lang", "Idioma del programa:");
 		languages.get("Spanish").put("cf_reset_cf", "Restaurar configuración por defecto:");
 		languages.get("Spanish").put("cf_wipeout", "Pulverizar todo los datos:");
 	}
