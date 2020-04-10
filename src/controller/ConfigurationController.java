@@ -39,6 +39,14 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	}
 	
 	public void initialize(){
+		view.txtUser.addActionListener(this);
+		view.txtUser.addFocusListener(this);
+		view.txtUser.addKeyListener(this);
+		
+		view.btChange.addActionListener(this);
+		view.btChange.addFocusListener(this);
+		view.btChange.addKeyListener(this);
+		
 		view.btAutoSaveON.addActionListener(this);
 		view.btAutoSaveON.addFocusListener(this);
 		view.btAutoSaveON.addKeyListener(this);
@@ -61,16 +69,6 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		
 		view.cbLang.addActionListener(this);
 		
-		view.txtPass.addFocusListener(this);
-		view.txtPass.addKeyListener(this);
-		view.txtNewPass.addFocusListener(this);
-		view.txtNewPass.addKeyListener(this);
-		view.txtConfirmNewPass.addFocusListener(this);
-		view.txtConfirmNewPass.addKeyListener(this);
-		view.btChange.addActionListener(this);
-		view.btChange.addFocusListener(this);
-		view.btChange.addKeyListener(this);
-		
 		view.btAccept.addActionListener(this);
 		view.btAccept.addFocusListener(this);
 		view.btAccept.addKeyListener(this);
@@ -85,13 +83,15 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	}
 	
 	public void obtainInitialConfig(){
-		if(model.getAutoSave()) view.toggleEnabledButton(view.btAutoSaveON, false, Configuration.colorON);
+		view.lbUser.setText(Configuration.getUsername());
+		
+		if(Configuration.getAutoSave()) view.toggleEnabledButton(view.btAutoSaveON, false, Configuration.colorON);
 		else view.toggleEnabledButton(view.btAutoSaveOFF, false, Configuration.colorOFF);
 		
-		if(model.getAutoBackup()) view.toggleEnabledButton(view.btAutoBackupON, false, Configuration.colorON);
+		if(Configuration.getAutoBackup()) view.toggleEnabledButton(view.btAutoBackupON, false, Configuration.colorON);
 		else view.toggleEnabledButton(view.btAutoBackupOFF, false, Configuration.colorOFF);
 		
-		view.btTheme[model.getTheme()].setSelected(true);
+		view.btTheme[Configuration.getTheme()].setSelected(true);
 		
 		view.cbLang.setSelectedItem(Configuration.currentLanguage());
 	}
@@ -99,6 +99,11 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+		if(source == view.btChange){
+			String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
+			view.lbUser.setText(cut);
+			model.setUsername(cut);
+		}
 		if(source == view.btAutoSaveON || source == view.btAutoSaveOFF)
 			if(source == view.btAutoSaveON){
 				view.toggleEnabledButton(view.btAutoSaveON, false, Configuration.colorON);
@@ -131,17 +136,6 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 				}
 		if(source == view.cbLang)
 			model.setLanguage((String)view.cbLang.getSelectedItem());
-		if(source == view.btChange){
-			if(model.checkPassword(view.txtPass.getPassword())){
-				if(Configuration.checkPasswords(view.txtNewPass.getPassword(), view.txtConfirmNewPass.getPassword())){
-					model.changePassword(view.txtNewPass.getPassword());
-					view.enablePassMessage(Languages.loadMessage("cf_pass_ad_fy"),Color.green);
-				}else
-					view.enablePassMessage(Languages.loadMessage("cf_pass_ad_hn_1"),Color.red);
-			}else
-				view.enablePassMessage(Languages.loadMessage("cf_pass_ad_hn_2"),Color.red);
-		}else
-			view.disablePassMessage();
 		if(source == view.btAccept){
 			try {
 				model.saveConfiguration();
@@ -159,7 +153,7 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		if(e.getSource() == view.txtPass || e.getSource() == view.txtNewPass || e.getSource() == view.txtConfirmNewPass)
+		if(e.getSource() == view.txtUser)
 			selectedButton = view.btChange;
 		else
 			selectedButton = e.getSource();
@@ -172,7 +166,7 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	public void keyTyped(KeyEvent e) {
 		if(e.getKeyChar() == KeyEvent.VK_ENTER)
 			((AbstractButton)selectedButton).doClick();
-		if(e.getSource() != view.txtPass && e.getSource() != view.txtNewPass && e.getSource() != view.txtConfirmNewPass)
+		if(e.getSource() != view.txtUser)
 			e.consume();
 	}
 

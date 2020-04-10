@@ -14,11 +14,12 @@ import model.Languages;
  */
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
+	public JPanel pPass;
 	public JButton btAutoSaveON, btAutoSaveOFF, btAutoBackupON, btAutoBackupOFF, btChange, btResetConfig, btWipeOut, btAccept, btReturn;
 	public JComboBox<String> cbLang;
 	public JRadioButton btTheme[];
-	public JPasswordField txtPass, txtNewPass, txtConfirmNewPass;
-	public JLabel lbConfigMessage, lbPassMessage;
+	public JTextField txtUser;
+	public JLabel lbUser, lbConfigMessage;
 	
 	/*
 	 * PASOS SIGUIENTES PARA NO PERDERSE XD:
@@ -65,6 +66,44 @@ public class ConfigurationPanel extends JPanel{
 		scrollOptions.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollOptions.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
 		
+		// - Establishing the username panel
+		
+		JPanel pUsername = new JPanel(new GridLayout(2,1,5,3));
+		pUsername.setBackground(Configuration.getPrimaryColor());
+		pUsername.setPreferredSize(new Dimension(560,80));
+		
+		JPanel pCurrentUser = new JPanel(new FlowLayout());
+		pCurrentUser.setBackground(Configuration.getPrimaryColor());
+		JLabel lbCurrentUser = new JLabel(Languages.loadMessage("cf_current_user"));
+		lbCurrentUser.setFont(fntLbPlain);
+		lbCurrentUser.setForeground(fontColor);
+		pCurrentUser.add(lbCurrentUser);
+		lbUser = new JLabel(Configuration.getUsername());		
+		lbUser.setFont(fntLbBold);
+		lbUser.setForeground(fontColor);
+		pCurrentUser.add(lbUser);
+		pUsername.add(pCurrentUser);
+		
+		JPanel pChangeUser = new JPanel(new FlowLayout());
+		pChangeUser.setBackground(Configuration.getPrimaryColor());
+		JLabel lbChangeUser = new JLabel(Languages.loadMessage("cf_change_user"));
+		lbChangeUser.setFont(fntLbPlain);
+		lbChangeUser.setForeground(fontColor);
+		pChangeUser.add(lbChangeUser);
+		txtUser = new JTextField();
+		txtUser.setFont(fntLbPlain);
+		txtUser.setBackground(Configuration.getBackgroundColor());
+		txtUser.setForeground(fontColor);
+		txtUser.setPreferredSize(new Dimension(150,25));
+		pChangeUser.add(txtUser);
+		btChange = new JButton(Languages.loadMessage("g_change"));
+		btChange.setFont(fntBt);
+		btChange.setBackground(buttonColor);
+		btChange.setForeground(fontColor);
+		btChange.setPreferredSize(new Dimension(130,25));
+		pChangeUser.add(btChange);
+		pUsername.add(pChangeUser);
+		
 		// - Establishing the auto-save options
 		
 		JPanel pAutoSave = new JPanel(new FlowLayout());
@@ -73,16 +112,19 @@ public class ConfigurationPanel extends JPanel{
 		lbAutoSave1.setFont(fntLbBold);
 		lbAutoSave1.setForeground(fontColor);
 		pAutoSave.add(lbAutoSave1);
+		
 		JLabel lbAutoSave2 = new JLabel(Languages.loadMessage("cf_autosave_2"));
 		lbAutoSave2.setFont(fntLbPlain);
 		lbAutoSave2.setForeground(fontColor);
 		pAutoSave.add(lbAutoSave2);
+		
 		btAutoSaveON = new JButton("ON");
 		btAutoSaveON.setFont(fntBt);
 		btAutoSaveON.setBackground(buttonColor);
 		btAutoSaveON.setForeground(fontColor);
 		btAutoSaveON.setPreferredSize(dimBt);
 		pAutoSave.add(btAutoSaveON);
+		
 		btAutoSaveOFF = new JButton("OFF");
 		btAutoSaveOFF.setFont(fntBt);
 		btAutoSaveOFF.setBackground(buttonColor);
@@ -98,16 +140,19 @@ public class ConfigurationPanel extends JPanel{
 		lbAutoBackup1.setFont(fntLbBold);
 		lbAutoBackup1.setForeground(fontColor);
 		pAutoBackup.add(lbAutoBackup1);
+		
 		JLabel lbAutoBackup2 = new JLabel(Languages.loadMessage("cf_autobck_2"));
 		lbAutoBackup2.setFont(fntLbPlain);
 		lbAutoBackup2.setForeground(fontColor);
 		pAutoBackup.add(lbAutoBackup2);
+		
 		btAutoBackupON = new JButton("ON");
 		btAutoBackupON.setFont(fntBt);
 		btAutoBackupON.setBackground(buttonColor);
 		btAutoBackupON.setForeground(fontColor);
 		btAutoBackupON.setPreferredSize(dimBt);
 		pAutoBackup.add(btAutoBackupON);
+		
 		btAutoBackupOFF = new JButton("OFF");
 		btAutoBackupOFF.setFont(fntBt);
 		btAutoBackupOFF.setBackground(buttonColor);
@@ -123,6 +168,7 @@ public class ConfigurationPanel extends JPanel{
 		lbThemes.setFont(fntLbPlain);
 		lbThemes.setForeground(fontColor);
 		pThemes.add(lbThemes);
+		
 		btTheme = new JRadioButton[3];
 		btTheme[0] = new JRadioButton("Light");
 		btTheme[1] = new JRadioButton("Dark");
@@ -144,80 +190,12 @@ public class ConfigurationPanel extends JPanel{
 		lbLang.setFont(fntLbPlain);
 		lbLang.setForeground(fontColor);
 		pLang.add(lbLang);
+		
 		cbLang = new JComboBox<String>(Languages.available);
 		cbLang.setFont(fntBt);
 		cbLang.setBackground(Configuration.getBackgroundColor());
 		cbLang.setForeground(fontColor);
 		pLang.add(cbLang);
-		
-		// - Establishing the password options
-		
-		JPanel pPass = new JPanel(new GridLayout(5,1,5,3));
-		pPass.setBackground(Configuration.getPrimaryColor());
-		pPass.setPreferredSize(new Dimension(560,180));
-		JPanel pPassInfo = new JPanel(new FlowLayout());
-		pPassInfo.setBackground(pPass.getBackground());
-		JLabel lbChangePass = new JLabel(Languages.loadMessage("cf_pass_tl"));
-		lbChangePass.setHorizontalAlignment(JLabel.CENTER);
-		lbChangePass.setFont(fntLbPlain);
-		lbChangePass.setForeground(fontColor);
-		lbPassMessage = new JLabel();
-		lbPassMessage.setHorizontalAlignment(JLabel.CENTER);
-		lbPassMessage.setFont(fntLbPlain);
-		lbPassMessage.setVisible(false);
-		pPassInfo.add(lbChangePass);
-		pPassInfo.add(lbPassMessage);
-		JPanel pSubPass = new JPanel(new FlowLayout());
-		pSubPass.setBackground(pPass.getBackground());
-		JLabel lbPass = new JLabel(Languages.loadMessage("cf_pass_curr"));
-		lbPass.setFont(fntLbPlain);
-		lbPass.setForeground(fontColor);
-		txtPass = new JPasswordField();
-		txtPass.setFont(fntLbPlain);
-		txtPass.setBackground(Configuration.getBackgroundColor());
-		txtPass.setForeground(fontColor);
-		txtPass.setPreferredSize(new Dimension(150,20));
-		pSubPass.add(lbPass);
-		pSubPass.add(txtPass);
-		JPanel pSubNewPass = new JPanel(new FlowLayout());
-		pSubNewPass.setBackground(pPass.getBackground());
-		JLabel lbNewPass = new JLabel(Languages.loadMessage("cf_pass_new"));
-		lbNewPass.setFont(fntLbPlain);
-		lbNewPass.setForeground(fontColor);
-		txtNewPass = new JPasswordField();
-		txtNewPass.setFont(fntLbPlain);
-		txtNewPass.setBackground(txtPass.getBackground());
-		txtNewPass.setForeground(txtPass.getForeground());
-		txtNewPass.setPreferredSize(txtPass.getPreferredSize());
-		pSubNewPass.add(lbNewPass);
-		pSubNewPass.add(txtNewPass);
-		JPanel pSubConfirmNewPass = new JPanel(new FlowLayout());
-		pSubConfirmNewPass.setBackground(pPass.getBackground());
-		JLabel lbConfirmNewPass = new JLabel(Languages.loadMessage("cf_pass_conf"));
-		lbConfirmNewPass.setFont(fntLbPlain);
-		lbConfirmNewPass.setForeground(fontColor);
-		txtConfirmNewPass = new JPasswordField();
-		txtConfirmNewPass.setFont(fntLbPlain);
-		txtConfirmNewPass.setBackground(txtPass.getBackground());
-		txtConfirmNewPass.setForeground(txtPass.getForeground());
-		txtConfirmNewPass.setPreferredSize(txtPass.getPreferredSize());
-		pSubConfirmNewPass.add(lbConfirmNewPass);
-		pSubConfirmNewPass.add(txtConfirmNewPass);
-		JPanel pButtonPass = new JPanel(new FlowLayout());
-		pButtonPass.setBackground(pPass.getBackground());
-		btChange = new JButton(Languages.loadMessage("cf_pass_change"));
-		btChange.setFont(fntBt);
-		btChange.setBackground(buttonColor);
-		btChange.setForeground(fontColor);
-		btChange.setPreferredSize(new Dimension(260,22));
-		pButtonPass.add(btChange);
-		pPass.add(pPassInfo);
-		pPass.add(pSubPass);
-		pPass.add(pSubNewPass);
-		pPass.add(pSubConfirmNewPass);
-		pPass.add(pButtonPass);
-		
-		// - Establishing check-box 
 				
 		// Establishing panel which contains "Accept" and "Return" options
 		
@@ -228,12 +206,13 @@ public class ConfigurationPanel extends JPanel{
 		btAccept.setBackground(buttonColor);
 		btAccept.setForeground(fontColor);
 		btAccept.setPreferredSize(new Dimension(200,30));
+		pOptions.add(btAccept);
+		
 		btReturn = new JButton(Languages.loadMessage("g_return"));
 		btReturn.setFont(fntBt);
 		btReturn.setBackground(btAccept.getBackground());
 		btReturn.setForeground(btAccept.getForeground());
 		btReturn.setPreferredSize(btAccept.getPreferredSize());
-		pOptions.add(btAccept);
 		pOptions.add(btReturn);
 
 		add(lbTitle,BorderLayout.NORTH);
@@ -243,16 +222,15 @@ public class ConfigurationPanel extends JPanel{
 		support.gridy = 0;
 		support.insets = new Insets(2,2,0,2);
 		support.gridwidth = 3;
+		pGeneralOptions.add(pUsername,support);
+		support.gridy++;
 		pGeneralOptions.add(pAutoSave,support);
 		support.gridy++;
 		pGeneralOptions.add(pAutoBackup,support);
 		support.gridy++;
-		support.gridwidth = 3;
 		pGeneralOptions.add(pThemes,support);
 		support.gridy++;
 		pGeneralOptions.add(pLang,support);
-		support.gridy++;
-		pGeneralOptions.add(pPass,support);
 		
 		add(scrollOptions,BorderLayout.CENTER);
 		add(pOptions,BorderLayout.SOUTH);
@@ -269,27 +247,5 @@ public class ConfigurationPanel extends JPanel{
 	public void toggleEnabledButton(JButton button, boolean flag, Color color){
 		button.setEnabled(flag);
 		button.setBackground(color);
-	}
-	
-	/**
-	 * Shows a message next to the lbChangePass label about password configurations.
-	 * Actually, it runs {@code setVisible(true)} from lbPassMessage label.
-	 * 
-	 * @param message containing information about the password change success
-	 * @param color of the message
-	 */
-	public void enablePassMessage(String message, Color color){
-		lbPassMessage.setForeground(color);
-		lbPassMessage.setText(message);
-		lbPassMessage.setVisible(true);
-	}
-	/**
-	 * Hides the message about password configurations. Actually, it runs {@code 
-	 * setVisible(false)} from lbPassMessage label.
-	 */
-	public void disablePassMessage(){
-		lbPassMessage.setVisible(false);
-		lbPassMessage.setForeground(Color.white);
-		lbPassMessage.setText("This is an easter egg XD");
 	}
 }

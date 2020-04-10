@@ -6,11 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-import exception.*;
-import model.Paths;
-import model.HTMLGameRegister;
+import exception.CouldNotBackupFileException;
+import exception.CouldNotCreateHTMLFileException;
+import exception.CouldNotLoadFileException;
+import exception.CouldNotSaveFileException;
+import exception.HTMLTemplateNotFoundException;
 
 /*
  * NOTA: Los JOptionPane y algunas las clausulas "try" con excepciones cachadas estaran en el controlador
@@ -59,12 +63,11 @@ public class GameRegister{
 	}
 	
 	public void doBackup() throws FileNotFoundException, CouldNotBackupFileException{
-		FileOutputStream f = new FileOutputStream(Paths.backupsPath+"backup"+(Configuration.backupCount)+".dat");
+		FileOutputStream f = new FileOutputStream(Paths.backupsPath+"backup-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".dat");
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(gameStats);
 			o.close();
-			Configuration.backupCount++;
 		}
 		catch(IOException e){
 			throw new CouldNotBackupFileException();

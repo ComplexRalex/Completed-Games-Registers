@@ -17,9 +17,10 @@ public class Configuration implements Serializable{
 	public static final int LIGHT_THEME = 0;
 	public static final int DARK_THEME = 1;
 	public static final int NIGHT_THEME = 2;
-
-
-	public static int backupCount;
+	
+	private static String username;
+	private static boolean autoSaveValue;
+	private static boolean autoBackupValue;
 	private static int universalTheme;
 	private static String currentLanguage;
 	public static final Color colorON = new Color(110,220,116);
@@ -46,18 +47,16 @@ public class Configuration implements Serializable{
 	};
 	public static final Color transparent = new Color(0f,0f,0f,0.0001f);
 	
-	// 
-	private char[] password;
+	private String user;
 	private boolean autoSave;
 	private boolean autoBackup;
-	private int bckCount;
 	private int theme;
 	private String lang;
 	
 	public Configuration(){
-		password = "noespassword".toCharArray();
-		autoSave = true;
-		autoBackup = false;
+		user = username = "Username";
+		autoSave = autoSaveValue = true;
+		autoBackup = autoBackupValue = false;
 		theme = universalTheme = LIGHT_THEME;
 		lang = currentLanguage = "English";
 		Languages.initialize();
@@ -82,10 +81,10 @@ public class Configuration implements Serializable{
 			ObjectInputStream o = new ObjectInputStream(f);
 			Configuration file = (Configuration)o.readObject();
 			o.close();
-			this.password = file.password;
-			this.autoSave = file.autoSave;
-			this.autoBackup = file.autoBackup;
-			Configuration.universalTheme = this.theme = file.theme;
+			this.user = username = file.user;
+			this.autoSave = autoSaveValue = file.autoSave;
+			this.autoBackup = autoBackupValue = file.autoBackup;
+			this.theme = universalTheme = file.theme;
 			this.lang = currentLanguage = file.lang;
 			return true;
 		}
@@ -96,38 +95,37 @@ public class Configuration implements Serializable{
 		//JOptionPane.showMessageDialog(null, "El archivo de guardado no es valido.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
 	}
 	
-	public static boolean checkPasswords(char[] pass1, char[] pass2){
-		int i = 0;
-		while(i != pass1.length && i != pass2.length){
-			if(pass1[i] != pass2[i]) break;
-			i++;
-		}
-		return i == pass1.length && i == pass2.length;
+	public static String getUsername(){
+		return username;
 	}
 	
-	public boolean checkPassword(char[] password){
-		return checkPasswords(this.password,password);
+	public void setUsername(String user){
+		this.user = username = user;
 	}
 	
-	public void changePassword(char[] newPass){
-		password = newPass.clone();
+	public static boolean getAutoSave(){
+		return autoSaveValue;
 	}
-	
-	public boolean getAutoSave(){return autoSave;}
 	
 	public void enableAutoSave(boolean flag){
-		autoSave = flag;
+		autoSave = autoSaveValue = flag;
 	}
 	
-	public boolean getAutoBackup(){return autoBackup;}
+	public static boolean getAutoBackup(){
+		return autoBackupValue;
+	}
 	
 	public void enableAutoBackup(boolean flag){
-		autoBackup = flag;
+		autoBackup = autoBackupValue = flag;
 	}
 	
-	public int getTheme(){return theme;}
+	public static int getTheme(){
+		return universalTheme;
+	}
 	
-	public void changeTheme(int theme){Configuration.universalTheme = this.theme = theme;}
+	public void changeTheme(int theme){
+		this.theme = universalTheme = theme;
+	}
 	
 	public static Color getFontColor(){
 		try{
