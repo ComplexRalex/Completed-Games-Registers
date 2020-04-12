@@ -1,4 +1,4 @@
-package model;
+package util;
 
 import java.util.HashMap;
 import model.Configuration;
@@ -36,13 +36,6 @@ public class Language{
 		languages.get("English").put("cf_autobck_1", 		"Auto-backup data");
 		languages.get("English").put("cf_autobck_2", 		"before closing the program:");
 		languages.get("English").put("cf_theme", 			"Program theme (requires restart): ");
-		languages.get("English").put("cf_pass_tl", 			"Change password.");
-		languages.get("English").put("cf_pass_curr", 		"Current password:");
-		languages.get("English").put("cf_pass_new", 		"New password:");
-		languages.get("English").put("cf_pass_conf", 		"Confirm new password:");
-		languages.get("English").put("cf_pass_ad_fy", 		"The password has been updated.");
-		languages.get("English").put("cf_pass_ad_hn_1", 	"Wrong confirmation.");
-		languages.get("English").put("cf_pass_ad_hn_2", 	"Wrong password.");
 		languages.get("English").put("cf_lang", 			"Program language:");
 		languages.get("English").put("cf_reset_cf", 		"Reset configuration to default:");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data:");
@@ -57,23 +50,16 @@ public class Language{
 		languages.get("Spanish").put("g_return",			"Regresar");
 		languages.get("Spanish").put("g_change", 			"Cambiar");
 		
-		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
+		languages.get("Spanish").put("cf_title", 			"MenÃº de configuraciÃ³n");
 		languages.get("Spanish").put("cf_current_user",		"Username actual:");
 		languages.get("Spanish").put("cf_change_user",		"Cambiar username:");
-		languages.get("Spanish").put("cf_autosave_1",	 	"Guardado automático");
+		languages.get("Spanish").put("cf_autosave_1",		"Guardado automÃ¡tico");
 		languages.get("Spanish").put("cf_autosave_2", 		"cuando se realice un cambio:");
-		languages.get("Spanish").put("cf_autobck_1", 		"Respaldo automático");
+		languages.get("Spanish").put("cf_autobck_1", 		"Respaldo automÃ¡tico");
 		languages.get("Spanish").put("cf_autobck_2", 		"antes de finalizar el programa:");
 		languages.get("Spanish").put("cf_theme", 			"Tema del programa (requiere reinicio): ");
-		languages.get("Spanish").put("cf_pass_tl", 			"Cambiar contraseña.");
-		languages.get("Spanish").put("cf_pass_curr", 		"Contraseña actual:");
-		languages.get("Spanish").put("cf_pass_new", 		"Contraseña nueva:");
-		languages.get("Spanish").put("cf_pass_conf", 		"Confirmar contraseña nueva:");
-		languages.get("Spanish").put("cf_pass_ad_fy", 		"Se ha actualizado la contraseña.");
-		languages.get("Spanish").put("cf_pass_ad_hn_1",		"La confirmacion es incorrecta.");
-		languages.get("Spanish").put("cf_pass_ad_hn_2",		"La cotraseña ingresada es incorrecta.");
 		languages.get("Spanish").put("cf_lang",				"Idioma del programa:");
-		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto:");
+		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuraciÃ³n por defecto:");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos:");
 	}
 }

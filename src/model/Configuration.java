@@ -11,6 +11,10 @@ import java.io.Serializable;
 import exception.CouldNotLoadFileException;
 import exception.CouldNotSaveFileException;
 
+import util.Colour;
+import util.Language;
+import util.Path;
+
 public class Configuration implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -36,7 +40,7 @@ public class Configuration implements Serializable{
 	}
 	
 	public boolean saveConfiguration() throws FileNotFoundException, CouldNotSaveFileException{
-		FileOutputStream f = new FileOutputStream(Path.configPath);
+		FileOutputStream f = new FileOutputStream(Path.configFile);
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(this);
@@ -49,7 +53,7 @@ public class Configuration implements Serializable{
 	}
 	
 	public boolean loadConfiguration() throws FileNotFoundException, ClassNotFoundException, CouldNotLoadFileException{
-		FileInputStream f = new FileInputStream(Path.configPath);
+		FileInputStream f = new FileInputStream(Path.configFile);
 		try{
 			ObjectInputStream o = new ObjectInputStream(f);
 			Configuration file = (Configuration)o.readObject();

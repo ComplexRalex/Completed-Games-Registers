@@ -1,6 +1,7 @@
-package model;
+package util;
 
 import java.awt.Color;
+import model.Configuration;
 
 public class Colour {
 

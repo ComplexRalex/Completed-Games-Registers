@@ -16,6 +16,8 @@ import exception.CouldNotLoadFileException;
 import exception.CouldNotSaveFileException;
 import exception.HTMLTemplateNotFoundException;
 
+import util.Path;
+
 /*
  * NOTA: Los JOptionPane y algunas las clausulas "try" con excepciones cachadas estaran en el controlador
  * Por ahora los dejare aqui (comentados) hasta que finalmente los mueva
@@ -35,7 +37,7 @@ public class GameRegister{
 	}
 	
 	public void saveGameStats() throws FileNotFoundException, CouldNotSaveFileException{
-		FileOutputStream f = new FileOutputStream(Path.savePath+"save.dat");
+		FileOutputStream f = new FileOutputStream(Path.saveFile);
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(gameStats);
@@ -49,7 +51,7 @@ public class GameRegister{
 	
 	@SuppressWarnings("unchecked")
 	public void loadGameStats() throws FileNotFoundException, ClassNotFoundException, CouldNotLoadFileException{
-		FileInputStream f = new FileInputStream(Path.savePath+"save.dat");
+		FileInputStream f = new FileInputStream(Path.saveFile);
 		try{
 			ObjectInputStream o = new ObjectInputStream(f);
 			gameStats = (ArrayList<GameStat>)o.readObject();
@@ -63,7 +65,7 @@ public class GameRegister{
 	}
 	
 	public void doBackup() throws FileNotFoundException, CouldNotBackupFileException{
-		FileOutputStream f = new FileOutputStream(Path.backupsPath+"backup-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".dat");
+		FileOutputStream f = new FileOutputStream(Path.backups+"backup-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".dat");
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(gameStats);
@@ -110,8 +112,8 @@ public class GameRegister{
 	}
 	
 	public void generateHTMLPage() throws CouldNotCreateHTMLFileException, HTMLTemplateNotFoundException{
-		HTMLGameRegister.openFileOutput(Path.htmlPath);
-		HTMLGameRegister.writeTemplatePage(Path.htmlPath+"/templates/template.html");
+		HTMLGameRegister.openFileOutput(Path.html);
+		HTMLGameRegister.writeTemplatePage(Path.htmlTemplateFile);
 		HTMLGameRegister.writeGameIndexPage(gameStats);
 		HTMLGameRegister.writeGameListPage(gameStats);
 		HTMLGameRegister.closeFileOutput();

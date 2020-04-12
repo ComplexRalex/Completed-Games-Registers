@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -14,9 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import exception.CouldNotSaveFileException;
-import model.Colour;
 import model.Configuration;
 import view.ConfigurationPanel;
+
+import util.Colour;
 
 public class ConfigurationController implements ActionListener, FocusListener, KeyListener{
 	
@@ -98,7 +98,10 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if(source == view.btChange){
+		if(source == view.txtUser)
+			if(view.txtUser.getText().length() == 0) view.btChange.setEnabled(false);
+			else view.btChange.setEnabled(true);
+		if(source == view.btChange && view.txtUser.getText().length() > 0){
 			String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
 			view.lbUser.setText(cut);
 			model.setUsername(cut);

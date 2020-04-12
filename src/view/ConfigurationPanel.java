@@ -3,9 +3,10 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
-import model.Colour;
+import util.Colour;
+import util.Language;
+
 import model.Configuration;
-import model.Language;
 
 /**
  * Panel which contains every visual component about the configuration menu of the
