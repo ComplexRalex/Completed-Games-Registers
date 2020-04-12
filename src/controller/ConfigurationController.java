@@ -10,13 +10,12 @@ import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 
 import javax.swing.AbstractButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import exception.CouldNotSaveFileException;
+import model.Colour;
 import model.Configuration;
-import model.Languages;
 import view.ConfigurationPanel;
 
 public class ConfigurationController implements ActionListener, FocusListener, KeyListener{
@@ -85,13 +84,13 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	public void obtainInitialConfig(){
 		view.lbUser.setText(Configuration.getUsername());
 		
-		if(Configuration.getAutoSave()) view.toggleEnabledButton(view.btAutoSaveON, false, Configuration.colorON);
-		else view.toggleEnabledButton(view.btAutoSaveOFF, false, Configuration.colorOFF);
+		if(Configuration.getAutoSave()) view.toggleEnabledButton(view.btAutoSaveON, false, Colour.colorON);
+		else view.toggleEnabledButton(view.btAutoSaveOFF, false, Colour.colorOFF);
 		
-		if(Configuration.getAutoBackup()) view.toggleEnabledButton(view.btAutoBackupON, false, Configuration.colorON);
-		else view.toggleEnabledButton(view.btAutoBackupOFF, false, Configuration.colorOFF);
+		if(Configuration.getAutoBackup()) view.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
+		else view.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
 		
-		view.btTheme[Configuration.getTheme()].setSelected(true);
+		view.btTheme[Configuration.currentTheme()].setSelected(true);
 		
 		view.cbLang.setSelectedItem(Configuration.currentLanguage());
 	}
@@ -106,25 +105,25 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		}
 		if(source == view.btAutoSaveON || source == view.btAutoSaveOFF)
 			if(source == view.btAutoSaveON){
-				view.toggleEnabledButton(view.btAutoSaveON, false, Configuration.colorON);
-				view.toggleEnabledButton(view.btAutoSaveOFF, true, Configuration.getButtonColor());
+				view.toggleEnabledButton(view.btAutoSaveON, false, Colour.colorON);
+				view.toggleEnabledButton(view.btAutoSaveOFF, true, Colour.getButtonColor());
 				view.btAutoSaveOFF.requestFocusInWindow();
 				model.enableAutoSave(true);
 			}else{
-				view.toggleEnabledButton(view.btAutoSaveON, true, Configuration.getButtonColor());
-				view.toggleEnabledButton(view.btAutoSaveOFF, false, Configuration.colorOFF);
+				view.toggleEnabledButton(view.btAutoSaveON, true, Colour.getButtonColor());
+				view.toggleEnabledButton(view.btAutoSaveOFF, false, Colour.colorOFF);
 				view.btAutoSaveON.requestFocusInWindow();
 				model.enableAutoSave(false);
 			}
 		if(source == view.btAutoBackupON || source == view.btAutoBackupOFF)
 			if(source == view.btAutoBackupON){
-				view.toggleEnabledButton(view.btAutoBackupON, false, Configuration.colorON);
-				view.toggleEnabledButton(view.btAutoBackupOFF, true, Configuration.getButtonColor());
+				view.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
+				view.toggleEnabledButton(view.btAutoBackupOFF, true, Colour.getButtonColor());
 				view.btAutoBackupOFF.requestFocusInWindow();
 				model.enableAutoBackup(true);
 			}else{
-				view.toggleEnabledButton(view.btAutoBackupON, true, Configuration.getButtonColor());
-				view.toggleEnabledButton(view.btAutoBackupOFF, false, Configuration.colorOFF);
+				view.toggleEnabledButton(view.btAutoBackupON, true, Colour.getButtonColor());
+				view.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
 				view.btAutoBackupON.requestFocusInWindow();
 				model.enableAutoBackup(false);
 			}
@@ -135,7 +134,7 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 					break;
 				}
 		if(source == view.cbLang)
-			model.setLanguage((String)view.cbLang.getSelectedItem());
+			model.changeLanguage((String)view.cbLang.getSelectedItem());
 		if(source == view.btAccept){
 			try {
 				model.saveConfiguration();

@@ -3,8 +3,9 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 
+import model.Colour;
 import model.Configuration;
-import model.Languages;
+import model.Language;
 
 /**
  * Panel which contains every visual component about the configuration menu of the
@@ -26,12 +27,11 @@ public class ConfigurationPanel extends JPanel{
 	 * 4. Agregar siguientes opciones:
 	 *  - Reset configurations to default
 	 *  - Delete ALL data (it'll request password confirmation)
-	 *  - Languages (NOT TOTALLY CONFIRMED)
 	 *  
 	 * */
 	public ConfigurationPanel(){
 		this.setLayout(new BorderLayout());
-		this.setBackground(Configuration.getPrimaryColor());
+		this.setBackground(Colour.getPrimaryColor());
 		initComponents();
 	}
 	
@@ -43,12 +43,12 @@ public class ConfigurationPanel extends JPanel{
 		Font fntBt = new Font("Open Sans",1,14);
 		Font fntLbBold = new Font("Open Sans",1,16);
 		Font fntLbPlain = new Font("Open Sans",0,16);
-		Color fontColor = Configuration.getFontColor();
-		Color buttonColor = Configuration.getButtonColor();
+		Color fontColor = Colour.getFontColor();
+		Color buttonColor = Colour.getButtonColor();
 		
 		// Establishing the title (lol)
 		
-		JLabel lbTitle = new JLabel(Languages.loadMessage("cf_title"));
+		JLabel lbTitle = new JLabel(Language.loadMessage("cf_title"));
 		lbTitle.setHorizontalAlignment(JLabel.CENTER);
 		lbTitle.setFont(new Font("Open Sans",1,24));
 		lbTitle.setPreferredSize(new Dimension(0,75));
@@ -57,7 +57,7 @@ public class ConfigurationPanel extends JPanel{
 		// Establishing panel of all options
 		
 		JPanel pGeneralOptions = new JPanel(new GridBagLayout());
-		pGeneralOptions.setBackground(Configuration.getBackgroundColor());
+		pGeneralOptions.setBackground(Colour.getBackgroundColor());
 		JScrollPane scrollOptions = new JScrollPane(pGeneralOptions);
 		scrollOptions.setViewportView(pGeneralOptions);
 		scrollOptions.setBorder(BorderFactory.createLineBorder(pGeneralOptions.getBackground()));
@@ -69,12 +69,12 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing the username panel
 		
 		JPanel pUsername = new JPanel(new GridLayout(2,1,5,3));
-		pUsername.setBackground(Configuration.getPrimaryColor());
+		pUsername.setBackground(Colour.getPrimaryColor());
 		pUsername.setPreferredSize(new Dimension(560,80));
 		
 		JPanel pCurrentUser = new JPanel(new FlowLayout());
-		pCurrentUser.setBackground(Configuration.getPrimaryColor());
-		JLabel lbCurrentUser = new JLabel(Languages.loadMessage("cf_current_user"));
+		pCurrentUser.setBackground(Colour.getPrimaryColor());
+		JLabel lbCurrentUser = new JLabel(Language.loadMessage("cf_current_user"));
 		lbCurrentUser.setFont(fntLbPlain);
 		lbCurrentUser.setForeground(fontColor);
 		pCurrentUser.add(lbCurrentUser);
@@ -85,18 +85,18 @@ public class ConfigurationPanel extends JPanel{
 		pUsername.add(pCurrentUser);
 		
 		JPanel pChangeUser = new JPanel(new FlowLayout());
-		pChangeUser.setBackground(Configuration.getPrimaryColor());
-		JLabel lbChangeUser = new JLabel(Languages.loadMessage("cf_change_user"));
+		pChangeUser.setBackground(Colour.getPrimaryColor());
+		JLabel lbChangeUser = new JLabel(Language.loadMessage("cf_change_user"));
 		lbChangeUser.setFont(fntLbPlain);
 		lbChangeUser.setForeground(fontColor);
 		pChangeUser.add(lbChangeUser);
 		txtUser = new JTextField();
 		txtUser.setFont(fntLbPlain);
-		txtUser.setBackground(Configuration.getBackgroundColor());
+		txtUser.setBackground(Colour.getBackgroundColor());
 		txtUser.setForeground(fontColor);
 		txtUser.setPreferredSize(new Dimension(150,25));
 		pChangeUser.add(txtUser);
-		btChange = new JButton(Languages.loadMessage("g_change"));
+		btChange = new JButton(Language.loadMessage("g_change"));
 		btChange.setFont(fntBt);
 		btChange.setBackground(buttonColor);
 		btChange.setForeground(fontColor);
@@ -107,13 +107,13 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing the auto-save options
 		
 		JPanel pAutoSave = new JPanel(new FlowLayout());
-		pAutoSave.setBackground(Configuration.transparent);
-		JLabel lbAutoSave1 = new JLabel(Languages.loadMessage("cf_autosave_1"));
+		pAutoSave.setBackground(Colour.transparent);
+		JLabel lbAutoSave1 = new JLabel(Language.loadMessage("cf_autosave_1"));
 		lbAutoSave1.setFont(fntLbBold);
 		lbAutoSave1.setForeground(fontColor);
 		pAutoSave.add(lbAutoSave1);
 		
-		JLabel lbAutoSave2 = new JLabel(Languages.loadMessage("cf_autosave_2"));
+		JLabel lbAutoSave2 = new JLabel(Language.loadMessage("cf_autosave_2"));
 		lbAutoSave2.setFont(fntLbPlain);
 		lbAutoSave2.setForeground(fontColor);
 		pAutoSave.add(lbAutoSave2);
@@ -135,13 +135,13 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing the auto-backup options
 		
 		JPanel pAutoBackup = new JPanel(new FlowLayout());
-		pAutoBackup.setBackground(Configuration.transparent);
-		JLabel lbAutoBackup1 = new JLabel(Languages.loadMessage("cf_autobck_1"));
+		pAutoBackup.setBackground(Colour.transparent);
+		JLabel lbAutoBackup1 = new JLabel(Language.loadMessage("cf_autobck_1"));
 		lbAutoBackup1.setFont(fntLbBold);
 		lbAutoBackup1.setForeground(fontColor);
 		pAutoBackup.add(lbAutoBackup1);
 		
-		JLabel lbAutoBackup2 = new JLabel(Languages.loadMessage("cf_autobck_2"));
+		JLabel lbAutoBackup2 = new JLabel(Language.loadMessage("cf_autobck_2"));
 		lbAutoBackup2.setFont(fntLbPlain);
 		lbAutoBackup2.setForeground(fontColor);
 		pAutoBackup.add(lbAutoBackup2);
@@ -163,8 +163,8 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing the theme options
 		
 		JPanel pThemes = new JPanel(new FlowLayout());
-		pThemes.setBackground(Configuration.transparent);
-		JLabel lbThemes = new JLabel(Languages.loadMessage("cf_theme"));
+		pThemes.setBackground(Colour.transparent);
+		JLabel lbThemes = new JLabel(Language.loadMessage("cf_theme"));
 		lbThemes.setFont(fntLbPlain);
 		lbThemes.setForeground(fontColor);
 		pThemes.add(lbThemes);
@@ -176,7 +176,7 @@ public class ConfigurationPanel extends JPanel{
 		ButtonGroup btsGroup = new ButtonGroup();
 		for(JRadioButton bt: btTheme){
 			bt.setFont(new Font("Open Sans",0,14));
-			bt.setBackground(Configuration.getBackgroundColor());
+			bt.setBackground(Colour.getBackgroundColor());
 			bt.setForeground(fontColor);
 			btsGroup.add(bt);
 			pThemes.add(bt);
@@ -185,30 +185,30 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing language options (work in progress)
 		
 		JPanel pLang = new JPanel(new FlowLayout());
-		pLang.setBackground(Configuration.getBackgroundColor());
-		JLabel lbLang = new JLabel(Languages.loadMessage("cf_lang"));
+		pLang.setBackground(Colour.getBackgroundColor());
+		JLabel lbLang = new JLabel(Language.loadMessage("cf_lang"));
 		lbLang.setFont(fntLbPlain);
 		lbLang.setForeground(fontColor);
 		pLang.add(lbLang);
 		
-		cbLang = new JComboBox<String>(Languages.available);
+		cbLang = new JComboBox<String>(Language.available);
 		cbLang.setFont(fntBt);
-		cbLang.setBackground(Configuration.getBackgroundColor());
+		cbLang.setBackground(Colour.getBackgroundColor());
 		cbLang.setForeground(fontColor);
 		pLang.add(cbLang);
 				
 		// Establishing panel which contains "Accept" and "Return" options
 		
 		JPanel pOptions = new JPanel(new FlowLayout());
-		pOptions.setBackground(Configuration.getPrimaryColor());
-		btAccept = new JButton(Languages.loadMessage("g_apply"));
+		pOptions.setBackground(Colour.getPrimaryColor());
+		btAccept = new JButton(Language.loadMessage("g_apply"));
 		btAccept.setFont(fntBt);
 		btAccept.setBackground(buttonColor);
 		btAccept.setForeground(fontColor);
 		btAccept.setPreferredSize(new Dimension(200,30));
 		pOptions.add(btAccept);
 		
-		btReturn = new JButton(Languages.loadMessage("g_return"));
+		btReturn = new JButton(Language.loadMessage("g_return"));
 		btReturn.setFont(fntBt);
 		btReturn.setBackground(btAccept.getBackground());
 		btReturn.setForeground(btAccept.getForeground());

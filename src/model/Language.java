@@ -3,7 +3,7 @@ package model;
 import java.util.HashMap;
 import model.Configuration;
 
-public class Languages{
+public class Language{
 	
 	public static final String defaultCase = "English";
 	public static final String[] available = {"English", "Spanish"};
