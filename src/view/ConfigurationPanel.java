@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import util.Colour;
+import util.Typeface;
 import util.Language;
 
 import model.Configuration;
@@ -41,9 +42,9 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	private void initComponents(){
 		Dimension dimBt = new Dimension(62,22);
-		Font fntBt = new Font("Open Sans",1,14);
-		Font fntLbBold = new Font("Open Sans",1,16);
-		Font fntLbPlain = new Font("Open Sans",0,16);
+		Font fntBt = Typeface.buttonBold;
+		Font fntLbBold = Typeface.labelBold;
+		Font fntLbPlain = Typeface.labelPlain;
 		Color fontColor = Colour.getFontColor();
 		Color buttonColor = Colour.getButtonColor();
 		
@@ -51,7 +52,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		JLabel lbTitle = new JLabel(Language.loadMessage("cf_title"));
 		lbTitle.setHorizontalAlignment(JLabel.CENTER);
-		lbTitle.setFont(new Font("Open Sans",1,24));
+		lbTitle.setFont(Typeface.labelTitle);
 		lbTitle.setPreferredSize(new Dimension(0,75));
 		lbTitle.setForeground(fontColor);
 		
@@ -60,9 +61,8 @@ public class ConfigurationPanel extends JPanel{
 		JPanel pGeneralOptions = new JPanel(new GridBagLayout());
 		pGeneralOptions.setBackground(Colour.getBackgroundColor());
 		JScrollPane scrollOptions = new JScrollPane(pGeneralOptions);
-		scrollOptions.setViewportView(pGeneralOptions);
 		scrollOptions.setBorder(BorderFactory.createLineBorder(pGeneralOptions.getBackground()));
-		scrollOptions.setPreferredSize(new Dimension(20,800));
+		//scrollOptions.setPreferredSize(new Dimension(20,800));
 		scrollOptions.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollOptions.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollOptions.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
