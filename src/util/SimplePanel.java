@@ -1,6 +1,7 @@
 package util;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,8 +28,8 @@ public abstract class SimplePanel extends JPanel{
     protected Color bgColor;
     protected GridBagConstraints location;
     protected final int width = 560;
-    protected Dimension dim2LinesPanel, dimTextField;
-    protected JPanel optionsPanel;
+    protected Dimension dim1LinePanel, dim2LinesPanel, dimTextField, dimButton, dimTitle;
+    //protected JPanel optionsPanel;
 
     /**
      * Initializes a SimplePanel object
@@ -38,13 +39,17 @@ public abstract class SimplePanel extends JPanel{
     public SimplePanel(Color bg){
         // Initializing attributes
         bgColor = bg;
+        dim1LinePanel = new Dimension(width,40);
         dim2LinesPanel = new Dimension(width,80);
         dimTextField = new Dimension(width-20,25);
+        dimButton = new Dimension(62,22);
+        dimTitle = new Dimension(0,75);
 
         // Initializing main JPanel
         setLayout(new BorderLayout());
         setBackground(bgColor);
 
+        /*
         // Initializing "options" JPanel
         optionsPanel = new JPanel(new GridBagLayout());
         optionsPanel.setBackground(bgColor);
@@ -56,6 +61,7 @@ public abstract class SimplePanel extends JPanel{
         central.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
 
         add(central,BorderLayout.CENTER);
+        */
     }
 
     /**
@@ -66,7 +72,29 @@ public abstract class SimplePanel extends JPanel{
     }
 
     /**
-     * Appends a text field and a description text into the options pane.
+     * Creates a title with the string provided.
+     * <p>
+     * It is recommended to append it into the north border in the main panel.
+     * @param title String that contains the title
+     * @return JPanel that contains the title provided
+     */
+    protected JPanel createTitle(String title){
+        // Initializing new panel
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(bgColor);
+        
+        // Initializing JLabel into panel
+        JLabel label = new JLabel(title);
+        label.setFont(Typeface.labelTitle);
+        label.setPreferredSize(dimTitle);
+        label.setBackground(Colour.getPrimaryColor());
+        label.setForeground(Colour.getFontColor());
+        
+        return panel;
+    }
+
+    /**
+     * Creates a text field and a description text into the options pane.
      * <p>
      * Note that this function will change the following properties to these
      * variables:
@@ -74,16 +102,14 @@ public abstract class SimplePanel extends JPanel{
      * <b>info, var</b>: Changes on <i>Font</i> and <i>Foreground</i>.
      * <p>
      * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
-     * and <i>PreferredSize</i>
+     * and <i>PreferredSize</i>.
      * 
      * @param info Brief explanation of what should be filled into the text field
-     * @param var String that can change if wanted. In such case it's recommended to
-     * use a variable instead of using a "text in quotes"
-     * @param field JTextField that will be added to this panel.
-     * @return JPanel containing the mentioned elements but already implemented
-     * in JComponents
+     * @param var JLabel that can be changed
+     * @param field JTextField that will be added to this panel
+     * @return JPanel containing the mentioned elements
      */
-    protected JPanel addTextField(String info, String var, JTextField field){
+    protected JPanel createTextField(String info, JLabel var, JTextField field){
         // Initializing new panel
         JPanel panel = new JPanel(new GridLayout(2,1,5,3));
         panel.setBackground(bgColor);
@@ -102,10 +128,9 @@ public abstract class SimplePanel extends JPanel{
 
         // Initializing "var" label in case it exists
         if(var != null){
-            JLabel desc2 = new JLabel(var);
-            desc2.setFont(desc1.getFont());
-            desc2.setForeground(desc1.getForeground());
-            description.add(desc2);
+            var.setFont(desc1.getFont());
+            var.setForeground(desc1.getForeground());
+            description.add(var);
         }
 
         // Initializing the text field specified
@@ -118,14 +143,11 @@ public abstract class SimplePanel extends JPanel{
         panel.add(description);
         panel.add(field);
 
-        // Finally, adding this panel to the central panel
-        optionsPanel.add(panel);
-
         return panel;
     }
 
     /**
-     * Appends a text field and a description text into the options pane.
+     * Creates a text field and a description text into the options pane.
      * <p>
      * Note that this function will change the following properties to these
      * variables:
@@ -133,14 +155,63 @@ public abstract class SimplePanel extends JPanel{
      * <b>info</b>: Changes on <i>Font</i> and <i>Foreground</i>.
      * <p>
      * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
-     * and <i>PreferredSize</i>
+     * and <i>PreferredSize</i>.
      * 
      * @param info Brief explanation of what should be filled into the text field
-     * @param field JTextField that will be added to this panel.
-     * @return JPanel containing the mentioned elements but already implemented
-     * in JComponents
+     * @param field JTextField that will be added to this panel
+     * @return JPanel containing the mentioned elements
      */
-    protected JPanel addTextField(String info, JTextField field){
-        return addTextField(info, null, field);
+    protected JPanel createTextField(String info, JTextField field){
+        return createTextField(info, null, field);
     }
+
+    /**
+     * Creates a "switch button" and a description into the options pane.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>info</b>: Changes on <i>Font<i/> and <i>Foreground</i>.
+     * <p>
+     * <b>ON</b> and <b>OFF</b>: Change on <i>Font<i/>, <i>Background</i>,
+     * <i>Foreground</i> and <i>PreferredSize</i>.
+     * 
+     * @param info Brief explanation of what it's being activated or deactivated
+     * @param ON Button that has the purpose to activate the option
+     * @param OFF Button that has the purpose to deactivate the option
+     * @return JPanel containing the mentioned elements
+     */
+    protected JPanel createSwitchButton(String info, JButton ON, JButton OFF){
+        // Initializing new panel
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBackground(bgColor);
+        panel.setPreferredSize(dim1LinePanel);
+
+        // Initializing "description" panel before the ON/OFF buttons
+        JLabel desc = new JLabel(info);
+        desc.setFont(Typeface.labelPlain);
+        desc.setForeground(Colour.getFontColor());
+        panel.add(desc);
+
+        // Initializing ON button
+        ON.setFont(Typeface.buttonBold);
+        ON.setBackground(Colour.getButtonColor());
+        ON.setForeground(Colour.getFontColor());
+        ON.setPreferredSize(dimButton);
+        panel.add(ON);
+
+        // Initializing OFF button
+        OFF.setFont(Typeface.buttonBold);
+        OFF.setBackground(Colour.getButtonColor());
+        OFF.setForeground(Colour.getFontColor());
+        OFF.setPreferredSize(dimButton);
+        panel.add(OFF);
+
+        return panel;
+    }
+
+    /*
+     * Falta crear métodos para poder agregar las opciones o "componentes" a las
+     * partes del panel (norte, sur, este y oeste).
+     */
 }
