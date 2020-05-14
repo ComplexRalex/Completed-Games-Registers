@@ -238,7 +238,7 @@ public class ConfigurationPanel extends JPanel{
 	}
 	
 	/**
-	 * Toggle button state between "Enabled" and "Disabled" and changes its
+	 * Toggles button state between "Enabled" and "Disabled" and changes its
 	 * color.
 	 *
 	 * @param button component to change its state

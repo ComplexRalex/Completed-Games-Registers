@@ -1,10 +1,10 @@
 package util;
 
-import javax.swing.BorderFactory;
+//import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+//import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import java.awt.Color;
@@ -14,6 +14,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
 
 /*
     NOTE: THIS HASN'T BE TESTED NEITHER FINISHED YET, SO DON'T GIVE IT TO MUCH ATTENTION.
@@ -171,10 +172,14 @@ public abstract class SimplePanel extends JPanel{
      * Note that this function will change the following properties to these
      * variables:
      * <p>
-     * <b>info</b>: Changes on <i>Font<i/> and <i>Foreground</i>.
+     * <b>info</b>: Changes on <i>Font</i> and <i>Foreground</i>.
      * <p>
-     * <b>ON</b> and <b>OFF</b>: Change on <i>Font<i/>, <i>Background</i>,
+     * <b>ON</b> and <b>OFF</b>: Change on <i>Font</i>, <i>Background</i>,
      * <i>Foreground</i> and <i>PreferredSize</i>.
+     * <p>
+     * <b>Note:</b> The "ON/OFF" switch effect will work once the function
+     * <i>runSwitchButtonEffect</i> have been implemented into an
+     * <i>actionPerformed</i> function.
      * 
      * @param info Brief explanation of what it's being activated or deactivated
      * @param ON Button that has the purpose to activate the option
@@ -210,8 +215,58 @@ public abstract class SimplePanel extends JPanel{
         return panel;
     }
 
+    /**
+     * Depending on a condition, toggles the "enabled state" of the selected switch
+     * button. This means that if a button is pressed, then it will be disabled and
+     * finally will enable its opposite option.
+     * For example, if the ON button is pressed, then it won't be available unless
+     * it is pressed the OFF button.
+     * <p>
+     * <b>Note:</b> This must only be executed into an <i>actionPerformed</i>
+     * function. The purpose of this method is to add the "switch" effect to the
+     * buttons provided. Also, this will add an activated or deactivated color
+     * to the button that will be the following:
+     * <p>
+     * <b> - Green color</b> if it's pressed the ON button
+     * <p>
+     * <b> - Red color</b> if it's pressed the OFF button
+     * 
+     * @param e ActionEvent to be evaluated
+     * @param ON JButton to be compared as the ON button
+     * @param OFF JButton to be compared as the OFF button
+     * @return boolean which indicates if the operation was successful or not
+     */
+    public static boolean runSwitchButtonEffect(ActionEvent e, JButton ON, JButton OFF){
+        if(e.getSource() == ON){
+            toggleEnabledButton(ON, false, Colour.colorON);
+            toggleEnabledButton(OFF, true, Colour.getButtonColor());
+            OFF.requestFocusInWindow();
+        }else{
+            if(e.getSource() == OFF){
+                toggleEnabledButton(ON, true, Colour.getButtonColor());
+                toggleEnabledButton(OFF, false, Colour.colorOFF);
+                ON.requestFocusInWindow();
+            }else
+                return false;
+        }
+        return true;
+    }
+
+    /**
+	 * Toggles button state between "Enabled" and "Disabled" and changes its
+	 * color.
+	 *
+	 * @param button component to change its state
+	 * @param flag value being button's new state
+	 * @param color the life! (button)
+	 */
+	private static void toggleEnabledButton(JButton button, boolean flag, Color color){
+		button.setEnabled(flag);
+		button.setBackground(color);
+	}
+
     /*
      * Falta crear métodos para poder agregar las opciones o "componentes" a las
-     * partes del panel (norte, sur, este y oeste).
+     * partes del panel (norte, sur, este y oeste), incluso al ScrollPane...
      */
 }
