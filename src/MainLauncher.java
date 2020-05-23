@@ -1,4 +1,5 @@
 import model.*;
+import util.Language;
 import view.*;
 import controller.*;
 import exception.CouldNotLoadFileException;
@@ -24,6 +25,9 @@ import javax.swing.JFrame;
 
 public class MainLauncher{
 	
+	public static void initializer(){
+		Language.initialize();
+	}
 	public static void main(String[] args){
 		
 		//Anti-aliasing properties
@@ -43,6 +47,9 @@ public class MainLauncher{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		initializer();
+
 		ConfigurationPanel configView = new ConfigurationPanel();
 		MainWindow view = new MainWindow(configView);
 		ConfigurationController configController = new ConfigurationController(configModel,configView);

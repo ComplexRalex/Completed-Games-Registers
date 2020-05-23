@@ -36,7 +36,6 @@ public class Configuration implements Serializable{
 		autoBackup = autoBackupValue = false;
 		theme = currentTheme = Colour.LIGHT_THEME;
 		lang = currentLanguage = Language.available[0];
-		Language.initialize();
 	}
 	
 	public boolean saveConfiguration() throws FileNotFoundException, CouldNotSaveFileException{

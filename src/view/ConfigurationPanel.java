@@ -222,7 +222,6 @@ public class ConfigurationPanel extends JPanel{
 		support.gridx = 0;
 		support.gridy = 0;
 		support.insets = new Insets(2,2,0,2);
-		support.gridwidth = 3;
 		pGeneralOptions.add(pUsername,support);
 		support.gridy++;
 		pGeneralOptions.add(pAutoSave,support);
