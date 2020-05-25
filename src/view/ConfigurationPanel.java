@@ -6,6 +6,7 @@ import javax.swing.*;
 import util.Colour;
 import util.Typeface;
 import util.Language;
+import util.Component;
 
 import model.Configuration;
 
@@ -231,6 +232,13 @@ public class ConfigurationPanel extends JPanel{
 		pGeneralOptions.add(pThemes,support);
 		support.gridy++;
 		pGeneralOptions.add(pLang,support);
+		support.gridy++;
+		pGeneralOptions.add(Component.createPlainText(
+			"This is just a text test.... or test text? I don't know! "+
+			"Are you still reading this? I mean, it's okay but this is "+
+			"just a sample text! Don't give it too much attention dude!",
+			pGeneralOptions.getBackground()),support
+		);
 		
 		add(scrollOptions,BorderLayout.CENTER);
 		add(pOptions,BorderLayout.SOUTH);

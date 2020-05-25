@@ -9,10 +9,6 @@ import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
-/*
-    NOTE: THIS HASN'T BE TESTED NEITHER FINISHED YET, SO DON'T GIVE IT TO MUCH ATTENTION.
-*/
-
 /**
  * Panel which contains every important methods and components to
  * create a JPanel with options without difficulty
@@ -63,9 +59,4 @@ public class SimplePanel extends JPanel{
         // Returning and increasing the position of the next component
         return location.gridy++;
     }
-
-    /*
-     * Falta crear métodos para poder agregar las opciones o "componentes" a las
-     * partes del panel (norte, sur, este y oeste), incluso al ScrollPane...
-     */
 }

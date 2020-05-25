@@ -30,12 +30,13 @@ public class Component{
     /**
      * Creates a title with predefined configurations and the string provided.
      * <p>
-     * It is recommended to append it into the north border in the main panel.
+     * It is recommended to append it into the north border in the main panel
+     * beacuse of the size.
      * @param title String that contains the title
      * @param bg Background color
      * @return JPanel that contains the title provided
      */
-    protected static JPanel createTitle(String title, Color bg){
+    public static JPanel createTitle(String title, Color bg){
         // Initializing new panel
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(bg);
@@ -44,10 +45,72 @@ public class Component{
         JLabel label = new JLabel(title);
         label.setFont(Typeface.labelTitle);
         label.setPreferredSize(dimTitle);
-        label.setBackground(Colour.getPrimaryColor());
+        label.setBackground(panel.getBackground());
         label.setForeground(Colour.getFontColor());
+        panel.add(label);
         
         return panel;
+    }
+
+    /**
+     * Creates a subtitle with predifined configurations and the string provided.
+     * 
+     * @param sub String that contains the subtitle
+     * @param bg Background color
+     * @return JLabel that contains the subtitle provided
+     */
+    public static JLabel createSubtitle(String sub, Color bg){
+        // Initializing new label
+        JLabel label = new JLabel(sub);
+        label.setFont(Typeface.labelSubtitle);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setPreferredSize(dim1LinePanel);
+        label.setBackground(bg);
+        label.setForeground(Colour.getFontColor());
+
+        return label;
+    }
+
+    /**
+     * Creates a simple paragraph with predefined configurations and the text
+     * provided.
+     * 
+     * @param text String that contains the paragraph text
+     * @param bg Background color
+     * @return JLabel that contains the given paragraph
+     */
+    public static JLabel createPlainText(String text, Color bg){
+        // Initializing new label (using HTML format)
+        JLabel label = new JLabel(String.format(
+            "<html><body style='width: %dpx; background: #%06x;"+
+            "font-family: %s; font-weight: normal; font-size: %d;"+
+            " color: #%06x; text-align: justify;'>%s",
+            width-129,
+            Integer.valueOf(bg.getRGB() & 0x00FFFFFF),
+            Typeface.labelPlain.getName(),
+            Typeface.labelPlain.getSize(),
+            Integer.valueOf(Colour.getFontColor().getRGB() & 0x00FFFFFF),
+            text
+        ));
+
+        /*
+         * There is a bug with the text width... Every 10 pixels, the width is
+         * increased by 3 more pixels... so, if the original size is 560px, then
+         * the result will be 560 + (56*3) = 728px
+         * 
+         * Because I don't know how's the problem being generated, I solved this
+         * by the next equation:
+         * 
+         * result = width + (width / 10) * 3
+         * 
+         * Now, replacing "result" with 560 (the expected result) the solution is
+         * width ~= 431
+         * 
+         * So, to make this works, it's necessary subtracting 129 to "width" to
+         * get 431 pixels.
+         */
+
+        return label;
     }
 
     /**
@@ -56,7 +119,7 @@ public class Component{
      * Note that this function will change the following properties to these
      * variables:
      * <p>
-     * <b>info, var</b>: Changes on <i>Font</i> and <i>Foreground</i>.
+     * <b>var</b>: Changes on <i>Font</i> and <i>Foreground</i>.
      * <p>
      * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
      * and <i>PreferredSize</i>.
@@ -67,7 +130,7 @@ public class Component{
      * @param bg Background color
      * @return JPanel containing the mentioned elements
      */
-    protected static JPanel createTextField(String info, JLabel var, JTextField field, Color bg){
+    public static JPanel createTextField(String info, JLabel var, JTextField field, Color bg){
         // Initializing new panel
         JPanel panel = new JPanel(new GridLayout(2,1,5,3));
         panel.setBackground(bg);
@@ -110,8 +173,6 @@ public class Component{
      * Note that this function will change the following properties to these
      * variables:
      * <p>
-     * <b>info</b>: Changes on <i>Font</i> and <i>Foreground</i>.
-     * <p>
      * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
      * and <i>PreferredSize</i>.
      * 
@@ -120,7 +181,7 @@ public class Component{
      * @param bg Background color
      * @return JPanel containing the mentioned elements
      */
-    protected static JPanel createTextField(String info, JTextField field, Color bg){
+    public static JPanel createTextField(String info, JTextField field, Color bg){
         return createTextField(info, null, field, bg);
     }
 
@@ -129,8 +190,6 @@ public class Component{
      * <p>
      * Note that this function will change the following properties to these
      * variables:
-     * <p>
-     * <b>info</b>: Changes on <i>Font</i> and <i>Foreground</i>.
      * <p>
      * <b>ON</b> and <b>OFF</b>: Change on <i>Font</i>, <i>Background</i>,
      * <i>Foreground</i> and <i>PreferredSize</i>.
@@ -145,7 +204,7 @@ public class Component{
      * @param bg Background color
      * @return JPanel containing the mentioned elements
      */
-    protected static JPanel createSwitchButton(String info, JButton ON, JButton OFF, Color bg){
+    public static JPanel createSwitchButton(String info, JButton ON, JButton OFF, Color bg){
         // Initializing new panel
         JPanel panel = new JPanel(new FlowLayout());
         panel.setBackground(bg);
@@ -180,7 +239,7 @@ public class Component{
      * @param panel JPanel that will be contained into the JScrollPane
      * @return created JScrollPane
      */
-    protected static JScrollPane createScrollPane(JPanel panel){
+    public static JScrollPane createScrollPane(JPanel panel){
         // Initializing new JScrollPane
         JScrollPane scroll = new JScrollPane(panel);
         scroll.setBorder(BorderFactory.createLineBorder(panel.getBackground()));
