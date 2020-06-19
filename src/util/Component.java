@@ -84,7 +84,7 @@ public class Component{
      */
     public static JPanel createPlainText(String text, Color bg){
         // Initializing new panel
-        JPanel panel = new JPanel(new FlowLayout());
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,13,13));
         panel.setBackground(bg);
 
         // Initializing new label (using HTML format)
@@ -92,7 +92,7 @@ public class Component{
             "<html><body style='width: %dpx; background: #%06x;"+
             "font-family: %s; font-weight: normal; font-size: %d;"+
             " color: #%06x; text-align: justify;'>%s",
-            width-139,
+            width-149,
             Integer.valueOf(bg.getRGB() & 0x00FFFFFF),
             Typeface.labelPlain.getName(),
             Typeface.labelPlain.getSize(),
@@ -116,7 +116,7 @@ public class Component{
          * So, to make this works, it's necessary subtracting 129 to "width" to
          * get 431 pixels.
          * 
-         * But, in order to generate a "gap" on the sides, I made a subtract 10
+         * But, in order to generate a "gap" on the sides, I made a subtract 20
          * more pixels.
          */
 

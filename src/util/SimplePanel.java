@@ -50,13 +50,23 @@ public class SimplePanel extends JPanel{
     /**
      * Simply appends the given component into the center of the SimplePanel.
      * @param component JComponent (JPanel preferably) that will be entered
-     * @return Total of components inside SimplePanel
+     * @return Position (index) of the given component appended into the
+     * current SimplePanel.
      */
     public int add(JComponent component){
         // Adding component to SimplePanel
         add(component, location);
 
-        // Returning and increasing the position of the next component
+        // Returning the position of the current component and then increasing it
         return location.gridy++;
+    }
+
+    /**
+     * Returns the number of components appended to the current SimplePanel.
+     * @return Integer number of components appended. Also, it will be the
+     * index of the next appended component.
+     */
+    public int amount(){
+        return location.gridy;
     }
 }

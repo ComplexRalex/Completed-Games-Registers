@@ -7,6 +7,7 @@ import util.Colour;
 import util.Typeface;
 import util.Language;
 import util.Component;
+import util.SimplePanel;
 
 /**
  * Panel which contains every visual component about the configuration menu of the
@@ -41,13 +42,6 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	private void initComponents(){
 
-		// Establishing principal JPanel stuff
-
-		GridBagConstraints support = new GridBagConstraints();
-		support.gridx = 0;
-		support.gridy = 0;
-		support.insets = new Insets(2,2,0,2);
-
 		// Establishing the title (lol)
 		
 		JLabel lbTitle = new JLabel(Language.loadMessage("cf_title"));
@@ -60,8 +54,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		// Establishing panel of all options
 		
-		JPanel pGeneralOptions = new JPanel(new GridBagLayout());
-		pGeneralOptions.setBackground(Colour.getBackgroundColor());
+		SimplePanel pGeneralOptions = new SimplePanel();
 		JScrollPane scrollOptions = new JScrollPane(pGeneralOptions);
 		scrollOptions.setBorder(BorderFactory.createLineBorder(pGeneralOptions.getBackground()));
 		scrollOptions.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -72,33 +65,28 @@ public class ConfigurationPanel extends JPanel{
 
 		txtUser = new JTextField();
 		pGeneralOptions.add(Component.createTextField(Language.loadMessage("cf_change_user"), txtUser, Colour.getPrimaryColor()));
-		support.gridy++;
 
 		// - Establishing the auto-save options
 		
 		btAutoSaveON = new JButton("ON");
 		btAutoSaveOFF = new JButton("OFF");
-		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_autosave"), btAutoSaveON, btAutoSaveOFF, Colour.getBackgroundColor()),support);
-		support.gridy++;
+		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_autosave"), btAutoSaveON, btAutoSaveOFF, Colour.getBackgroundColor()));
 		
 		// - Establishing the auto-backup options
 
 		btAutoBackupON = new JButton("ON");
 		btAutoBackupOFF = new JButton("OFF");
-		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_autobck"), btAutoBackupON, btAutoBackupOFF, Colour.getBackgroundColor()),support);
-		support.gridy++;
+		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_autobck"), btAutoBackupON, btAutoBackupOFF, Colour.getBackgroundColor()));
 		
 		// - Establishing the theme options
 		
 		btTheme = new JRadioButton[Colour.available.length];
-		pGeneralOptions.add(Component.createRadioButtons(Language.loadMessage("cf_theme"), Colour.available, btTheme, Colour.getPrimaryColor()),support);
-		support.gridy++;
+		pGeneralOptions.add(Component.createRadioButtons(Language.loadMessage("cf_theme"), Colour.available, btTheme, Colour.getPrimaryColor()));
 		
 		// - Establishing language options
 
 		cbLang = new JComboBox<String>(Language.available);
-		pGeneralOptions.add(Component.createComboBox(Language.loadMessage("cf_lang"), cbLang, Colour.getBackgroundColor()),support);
-		support.gridy++;
+		pGeneralOptions.add(Component.createComboBox(Language.loadMessage("cf_lang"), cbLang, Colour.getBackgroundColor()));
 
 		// - Establishing.... test stuff
 
@@ -107,7 +95,7 @@ public class ConfigurationPanel extends JPanel{
 			"Are you still reading this? I mean, it's okay but this is "+
 			"just a sample text! Don't give it too much attention dude!"
 			,
-			Colour.getPrimaryColor()),support
+			Colour.getPrimaryColor())
 		);
 
 		add(scrollOptions,BorderLayout.CENTER);
