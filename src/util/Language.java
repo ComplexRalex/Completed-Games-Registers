@@ -29,12 +29,9 @@ public class Language{
 		languages.get("English").put("g_change", 			"Change");
 		
 		languages.get("English").put("cf_title",		 	"Configuration menu");
-		languages.get("English").put("cf_current_user",		"Current username:");
 		languages.get("English").put("cf_change_user",		"Change username:");
-		languages.get("English").put("cf_autosave_1", 		"Auto-save data");
-		languages.get("English").put("cf_autosave_2",	 	"when a change is made:");
-		languages.get("English").put("cf_autobck_1", 		"Auto-backup data");
-		languages.get("English").put("cf_autobck_2", 		"before closing the program:");
+		languages.get("English").put("cf_autosave", 		"Auto-save data when a change is made:");
+		languages.get("English").put("cf_autobck", 			"Auto-backup data before closing the program:");
 		languages.get("English").put("cf_theme", 			"Program theme (requires restart): ");
 		languages.get("English").put("cf_lang", 			"Program language:");
 		languages.get("English").put("cf_reset_cf", 		"Reset configuration to default:");
@@ -51,12 +48,9 @@ public class Language{
 		languages.get("Spanish").put("g_change", 			"Cambiar");
 		
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
-		languages.get("Spanish").put("cf_current_user",		"Username actual:");
-		languages.get("Spanish").put("cf_change_user",		"Cambiar username:");
-		languages.get("Spanish").put("cf_autosave_1",		"Guardado automático");
-		languages.get("Spanish").put("cf_autosave_2", 		"cuando se realice un cambio:");
-		languages.get("Spanish").put("cf_autobck_1", 		"Respaldo automático");
-		languages.get("Spanish").put("cf_autobck_2", 		"antes de finalizar el programa:");
+		languages.get("Spanish").put("cf_change_user",		"Cambiar nombre de usuario:");
+		languages.get("Spanish").put("cf_autosave",			"Guardado automático cuando se realice un cambio:");
+		languages.get("Spanish").put("cf_autobck", 			"Respaldo automático antes de finalizar el programa:");
 		languages.get("Spanish").put("cf_theme", 			"Tema del programa (requiere reinicio): ");
 		languages.get("Spanish").put("cf_lang",				"Idioma del programa:");
 		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto:");

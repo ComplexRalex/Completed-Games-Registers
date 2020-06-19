@@ -17,12 +17,15 @@ import model.Configuration;
 import view.ConfigurationPanel;
 
 import util.Colour;
+import util.Component;
 
 public class ConfigurationController implements ActionListener, FocusListener, KeyListener{
 	
 	private ConfigurationPanel view;
 	private Configuration model;
 	private Object selectedButton;
+	private int autoSaveStatus;
+	private int autoBackupStatus;
 	
 	/*
 	 * PASOS SIGUIENTES PARA NO PERDERSE:
@@ -41,10 +44,6 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		view.txtUser.addActionListener(this);
 		view.txtUser.addFocusListener(this);
 		view.txtUser.addKeyListener(this);
-		
-		view.btChange.addActionListener(this);
-		view.btChange.addFocusListener(this);
-		view.btChange.addKeyListener(this);
 		
 		view.btAutoSaveON.addActionListener(this);
 		view.btAutoSaveON.addFocusListener(this);
@@ -82,14 +81,23 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	}
 	
 	public void obtainInitialConfig(){
-		view.lbUser.setText(Configuration.getUsername());
+		view.txtUser.setText(Configuration.getUsername());
 		
-		if(Configuration.getAutoSave()) view.toggleEnabledButton(view.btAutoSaveON, false, Colour.colorON);
-		else view.toggleEnabledButton(view.btAutoSaveOFF, false, Colour.colorOFF);
-		
-		if(Configuration.getAutoBackup()) view.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
-		else view.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
-		
+		if(Configuration.getAutoSave()){
+			Component.toggleEnabledButton(view.btAutoSaveON, false, Colour.colorON);
+			autoSaveStatus = 1;
+		}else{
+			Component.toggleEnabledButton(view.btAutoSaveOFF, false, Colour.colorOFF);
+			autoSaveStatus = 0;
+		}
+
+		if(Configuration.getAutoBackup()){
+			Component.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
+			autoBackupStatus = 1;
+		}else{
+			Component.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
+			autoBackupStatus = 0;
+		}
 		view.btTheme[Configuration.currentTheme()].setSelected(true);
 		
 		view.cbLang.setSelectedItem(Configuration.currentLanguage());
@@ -98,47 +106,44 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if(source == view.txtUser)
-			if(view.txtUser.getText().length() == 0) view.btChange.setEnabled(false);
-			else view.btChange.setEnabled(true);
-		if(source == view.btChange && view.txtUser.getText().length() > 0){
-			String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
-			view.lbUser.setText(cut);
-			model.setUsername(cut);
-		}
-		if(source == view.btAutoSaveON || source == view.btAutoSaveOFF)
-			if(source == view.btAutoSaveON){
-				view.toggleEnabledButton(view.btAutoSaveON, false, Colour.colorON);
-				view.toggleEnabledButton(view.btAutoSaveOFF, true, Colour.getButtonColor());
-				view.btAutoSaveOFF.requestFocusInWindow();
-				model.enableAutoSave(true);
-			}else{
-				view.toggleEnabledButton(view.btAutoSaveON, true, Colour.getButtonColor());
-				view.toggleEnabledButton(view.btAutoSaveOFF, false, Colour.colorOFF);
-				view.btAutoSaveON.requestFocusInWindow();
-				model.enableAutoSave(false);
+		int value;
+
+		autoSaveStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoSaveON, view.btAutoSaveOFF)) != -1) ? value : autoSaveStatus; 
+
+		autoBackupStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoBackupON, view.btAutoBackupOFF)) != -1) ? value : autoBackupStatus;
+			
+		if(source == view.btAccept){
+
+			// Change username (if qualify)
+			if(view.txtUser.getText().length() > 0){
+				String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
+				view.txtUser.setText(cut);
+				model.setUsername(cut);
 			}
-		if(source == view.btAutoBackupON || source == view.btAutoBackupOFF)
-			if(source == view.btAutoBackupON){
-				view.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
-				view.toggleEnabledButton(view.btAutoBackupOFF, true, Colour.getButtonColor());
-				view.btAutoBackupOFF.requestFocusInWindow();
-				model.enableAutoBackup(true);
-			}else{
-				view.toggleEnabledButton(view.btAutoBackupON, true, Colour.getButtonColor());
-				view.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
-				view.btAutoBackupON.requestFocusInWindow();
-				model.enableAutoBackup(false);
+
+			// Toggle enable/disable autoSave option
+			switch(autoSaveStatus){
+				case 1: model.enableAutoSave(true); break;
+				case 0: model.enableAutoSave(false);
 			}
-		if(source instanceof JRadioButton)
-			for(int i = 0; i < 3; i++)
-				if(source == view.btTheme[i]){
+
+			// Toggle enable/disable autoBackup option
+			switch(autoBackupStatus){
+				case 1: model.enableAutoBackup(true); break;
+				case 0: model.enableAutoBackup(false);
+			}
+
+			// Change to selected theme
+			for(int i = 0; i < view.btTheme.length; i++){
+				if(view.btTheme[i].isSelected()){
 					model.changeTheme(i);
 					break;
 				}
-		if(source == view.cbLang)
+			}
+
+			// Change to selected language
 			model.changeLanguage((String)view.cbLang.getSelectedItem());
-		if(source == view.btAccept){
+
 			try {
 				model.saveConfiguration();
 			} catch (FileNotFoundException e1) {
@@ -150,7 +155,7 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 			}
 		}
 		if(source == view.btReturn)
-			JOptionPane.showMessageDialog(view, "Aun no se ha implementado todo :)");
+			JOptionPane.showMessageDialog(view, "You shall not pass here!");
 	}
 
 	@Override

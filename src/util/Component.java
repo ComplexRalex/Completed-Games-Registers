@@ -1,6 +1,9 @@
 package util;
 
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -23,7 +26,7 @@ public class Component{
     private final static Dimension
         dim1LinePanel = new Dimension(width,40),
         dim2LinesPanel = new Dimension(width,80),
-        dimTextField = new Dimension(width-20,25),
+        dimTextField = new Dimension(width-25,25),
         dimButton = new Dimension(62,22),
         dimTitle = new Dimension(0,75);
 
@@ -77,15 +80,19 @@ public class Component{
      * 
      * @param text String that contains the paragraph text
      * @param bg Background color
-     * @return JLabel that contains the given paragraph
+     * @return JPanel that contains the given paragraph
      */
-    public static JLabel createPlainText(String text, Color bg){
+    public static JPanel createPlainText(String text, Color bg){
+        // Initializing new panel
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBackground(bg);
+
         // Initializing new label (using HTML format)
         JLabel label = new JLabel(String.format(
             "<html><body style='width: %dpx; background: #%06x;"+
             "font-family: %s; font-weight: normal; font-size: %d;"+
             " color: #%06x; text-align: justify;'>%s",
-            width-129,
+            width-139,
             Integer.valueOf(bg.getRGB() & 0x00FFFFFF),
             Typeface.labelPlain.getName(),
             Typeface.labelPlain.getSize(),
@@ -108,9 +115,14 @@ public class Component{
          * 
          * So, to make this works, it's necessary subtracting 129 to "width" to
          * get 431 pixels.
+         * 
+         * But, in order to generate a "gap" on the sides, I made a subtract 10
+         * more pixels.
          */
 
-        return label;
+        panel.add(label);
+
+        return panel;
     }
 
     /**
@@ -138,7 +150,7 @@ public class Component{
 
         // Initializing "description" panel above the text field.
         // Note that it will contain the "info" and "var" strings
-        JPanel description = new JPanel(new FlowLayout());
+        JPanel description = new JPanel(new FlowLayout(FlowLayout.LEFT,15,10));
         description.setBackground(bg);
 
         // Initializing "info" label
@@ -149,20 +161,25 @@ public class Component{
 
         // Initializing "var" label in case it exists
         if(var != null){
-            var.setFont(desc1.getFont());
+            var.setFont(Typeface.labelBold);
             var.setForeground(desc1.getForeground());
             description.add(var);
         }
 
+        // Initializing "text field" panel which will contain the JTextField
+        JPanel textfield = new JPanel(new FlowLayout());
+        textfield.setBackground(bg);
+        
         // Initializing the text field specified
         field.setFont(Typeface.labelPlain);
-        field.setBackground(bg);
+        field.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
         field.setForeground(Colour.getFontColor());
         field.setPreferredSize(dimTextField);
+        textfield.add(field);
 
         // Adding those panles to the "TextField" panel
         panel.add(description);
-        panel.add(field);
+        panel.add(textfield);
 
         return panel;
     }
@@ -232,6 +249,87 @@ public class Component{
 
         return panel;
     }
+
+    /**
+     * Creates a row filled with radio buttons and a description with predefined
+     * configurations.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>buttons</b>: Change on <i>Font</i>, <i>Background</i> and
+     * <i>Foreground</i>.
+     * <p>
+     * 
+     * @param info Brief explanation of what is the purpose of the radio buttons
+     * @param names String array containing the options
+     * @param buttons JRadioButton array that will be added to this panel
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
+    public static JPanel createRadioButtons(String info, String[] names, JRadioButton[] buttons, Color bg){
+        // Initialize new panel
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBackground(bg);
+
+        // Initialize "info" label
+        JLabel desc = new JLabel(info);
+        desc.setFont(Typeface.labelPlain);
+        desc.setForeground(Colour.getFontColor());
+        panel.add(desc);
+
+        // Initialize button group
+        ButtonGroup group = new ButtonGroup();
+        for(int i = 0; i < buttons.length; i++){
+            buttons[i] = new JRadioButton(names[i]);
+            buttons[i].setFont(Typeface.buttonPlain);
+            buttons[i].setBackground(bg);
+            buttons[i].setForeground(Colour.getFontColor());
+            group.add(buttons[i]);
+            panel.add(buttons[i]);
+        }
+
+        return panel;
+    }
+
+    /**
+     * Creates a combo box and a description with predefined configurations.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>box</b>: Change on <i>Font</i>, <i>Background</i> and
+     * <i>Foreground</i>.
+     * <p>
+     * <b>Note:</b> The JComboBox variable must already contain all the
+     * available options that will be shown once created this panel.
+     * 
+     * @param info Brief explanation of what is the purpose of the combo box
+     * @param box JComboBox containing the "String variable" options
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
+    public static JPanel createComboBox(String info, JComboBox<String> box, Color bg){
+        // Initialize new panel
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBackground(bg);
+        
+        // Initialize "info" label
+        JLabel desc = new JLabel(info);
+        desc.setFont(Typeface.labelPlain);
+        desc.setForeground(Colour.getFontColor());
+        panel.add(desc);
+
+        // Initialize combo box with the provided options
+        box.setFont(Typeface.buttonPlain);
+        box.setBackground(Colour.getButtonColor());
+        box.setForeground(Colour.getFontColor());
+        panel.add(box);
+
+        return panel;
+    }
+
+    // Missing add a function that will create just one long button 
     
     /**
      * Creates a JScrollPane with predefined configurations.
@@ -265,26 +363,35 @@ public class Component{
      * <b> - Green color</b> if it's pressed the ON button
      * <p>
      * <b> - Red color</b> if it's pressed the OFF button
+     * This was created for visuals purposes. Nothing related to a "real"
+     * functionality.
      * 
      * @param e ActionEvent to be evaluated
      * @param ON JButton to be compared as the ON button
      * @param OFF JButton to be compared as the OFF button
-     * @return boolean which indicates if the operation was successful or not
+     * @return integers 1, 0 and -1 meaning the following:
+     * <p>
+     * * <b>1</b>, if the ON button was pressed
+     * <p>
+     * * <b>0</b>, if the OFF button was pressed
+     * <p>
+     * * <b>-1</b>, if neither was pressed
      */
-    public static boolean runSwitchButtonEffect(ActionEvent e, JButton ON, JButton OFF){
+    public static int runSwitchButtonEffect(ActionEvent e, JButton ON, JButton OFF){
         if(e.getSource() == ON){
             toggleEnabledButton(ON, false, Colour.colorON);
             toggleEnabledButton(OFF, true, Colour.getButtonColor());
             OFF.requestFocusInWindow();
+            return 1;
         }else{
             if(e.getSource() == OFF){
                 toggleEnabledButton(ON, true, Colour.getButtonColor());
                 toggleEnabledButton(OFF, false, Colour.colorOFF);
                 ON.requestFocusInWindow();
-            }else
-                return false;
+                return 0;
+            }
         }
-        return true;
+        return -1;
     }
 
     /**
@@ -295,7 +402,7 @@ public class Component{
 	 * @param flag value being button's new state
 	 * @param color the life! (button)
 	 */
-	private static void toggleEnabledButton(JButton button, boolean flag, Color color){
+	public static void toggleEnabledButton(JButton button, boolean flag, Color color){
 		button.setEnabled(flag);
 		button.setBackground(color);
 	}

@@ -11,6 +11,8 @@ public class Colour {
 
 	public static final Color colorON = new Color(110,220,116);
 	public static final Color colorOFF = new Color(220,90,90);
+
+	public static final String[] available = {"Light", "Dark", "Night"};
 	
 	private static final Color[][] THEME_COLORS = {
 			{	// Light Colors
