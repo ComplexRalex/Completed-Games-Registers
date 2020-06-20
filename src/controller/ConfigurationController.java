@@ -30,10 +30,6 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	/*
 	 * PASOS SIGUIENTES PARA NO PERDERSE:
 	 * 1. Arreglar el main (para eso se tiene que crear el controlador principal)
-	 * 2. Hacer una especie de "switches ON/FF" con los botones... ON/OFF
-	 * 3. De principio deben estar seleccionadas las casillas si es que esas configuraciones
-	 * 	estaban ya activadas (obetner de modelo)
-	 * 4. Configurar acciones o eventos en el modelo segun los botones de la vista
 	 * */
 	public ConfigurationController(Configuration m, ConfigurationPanel v){
 		model = m;
