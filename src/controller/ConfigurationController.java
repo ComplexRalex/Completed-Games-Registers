@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 
 import javax.swing.AbstractButton;
-import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
 import exception.CouldNotSaveFileException;
@@ -18,6 +17,8 @@ import view.ConfigurationPanel;
 
 import util.Colour;
 import util.Component;
+import util.Language;
+import util.Advice;
 
 public class ConfigurationController implements ActionListener, FocusListener, KeyListener{
 	
@@ -151,7 +152,7 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 			}
 		}
 		if(source == view.btReturn)
-			JOptionPane.showMessageDialog(view, "You shall not pass here!");
+			Advice.showSimpleAdvice(view, Language.loadMessage("g_message"), Language.loadMessage("g_restricted"), Colour.getPrimaryColor());
 	}
 
 	@Override
