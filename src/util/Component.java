@@ -26,8 +26,9 @@ public class Component{
     private final static Dimension
         dim1LinePanel = new Dimension(width,40),
         dim2LinesPanel = new Dimension(width,80),
-        dimTextField = new Dimension(width-25,25),
-        dimButton = new Dimension(62,22),
+        dimTextField = new Dimension(width-24,25),
+        dimButton = new Dimension(150,30),
+        dimSwitchButton = new Dimension(62,22),
         dimTitle = new Dimension(0,75);
 
     /**
@@ -60,9 +61,13 @@ public class Component{
      * 
      * @param sub String that contains the subtitle
      * @param bg Background color
-     * @return JLabel that contains the subtitle provided
+     * @return JPanel that contains the subtitle provided
      */
-    public static JLabel createSubtitle(String sub, Color bg){
+    public static JPanel createSubtitle(String sub, Color bg){
+        // Initializing new panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        panel.setBackground(bg);
+
         // Initializing new label
         JLabel label = new JLabel(sub);
         label.setFont(Typeface.labelSubtitle);
@@ -71,7 +76,9 @@ public class Component{
         label.setBackground(bg);
         label.setForeground(Colour.getFontColor());
 
-        return label;
+        panel.add(label);
+
+        return panel;
     }
 
     /**
@@ -121,6 +128,15 @@ public class Component{
          */
 
         panel.add(label);
+
+        return panel;
+    }
+
+    public static JPanel createGap(int vgap, Color bg){
+        // Initialize new panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        panel.setBackground(bg);
+        panel.setPreferredSize(new Dimension(width,vgap));
 
         return panel;
     }
@@ -237,14 +253,14 @@ public class Component{
         ON.setFont(Typeface.buttonBold);
         ON.setBackground(Colour.getButtonColor());
         ON.setForeground(Colour.getFontColor());
-        ON.setPreferredSize(dimButton);
+        ON.setPreferredSize(dimSwitchButton);
         panel.add(ON);
 
         // Initializing OFF button
         OFF.setFont(Typeface.buttonBold);
         OFF.setBackground(Colour.getButtonColor());
         OFF.setForeground(Colour.getFontColor());
-        OFF.setPreferredSize(dimButton);
+        OFF.setPreferredSize(dimSwitchButton);
         panel.add(OFF);
 
         return panel;
@@ -326,6 +342,38 @@ public class Component{
         box.setForeground(Colour.getFontColor());
         panel.add(box);
 
+        return panel;
+    }
+
+    public static JPanel createSingleButton(JButton button, Color bg){
+        // Initialize new panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,12,10));
+        panel.setBackground(bg);
+
+        // Initialize single button
+        button.setFont(Typeface.buttonPlain);
+        button.setBackground(Colour.getButtonColor());
+        button.setForeground(Colour.getFontColor());
+        button.setPreferredSize(dimTextField);
+        panel.add(button);
+
+        return panel;
+    }
+
+    public static JPanel createGeneralOptions(JButton[] options, Color bg){
+        // Initialize new panel
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.setBackground(bg);
+        
+        // Initialize every option
+        for(JButton button: options){
+            button.setFont(Typeface.buttonPlain);
+            button.setBackground(Colour.getButtonColor());
+            button.setForeground(Colour.getFontColor());
+            button.setPreferredSize(dimButton);
+            panel.add(button);
+        }
+        
         return panel;
     }
 

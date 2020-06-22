@@ -61,10 +61,14 @@ public class ConfigurationPanel extends JPanel{
 		scrollOptions.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollOptions.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
 		
+		// - Establishing "general settings" subtitle
+
+		pGeneralOptions.add(Component.createSubtitle(Language.loadMessage("cf_general"),Colour.getPrimaryColor()));
+
 		// - Establishing the username option
 
 		txtUser = new JTextField();
-		pGeneralOptions.add(Component.createTextField(Language.loadMessage("cf_change_user"), txtUser, Colour.getPrimaryColor()));
+		pGeneralOptions.add(Component.createTextField(Language.loadMessage("cf_change_user"), txtUser, Colour.getBackgroundColor()));
 
 		// - Establishing the auto-save options
 		
@@ -81,43 +85,42 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing the theme options
 		
 		btTheme = new JRadioButton[Colour.available.length];
-		pGeneralOptions.add(Component.createRadioButtons(Language.loadMessage("cf_theme"), Colour.available, btTheme, Colour.getPrimaryColor()));
+		pGeneralOptions.add(Component.createRadioButtons(Language.loadMessage("cf_theme"), Colour.available, btTheme, Colour.getBackgroundColor()));
 		
 		// - Establishing language options
 
 		cbLang = new JComboBox<String>(Language.available);
 		pGeneralOptions.add(Component.createComboBox(Language.loadMessage("cf_lang"), cbLang, Colour.getBackgroundColor()));
 
-		// - Establishing.... test stuff
+		// - Establishing gap XD
 
-		pGeneralOptions.add(Component.createPlainText(
-			"This is just a text test.... or test text? I don't know! "+
-			"Are you still reading this? I mean, it's okay but this is "+
-			"just a sample text! Don't give it too much attention dude!"
-			,
-			Colour.getPrimaryColor())
-		);
+		pGeneralOptions.add(Component.createGap(35,Colour.getBackgroundColor()));
+
+		// - Establishing "delicated stuff" subtitle
+
+		pGeneralOptions.add(Component.createSubtitle(Language.loadMessage("cf_delicate"), Colour.getPrimaryColor()));
+
+		// - Establishing "warning" message
+
+		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_warn"), Colour.getPrimaryColor()));
+
+		// - Establishing reset configuration button
+
+		btResetConfig = new JButton(Language.loadMessage("cf_reset_cf"));
+		pGeneralOptions.add(Component.createSingleButton(btResetConfig, Colour.getBackgroundColor()));
+
+		// - Establishing wipe out all data button
+
+		btWipeOut = new JButton(Language.loadMessage("cf_wipeout"));
+		pGeneralOptions.add(Component.createSingleButton(btWipeOut, Colour.getBackgroundColor()));
 
 		add(scrollOptions,BorderLayout.CENTER);
 				
 		// Establishing panel which contains "Accept" and "Return" options
 		
-		JPanel pOptions = new JPanel(new FlowLayout());
-		pOptions.setBackground(Colour.getPrimaryColor());
 		btAccept = new JButton(Language.loadMessage("g_apply"));
-		btAccept.setFont(Typeface.buttonPlain);
-		btAccept.setBackground(Colour.getButtonColor());
-		btAccept.setForeground(Colour.getFontColor());
-		btAccept.setPreferredSize(new Dimension(200,30));
-		pOptions.add(btAccept);
-		
 		btReturn = new JButton(Language.loadMessage("g_return"));
-		btReturn.setFont(Typeface.buttonPlain);
-		btReturn.setBackground(btAccept.getBackground());
-		btReturn.setForeground(btAccept.getForeground());
-		btReturn.setPreferredSize(btAccept.getPreferredSize());
-		pOptions.add(btReturn);
 		
-		add(pOptions,BorderLayout.SOUTH);
+		add(Component.createGeneralOptions(new JButton[]{btAccept,btReturn}, Colour.getPrimaryColor()),BorderLayout.SOUTH);
 	}
 }

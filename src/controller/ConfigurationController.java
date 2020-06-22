@@ -63,6 +63,13 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		}
 		
 		view.cbLang.addActionListener(this);
+
+		view.btResetConfig.addActionListener(this);
+		view.btResetConfig.addFocusListener(this);
+		view.btResetConfig.addKeyListener(this);
+		view.btWipeOut.addActionListener(this);
+		view.btWipeOut.addFocusListener(this);
+		view.btWipeOut.addKeyListener(this);
 		
 		view.btAccept.addActionListener(this);
 		view.btAccept.addFocusListener(this);
@@ -108,7 +115,24 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		autoSaveStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoSaveON, view.btAutoSaveOFF)) != -1) ? value : autoSaveStatus; 
 
 		autoBackupStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoBackupON, view.btAutoBackupOFF)) != -1) ? value : autoBackupStatus;
-			
+		
+		if(source == view.btResetConfig || source == view.btWipeOut){
+			Advice.showSimpleAdvice(
+				view,
+				"What did just happen?!",
+				"Not implemented yet.. but soon!... bye the way,"+
+				" the index of the option you chose was: "+
+					Advice.showOptionAdvice(
+						view,
+						Language.loadMessage("g_message"),
+						Language.loadMessage("cf_yousure"),
+						new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
+						Colour.getPrimaryColor()
+					),
+				Colour.getPrimaryColor()
+			);
+		}
+
 		if(source == view.btAccept){
 
 			// Change username (if qualify)

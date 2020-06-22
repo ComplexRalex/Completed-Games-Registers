@@ -33,13 +33,17 @@ public class Language{
 		languages.get("English").put("g_restricted",		"You shall not pass here!");
 		
 		languages.get("English").put("cf_title",		 	"Configuration menu");
+		languages.get("English").put("cf_general",			"General settings");
 		languages.get("English").put("cf_change_user",		"Change username:");
 		languages.get("English").put("cf_autosave", 		"Auto-save data when a change is made:");
 		languages.get("English").put("cf_autobck", 			"Auto-backup data before closing the program:");
 		languages.get("English").put("cf_theme", 			"Program theme (requires restart): ");
 		languages.get("English").put("cf_lang", 			"Program language (requires restart):");
+		languages.get("English").put("cf_delicate",			"Delicate options");
+		languages.get("English").put("cf_warn",				"Warning! think twice before clicking some of these options!");
 		languages.get("English").put("cf_reset_cf", 		"Reset configuration to default");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
+		languages.get("English").put("cf_yousure",			"Do you really want to do it?");
 
 		languages.get("English").put("m_chale",				"Duuude, that's not fair!");
 	}
@@ -58,13 +62,17 @@ public class Language{
 		languages.get("Spanish").put("g_restricted",		"No puede pasar, ¡váyase pa' otro lado!");
 		
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
+		languages.get("Spanish").put("cf_general",			"Ajustes generales");
 		languages.get("Spanish").put("cf_change_user",		"Cambiar nombre de usuario:");
 		languages.get("Spanish").put("cf_autosave",			"Guardado automático cuando se realice un cambio:");
 		languages.get("Spanish").put("cf_autobck", 			"Respaldo automático antes de finalizar el programa:");
 		languages.get("Spanish").put("cf_theme", 			"Tema del programa (requiere reinicio): ");
 		languages.get("Spanish").put("cf_lang",				"Idioma del programa (requiere reinicio):");
+		languages.get("Spanish").put("cf_delicate",			"Opciones delicadas");
+		languages.get("Spanish").put("cf_warn",				"¡Cuidado! ¡piénsalo dos veces antes de presionar alguna de las opciones!");
 		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
+		languages.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");
 
 		languages.get("Spanish").put("m_chale",				"Chaaale... quería ver qué onda");
 	}
