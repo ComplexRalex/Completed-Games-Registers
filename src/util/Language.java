@@ -40,6 +40,8 @@ public class Language{
 		languages.get("English").put("cf_lang", 			"Program language (requires restart):");
 		languages.get("English").put("cf_reset_cf", 		"Reset configuration to default");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
+
+		languages.get("English").put("m_chale",				"Duuude, that's not fair!");
 	}
 	
 	private static void setSpanish(){
@@ -63,5 +65,7 @@ public class Language{
 		languages.get("Spanish").put("cf_lang",				"Idioma del programa (requiere reinicio):");
 		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
+
+		languages.get("Spanish").put("m_chale",				"Chaaale... quería ver qué onda");
 	}
 }

@@ -151,8 +151,9 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 				e1.printStackTrace();
 			}
 		}
-		if(source == view.btReturn)
-			Advice.showSimpleAdvice(view, Language.loadMessage("g_message"), Language.loadMessage("g_restricted"), Colour.getPrimaryColor());
+		if(source == view.btReturn){
+			Advice.showSimpleAdvice(view, Language.loadMessage("g_message"), Language.loadMessage("g_restricted"), Language.loadMessage("m_chale"), Colour.getPrimaryColor());
+		}
 	}
 
 	@Override
