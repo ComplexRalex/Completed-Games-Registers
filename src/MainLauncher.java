@@ -1,5 +1,7 @@
 import model.*;
 import util.Language;
+import util.Advice;
+import util.Colour;
 import view.*;
 import controller.*;
 import exception.CouldNotLoadFileException;
@@ -29,6 +31,9 @@ public class MainLauncher{
 		Language.initialize();
 	}
 	public static void main(String[] args){
+
+		// Initializing important stuff
+		initializer();
 		
 		//Anti-aliasing properties
 		System.setProperty("awt.useSystemAAFontSettings","on");
@@ -38,17 +43,12 @@ public class MainLauncher{
 		try {
 			configModel.loadConfiguration();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		} catch (CouldNotLoadFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		}
-
-		initializer();
 
 		ConfigurationPanel configView = new ConfigurationPanel();
 		MainWindow view = new MainWindow(configView);

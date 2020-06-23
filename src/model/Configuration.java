@@ -38,20 +38,19 @@ public class Configuration implements Serializable{
 		lang = currentLanguage = Language.available[0];
 	}
 	
-	public boolean saveConfiguration() throws FileNotFoundException, CouldNotSaveFileException{
+	public void saveConfiguration() throws FileNotFoundException, CouldNotSaveFileException{
 		FileOutputStream f = new FileOutputStream(Path.configFile);
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(this);
 			o.close();
-			return true;
 		}
 		catch(IOException e){
 			throw new CouldNotSaveFileException();
 		}
 	}
 	
-	public boolean loadConfiguration() throws FileNotFoundException, ClassNotFoundException, CouldNotLoadFileException{
+	public void loadConfiguration() throws FileNotFoundException, ClassNotFoundException, CouldNotLoadFileException{
 		FileInputStream f = new FileInputStream(Path.configFile);
 		try{
 			ObjectInputStream o = new ObjectInputStream(f);
@@ -62,13 +61,21 @@ public class Configuration implements Serializable{
 			this.autoBackup = autoBackupValue = file.autoBackup;
 			this.theme = currentTheme = file.theme;
 			this.lang = currentLanguage = file.lang;
-			return true;
 		}
 		catch(IOException e){
 			throw new CouldNotLoadFileException();
 		}
 		//JOptionPane.showConfirmDialog(null, "No se encontro el archivo de guardado.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
 		//JOptionPane.showMessageDialog(null, "El archivo de guardado no es valido.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
+	}
+
+	public void resetConfiguration(){
+		Configuration reset = new Configuration();
+		this.username = currentUsername = reset.username;
+		this.autoSave = autoSaveValue = reset.autoSave;
+		this.autoBackup = autoBackupValue = reset.autoBackup;
+		this.theme = currentTheme = reset.theme;
+		this.lang = currentLanguage = reset.lang;
 	}
 	
 	public static String getUsername(){

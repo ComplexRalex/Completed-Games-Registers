@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -24,12 +23,12 @@ public class Component{
     private final static int width = 560;
 
     private final static Dimension
-        dim1LinePanel = new Dimension(width,40),
+        dim1LinePanel = new Dimension(width,44),
         dim2LinesPanel = new Dimension(width,80),
         dimTextField = new Dimension(width-24,25),
         dimButton = new Dimension(150,30),
         dimSwitchButton = new Dimension(62,22),
-        dimTitle = new Dimension(0,75);
+        dimTitle = new Dimension(width,75);
 
     /**
      * Creates a title with predefined configurations and the string provided.
@@ -42,7 +41,7 @@ public class Component{
      */
     public static JPanel createTitle(String title, Color bg){
         // Initializing new panel
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
         panel.setBackground(bg);
         
         // Initializing JLabel into panel
@@ -132,6 +131,13 @@ public class Component{
         return panel;
     }
 
+    /**
+     * Creates a JPanel with nothing inside it.
+     * 
+     * @param vgap Height of the vertical gap
+     * @param bg Background color
+     * @return empty JPanel with <i>vgap</i> pixels of height
+     */
     public static JPanel createGap(int vgap, Color bg){
         // Initialize new panel
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
@@ -143,44 +149,98 @@ public class Component{
 
     /**
      * Creates a text field and a description text with predefined configurations.
+     * Depending on the given flag, the JPanel will contain 1 or 2 lines of
+     * components.
      * <p>
      * Note that this function will change the following properties to these
      * variables:
-     * <p>
-     * <b>var</b>: Changes on <i>Font</i> and <i>Foreground</i>.
      * <p>
      * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
      * and <i>PreferredSize</i>.
      * 
      * @param info Brief explanation of what should be filled into the text field
-     * @param var JLabel that can be changed
+     * @param field JTextField that will be added to this panel
+     * @param flag boolean value which will determine the following things:
+     * <p>
+     * - If <b>true</b>: it will create the panel with the given description and
+     * JTextField in the <i>same line</i>.
+     * <p>
+     * - If <b>false</b>: it will create the panel with the given description in
+     * the <i>first line</i> and then the JTextField in the <i>second</i>.
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
+    public static JPanel createTextField(String info, JTextField field, boolean flag, Color bg){
+        return flag ? create1LineTextField(info, field, bg) : create2LineTextField(info, field, bg);
+    }
+
+    /**
+     * Creates a text field and a description text with predefined configurations
+     * in 1 line.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
+     * and <i>PreferredSize</i>.
+     * 
+     * @param info Brief explanation of what should be filled into the text field
      * @param field JTextField that will be added to this panel
      * @param bg Background color
      * @return JPanel containing the mentioned elements
      */
-    public static JPanel createTextField(String info, JLabel var, JTextField field, Color bg){
+    private static JPanel create1LineTextField(String info, JTextField field, Color bg){
+        // Initializing new panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+        panel.setBackground(bg);
+        panel.setPreferredSize(dim1LinePanel);
+
+        // Initializing "info" label
+        JLabel desc = new JLabel(info);
+        desc.setFont(Typeface.labelPlain);
+        desc.setForeground(Colour.getFontColor());
+        panel.add(desc);
+        
+        // Initializing the text field specified
+        field.setFont(Typeface.labelPlain);
+        field.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
+        field.setForeground(Colour.getFontColor());
+        field.setPreferredSize(new Dimension(width-30-desc.getFontMetrics(Typeface.labelPlain).stringWidth(info),25));
+        panel.add(field);
+
+        return panel;
+    }
+
+    /**
+     * Creates a text field and a description text with predefined configurations
+     * in 2 lines.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
+     * and <i>PreferredSize</i>.
+     * 
+     * @param info Brief explanation of what should be filled into the text field
+     * @param field JTextField that will be added to this panel
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
+    private static JPanel create2LineTextField(String info, JTextField field, Color bg){
         // Initializing new panel
         JPanel panel = new JPanel(new GridLayout(2,1,5,3));
         panel.setBackground(bg);
         panel.setPreferredSize(dim2LinesPanel);
 
         // Initializing "description" panel above the text field.
-        // Note that it will contain the "info" and "var" strings
         JPanel description = new JPanel(new FlowLayout(FlowLayout.LEFT,15,10));
         description.setBackground(bg);
 
         // Initializing "info" label
-        JLabel desc1 = new JLabel(info);
-        desc1.setFont(Typeface.labelPlain);
-        desc1.setForeground(Colour.getFontColor());
-        description.add(desc1);
-
-        // Initializing "var" label in case it exists
-        if(var != null){
-            var.setFont(Typeface.labelBold);
-            var.setForeground(desc1.getForeground());
-            description.add(var);
-        }
+        JLabel desc = new JLabel(info);
+        desc.setFont(Typeface.labelPlain);
+        desc.setForeground(Colour.getFontColor());
+        description.add(desc);
 
         // Initializing "text field" panel which will contain the JTextField
         JPanel textfield = new JPanel(new FlowLayout());
@@ -198,24 +258,6 @@ public class Component{
         panel.add(textfield);
 
         return panel;
-    }
-
-    /**
-     * Creates a text field and a description text with predefined configurations.
-     * <p>
-     * Note that this function will change the following properties to these
-     * variables:
-     * <p>
-     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
-     * and <i>PreferredSize</i>.
-     * 
-     * @param info Brief explanation of what should be filled into the text field
-     * @param field JTextField that will be added to this panel
-     * @param bg Background color
-     * @return JPanel containing the mentioned elements
-     */
-    public static JPanel createTextField(String info, JTextField field, Color bg){
-        return createTextField(info, null, field, bg);
     }
 
     /**
@@ -345,6 +387,19 @@ public class Component{
         return panel;
     }
 
+    /**
+     * Creates a panel with a single button with predefined configurations.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>button</b>: Change on <i>Font</i>, <i>Background</i>,
+     * <i>Foreground</i> and <i>PreferredSize</i>.
+     * 
+     * @param button JButton that will be inside this JPanel
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
     public static JPanel createSingleButton(JButton button, Color bg){
         // Initialize new panel
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,12,10));
@@ -360,9 +415,23 @@ public class Component{
         return panel;
     }
 
+    /**
+     * Creates a panel with the given "general options" and with predefined
+     * configurations.
+     * <p>
+     * Note that his function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>Every element in <i>options</i> array</b>: Change on <i>Font</i>,
+     * <i>Background</i>, <i>Foreground</i> and <i>PreferredSize</i>.
+     * 
+     * @param options JButton array containing every possible option.
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
     public static JPanel createGeneralOptions(JButton[] options, Color bg){
         // Initialize new panel
-        JPanel panel = new JPanel(new FlowLayout());
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,8,8));
         panel.setBackground(bg);
         
         // Initialize every option

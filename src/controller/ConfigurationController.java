@@ -117,20 +117,16 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		autoBackupStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoBackupON, view.btAutoBackupOFF)) != -1) ? value : autoBackupStatus;
 		
 		if(source == view.btResetConfig || source == view.btWipeOut){
-			Advice.showSimpleAdvice(
+			if(Advice.showOptionAdvice(
 				view,
-				"What did just happen?!",
-				"Not implemented yet.. but soon!... bye the way,"+
-				" the index of the option you chose was: "+
-					Advice.showOptionAdvice(
-						view,
-						Language.loadMessage("g_message"),
-						Language.loadMessage("cf_yousure"),
-						new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
-						Colour.getPrimaryColor()
-					),
+				Language.loadMessage("g_message"),
+				Language.loadMessage("cf_yousure"),
+				new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
 				Colour.getPrimaryColor()
-			);
+			) == 0){
+				Advice.showSimpleAdvice(view, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+				// Aqui debe reiniciarse el programa
+			}
 		}
 
 		if(source == view.btAccept){

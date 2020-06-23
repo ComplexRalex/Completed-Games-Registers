@@ -68,7 +68,7 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing the username option
 
 		txtUser = new JTextField();
-		pGeneralOptions.add(Component.createTextField(Language.loadMessage("cf_change_user"), txtUser, Colour.getBackgroundColor()));
+		pGeneralOptions.add(Component.createTextField(Language.loadMessage("cf_change_user"), txtUser, true, Colour.getBackgroundColor()));
 
 		// - Establishing the auto-save options
 		

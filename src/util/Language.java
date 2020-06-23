@@ -16,6 +16,8 @@ public class Language{
 	}
 	
 	public static String loadMessage(String code){
+		if(Configuration.currentLanguage() == null)
+			return languages.get(defaultCase).get(code);
 		return languages.get(Configuration.currentLanguage()).get(code);
 	}
 	
@@ -30,6 +32,9 @@ public class Language{
 		languages.get("English").put("g_return",			"Return");
 		languages.get("English").put("g_change", 			"Change");
 		languages.get("English").put("g_message",			"Message");
+		languages.get("English").put("g_oops",				"Oops!");
+		languages.get("English").put("g_wentwrong",			"Something went wrong!");
+		languages.get("English").put("g_indev",				"This is not implemented yet!");
 		languages.get("English").put("g_restricted",		"You shall not pass here!");
 		
 		languages.get("English").put("cf_title",		 	"Configuration menu");
@@ -59,6 +64,9 @@ public class Language{
 		languages.get("Spanish").put("g_return",			"Regresar");
 		languages.get("Spanish").put("g_change", 			"Cambiar");
 		languages.get("Spanish").put("g_message",			"Mensaje");
+		languages.get("Spanish").put("g_oops",				"¡Ups!");
+		languages.get("Spanish").put("g_wentwrong",			"¡Algo salió mal!");
+		languages.get("Spanish").put("g_indev",				"¡Aún no se ha implementado!");
 		languages.get("Spanish").put("g_restricted",		"No puede pasar, ¡váyase pa' otro lado!");
 		
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
