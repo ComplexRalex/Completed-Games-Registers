@@ -50,6 +50,15 @@ public class Language{
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
 		languages.get("English").put("cf_yousure",			"Do you really want to do it?");
 
+		languages.get("English").put("ge_title",			"Game register");
+		languages.get("English").put("ge_main_info", 		"Main game info");
+		languages.get("English").put("ge_name",				"Game name:");
+		languages.get("English").put("ge_user_info", 		"User game info");
+		languages.get("English").put("ge_year",				"Year of completion:");
+		languages.get("English").put("ge_comment",			"Comments about the game:");
+		languages.get("English").put("ge_note",				"Some notes before playing or something else...?:");
+		languages.get("English").put("ge_spoiler",			"Wanna give a spoiler? (this won't be visible at first):");
+
 		languages.get("English").put("m_chale",				"Duuude, that's not fair!");
 	}
 	
@@ -81,6 +90,15 @@ public class Language{
 		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
 		languages.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");
+
+		languages.get("Spanish").put("ge_title",			"Registro de juego");
+		languages.get("Spanish").put("ge_main_info", 		"Información del juego");
+		languages.get("Spanish").put("ge_name",				"Nombre del juego:");
+		languages.get("Spanish").put("ge_user_info", 		"Información del usuario");
+		languages.get("Spanish").put("ge_year",				"Año de completación:");
+		languages.get("Spanish").put("ge_comment",			"Comentarios sobre el juego:");
+		languages.get("Spanish").put("ge_note",				"¿Algunas notas antes de jugar o algo...?:");
+		languages.get("Spanish").put("ge_spoiler",			"¿Quieres dar un spoiler? (no será visible al principio):");
 
 		languages.get("Spanish").put("m_chale",				"Chaaale... quería ver qué onda");
 	}

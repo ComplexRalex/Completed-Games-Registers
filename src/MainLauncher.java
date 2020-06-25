@@ -49,6 +49,9 @@ public class MainLauncher{
 		} catch (CouldNotLoadFileException e) {
 			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		}
+		
+		// test language
+		//configModel.changeLanguage("Spanish");
 
 		ConfigurationPanel configView = new ConfigurationPanel();
 		MainWindow view = new MainWindow(configView);

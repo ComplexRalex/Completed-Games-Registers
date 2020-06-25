@@ -12,7 +12,8 @@ import util.Language;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame{
-	//public PrincipalPanel pMain;
+	//public MainPanel pMain;
+	public EditGamePanel pEditGame;
 	//public GameInfoPanel pGameInfo;
 	public ConfigurationPanel pConfig;
 	
@@ -25,11 +26,12 @@ public class MainWindow extends JFrame{
 		setResizable(true);
 		
 		// Initialize the components
-		//pMain = new PrincipalPanel();
+		//pMain = new MainPanel();
+		pEditGame = new EditGamePanel();
 		//pGameInfo = new GameInfoPanel();
 		pConfig = config;
 		
-		changePanel(pConfig);
+		changePanel(pEditGame);
 	}
 	
 	public void changePanel(JPanel pNuevo){

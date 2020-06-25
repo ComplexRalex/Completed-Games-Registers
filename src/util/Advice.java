@@ -89,6 +89,7 @@ public class Advice{
         JTextArea area = new JTextArea(longMessage,5,40);
         area.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
         area.setForeground(Colour.getFontColor());
+        area.setCaretColor(Colour.getFontColor());
         area.setFont(Typeface.textPlain);
         area.setLineWrap(true);
         area.setEditable(false);

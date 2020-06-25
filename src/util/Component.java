@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -47,6 +48,7 @@ public class Component{
         // Initializing JLabel into panel
         JLabel label = new JLabel(title);
         label.setFont(Typeface.labelTitle);
+        label.setHorizontalAlignment(JLabel.CENTER);
         label.setPreferredSize(dimTitle);
         label.setBackground(panel.getBackground());
         label.setForeground(Colour.getFontColor());
@@ -155,8 +157,8 @@ public class Component{
      * Note that this function will change the following properties to these
      * variables:
      * <p>
-     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
-     * and <i>PreferredSize</i>.
+     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>,
+     * <i>CaretColor</i> and <i>PreferredSize</i>.
      * 
      * @param info Brief explanation of what should be filled into the text field
      * @param field JTextField that will be added to this panel
@@ -181,8 +183,8 @@ public class Component{
      * Note that this function will change the following properties to these
      * variables:
      * <p>
-     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
-     * and <i>PreferredSize</i>.
+     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>,
+     * <i>CaretColor</i> and <i>PreferredSize</i>.
      * 
      * @param info Brief explanation of what should be filled into the text field
      * @param field JTextField that will be added to this panel
@@ -205,6 +207,7 @@ public class Component{
         field.setFont(Typeface.labelPlain);
         field.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
         field.setForeground(Colour.getFontColor());
+        field.setCaretColor(Colour.getFontColor());
         field.setPreferredSize(new Dimension(width-30-desc.getFontMetrics(Typeface.labelPlain).stringWidth(info),25));
         panel.add(field);
 
@@ -218,8 +221,8 @@ public class Component{
      * Note that this function will change the following properties to these
      * variables:
      * <p>
-     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>
-     * and <i>PreferredSize</i>.
+     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>,
+     * <i>CaretColor</i> and <i>PreferredSize</i>.
      * 
      * @param info Brief explanation of what should be filled into the text field
      * @param field JTextField that will be added to this panel
@@ -250,12 +253,63 @@ public class Component{
         field.setFont(Typeface.labelPlain);
         field.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
         field.setForeground(Colour.getFontColor());
+        field.setCaretColor(Colour.getFontColor());
         field.setPreferredSize(dimTextField);
         textfield.add(field);
 
         // Adding those panles to the "TextField" panel
         panel.add(description);
         panel.add(textfield);
+
+        return panel;
+    }
+
+    /**
+     * Creates a text area and a description text with predefined configurations.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>area</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>,
+     * <i>CaretColor</i> and <i>PreferredSize</i>.
+     * 
+     * @param info Brief explanation of what should be filled into the text area
+     * @param area JTextArea that will be added to this panel
+     * @param rows Number of rows that JTextArea will have
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
+    public static JPanel createTextArea(String info, JTextArea area, int rows, Color bg){
+        // Initializing new SimplePanel
+        SimplePanel panel = new SimplePanel();
+        panel.setBackground(bg);
+
+        // Initializing description panel which will contain the JLabel
+        JPanel description = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+        description.setPreferredSize(dim1LinePanel);
+        description.setBackground(bg);
+
+        // Initializing label info
+        JLabel desc = new JLabel(info);
+        desc.setFont(Typeface.labelPlain);
+        desc.setForeground(Colour.getFontColor());
+        description.add(desc);
+
+        // Initializing text area field specified
+        area.setRows(rows);
+        area.setColumns(42);
+        area.setFont(Typeface.textPlain);
+        area.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
+        area.setForeground(Colour.getFontColor());
+        area.setCaretColor(Colour.getFontColor());
+        area.setLineWrap(true);
+
+        // Initializing scroll pane for the text area field
+        JScrollPane scroll = new JScrollPane(area);
+
+        // Adding those panels into the new panel
+        panel.add(description);
+        panel.add(scroll);
 
         return panel;
     }

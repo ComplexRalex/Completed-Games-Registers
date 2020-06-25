@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*;
 
 import util.Colour;
-import util.Typeface;
 import util.Language;
 import util.Component;
 import util.SimplePanel;
@@ -17,20 +16,11 @@ import util.SimplePanel;
  */
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
-	public JPanel pPass;
 	public JButton btAutoSaveON, btAutoSaveOFF, btAutoBackupON, btAutoBackupOFF, btChange, btResetConfig, btWipeOut, btAccept, btReturn;
 	public JComboBox<String> cbLang;
 	public JRadioButton btTheme[];
 	public JTextField txtUser;
-	public JLabel lbConfigMessage;
 	
-	/*
-	 * PASOS SIGUIENTES PARA NO PERDERSE XD:
-	 * 4. Agregar siguientes opciones:
-	 *  - Reset configurations to default
-	 *  - Delete ALL data (it'll request password confirmation)
-	 *  
-	 * */
 	public ConfigurationPanel(){
 		this.setLayout(new BorderLayout());
 		this.setBackground(Colour.getPrimaryColor());
@@ -44,22 +34,12 @@ public class ConfigurationPanel extends JPanel{
 
 		// Establishing the title (lol)
 		
-		JLabel lbTitle = new JLabel(Language.loadMessage("cf_title"));
-		lbTitle.setHorizontalAlignment(JLabel.CENTER);
-		lbTitle.setFont(Typeface.labelTitle);
-		lbTitle.setPreferredSize(new Dimension(0,75));
-		lbTitle.setForeground(Colour.getFontColor());
-
-		add(lbTitle,BorderLayout.NORTH);
+		add(Component.createTitle(Language.loadMessage("cf_title"), Colour.getPrimaryColor()),BorderLayout.NORTH);
 		
 		// Establishing panel of all options
 		
 		SimplePanel pGeneralOptions = new SimplePanel();
-		JScrollPane scrollOptions = new JScrollPane(pGeneralOptions);
-		scrollOptions.setBorder(BorderFactory.createLineBorder(pGeneralOptions.getBackground()));
-		scrollOptions.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollOptions.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollOptions.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
+		JScrollPane scrollOptions = Component.createScrollPane(pGeneralOptions);
 		
 		// - Establishing "general settings" subtitle
 
@@ -113,6 +93,8 @@ public class ConfigurationPanel extends JPanel{
 
 		btWipeOut = new JButton(Language.loadMessage("cf_wipeout"));
 		pGeneralOptions.add(Component.createSingleButton(btWipeOut, Colour.getBackgroundColor()));
+
+		// Adding scroll pane into the config panel
 
 		add(scrollOptions,BorderLayout.CENTER);
 				
