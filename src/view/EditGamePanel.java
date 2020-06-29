@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
@@ -12,6 +13,8 @@ import util.Colour;
 import util.Component;
 import util.Language;
 import util.SimplePanel;
+
+import model.GameStat;
 
 /**
  * Panel which contains every visual component about the game register
@@ -24,6 +27,7 @@ public class EditGamePanel extends JPanel{
     public JTextField txtName, txtYear;
     public JTextArea aComment, aNote, aSpoiler;
     public JButton btCreate, btChange, btCancel;
+    public JRadioButton btRate[];
 
     public EditGamePanel(){
         this.setLayout(new BorderLayout());
@@ -68,15 +72,36 @@ public class EditGamePanel extends JPanel{
         txtYear = new JTextField();
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_year"), txtYear, true, Colour.getBackgroundColor()));
 
+        // Establishing rating options
+
+        btRate = new JRadioButton[GameStat.RATE_OPTIONS];
+        pGameFields.add(Component.createRadioButtons(
+            Language.loadMessage("ge_rating"), 
+            new String[]{
+                Language.loadMessage("ge_rate_0"),
+                Language.loadMessage("ge_rate_1"),
+                Language.loadMessage("ge_rate_2"),
+                Language.loadMessage("ge_rate_3"),
+                Language.loadMessage("ge_rate_4"),
+                Language.loadMessage("ge_rate_5")
+            },
+            btRate,
+            Colour.getBackgroundColor()
+        ));
+        btRate[0].setSelected(true);
+
         // Establishing comment field
+
         aComment = new JTextArea();
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_comment"), aComment, 3, Colour.getBackgroundColor()));
 
         // Establishing note field
+
         aNote = new JTextArea();
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_note"), aNote, 2, Colour.getBackgroundColor()));
 
         // Establishing spoiler field
+
         aSpoiler = new JTextArea();
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_spoiler"), aSpoiler, 2, Colour.getBackgroundColor()));
 

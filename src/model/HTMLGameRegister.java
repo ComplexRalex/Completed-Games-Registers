@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 import exception.*;
 
+/**
+ * THIS IS NOT FUNCTIONAL YET, MUST CHANGE SOME LINES
+ */
 public class HTMLGameRegister {
 	private static PrintWriter fileOutput;
 	private static boolean isOpen = false;
@@ -100,8 +103,6 @@ public class HTMLGameRegister {
 				fileOutput.println("<table class=\"estiloco\" id=\""+trimmedTitle+"\">");
 				// Title of the game
 				fileOutput.println("<tr><th colspan=\"2\" class=\"title\">"+gs.getGame()+"</th></tr>");
-				// A picture (URL) of the game
-				fileOutput.println("<tr><td colspan=\"2\"><img src=\""+gs.getImage()+"\" style=\"max-width: 100%; height: auto;\"/></td></tr>");
 				// Comment by the user
 				fileOutput.println("<tr><td colspan=\"2\"class=\"review_spoiler\">"+gs.getComment()+"</td></tr>");
 				// Spoiler about the game (hide by default) by the user, if wanted
@@ -112,18 +113,6 @@ public class HTMLGameRegister {
 					fileOutput.println("<tr><td colspan=\"2\" class=\"note\">"+gs.getNote()+"</td></tr>");
 				// Year of completion
 				fileOutput.println("<tr><td class=\"mini\">Completado en el año: <b>"+gs.getYear()+"</b></td>");
-				// Completed percentage of the game (based on the Achievements or just the game story)
-				fileOutput.println("<td class=\"mini\">Porcentaje completado: <b>"+gs.getPercentage()+"%</b></td></tr>");
-				// Platforms which user owns the game (I hope this translation works xD)
-				fileOutput.println("<tr><td colspan=\"2\" class=\"platforms\">Jugado en: <b>");
-				if(gs.getPlatforms().size() == 1){fileOutput.println(gs.getPlatforms().get(0)+".");}
-				else{
-					for(String gc: gs.getPlatforms()){
-						if(gs.getPlatforms().get(gs.getPlatforms().size()-1) != gc){fileOutput.println(gc+", ");}
-						else{fileOutput.println(gc);}
-					}
-				}
-				fileOutput.println("</b></td></tr>");
 				// End of the table
 				fileOutput.println("</table></br>\n");
 			}

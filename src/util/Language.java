@@ -55,6 +55,13 @@ public class Language{
 		languages.get("English").put("ge_name",				"Game name:");
 		languages.get("English").put("ge_user_info", 		"User game info");
 		languages.get("English").put("ge_year",				"Year of completion:");
+		languages.get("English").put("ge_rating",			"Rating:");
+		languages.get("English").put("ge_rate_0",			"I don't know!");
+		languages.get("English").put("ge_rate_1",			"NOPE");
+		languages.get("English").put("ge_rate_2",			"Meh");
+		languages.get("English").put("ge_rate_3",			"Neutral");
+		languages.get("English").put("ge_rate_4",			"Nice");
+		languages.get("English").put("ge_rate_5",			"HELL YEAH!");
 		languages.get("English").put("ge_comment",			"Comments about the game:");
 		languages.get("English").put("ge_note",				"Some notes before playing or something else...?:");
 		languages.get("English").put("ge_spoiler",			"Wanna give a spoiler? (this won't be visible at first):");
@@ -96,6 +103,13 @@ public class Language{
 		languages.get("Spanish").put("ge_name",				"Nombre del juego:");
 		languages.get("Spanish").put("ge_user_info", 		"Información del usuario");
 		languages.get("Spanish").put("ge_year",				"Año de completación:");
+		languages.get("Spanish").put("ge_rating",			"Puntaje:");
+		languages.get("Spanish").put("ge_rate_0",			"¡Ni idea!");
+		languages.get("Spanish").put("ge_rate_1",			"NOPE");
+		languages.get("Spanish").put("ge_rate_2",			"Meh");
+		languages.get("Spanish").put("ge_rate_3",			"Normal");
+		languages.get("Spanish").put("ge_rate_4",			"Chido");
+		languages.get("Spanish").put("ge_rate_5",			"¡PERFECTO!");
 		languages.get("Spanish").put("ge_comment",			"Comentarios sobre el juego:");
 		languages.get("Spanish").put("ge_note",				"¿Algunas notas antes de jugar o algo...?:");
 		languages.get("Spanish").put("ge_spoiler",			"¿Quieres dar un spoiler? (no será visible al principio):");
