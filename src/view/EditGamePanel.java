@@ -111,7 +111,6 @@ public class EditGamePanel extends JPanel{
         
         btCreate = new JButton(Language.loadMessage("g_accept"));
         btChange = new JButton(Language.loadMessage("g_change"));
-        btChange.setEnabled(false);
         btCancel = new JButton(Language.loadMessage("g_cancel"));
         add(Component.createGeneralOptions(new JButton[]{btCreate, btChange, btCancel}, Colour.getPrimaryColor()),BorderLayout.SOUTH);
     }

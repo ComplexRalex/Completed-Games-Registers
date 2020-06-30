@@ -32,7 +32,10 @@ public class Language{
 		languages.get("English").put("g_return",			"Return");
 		languages.get("English").put("g_change", 			"Change");
 		languages.get("English").put("g_message",			"Message");
+		languages.get("English").put("g_warning",			"Warning!");
+		languages.get("English").put("g_success",			"Success!");
 		languages.get("English").put("g_oops",				"Oops!");
+		languages.get("English").put("g_unsaved",			"There are some unsaved changes, are you sure?");
 		languages.get("English").put("g_wentwrong",			"Something went wrong!");
 		languages.get("English").put("g_indev",				"This is not implemented yet!");
 		languages.get("English").put("g_restricted",		"You shall not pass here!");
@@ -49,6 +52,9 @@ public class Language{
 		languages.get("English").put("cf_reset_cf", 		"Reset configuration to default");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
 		languages.get("English").put("cf_yousure",			"Do you really want to do it?");
+		languages.get("English").put("cf_success",			"The settings have been saved!");
+		languages.get("English").put("cf_no_edit",			"There were no changes...");
+		languages.get("English").put("cf_reset",			"A reset is requiered!");
 
 		languages.get("English").put("ge_title",			"Game register");
 		languages.get("English").put("ge_main_info", 		"Main game info");
@@ -80,7 +86,10 @@ public class Language{
 		languages.get("Spanish").put("g_return",			"Regresar");
 		languages.get("Spanish").put("g_change", 			"Cambiar");
 		languages.get("Spanish").put("g_message",			"Mensaje");
+		languages.get("Spanish").put("g_warning",			"¡Advertencia!");
+		languages.get("Spanish").put("g_success",			"¡Éxito!");
 		languages.get("Spanish").put("g_oops",				"¡Ups!");
+		languages.get("Spanish").put("g_unsaved",			"No se han guardado algunos cambios, ¿quieres continuar?");
 		languages.get("Spanish").put("g_wentwrong",			"¡Algo salió mal!");
 		languages.get("Spanish").put("g_indev",				"¡Aún no se ha implementado!");
 		languages.get("Spanish").put("g_restricted",		"No puede pasar, ¡váyase pa' otro lado!");
@@ -97,6 +106,9 @@ public class Language{
 		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
 		languages.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");
+		languages.get("Spanish").put("cf_success",			"¡Se han guardado los cambios!");
+		languages.get("Spanish").put("cf_no_edit",			"No hubo cambios...");
+		languages.get("Spanish").put("cf_reset",			"¡Se requiere reiniciar!");
 
 		languages.get("Spanish").put("ge_title",			"Registro de juego");
 		languages.get("Spanish").put("ge_main_info", 		"Información del juego");

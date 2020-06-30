@@ -42,7 +42,7 @@ public class Colour {
 			return THEME_COLORS[Configuration.currentTheme()][0];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[0][0];
+			return THEME_COLORS[DARK_THEME][0];
 		}
 	}
 	public static Color getPrimaryColor(){
@@ -50,7 +50,7 @@ public class Colour {
 			return THEME_COLORS[Configuration.currentTheme()][1];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[0][1];
+			return THEME_COLORS[DARK_THEME][1];
 		}
 	}
 	public static Color getButtonColor(){
@@ -58,7 +58,7 @@ public class Colour {
 			return THEME_COLORS[Configuration.currentTheme()][2];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[0][2];
+			return THEME_COLORS[DARK_THEME][2];
 		}
 	}
 	public static Color getBackgroundColor(){
@@ -66,7 +66,7 @@ public class Colour {
 			return THEME_COLORS[Configuration.currentTheme()][3];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[0][3];
+			return THEME_COLORS[DARK_THEME][3];
 		}
 	}
 	

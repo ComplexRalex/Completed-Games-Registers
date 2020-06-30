@@ -2,13 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 
-import javax.swing.AbstractButton;
 import javax.swing.JRadioButton;
 
 import exception.CouldNotSaveFileException;
@@ -20,11 +15,11 @@ import util.Component;
 import util.Language;
 import util.Advice;
 
-public class ConfigurationController implements ActionListener, FocusListener, KeyListener{
+public class ConfigurationController implements ActionListener{
 	
+	private MainController parent;
 	private ConfigurationPanel view;
 	private Configuration model;
-	private Object selectedButton;
 	private int autoSaveStatus;
 	private int autoBackupStatus;
 	
@@ -32,55 +27,32 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 	 * PASOS SIGUIENTES PARA NO PERDERSE:
 	 * 1. Arreglar el main (para eso se tiene que crear el controlador principal)
 	 * */
-	public ConfigurationController(Configuration m, ConfigurationPanel v){
+	public ConfigurationController(Configuration m, ConfigurationPanel v, MainController p){
 		model = m;
 		view = v;
+		parent = p;
 	}
 	
 	public void initialize(){
-		view.txtUser.addActionListener(this);
-		view.txtUser.addFocusListener(this);
-		view.txtUser.addKeyListener(this);
-		
 		view.btAutoSaveON.addActionListener(this);
-		view.btAutoSaveON.addFocusListener(this);
-		view.btAutoSaveON.addKeyListener(this);
 		view.btAutoSaveOFF.addActionListener(this);
-		view.btAutoSaveOFF.addFocusListener(this);
-		view.btAutoSaveOFF.addKeyListener(this);
 		
 		view.btAutoBackupON.addActionListener(this);
-		view.btAutoBackupON.addFocusListener(this);
-		view.btAutoBackupON.addKeyListener(this);
 		view.btAutoBackupOFF.addActionListener(this);
-		view.btAutoBackupOFF.addFocusListener(this);
-		view.btAutoBackupOFF.addKeyListener(this);
 		
-		for(JRadioButton bt: view.btTheme){
+		for(JRadioButton bt: view.btTheme)
 			bt.addActionListener(this);
-			bt.addFocusListener(this);
-			bt.addKeyListener(this);
-		}
-		
+
 		view.cbLang.addActionListener(this);
 
 		view.btResetConfig.addActionListener(this);
-		view.btResetConfig.addFocusListener(this);
-		view.btResetConfig.addKeyListener(this);
 		view.btWipeOut.addActionListener(this);
-		view.btWipeOut.addFocusListener(this);
-		view.btWipeOut.addKeyListener(this);
 		
 		view.btAccept.addActionListener(this);
-		view.btAccept.addFocusListener(this);
-		view.btAccept.addKeyListener(this);
 		view.btReturn.addActionListener(this);
-		view.btReturn.addFocusListener(this);
-		view.btReturn.addKeyListener(this);
 		
 		obtainInitialConfig();
 		
-		selectedButton = view.btReturn;
 		view.btReturn.requestFocusInWindow();
 	}
 	
@@ -89,16 +61,20 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		
 		if(Configuration.getAutoSave()){
 			Component.toggleEnabledButton(view.btAutoSaveON, false, Colour.colorON);
+			Component.toggleEnabledButton(view.btAutoSaveOFF, true, Colour.getButtonColor());
 			autoSaveStatus = 1;
 		}else{
+			Component.toggleEnabledButton(view.btAutoSaveON, true, Colour.getButtonColor());
 			Component.toggleEnabledButton(view.btAutoSaveOFF, false, Colour.colorOFF);
 			autoSaveStatus = 0;
 		}
 
 		if(Configuration.getAutoBackup()){
 			Component.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
+			Component.toggleEnabledButton(view.btAutoBackupOFF, true, Colour.getButtonColor());
 			autoBackupStatus = 1;
 		}else{
+			Component.toggleEnabledButton(view.btAutoBackupON, true, Colour.getButtonColor());
 			Component.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
 			autoBackupStatus = 0;
 		}
@@ -106,7 +82,73 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 		
 		view.cbLang.setSelectedItem(Configuration.currentLanguage());
 	}
+
+	private boolean sameValues(){
+		boolean flag = true;
+		flag = (flag && Configuration.getUsername().equals(view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText()));
+		flag = (flag && (Configuration.getAutoSave() == (autoSaveStatus == 1)));
+		flag = (flag && (Configuration.getAutoBackup() == (autoBackupStatus == 1)));
+				
+		return flag;
+	}
 	
+	private boolean resetRequest(){
+		boolean flag = true;
+		for(int i = 0; i < view.btTheme.length; i++){
+			if(view.btTheme[i].isSelected()){
+				flag = (flag && (Configuration.currentTheme() == i));
+				break;
+			}
+		}
+		flag = (flag && Configuration.currentLanguage().equals((String)view.cbLang.getSelectedItem()));
+
+		return !flag;
+	}
+
+	private void saveCurrentSettings(){
+		// Change username (if qualify)
+		if(view.txtUser.getText().length() > 0){
+			String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
+			view.txtUser.setText(cut);
+			model.setUsername(cut);
+		}
+
+		// Toggle enable/disable autoSave option
+		switch(autoSaveStatus){
+			case 1: model.enableAutoSave(true); break;
+			case 0: model.enableAutoSave(false);
+		}
+
+		// Toggle enable/disable autoBackup option
+		switch(autoBackupStatus){
+			case 1: model.enableAutoBackup(true); break;
+			case 0: model.enableAutoBackup(false);
+		}
+
+		// Change to selected theme
+		for(int i = 0; i < view.btTheme.length; i++){
+			if(view.btTheme[i].isSelected()){
+				model.changeTheme(i);
+				break;
+			}
+		}
+
+		// Change to selected language
+		model.changeLanguage((String)view.cbLang.getSelectedItem());
+
+		saveSettings();
+	}
+
+	private void saveSettings(){
+		try {
+			model.saveConfiguration();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (CouldNotSaveFileException e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
@@ -116,7 +158,7 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 
 		autoBackupStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoBackupON, view.btAutoBackupOFF)) != -1) ? value : autoBackupStatus;
 		
-		if(source == view.btResetConfig || source == view.btWipeOut){
+		if(source == view.btResetConfig){
 			if(Advice.showOptionAdvice(
 				view,
 				Language.loadMessage("g_message"),
@@ -124,81 +166,59 @@ public class ConfigurationController implements ActionListener, FocusListener, K
 				new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
 				Colour.getPrimaryColor()
 			) == 0){
-				Advice.showSimpleAdvice(view, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
-				// Aqui debe reiniciarse el programa
+				Advice.showSimpleAdvice(
+					view,
+					Language.loadMessage("g_message"),
+					Language.loadMessage("cf_reset"),
+					Language.loadMessage("g_accept"),
+					Colour.getPrimaryColor()
+				);
+				model.setDefaultValues();
+				saveSettings();
+				parent.reset();
 			}
 		}
+
+		if(source == view.btWipeOut) Advice.showSimpleAdvice(view, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 
 		if(source == view.btAccept){
-
-			// Change username (if qualify)
-			if(view.txtUser.getText().length() > 0){
-				String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
-				view.txtUser.setText(cut);
-				model.setUsername(cut);
-			}
-
-			// Toggle enable/disable autoSave option
-			switch(autoSaveStatus){
-				case 1: model.enableAutoSave(true); break;
-				case 0: model.enableAutoSave(false);
-			}
-
-			// Toggle enable/disable autoBackup option
-			switch(autoBackupStatus){
-				case 1: model.enableAutoBackup(true); break;
-				case 0: model.enableAutoBackup(false);
-			}
-
-			// Change to selected theme
-			for(int i = 0; i < view.btTheme.length; i++){
-				if(view.btTheme[i].isSelected()){
-					model.changeTheme(i);
-					break;
+			if(resetRequest()){
+				if(Advice.showOptionAdvice(
+					view,
+					Language.loadMessage("g_warning"),
+					Language.loadMessage("cf_reset"),
+					new String[]{
+						Language.loadMessage("g_accept"),
+						Language.loadMessage("g_cancel")
+					},
+					Colour.getPrimaryColor()
+				) == 0){
+					saveCurrentSettings();
+					parent.reset();
 				}
-			}
-
-			// Change to selected language
-			model.changeLanguage((String)view.cbLang.getSelectedItem());
-
-			try {
-				model.saveConfiguration();
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (CouldNotSaveFileException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			} else if(!sameValues()){
+				saveCurrentSettings();
+				Advice.showSimpleAdvice(view, Language.loadMessage("g_success"), Language.loadMessage("cf_success"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+			} else
+				Advice.showSimpleAdvice(view, Language.loadMessage("g_message"), Language.loadMessage("cf_no_edit"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		}
 		if(source == view.btReturn){
-			Advice.showSimpleAdvice(view, Language.loadMessage("g_message"), Language.loadMessage("g_restricted"), Language.loadMessage("m_chale"), Colour.getPrimaryColor());
+			if(sameValues() && !resetRequest())
+				parent.frame.changePanel(parent.frame.pEditGame);
+			else
+				if(Advice.showOptionAdvice(
+					view,Language.loadMessage("g_warning"),
+					Language.loadMessage("g_unsaved"),
+					new String[]{
+						Language.loadMessage("g_accept"),
+						Language.loadMessage("g_cancel")
+					},
+					Colour.getPrimaryColor()
+				) == 0){
+					obtainInitialConfig();
+					parent.frame.changePanel(parent.frame.pEditGame);
+				}
 		}
 	}
-
-	@Override
-	public void focusGained(FocusEvent e) {
-		if(e.getSource() == view.txtUser)
-			selectedButton = view.btChange;
-		else
-			selectedButton = e.getSource();
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if(e.getKeyChar() == KeyEvent.VK_ENTER)
-			((AbstractButton)selectedButton).doClick();
-		if(e.getSource() != view.txtUser)
-			e.consume();
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {}
-
-	@Override
-	public void keyReleased(KeyEvent e) {}
 
 }

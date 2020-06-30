@@ -16,7 +16,7 @@ import util.SimplePanel;
  */
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
-	public JButton btAutoSaveON, btAutoSaveOFF, btAutoBackupON, btAutoBackupOFF, btChange, btResetConfig, btWipeOut, btAccept, btReturn;
+	public JButton btAutoSaveON, btAutoSaveOFF, btAutoBackupON, btAutoBackupOFF, btResetConfig, btWipeOut, btAccept, btReturn;
 	public JComboBox<String> cbLang;
 	public JRadioButton btTheme[];
 	public JTextField txtUser;

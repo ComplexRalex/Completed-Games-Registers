@@ -31,10 +31,14 @@ public class Configuration implements Serializable{
 	private String lang;
 	
 	public Configuration(){
+		setDefaultValues();
+	}
+
+	public void setDefaultValues(){
 		username = currentUsername = "Username";
 		autoSave = autoSaveValue = true;
 		autoBackup = autoBackupValue = false;
-		theme = currentTheme = Colour.LIGHT_THEME;
+		theme = currentTheme = Colour.DARK_THEME;
 		lang = currentLanguage = Language.available[0];
 	}
 	
@@ -67,15 +71,6 @@ public class Configuration implements Serializable{
 		}
 		//JOptionPane.showConfirmDialog(null, "No se encontro el archivo de guardado.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
 		//JOptionPane.showMessageDialog(null, "El archivo de guardado no es valido.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
-	}
-
-	public void resetConfiguration(){
-		Configuration reset = new Configuration();
-		this.username = currentUsername = reset.username;
-		this.autoSave = autoSaveValue = reset.autoSave;
-		this.autoBackup = autoBackupValue = reset.autoBackup;
-		this.theme = currentTheme = reset.theme;
-		this.lang = currentLanguage = reset.lang;
 	}
 	
 	public static String getUsername(){
