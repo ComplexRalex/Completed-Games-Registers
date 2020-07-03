@@ -3,6 +3,11 @@ package util;
 import java.awt.Color;
 import model.Configuration;
 
+/**
+ * RALEX XD DON'T FORGET TO ADD THE POSSIBILITY TO ADD CUSTOM THEMES!
+ * (later...) 
+ */
+
 public class Colour {
 
 	public static final int LIGHT_THEME = 0;

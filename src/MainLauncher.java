@@ -20,7 +20,7 @@ public class MainLauncher{
 	public static void initializer(){
 		// Anti-aliasing properties
 		System.setProperty("awt.useSystemAAFontSettings","on");
-		System.setProperty("swing.aatext", "true");
+		System.setProperty("swing.aatext","true");
 	}
 	public static void main(String[] args){
 

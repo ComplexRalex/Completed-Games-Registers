@@ -3,6 +3,12 @@ package util;
 import java.util.HashMap;
 import model.Configuration;
 
+/**
+ * RALEX, DON'T FORGET TO ADD THE POSSIBILITY TO INCLUDE CUSTOM LANGUAGES FROM JSON FILES
+ * (I mean, if the language you are looking for isn't included in the system, you can add
+ * it just by including it in a JSON file in a specified folder location)
+ */
+
 public class Language{
 	
 	public static final String defaultCase = "English";

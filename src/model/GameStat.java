@@ -1,7 +1,12 @@
 package model;
 
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -92,16 +97,31 @@ public class GameStat implements Serializable{
 
 		StringBuffer response = new StringBuffer(((JSONObject)((JSONArray)json.get("results")).get(0)).toJSONString());
 
-		FileWriter file = new FileWriter(Path.gameInfo+this.game.toLowerCase().replaceAll("[^ ()a-zA-Z0-9+-]","").replaceAll(" ","_")+".json");
+		FileWriter file = new FileWriter(Path.gameInfo+Path.validFileName(game, "json"));
 		file.append(response);
 		file.close();
 
 		return true;
 	}
 
+	public boolean downloadGameImage() throws FileNotFoundException, IOException, ParseException{
+
+		JSONObject json = (JSONObject)(new JSONParser()).parse(new FileReader(Path.gameInfo+Path.validFileName(game, "json")));
+		BufferedImage image = ImageIO.read(new URL((String)json.get("background_image")));
+
+		ImageIO.write(image,"jpg",new File(Path.gameImage+Path.validFileName(game, "jpg")));
+
+		return true;
+	}
+
 	public boolean deleteGameInfo(){
 
-		File file = new File(Path.gameInfo+this.game.toLowerCase().replaceAll("[^ ()a-zA-Z0-9+-]","").replaceAll(" ","_")+".json");
+		File file = new File(Path.gameInfo+Path.validFileName(game, "json"));
+		return file.delete();
+	}
+
+	public boolean deleteGameImage(){
+		File file = new File(Path.gameImage+Path.validFileName(game, "jpg"));
 		return file.delete();
 	}
 }
