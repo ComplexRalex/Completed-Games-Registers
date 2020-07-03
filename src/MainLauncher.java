@@ -28,7 +28,7 @@ public class MainLauncher{
 		initializer();
 		
 		// Initialize MainController
-		MainController controller = new MainController();
+		new MainController();
 	}
 	
 }

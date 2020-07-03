@@ -3,6 +3,7 @@ package util;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
@@ -14,6 +15,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -498,6 +501,37 @@ public class Component{
         }
         
         return panel;
+    }
+
+    /**
+     * Creates a panel with a given image. Note that the image will be
+     * rescaled to a width = 560px.
+     * 
+     * @param img BufferedImage that will be inside this panel
+     * @param bg Background color
+     * @return JPanel containing a rescaled version of the given image
+     */
+    public static JPanel createImage(BufferedImage img, Color bg){
+        // Initialize new panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        panel.setBackground(bg);
+
+        // Rescale given image
+        BufferedImage scaled = null;
+        if (img != null) {
+            scaled = new BufferedImage(width, width*img.getHeight()/img.getWidth(), img.getType());
+            Graphics g = scaled.createGraphics();
+            g.drawImage(img, 0, 0, width, width*img.getHeight()/img.getWidth(), null);
+            g.dispose();
+        }
+        
+        // Initialize label that will contain the image
+        JLabel label = new JLabel(new ImageIcon(scaled));
+        label.setBackground(bg);
+        panel.add(label);
+
+        return panel;
+
     }
 
     // Missing add a function that will create just one long button 

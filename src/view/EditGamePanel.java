@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -49,7 +48,7 @@ public class EditGamePanel extends JPanel{
         // Establishing a "main game info" subtitle
 
         pGameFields.add(Component.createSubtitle(Language.loadMessage("ge_main_info"), Colour.getPrimaryColor()));
-        
+
         // Establishing game name field
 
         txtName = new JTextField();
