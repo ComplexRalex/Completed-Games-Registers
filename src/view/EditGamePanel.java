@@ -26,7 +26,7 @@ import model.GameStat;
 public class EditGamePanel extends JPanel{
     public JTextField txtName, txtYear;
     public JTextArea aComment, aNote, aSpoiler;
-    public JButton btCreate, btChange, btCancel;
+    public JButton btDownload, btDelete, btCreate, btChange, btCancel;
     public JRadioButton btRate[];
 
     public EditGamePanel(){
@@ -44,11 +44,7 @@ public class EditGamePanel extends JPanel{
         // Establishing panel of all options
 
         SimplePanel pGameFields = new SimplePanel();
-        JScrollPane scrollFields = new JScrollPane(pGameFields);
-        scrollFields.setBorder(BorderFactory.createLineBorder(pGameFields.getBackground()));
-		scrollFields.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollFields.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollFields.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
+        JScrollPane scrollFields = Component.createScrollPane(pGameFields);
         
         // Establishing a "main game info" subtitle
 
@@ -58,6 +54,16 @@ public class EditGamePanel extends JPanel{
 
         txtName = new JTextField();
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_name"), txtName, true, Colour.getBackgroundColor()));
+
+        // Establishing "download game info" button
+        
+        btDownload = new JButton(Language.loadMessage("ge_download"));
+        pGameFields.add(Component.createSingleButton(btDownload, Colour.getBackgroundColor()));
+
+        // Establishing "delete game info" button
+
+        btDelete = new JButton(Language.loadMessage("ge_delete"));
+        pGameFields.add(Component.createSingleButton(btDelete, Colour.getBackgroundColor()));
 
         // - Establishing gap XD
 

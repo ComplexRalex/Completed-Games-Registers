@@ -23,12 +23,14 @@ public class EditGameController implements ActionListener{
     }
 
     public void initialize(){
-        view.btCreate.addActionListener(this);
-        view.btChange.addActionListener(this);
-        view.btCancel.addActionListener(this);
+        view.btDownload.addActionListener(this);
+        view.btDelete.addActionListener(this);
         for(JRadioButton bt: view.btRate){
             bt.addActionListener(this);
         }
+        view.btCreate.addActionListener(this);
+        view.btChange.addActionListener(this);
+        view.btCancel.addActionListener(this);
     }
 
     public void setInitialValues(GameStat initial){

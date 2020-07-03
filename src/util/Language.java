@@ -59,6 +59,8 @@ public class Language{
 		languages.get("English").put("ge_title",			"Game register");
 		languages.get("English").put("ge_main_info", 		"Main game info");
 		languages.get("English").put("ge_name",				"Game name:");
+		languages.get("English").put("ge_download",			"Download game info from RAWG database");
+		languages.get("English").put("ge_delete",			"Delete game info from RAWG database");
 		languages.get("English").put("ge_user_info", 		"User game info");
 		languages.get("English").put("ge_year",				"Year of completion:");
 		languages.get("English").put("ge_rating",			"Rating:");
@@ -69,7 +71,7 @@ public class Language{
 		languages.get("English").put("ge_rate_4",			"Nice");
 		languages.get("English").put("ge_rate_5",			"HELL YEAH!");
 		languages.get("English").put("ge_comment",			"Comments about the game:");
-		languages.get("English").put("ge_note",				"Some notes before playing or something else...?:");
+		languages.get("English").put("ge_note",				"Some notes before playing or something...?:");
 		languages.get("English").put("ge_spoiler",			"Wanna give a spoiler? (this won't be visible at first):");
 
 		languages.get("English").put("m_chale",				"Duuude, that's not fair!");
@@ -113,6 +115,8 @@ public class Language{
 		languages.get("Spanish").put("ge_title",			"Registro de juego");
 		languages.get("Spanish").put("ge_main_info", 		"Información del juego");
 		languages.get("Spanish").put("ge_name",				"Nombre del juego:");
+		languages.get("Spanish").put("ge_download",			"Descargar información del juego de la RAWG database");
+		languages.get("Spanish").put("ge_delete",			"Borrar información del juego de la RAWG database");
 		languages.get("Spanish").put("ge_user_info", 		"Información del usuario");
 		languages.get("Spanish").put("ge_year",				"Año de completación:");
 		languages.get("Spanish").put("ge_rating",			"Puntaje:");
