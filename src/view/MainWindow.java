@@ -32,7 +32,7 @@ public class MainWindow extends JFrame{
 
 	private void setWindow(){
 		setTitle(Language.loadMessage("p_title"));
-		setIconImage((new ImageIcon(Path.images+"cartridge.png")).getImage());
+		setIconImage((new ImageIcon(Path.images+"icon.png")).getImage());
 		setSize(new Dimension((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.70),(int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.70)));
 		setMinimumSize(new Dimension(720,480));
 		setResizable(true);
