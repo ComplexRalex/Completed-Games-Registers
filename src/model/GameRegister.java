@@ -78,38 +78,24 @@ public class GameRegister{
 	}
 	
 	public boolean addGameStat(GameStat gs){
-		boolean success = false;
 		int iterator = 0;
 		for(iterator = 0; iterator < gameStats.size(); iterator++){ // Add elements sorted by their title
 			if(gs.getGame().compareToIgnoreCase(gameStats.get(iterator).getGame()) > 0) continue;
-			if(gs.getGame().compareToIgnoreCase(gameStats.get(iterator).getGame()) == 0) break;
-			gameStats.add(iterator, gs);
-			success = true;
-			break; // Maybe it could be reserved, but it's still good
+			if(gs.getGame().compareToIgnoreCase(gameStats.get(iterator).getGame()) == 0) return false;
+			break;
 		}
-		return success;
+		gameStats.add(iterator, gs);
+
+		return true;
 	}
 	
-	public boolean removeGameStat(String gt){ // Maybe useless because of the view
-		boolean success = false;
-		GameStat gs = getGameStat(gt);
-		if(gs != null){
-			gameStats.remove(gs);
-			success = true;
-		}
-		return success;
+	public boolean removeGameStat(GameStat gs){ // Maybe useless because of the view
+		if(gs != null)
+			return gameStats.remove(gs);
+
+		return false;
 	}
 	
-	public GameStat getGameStat(String gt){ // Maybe useless because of the view
-		GameStat gs = null;
-		for(GameStat i: gameStats){
-			if(i.getGame().compareTo(gt) == 0){
-				gs = i;
-				break;
-			}
-		}
-		return gs;
-	}
 	
 	public void generateHTMLPage() throws CouldNotCreateHTMLFileException, HTMLTemplateNotFoundException{
 		HTMLGameRegister.openFileOutput(Path.html);

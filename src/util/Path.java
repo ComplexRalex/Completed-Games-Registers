@@ -7,9 +7,9 @@ public class Path{
 	public static final String saveFile = dataPath+"save.dat";
 	public static final String backups = dataPath+"backup/";
 	public static final String configFile = dataPath+"config.dat";
+	public static final String gameInfo = dataPath+"game/";
 	public static final String html = dataPath+"html/";
 
 	public static final String images = srcPath+"image/";
-	public static final String consoleInfo = srcPath+"console/info/";
 	public static final String htmlTemplateFile = srcPath+"html/template.html";
 }
