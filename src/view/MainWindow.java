@@ -14,7 +14,7 @@ import util.Language;
 public class MainWindow extends JFrame{
 	//public GeneralPanel pGeneral;
 	public EditGamePanel pEditGame;
-	//public GameInfoPanel pGameInfo;
+	public ViewGamePanel pViewGame;
 	public ConfigurationPanel pConfig;
 	
 	public MainWindow(){
@@ -24,10 +24,10 @@ public class MainWindow extends JFrame{
 		// Initialize the components
 		//pGeneral = new GeneralPanel();
 		pEditGame = new EditGamePanel();
-		//pGameInfo = new GameInfoPanel();
+		pViewGame = new ViewGamePanel();
 		pConfig = new ConfigurationPanel();
 		
-		changePanel(pConfig);
+		changePanel(pViewGame);
 	}
 
 	private void setWindow(){

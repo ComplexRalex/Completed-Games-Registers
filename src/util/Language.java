@@ -45,6 +45,7 @@ public class Language{
 		languages.get("English").put("g_wentwrong",			"Something went wrong!");
 		languages.get("English").put("g_indev",				"This is not implemented yet!");
 		languages.get("English").put("g_restricted",		"You shall not pass here!");
+		languages.get("English").put("g_noinfo",			"[No info provided]");
 		
 		languages.get("English").put("cf_title",		 	"Configuration menu");
 		languages.get("English").put("cf_general",			"General settings");
@@ -63,11 +64,11 @@ public class Language{
 		languages.get("English").put("cf_reset",			"A reset is requiered!");
 
 		languages.get("English").put("ge_title",			"Game register");
-		languages.get("English").put("ge_main_info", 		"Main game info");
+		languages.get("English").put("ge_main_info", 		"Game main info");
 		languages.get("English").put("ge_name",				"Game name:");
 		languages.get("English").put("ge_download",			"Download game info from RAWG database");
 		languages.get("English").put("ge_delete",			"Delete game info from RAWG database");
-		languages.get("English").put("ge_user_info", 		"User game info");
+		languages.get("English").put("ge_user_info", 		"Game user info");
 		languages.get("English").put("ge_year",				"Year of completion:");
 		languages.get("English").put("ge_rating",			"Rating:");
 		languages.get("English").put("ge_rate_0",			"I don't know!");
@@ -79,6 +80,17 @@ public class Language{
 		languages.get("English").put("ge_comment",			"Comments about the game:");
 		languages.get("English").put("ge_note",				"Some notes before playing or something...?:");
 		languages.get("English").put("ge_spoiler",			"Wanna give a spoiler? (this won't be visible at first):");
+
+		languages.get("English").put("gv_title",			"Game info viewer");
+		languages.get("English").put("gv_db_info",			"Game database info");
+		languages.get("English").put("gv_name",				"Game name:");
+		languages.get("English").put("gv_release",			"Release date:");
+		languages.get("English").put("gv_platforms",		"Platforms where you can find this game:");
+		languages.get("English").put("gv_gneres",			"Genres of the game:");
+		languages.get("English").put("gv_tags",				"User tags:");
+		languages.get("English").put("gv_rating",			"User score:");
+		languages.get("English").put("gv_show_spoiler",		"Show spoiler");
+		languages.get("English").put("gv_hide_spoiler",		"Hide spoiler");
 
 		languages.get("English").put("m_chale",				"Duuude, that's not fair!");
 	}
@@ -101,6 +113,7 @@ public class Language{
 		languages.get("Spanish").put("g_wentwrong",			"¡Algo salió mal!");
 		languages.get("Spanish").put("g_indev",				"¡Aún no se ha implementado!");
 		languages.get("Spanish").put("g_restricted",		"No puede pasar, ¡váyase pa' otro lado!");
+		languages.get("English").put("g_noinfo",			"[No se obtuvo información]");
 		
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
 		languages.get("Spanish").put("cf_general",			"Ajustes generales");
@@ -135,6 +148,17 @@ public class Language{
 		languages.get("Spanish").put("ge_comment",			"Comentarios sobre el juego:");
 		languages.get("Spanish").put("ge_note",				"¿Algunas notas antes de jugar o algo...?:");
 		languages.get("Spanish").put("ge_spoiler",			"¿Quieres dar un spoiler? (no será visible al principio):");
+
+		languages.get("Spanish").put("gv_title",			"Datos del juego");
+		languages.get("Spanish").put("gv_db_info",			"Información de la database");
+		languages.get("Spanish").put("gv_name",				"Nombre del juego:");
+		languages.get("Spanish").put("gv_release",			"Fecha de lanzamiento:");
+		languages.get("Spanish").put("gv_platforms",		"Plataformas en donde lo puedes encontrar:");
+		languages.get("Spanish").put("gv_gneres",			"Géneros del juego:");
+		languages.get("Spanish").put("gv_tags",				"Tags de usuarios:");
+		languages.get("Spanish").put("gv_rating",			"Puntaje de usuarios:");
+		languages.get("Spanish").put("gv_show_spoiler",		"Mostrar spoiler");
+		languages.get("Spanish").put("gv_hide_spoiler",		"Ocultar spoiler");
 
 		languages.get("Spanish").put("m_chale",				"Chaaale... quería ver qué onda");
 	}

@@ -42,6 +42,7 @@ public class GameStat implements Serializable{
 	private String comment;
 	private String note;
 	private String spoiler;
+	private boolean availableInfo;
 
 	public GameStat(String g, int y, int r, String c, String n, String s){
 		game = g;
@@ -50,6 +51,7 @@ public class GameStat implements Serializable{
 		comment = c;
 		note = n;
 		spoiler = s;
+		availableInfo = false;
 	}
 	
 	public GameStat(GameStat gs){
@@ -59,6 +61,7 @@ public class GameStat implements Serializable{
 		comment = gs.getComment();
 		note = gs.getNote();
 		spoiler = gs.getSpoiler();
+		availableInfo = gs.getAvailableInfo();
 	}
 	
 	public String getGame(){return game;}
@@ -67,6 +70,7 @@ public class GameStat implements Serializable{
 	public String getComment(){return comment;}
 	public String getNote(){return note;}
 	public String getSpoiler(){return spoiler;}
+	public boolean getAvailableInfo(){return availableInfo;}
 	
 	public void setGame(String game){this.game = game;}
 	public void setYear(int year){this.year = year;}
@@ -101,7 +105,7 @@ public class GameStat implements Serializable{
 		file.append(response);
 		file.close();
 
-		return true;
+		return (availableInfo = true);
 	}
 
 	public boolean downloadGameImage() throws FileNotFoundException, IOException, ParseException{
@@ -117,10 +121,11 @@ public class GameStat implements Serializable{
 	public boolean deleteGameInfo(){
 
 		File file = new File(Path.gameInfo+Path.validFileName(game, "json"));
-		return file.delete();
+		return !(availableInfo = !file.delete());
 	}
 
 	public boolean deleteGameImage(){
+		
 		File file = new File(Path.gameImage+Path.validFileName(game, "jpg"));
 		return file.delete();
 	}
