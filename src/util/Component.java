@@ -16,7 +16,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
-import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -24,7 +23,7 @@ public class Component{
 
     public final static Insets margin = new Insets(2,2,0,2);
 
-    private final static int width = 560;
+    public final static int width = 560;
 
     private final static Dimension
         dim1LinePanel = new Dimension(width,44),
@@ -516,18 +515,9 @@ public class Component{
         // Initialize new panel
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
         panel.setBackground(bg);
-
-        // Rescale given image
-        BufferedImage scaled = null;
-        if (img != null) {
-            scaled = new BufferedImage(width, width*img.getHeight()/img.getWidth(), img.getType());
-            Graphics g = scaled.createGraphics();
-            g.drawImage(img, 0, 0, width, width*img.getHeight()/img.getWidth(), null);
-            g.dispose();
-        }
         
         // Initialize label that will contain the image
-        JLabel label = new JLabel(new ImageIcon(scaled));
+        JLabel label = new JLabel(new ImageIcon(img));
         label.setBackground(bg);
         panel.add(label);
 
