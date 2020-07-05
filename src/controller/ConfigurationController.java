@@ -142,10 +142,15 @@ public class ConfigurationController implements ActionListener{
 	private void saveSettings(){
 		try {
 			model.saveConfiguration();
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (CouldNotSaveFileException e1) {
-			e1.printStackTrace();
+		} catch (FileNotFoundException | CouldNotSaveFileException e1) {
+			Advice.showTextAreaAdvice(
+					null,
+					Language.loadMessage("g_oops"),
+					Language.loadMessage("g_wentwrong"),
+					e1.toString(),
+					Language.loadMessage("g_accept"),
+					Colour.getPrimaryColor()
+			);
 		}
 	}
 
@@ -160,14 +165,14 @@ public class ConfigurationController implements ActionListener{
 		
 		if(source == view.btResetConfig){
 			if(Advice.showOptionAdvice(
-				view,
+				null,
 				Language.loadMessage("g_message"),
 				Language.loadMessage("cf_yousure"),
 				new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
 				Colour.getPrimaryColor()
 			) == 0){
 				Advice.showSimpleAdvice(
-					view,
+					null,
 					Language.loadMessage("g_message"),
 					Language.loadMessage("cf_reset"),
 					Language.loadMessage("g_accept"),
@@ -179,12 +184,12 @@ public class ConfigurationController implements ActionListener{
 			}
 		}
 
-		if(source == view.btWipeOut) Advice.showSimpleAdvice(view, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+		if(source == view.btWipeOut) Advice.showSimpleAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 
 		if(source == view.btAccept){
 			if(resetRequest()){
 				if(Advice.showOptionAdvice(
-					view,
+					null,
 					Language.loadMessage("g_warning"),
 					Language.loadMessage("cf_reset"),
 					new String[]{
@@ -198,16 +203,16 @@ public class ConfigurationController implements ActionListener{
 				}
 			} else if(!sameValues()){
 				saveCurrentSettings();
-				Advice.showSimpleAdvice(view, Language.loadMessage("g_success"), Language.loadMessage("cf_success"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+				Advice.showSimpleAdvice(null, Language.loadMessage("g_success"), Language.loadMessage("cf_success"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 			} else
-				Advice.showSimpleAdvice(view, Language.loadMessage("g_message"), Language.loadMessage("cf_no_edit"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+				Advice.showSimpleAdvice(null, Language.loadMessage("g_message"), Language.loadMessage("cf_no_edit"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		}
 		if(source == view.btReturn){
 			if(sameValues() && !resetRequest())
 				parent.frame.changePanel(parent.frame.pEditGame);
 			else
 				if(Advice.showOptionAdvice(
-					view,Language.loadMessage("g_warning"),
+					null,Language.loadMessage("g_warning"),
 					Language.loadMessage("g_unsaved"),
 					new String[]{
 						Language.loadMessage("g_accept"),

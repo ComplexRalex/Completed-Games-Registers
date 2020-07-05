@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ public class ViewGamePanel extends JPanel{
     public class GameDataPanel extends SimplePanel{
         public JTextField txtName, txtRelease, txtRating;
         public JTextArea aPlatforms, aGenres, aTags;
+        public BufferedImage image;
 
         public GameDataPanel(GameData gd){
             initComponents(gd);
@@ -46,8 +48,9 @@ public class ViewGamePanel extends JPanel{
             // Establishing an image
 
             try{
-                add(Component.createImage(gd.getImage(), Colour.getBackgroundColor()));
-            }catch(IOException e){Advice.showTextAreaAdvice(this, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong"), e.toString()+"The won't be shown!", Language.loadMessage("g_accept"), Colour.getPrimaryColor());}
+                image = gd.getImage();
+                add(Component.createImage(image, Colour.getBackgroundColor()));
+            }catch(IOException e){Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong"), e.toString()+"The won't be shown!", Language.loadMessage("g_accept"), Colour.getPrimaryColor());}
         
             // Establishing game name
 
@@ -81,7 +84,7 @@ public class ViewGamePanel extends JPanel{
 
             aTags = new JTextArea(oneLineList(gd.getTags()));
             aTags.setEnabled(false);
-            add(Component.createTextArea(Language.loadMessage("gv_tags"), aTags, 2, Colour.getBackgroundColor()));
+            add(Component.createTextArea(Language.loadMessage("gv_tags"), aTags, 3, Colour.getBackgroundColor()));
 
             // Establishing game rating
 
@@ -182,8 +185,7 @@ public class ViewGamePanel extends JPanel{
 
         aSpoiler = new JTextArea();
         aSpoiler.setEnabled(false);
-        pSpoiler = Component.createTextArea(Language.loadMessage("ge_spoiler"), aSpoiler, 2, Colour.getBackgroundColor());
-        pSpoiler.setVisible(false);
+        pSpoiler = Component.createTextArea(Language.loadMessage("ge_spoiler"), aSpoiler, 2, Colour.getPrimaryColor());
         pGameFields.add(pSpoiler,c);
         c.gridy = 0;
 
@@ -209,11 +211,12 @@ public class ViewGamePanel extends JPanel{
     public void addDatabaseInfo(GameData gd){
         c.gridy = 0;
         pGameData = new GameDataPanel(gd);
-        add(pGameData,c);
+        pGameFields.add(pGameData,c);
     }
 
     public void removeDatabaseInfo(){
-        remove(pGameData);
+        pGameFields.remove(pGameData);
+        pGameData.image = null;
         pGameData = null;
     }
 

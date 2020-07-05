@@ -15,6 +15,7 @@ public class MainController{
     public MainWindow frame;
     
     public EditGameController cEditGame;
+    public ViewGameController cViewGame;
     public ConfigurationController cConfig;
 
     public MainController(){
@@ -34,6 +35,9 @@ public class MainController{
         cEditGame = new EditGameController(frame.pEditGame, this);
         cEditGame.initialize();
 
+        cViewGame = new ViewGameController(frame.pViewGame, this);
+        cViewGame.initialize();
+
         cConfig = new ConfigurationController(mConfig, frame.pConfig, this);
         cConfig.initialize();
 
@@ -43,11 +47,7 @@ public class MainController{
     private void loadData(){
         try {
 			mConfig.loadConfiguration();
-		} catch (FileNotFoundException e) {
-			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
-		} catch (ClassNotFoundException e) {
-			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
-		} catch (CouldNotLoadFileException e) {
+		} catch (FileNotFoundException | ClassNotFoundException | CouldNotLoadFileException e) {
 			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		}
     }

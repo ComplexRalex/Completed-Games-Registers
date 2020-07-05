@@ -286,9 +286,10 @@ public class Component{
         // Initializing new SimplePanel
         SimplePanel panel = new SimplePanel();
         panel.setBackground(bg);
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, bg));
 
         // Initializing description panel which will contain the JLabel
-        JPanel description = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+        JPanel description = new JPanel(new FlowLayout(FlowLayout.LEFT,10,5));
         description.setPreferredSize(dim1LinePanel);
         description.setBackground(bg);
 

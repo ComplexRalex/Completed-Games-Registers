@@ -86,7 +86,7 @@ public class Language{
 		languages.get("English").put("gv_name",				"Game name:");
 		languages.get("English").put("gv_release",			"Release date:");
 		languages.get("English").put("gv_platforms",		"Platforms where you can find this game:");
-		languages.get("English").put("gv_gneres",			"Genres of the game:");
+		languages.get("English").put("gv_genres",			"Genres of the game:");
 		languages.get("English").put("gv_tags",				"User tags:");
 		languages.get("English").put("gv_rating",			"User score:");
 		languages.get("English").put("gv_show_spoiler",		"Show spoiler");
@@ -154,7 +154,7 @@ public class Language{
 		languages.get("Spanish").put("gv_name",				"Nombre del juego:");
 		languages.get("Spanish").put("gv_release",			"Fecha de lanzamiento:");
 		languages.get("Spanish").put("gv_platforms",		"Plataformas en donde lo puedes encontrar:");
-		languages.get("Spanish").put("gv_gneres",			"Géneros del juego:");
+		languages.get("Spanish").put("gv_genres",			"Géneros del juego:");
 		languages.get("Spanish").put("gv_tags",				"Tags de usuarios:");
 		languages.get("Spanish").put("gv_rating",			"Puntaje de usuarios:");
 		languages.get("Spanish").put("gv_show_spoiler",		"Mostrar spoiler");

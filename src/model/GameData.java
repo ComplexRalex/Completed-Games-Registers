@@ -72,15 +72,18 @@ public class GameData{
             if(((String)((object = (JSONObject)tags.get(i)).get("language"))).equals("eng"));
                 engTags.add((String)object.get("name"));
         }
-        String[] finalTags = (String[])engTags.toArray();
 
-        engTags.clear();
+        int size;
+        String[] finalTags = new String[size = engTags.size()];
+        for(int i = 0; i < size; i++){
+            finalTags[i] = engTags.poll();
+        }
         
         return finalTags;
     }
 
     public float getRating(){
-        return (float)data.get("rating");
+        return (float)(double)data.get("rating");
     }
 
 }

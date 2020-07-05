@@ -27,7 +27,7 @@ public class MainWindow extends JFrame{
 		pViewGame = new ViewGamePanel();
 		pConfig = new ConfigurationPanel();
 		
-		changePanel(pViewGame);
+		changePanel(pConfig);
 	}
 
 	private void setWindow(){

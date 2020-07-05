@@ -65,6 +65,6 @@ public class EditGameController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btCancel) parent.frame.changePanel(parent.frame.pConfig);
-        else Advice.showSimpleAdvice(view, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+        else Advice.showSimpleAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
     }
 }
