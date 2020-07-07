@@ -52,8 +52,6 @@ public class ConfigurationController implements ActionListener{
 		view.btReturn.addActionListener(this);
 		
 		obtainInitialConfig();
-		
-		view.btReturn.requestFocusInWindow();
 	}
 	
 	public void obtainInitialConfig(){
@@ -111,6 +109,7 @@ public class ConfigurationController implements ActionListener{
 			String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
 			view.txtUser.setText(cut);
 			model.setUsername(cut);
+			parent.frame.pGeneral.lbUser.setText(cut);
 		}
 
 		// Toggle enable/disable autoSave option
@@ -209,7 +208,7 @@ public class ConfigurationController implements ActionListener{
 		}
 		if(source == view.btReturn){
 			if(sameValues() && !resetRequest())
-				parent.frame.changePanel(parent.frame.pEditGame);
+				parent.frame.changePanel(parent.frame.pGeneral);
 			else
 				if(Advice.showOptionAdvice(
 					null,Language.loadMessage("g_warning"),
@@ -221,7 +220,7 @@ public class ConfigurationController implements ActionListener{
 					Colour.getPrimaryColor()
 				) == 0){
 					obtainInitialConfig();
-					parent.frame.changePanel(parent.frame.pEditGame);
+					parent.frame.changePanel(parent.frame.pGeneral);
 				}
 		}
 	}

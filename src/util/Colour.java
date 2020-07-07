@@ -74,5 +74,9 @@ public class Colour {
 			return THEME_COLORS[DARK_THEME][3];
 		}
 	}
+
+	public static int getLuminance(Color color){
+		return (color.getRed()+color.getGreen()+color.getBlue())/3;
+	}
 	
 }

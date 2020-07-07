@@ -13,6 +13,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Graphics2D;
+import java.awt.AlphaComposite;
+import java.awt.geom.Rectangle2D;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -25,11 +28,10 @@ public class Component{
 
     public final static int width = 560;
 
-    private final static Dimension
+    public final static Dimension
         dim1LinePanel = new Dimension(width,44),
         dim2LinesPanel = new Dimension(width,80),
         dimTextField = new Dimension(width-24,25),
-        dimButton = new Dimension(150,30),
         dimSwitchButton = new Dimension(62,22),
         dimTitle = new Dimension(width,75);
 
@@ -496,7 +498,6 @@ public class Component{
             button.setFont(Typeface.buttonPlain);
             button.setBackground(Colour.getButtonColor());
             button.setForeground(Colour.getFontColor());
-            button.setPreferredSize(dimButton);
             panel.add(button);
         }
         
@@ -523,6 +524,55 @@ public class Component{
 
         return panel;
 
+    }
+
+    /**
+     * Colors the given icon (with the given color) and also redraw
+     * every pixel based on the "lumminance" of such pixel, replacing
+     * its alpha value with it.
+     * <p>
+     * This means that, depending on every pixel RGB value, it will
+     * give a lumminance level which is determined by the following
+     * equation:
+     * <p>
+     * <b>lumminance</b> = (redValue + greenValue + blueValue) / 3
+     * <p>
+     * Note that the given color will replace just brighter colors.
+     * Thus, the darker colors aren't going to big change. Technically, 
+     * the way to determine this change is by using the following 
+     * equation:
+     * <p>
+     * <b>newColor</b> = oldColor*lumminance/255
+     * <p> The "brightness" parameter multiplies the previous 
+     * magnitude.
+     * 
+     * @param icon ImageIcon that will be colored
+     * @param color Destiny color of the icon
+     * @param brightness Float number which determines the level of
+     * brightness that will be increased every color channel.
+     * <p>
+     * The default value (original brightness) is <b>1.0f<b>.
+     * @return The modified ImageIcon
+     */
+    public static ImageIcon colorAndShadowIcon(ImageIcon icon, Color color, float brightness){
+        BufferedImage img = new BufferedImage(icon.getIconWidth(),icon.getIconHeight(),BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gph = (Graphics2D)img.createGraphics();
+        gph.setComposite(AlphaComposite.Src);
+        gph.drawImage(icon.getImage(), 0, 0, null);
+        gph.dispose();
+        int r = color.getRed(), g = color.getGreen(), b = color.getBlue(),
+            newR, newG, newB, luminance;
+        for(int i = 0; i < img.getWidth(); i++){
+            for(int j = 0; j < img.getHeight(); j++){
+                luminance = Colour.getLuminance(new Color(img.getRGB(i,j)));
+                img.setRGB(i, j, ((new Color(
+                    (newR = (int)(r*luminance/255*brightness)) <= 255 ? newR : 255,
+                    (newG = (int)(g*luminance/255*brightness)) <= 255 ? newG : 255,
+                    (newB = (int)(b*luminance/255*brightness)) <= 255 ? newB : 255
+                )).getRGB() & 0x00ffffff) + (luminance << 24));
+            }
+        }
+        return new ImageIcon(img);
     }
 
     // Missing add a function that will create just one long button 

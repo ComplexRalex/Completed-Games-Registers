@@ -47,6 +47,12 @@ public class Language{
 		languages.get("English").put("g_restricted",		"You shall not pass here!");
 		languages.get("English").put("g_noinfo",			"[No info provided]");
 		
+		languages.get("English").put("m_title",				"Welcome, ");
+		languages.get("English").put("m_add",				"Add game register");
+		languages.get("English").put("m_config",			"Configuration");
+		languages.get("English").put("m_about",				"About this program");
+		// languages.get("English").put("","");
+
 		languages.get("English").put("cf_title",		 	"Configuration menu");
 		languages.get("English").put("cf_general",			"General settings");
 		languages.get("English").put("cf_change_user",		"Change username:");
@@ -114,7 +120,13 @@ public class Language{
 		languages.get("Spanish").put("g_indev",				"¡Aún no se ha implementado!");
 		languages.get("Spanish").put("g_restricted",		"No puede pasar, ¡váyase pa' otro lado!");
 		languages.get("English").put("g_noinfo",			"[No se obtuvo información]");
-		
+
+		languages.get("Spanish").put("m_title",				"Hola, ");
+		languages.get("Spanish").put("m_add",				"Agregar registro de juego");
+		languages.get("Spanish").put("m_config",			"Configuración");
+		languages.get("Spanish").put("m_about",				"Acerca del programa");
+		// languages.get("Spanish").put("","");
+
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
 		languages.get("Spanish").put("cf_general",			"Ajustes generales");
 		languages.get("Spanish").put("cf_change_user",		"Cambiar nombre de usuario:");

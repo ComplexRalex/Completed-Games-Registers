@@ -12,7 +12,7 @@ import util.Language;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame{
-	//public GeneralPanel pGeneral;
+	public GeneralPanel pGeneral;
 	public EditGamePanel pEditGame;
 	public ViewGamePanel pViewGame;
 	public ConfigurationPanel pConfig;
@@ -22,12 +22,12 @@ public class MainWindow extends JFrame{
 		setWindow();
 		
 		// Initialize the components
-		//pGeneral = new GeneralPanel();
+		pGeneral = new GeneralPanel();
 		pEditGame = new EditGamePanel();
 		pViewGame = new ViewGamePanel();
 		pConfig = new ConfigurationPanel();
 		
-		changePanel(pConfig);
+		changePanel(pGeneral);
 	}
 
 	private void setWindow(){

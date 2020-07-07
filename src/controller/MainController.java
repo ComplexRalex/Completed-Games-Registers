@@ -10,10 +10,12 @@ import javax.swing.JFrame;
 
 public class MainController{
 
+    public GameRegister mGeneral;
     public Configuration mConfig;
 
     public MainWindow frame;
     
+    public GeneralController cGeneral;
     public EditGameController cEditGame;
     public ViewGameController cViewGame;
     public ConfigurationController cConfig;
@@ -25,12 +27,16 @@ public class MainController{
     }
 
     private void set(){
+        mGeneral = new GameRegister();
         mConfig = new Configuration();
 
         // Necesarry because of the custom settings
         loadData();
 
         frame = new MainWindow();
+
+        cGeneral = new GeneralController(mGeneral, frame.pGeneral, this);
+        cGeneral.initialize();
 
         cEditGame = new EditGameController(frame.pEditGame, this);
         cEditGame.initialize();

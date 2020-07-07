@@ -26,14 +26,12 @@ import util.Path;
 
 public class GameRegister{
 	private ArrayList<GameStat> gameStats;
-	private Configuration configuration;
 	
 	/* Obviously it's necessary, but most importantly because if there wasn't a "savefile" to load, it will generate 
 	 * a new an fresh-oh-yezz array list.
 	 * */
-	public GameRegister(Configuration c){
+	public GameRegister(){
 		gameStats = new ArrayList<>();
-		configuration = c;
 	}
 	
 	public void saveGameStats() throws FileNotFoundException, CouldNotSaveFileException{
@@ -114,8 +112,6 @@ public class GameRegister{
 			if(gs.getGame().toLowerCase().contains(title.toLowerCase())) gss.add(gs);
 		return gss;
 	}
-	public Configuration getConfiguration(){return configuration;}
 	
 	public void setGameStats(ArrayList<GameStat> gs){gameStats = gs;}
-	public void setConfiguration(Configuration c){configuration = c;}
 }
