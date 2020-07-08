@@ -51,7 +51,7 @@ public class Language{
 		languages.get("English").put("m_add",				"Add game register");
 		languages.get("English").put("m_config",			"Configuration");
 		languages.get("English").put("m_about",				"About this program");
-		// languages.get("English").put("","");
+		languages.get("English").put("m_help",				"How to use it?");
 
 		languages.get("English").put("cf_title",		 	"Configuration menu");
 		languages.get("English").put("cf_general",			"General settings");
@@ -125,7 +125,7 @@ public class Language{
 		languages.get("Spanish").put("m_add",				"Agregar registro de juego");
 		languages.get("Spanish").put("m_config",			"Configuración");
 		languages.get("Spanish").put("m_about",				"Acerca del programa");
-		// languages.get("Spanish").put("","");
+		languages.get("Spanish").put("m_help",				"¿Cómo se usa?");
 
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
 		languages.get("Spanish").put("cf_general",			"Ajustes generales");

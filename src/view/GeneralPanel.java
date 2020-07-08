@@ -2,9 +2,11 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Color;
+import java.awt.GridLayout;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 import util.Advice;
 import util.Colour;
@@ -24,10 +27,10 @@ import util.Typeface;
 
 @SuppressWarnings("serial")
 public class GeneralPanel extends JPanel{
-    public ImageIcon iconAdd, iconView, iconEdit, iconRemove;
-    public JButton btConfig, btAdd, btAbout;
+    public ImageIcon iconAdd, iconHelp, iconView, iconEdit, iconRemove;
+    public JButton btAdd, btHelp, btConfig, btAbout;
     public JLabel lbUser;
-    public SimplePanel pGames;
+    public ArrayList<GameRegisterPanel> pGames;
 
     public GeneralPanel(){
         setLayout(new BorderLayout());
@@ -36,14 +39,57 @@ public class GeneralPanel extends JPanel{
         initComponents();
     }
 
-    public class GameRegisterPanel{
+    public class GameRegisterPanel extends JPanel{
+        public JButton btView, btEdit, btRemove;
 
+        public GameRegisterPanel(String game){
+            setLayout(new BorderLayout());
+            setBackground(Colour.getBackgroundColor());
+            initComponents(game);
+        }
+
+        public void initComponents(String game){
+
+            JPanel title = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+            title.setBackground(this.getBackground());
+
+            JTextArea name = new JTextArea(game);
+            name.setBackground(this.getBackground());
+            name.setForeground(Colour.getFontColor());
+            name.setLineWrap(true);
+            name.setWrapStyleWord(true);
+            name.setEditable(false);
+            name.setFont(Typeface.labelBold);
+            name.setColumns(17);
+            title.add(name);
+
+            add(title,BorderLayout.WEST);
+
+            JPanel options = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
+            options.setBackground(this.getBackground());
+
+            btView = new JButton(iconView);
+            btView.setBackground(Colour.getButtonColor());
+
+            btEdit = new JButton(iconEdit);
+            btEdit.setBackground(Colour.getButtonColor());
+
+            btRemove = new JButton(iconRemove);
+            btRemove.setBackground(Colour.getButtonColor());
+
+            options.add(btView);
+            options.add(btEdit);
+            options.add(btRemove);
+
+            add(options,BorderLayout.EAST);
+        }
     }
 
     public void initIcons(){
         try {
             float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
             iconAdd = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"add.png"))),Colour.getFontColor(),brightness);
+            iconHelp = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"help.png"))),Colour.getFontColor(),brightness);
             iconView = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"view.png"))),Colour.getFontColor(),brightness);
             iconEdit = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"edit.png"))),Colour.getFontColor(),brightness);
             iconRemove = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"remove.png"))),Colour.getFontColor(),brightness);
@@ -68,33 +114,43 @@ public class GeneralPanel extends JPanel{
         pWelcome.add(lbUser);
         add(pWelcome,BorderLayout.NORTH);
 
-        pGames = new SimplePanel();
-        JScrollPane scroll = Component.createScrollPane(pGames);
-
         // ----- TEST AREA
 
-        pGames.add(Component.createPlainText("This is not finished yet... but hey! Look at these icons! They are cool, aren't they?", Colour.getPrimaryColor()));
-        JLabel label1 = new JLabel(iconAdd);
-        JLabel label2 = new JLabel(iconView);
-        JLabel label3 = new JLabel(iconEdit);
-        JLabel label4 = new JLabel(iconRemove);
-
-        JPanel icons = new JPanel(new FlowLayout());
-        icons.setBackground(this.getBackground());
-        icons.add(label1);
-        icons.add(label2);
-        icons.add(label3);
-        icons.add(label4);
-        pGames.add(icons);
-
-        // ----- END OF TEST AREA XD
+        JPanel panel = new JPanel(new GridLayout(0,1,10,6));
+        panel.setBackground(Colour.getPrimaryColor());
+        String someGames[] = {
+            "The Adventures of Chipocludencio",
+            "Thermodynamics: The game",
+            "The hyperbolic area, with the participation of Ernesto Chascarrillo"
+        };
+        for(int i = 0; i < someGames.length; i++)
+            panel.add(new GameRegisterPanel(someGames[i]));
+        JScrollPane scroll = Component.createScrollPane(panel);
 
         add(scroll,BorderLayout.CENTER);
 
-        btAdd = new JButton(Language.loadMessage("m_add"));
+        // ----- END OF TEST AREA XD
+
+        SimplePanel leftSide = new SimplePanel(Colour.getPrimaryColor());
+        btAdd = new JButton();// Language.loadMessage("m_add")
+        btAdd.setIcon(iconAdd);
+        btAdd.setBackground(Colour.getButtonColor());
+        btAdd.setForeground(Colour.getFontColor());
+        btAdd.setFont(Typeface.labelPlain);
+        leftSide.add(btAdd);
+        btHelp = new JButton();// Language.loadMessage("m_help")
+        btHelp.setIcon(iconHelp);
+        btHelp.setBackground(Colour.getButtonColor());
+        btHelp.setForeground(Colour.getFontColor());
+        btHelp.setFont(Typeface.labelPlain);
+        leftSide.add(btHelp);
+
+        add(leftSide,BorderLayout.WEST);
+        
         btConfig = new JButton(Language.loadMessage("m_config"));
         btAbout = new JButton(Language.loadMessage("m_about"));
-        add(Component.createGeneralOptions(new JButton[]{btAdd,btConfig,btAbout},Colour.getPrimaryColor()),BorderLayout.SOUTH);
+        
+        add(Component.createGeneralOptions(new JButton[]{btConfig,btAbout},Colour.getPrimaryColor()),BorderLayout.SOUTH);
     }
 
     public void addGameRegister(){

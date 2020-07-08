@@ -92,6 +92,7 @@ public class Advice{
         area.setCaretColor(Colour.getFontColor());
         area.setFont(Typeface.textPlain);
         area.setLineWrap(true);
+        area.setWrapStyleWord(true);
         area.setEditable(false);
 
         JScrollPane scroll = new JScrollPane(area,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

@@ -24,6 +24,7 @@ public class GeneralController implements ActionListener{
 
     public void initialize(){
         view.btAdd.addActionListener(this);
+        view.btHelp.addActionListener(this);
         view.btConfig.addActionListener(this);
         view.btAbout.addActionListener(this);
 

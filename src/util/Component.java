@@ -15,7 +15,6 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
-import java.awt.geom.Rectangle2D;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
@@ -308,6 +307,7 @@ public class Component{
         area.setForeground(Colour.getFontColor());
         area.setCaretColor(Colour.getFontColor());
         area.setLineWrap(true);
+        area.setWrapStyleWord(true);
 
         // Initializing scroll pane for the text area field
         JScrollPane scroll = new JScrollPane(area);

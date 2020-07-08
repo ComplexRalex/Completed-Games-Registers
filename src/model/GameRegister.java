@@ -86,6 +86,13 @@ public class GameRegister{
 
 		return true;
 	}
+
+	public GameStat getGameStat(String name){
+		for(GameStat gs: gameStats){
+			if(gs.getGame().equals(name)) return gs;
+		}
+		return null;
+	}
 	
 	public boolean removeGameStat(GameStat gs){ // Maybe useless because of the view
 		if(gs != null)

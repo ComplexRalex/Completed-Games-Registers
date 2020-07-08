@@ -55,7 +55,7 @@ public class ViewGamePanel extends JPanel{
             // Establishing game name
 
             txtName = new JTextField(gd.getName());
-            txtName.setEnabled(false);
+            txtName.setEditable(false);
             add(Component.createTextField(Language.loadMessage("gv_name"), txtName, true, Colour.getBackgroundColor()));
             
             // Establishing game release date
@@ -65,31 +65,31 @@ public class ViewGamePanel extends JPanel{
 			} catch (ParseException e) {
 				txtRelease = new JTextField(gd.getReleaseDate());
 			}
-            txtRelease.setEnabled(false);
+            txtRelease.setEditable(false);
             add(Component.createTextField(Language.loadMessage("gv_release"), txtRelease, true, Colour.getBackgroundColor()));
 
             // Establishing game platforms
 
             aPlatforms = new JTextArea(oneLineList(gd.getPlatforms()));
-            aPlatforms.setEnabled(false);
+            aPlatforms.setEditable(false);
             add(Component.createTextArea(Language.loadMessage("gv_platforms"), aPlatforms, 2, Colour.getBackgroundColor()));
 
             // Establishing game genres
 
             aGenres = new JTextArea(oneLineList(gd.getGenres()));
-            aGenres.setEnabled(false);
+            aGenres.setEditable(false);
             add(Component.createTextArea(Language.loadMessage("gv_genres"), aGenres, 2, Colour.getBackgroundColor()));
             
             // Establishing game tags
 
             aTags = new JTextArea(oneLineList(gd.getTags()));
-            aTags.setEnabled(false);
+            aTags.setEditable(false);
             add(Component.createTextArea(Language.loadMessage("gv_tags"), aTags, 3, Colour.getBackgroundColor()));
 
             // Establishing game rating
 
             txtRating = new JTextField(Float.toString(gd.getRating()));
-            txtRating.setEnabled(false);
+            txtRating.setEditable(false);
             add(Component.createTextField(Language.loadMessage("gv_rating"), txtRating, true, Colour.getBackgroundColor()));
         
             // Establishing gap
@@ -143,35 +143,35 @@ public class ViewGamePanel extends JPanel{
         // Establishing game name
 
         txtName = new JTextField();
-        txtName.setEnabled(false);
+        txtName.setEditable(false);
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_name"), txtName, true, Colour.getBackgroundColor()),c);
         c.gridy++;
 
         // Establishing year of completion
 
         txtYear = new JTextField();
-        txtYear.setEnabled(false);
+        txtYear.setEditable(false);
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_year"), txtYear, true, Colour.getBackgroundColor()),c);
         c.gridy++;
 
         // Establishing local user rating
 
         txtRate = new JTextField();
-        txtRate.setEnabled(false);
+        txtRate.setEditable(false);
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_rating"), txtRate, true, Colour.getBackgroundColor()),c);
         c.gridy++;
 
         // Establishing comments
 
         aComment = new JTextArea();
-        aComment.setEnabled(false);
+        aComment.setEditable(false);
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_comment"), aComment, 3, Colour.getBackgroundColor()),c);
         c.gridy++;
 
         // Establishing notes
 
         aNote = new JTextArea();
-        aNote.setEnabled(false);
+        aNote.setEditable(false);
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_note"), aNote, 2, Colour.getBackgroundColor()),c);
         c.gridy++;
 
@@ -184,7 +184,7 @@ public class ViewGamePanel extends JPanel{
         // Establishing spoiler
 
         aSpoiler = new JTextArea();
-        aSpoiler.setEnabled(false);
+        aSpoiler.setEditable(false);
         pSpoiler = Component.createTextArea(Language.loadMessage("ge_spoiler"), aSpoiler, 2, Colour.getPrimaryColor());
         pGameFields.add(pSpoiler,c);
         c.gridy = 0;
