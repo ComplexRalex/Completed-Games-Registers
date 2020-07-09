@@ -1,10 +1,4 @@
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import org.json.simple.parser.ParseException;
-
 import controller.MainController;
-import model.GameStat;
 
 /**
  * <h1>Registro de juegos completados en Java</h1>
@@ -38,25 +32,4 @@ public class MainLauncher{
 
 		// test();
 	}
-
-	// Testing the image and info download
-	public static void test(){
-		GameStat gs = new GameStat(
-			"Terraria",
-			2019,
-			5,
-			"Esta muy bueno, la verdad.",
-			null,
-			null
-		);
-
-		try {
-			gs.downloadGameInfo();
-			System.out.println(gs.downloadGameImage());
-		} catch (IOException | ParseException | URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 }

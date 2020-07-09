@@ -89,7 +89,7 @@ public class GameRegister{
 
 	public GameStat getGameStat(String name){
 		for(GameStat gs: gameStats){
-			if(gs.getGame().equals(name)) return gs;
+			if(gs.getGame().compareToIgnoreCase(name) == 0) return gs;
 		}
 		return null;
 	}

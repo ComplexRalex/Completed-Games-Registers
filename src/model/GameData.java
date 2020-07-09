@@ -1,22 +1,33 @@
 package model;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+// import java.nio.file.Files;
+// import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import javax.imageio.ImageIO;
 
-import java.awt.image.BufferedImage;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import org.json.simple.parser.*;
-
+import util.Component;
 import util.Path;
 
 public class GameData{
@@ -86,4 +97,85 @@ public class GameData{
         return (float)(double)data.get("rating");
     }
 
+    public static boolean downloadGameInfo(String game) throws MalformedURLException, IOException, ParseException, URISyntaxException{
+
+		URI uri = new URI("https","api.rawg.io","/api/games","search="+game,"page_size=1");
+		URL url = new URL(uri.toASCIIString());
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		
+		connection.setRequestMethod("GET");
+		connection.setConnectTimeout(5000);
+		connection.setReadTimeout(5000);
+
+		if(connection.getResponseCode() != 200) throw new IOException("Received not a good response from the server...");
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+		JSONObject json = (JSONObject)(new JSONParser()).parse(reader);
+		connection.disconnect();
+		reader.close();
+
+		if("0".equals(String.valueOf(json.get("count")))) return false;
+
+		FileWriter file = new FileWriter(Path.gameInfo+Path.validFileName(game, "json"));
+		file.append(((JSONObject)((JSONArray)json.get("results")).get(0)).toJSONString());
+		file.close();
+		file = null;
+		System.gc();
+
+		return true;
+	}
+
+	public static boolean downloadGameImage(String game) throws FileNotFoundException, IOException, ParseException{
+		JSONObject json = (JSONObject)(new JSONParser()).parse(new FileReader(Path.gameInfo+Path.validFileName(game, "json")));
+		BufferedImage image = ImageIO.read(new URL((String)json.get("background_image")));
+
+		if (image != null) {
+			int
+				n = 8, // Number of iterations that the image will be rescaled
+				delta = Component.width-image.getWidth(),
+				width, height,
+				imgWidth = image.getWidth(),
+				imgHeight = image.getHeight(); 
+			BufferedImage scaled = image;
+			Graphics2D g = null;
+			/**
+			 * In order to get the most "blockyless" image possible, it's necessary to
+			 * rescale the image some more iterations to get a better result. Also,
+			 * implementing antialiasing and bicubic interpolation will make a better
+			 * effect on this.
+			 * 
+			 * Unfortunately, the rescaled image will look blurry to maintain some
+			 * detail at that size.
+			 */
+			for(int i = 1; i <= n; i++){
+				width = imgWidth+i*delta/n;
+				height = width*imgHeight/imgWidth;
+				scaled = new BufferedImage(width, height, image.getType());
+				g = scaled.createGraphics();
+				g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+				g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+				g.drawImage(image, 0, 0, width, height, null);
+				g.dispose();
+				image = scaled;
+			}
+		}
+		ImageIO.write(image,"jpg",new File(Path.gameImage+Path.validFileName(game, "jpg")));
+		return true;
+	}
+
+	public static boolean deleteGameInfo(String game){
+
+		File file = new File(Path.gameInfo+Path.validFileName(game, "json"));
+		return file.delete();
+		// Files.delete(Paths.get(Path.gameInfo+Path.validFileName(game, "json")));
+		// return true;
+	}
+
+	public static boolean deleteGameImage(String game){
+		
+		File file = new File(Path.gameImage+Path.validFileName(game, "jpg"));
+		return file.delete();
+	}
 }

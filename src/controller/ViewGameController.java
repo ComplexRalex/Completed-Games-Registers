@@ -40,7 +40,7 @@ public class ViewGameController implements ActionListener{
         view.aSpoiler.setText(actual.getSpoiler());
         view.viewSpoiler(false);
 
-        if(actual.getAvailableInfo()){
+        if(actual.isInfoAvailable()){
             try{
                 view.addDatabaseInfo(new GameData(actual.getGame()));
 			}catch(IOException | ParseException e){
@@ -59,7 +59,7 @@ public class ViewGameController implements ActionListener{
                 view.btSpoiler.setText(Language.loadMessage("gv_show_spoiler"));
         }else{
             parent.frame.changePanel(parent.frame.pEditGame);
-            if(actual.getAvailableInfo()) view.removeDatabaseInfo();
+            if(actual.isInfoAvailable()) view.removeDatabaseInfo();
         }
 
     }

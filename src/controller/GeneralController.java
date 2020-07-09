@@ -2,12 +2,15 @@ package controller;
 
 import model.Configuration;
 import model.GameRegister;
+import model.GameStat;
 import util.Advice;
 import util.Colour;
 import util.Language;
 import view.GeneralPanel;
+import view.GeneralPanel.GameRegisterPanel;
 
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 public class GeneralController implements ActionListener{
@@ -15,11 +18,13 @@ public class GeneralController implements ActionListener{
     private MainController parent;
     private GameRegister model;
     private GeneralPanel view;
+    private HashMap<GameStat,GameRegisterPanel> games;
 
     public GeneralController(GameRegister m, GeneralPanel v, MainController p){
         model = m;
         view = v;
         parent = p;
+        games = new HashMap<>();
     }
 
     public void initialize(){
@@ -33,6 +38,20 @@ public class GeneralController implements ActionListener{
 
     public void obtainInitialValues(){
         view.lbUser.setText(Configuration.getUsername());
+
+        if(model.getGameStats().isEmpty())
+            view.addPlaceHolder();
+    }
+
+    public void add(GameStat gs){
+        if(games.isEmpty()) view.removePlaceHolder();
+        model.addGameStat(gs);
+        games.put(gs,view.new GameRegisterPanel(gs.getGame()));
+        view.addToCenter(games.get(gs));
+    }
+
+    public void updateName(GameStat gs){
+        games.get(gs).aName.setText(gs.getGame());
     }
 
     @Override

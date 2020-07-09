@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
@@ -27,20 +28,25 @@ import util.Typeface;
 
 @SuppressWarnings("serial")
 public class GeneralPanel extends JPanel{
-    public ImageIcon iconAdd, iconHelp, iconView, iconEdit, iconRemove;
+    private JPanel pCentral;
+    private ImageIcon iconAdd, iconHelp, iconView, iconEdit, iconRemove;
     public JButton btAdd, btHelp, btConfig, btAbout;
     public JLabel lbUser;
-    public ArrayList<GameRegisterPanel> pGames;
+    public FirstTimePanel pNothing;
 
     public GeneralPanel(){
         setLayout(new BorderLayout());
         setBackground(Colour.getBackgroundColor());
+
+        pNothing = new FirstTimePanel();
+
         initIcons();
         initComponents();
     }
 
     public class GameRegisterPanel extends JPanel{
         public JButton btView, btEdit, btRemove;
+        public JTextArea aName;
 
         public GameRegisterPanel(String game){
             setLayout(new BorderLayout());
@@ -53,15 +59,15 @@ public class GeneralPanel extends JPanel{
             JPanel title = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
             title.setBackground(this.getBackground());
 
-            JTextArea name = new JTextArea(game);
-            name.setBackground(this.getBackground());
-            name.setForeground(Colour.getFontColor());
-            name.setLineWrap(true);
-            name.setWrapStyleWord(true);
-            name.setEditable(false);
-            name.setFont(Typeface.labelBold);
-            name.setColumns(17);
-            title.add(name);
+            aName = new JTextArea(game);
+            aName.setBackground(this.getBackground());
+            aName.setForeground(Colour.getFontColor());
+            aName.setLineWrap(true);
+            aName.setWrapStyleWord(true);
+            aName.setEditable(false);
+            aName.setFont(Typeface.labelBold);
+            aName.setColumns(17);
+            title.add(aName);
 
             add(title,BorderLayout.WEST);
 
@@ -82,6 +88,20 @@ public class GeneralPanel extends JPanel{
             options.add(btRemove);
 
             add(options,BorderLayout.EAST);
+        }
+    }
+
+    public class FirstTimePanel extends JPanel{
+        public FirstTimePanel(){
+            setLayout(new BorderLayout());
+            setBackground(Colour.getBackgroundColor());
+            
+            JLabel message = new JLabel(Language.loadMessage("m_nothing"));
+            message.setHorizontalAlignment(JLabel.CENTER);
+            message.setForeground(Colour.getFontColor());
+            message.setFont(Typeface.labelPlain);
+
+            add(message,BorderLayout.CENTER);
         }
     }
 
@@ -116,16 +136,9 @@ public class GeneralPanel extends JPanel{
 
         // ----- TEST AREA
 
-        JPanel panel = new JPanel(new GridLayout(0,1,10,6));
-        panel.setBackground(Colour.getPrimaryColor());
-        String someGames[] = {
-            "The Adventures of Chipocludencio",
-            "Thermodynamics: The game",
-            "The hyperbolic area, with the participation of Ernesto Chascarrillo"
-        };
-        for(int i = 0; i < someGames.length; i++)
-            panel.add(new GameRegisterPanel(someGames[i]));
-        JScrollPane scroll = Component.createScrollPane(panel);
+        pCentral = new JPanel(new GridLayout(0,1,10,6));
+        pCentral.setBackground(Colour.getPrimaryColor());
+        JScrollPane scroll = Component.createScrollPane(pCentral);
 
         add(scroll,BorderLayout.CENTER);
 
@@ -153,7 +166,19 @@ public class GeneralPanel extends JPanel{
         add(Component.createGeneralOptions(new JButton[]{btConfig,btAbout},Colour.getPrimaryColor()),BorderLayout.SOUTH);
     }
 
-    public void addGameRegister(){
+    public void addToCenter(JComponent component){
+        pCentral.add(component);
+    }
 
+    public void removeFromCenter(JComponent component){
+        pCentral.remove(component);
+    }
+
+    public void addPlaceHolder(){
+        pCentral.add(pNothing);
+    }
+
+    public void removePlaceHolder(){
+        pCentral.remove(pNothing);
     }
 }

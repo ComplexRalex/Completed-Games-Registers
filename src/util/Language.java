@@ -52,6 +52,7 @@ public class Language{
 		languages.get("English").put("m_config",			"Configuration");
 		languages.get("English").put("m_about",				"About this program");
 		languages.get("English").put("m_help",				"How to use it?");
+		languages.get("English").put("m_nothing",			"...there's nothing here!");
 
 		languages.get("English").put("cf_title",		 	"Configuration menu");
 		languages.get("English").put("cf_general",			"General settings");
@@ -86,6 +87,10 @@ public class Language{
 		languages.get("English").put("ge_comment",			"Comments about the game:");
 		languages.get("English").put("ge_note",				"Some notes before playing or something...?:");
 		languages.get("English").put("ge_spoiler",			"Wanna give a spoiler? (this won't be visible at first):");
+		languages.get("English").put("ge_no_game",			"Mm... Which game are you registering?");
+		languages.get("English").put("ge_exists",			"This game is already added!");
+		languages.get("English").put("ge_downloaded",		"You've already downloaded the game data");
+		languages.get("English").put("ge_update_data",		"The game data (from database) will be re-downloaded");
 
 		languages.get("English").put("gv_title",			"Game info viewer");
 		languages.get("English").put("gv_db_info",			"Game database info");
@@ -126,6 +131,7 @@ public class Language{
 		languages.get("Spanish").put("m_config",			"Configuración");
 		languages.get("Spanish").put("m_about",				"Acerca del programa");
 		languages.get("Spanish").put("m_help",				"¿Cómo se usa?");
+		languages.get("Spanish").put("m_nothing",			"...esto se ve muy vacío");
 
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
 		languages.get("Spanish").put("cf_general",			"Ajustes generales");
@@ -160,6 +166,10 @@ public class Language{
 		languages.get("Spanish").put("ge_comment",			"Comentarios sobre el juego:");
 		languages.get("Spanish").put("ge_note",				"¿Algunas notas antes de jugar o algo...?:");
 		languages.get("Spanish").put("ge_spoiler",			"¿Quieres dar un spoiler? (no será visible al principio):");
+		languages.get("Spanish").put("ge_no_game",			"Mm... ¿Cuál juego estás registrando?");
+		languages.get("Spanish").put("ge_exists",			"¡Este juego ya fue agregado!");
+		languages.get("Spanish").put("ge_downloaded",		"Ya haz descargado la información");
+		languages.get("Spanish").put("ge_update_data",		"Los datos del juego (de la database) se volverán a descargar");
 
 		languages.get("Spanish").put("gv_title",			"Datos del juego");
 		languages.get("Spanish").put("gv_db_info",			"Información de la database");

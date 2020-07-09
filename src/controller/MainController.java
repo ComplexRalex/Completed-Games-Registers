@@ -54,7 +54,13 @@ public class MainController{
         try {
 			mConfig.loadConfiguration();
 		} catch (FileNotFoundException | ClassNotFoundException | CouldNotLoadFileException e) {
-			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong")+": ", e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+			Advice.showTextAreaAdvice(
+                null,
+                Language.loadMessage("g_oops"),
+                Language.loadMessage("g_wentwrong")+": ",
+                e.toString(), Language.loadMessage("g_accept"),
+                Colour.getPrimaryColor()
+            );
 		}
     }
 
