@@ -1,5 +1,7 @@
 package util;
 
+import java.io.StringWriter;
+import java.io.PrintWriter;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -234,5 +236,18 @@ public class Advice{
                 return i;
             };
         return -1;
+    }
+
+    /**
+     * Converts a stack trace (by a thrown Exception) into a string.
+     * 
+     * @param e Throwable
+     * @return String containing the stack trace
+     */
+    public static String getStackTrace(Throwable e){
+        StringWriter writer = new StringWriter();
+        e.printStackTrace(new PrintWriter(writer));
+
+        return writer.toString();
     }
 }

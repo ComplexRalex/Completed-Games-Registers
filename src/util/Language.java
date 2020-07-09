@@ -89,8 +89,11 @@ public class Language{
 		languages.get("English").put("ge_spoiler",			"Wanna give a spoiler? (this won't be visible at first):");
 		languages.get("English").put("ge_no_game",			"Mm... Which game are you registering?");
 		languages.get("English").put("ge_exists",			"This game is already added!");
-		languages.get("English").put("ge_downloaded",		"You've already downloaded the game data");
-		languages.get("English").put("ge_update_data",		"The game data (from database) will be re-downloaded");
+		languages.get("English").put("ge_success_download",	"The game info has been downloaded!");
+		languages.get("English").put("ge_fail_download",	"Couldn't find coincidences...");
+		languages.get("English").put("ge_success_delete",	"The game info has been deleted!");
+		languages.get("English").put("ge_downloaded",		"You've already downloaded the game info");
+		languages.get("English").put("ge_update_data",		"The game info will be re-downloaded");
 
 		languages.get("English").put("gv_title",			"Game info viewer");
 		languages.get("English").put("gv_db_info",			"Game database info");
@@ -168,8 +171,11 @@ public class Language{
 		languages.get("Spanish").put("ge_spoiler",			"¿Quieres dar un spoiler? (no será visible al principio):");
 		languages.get("Spanish").put("ge_no_game",			"Mm... ¿Cuál juego estás registrando?");
 		languages.get("Spanish").put("ge_exists",			"¡Este juego ya fue agregado!");
-		languages.get("Spanish").put("ge_downloaded",		"Ya haz descargado la información");
-		languages.get("Spanish").put("ge_update_data",		"Los datos del juego (de la database) se volverán a descargar");
+		languages.get("Spanish").put("ge_success_download",	"Se descargó la información del juego correctamente");
+		languages.get("Spanish").put("ge_fail_download",	"No se encontraron coincidencias...");
+		languages.get("Spanish").put("ge_success_delete",	"Se borró la información del juego correctamente");
+		languages.get("Spanish").put("ge_downloaded",		"Ya haz descargado la información del juego");
+		languages.get("Spanish").put("ge_update_data",		"La información del juego se volverá a descargar");
 
 		languages.get("Spanish").put("gv_title",			"Datos del juego");
 		languages.get("Spanish").put("gv_db_info",			"Información de la database");

@@ -36,7 +36,9 @@ public class GameData{
     private String game;
 
     public GameData(String name) throws FileNotFoundException, IOException, ParseException{
-        data = (JSONObject)(new JSONParser()).parse(new FileReader(Path.gameInfo+Path.validFileName(name, "json")));
+		FileReader file = new FileReader(Path.gameInfo+Path.validFileName(name, "json"));
+		data = (JSONObject)(new JSONParser()).parse(file);
+		file.close();
         game = name;
     }
 
@@ -120,14 +122,16 @@ public class GameData{
 		FileWriter file = new FileWriter(Path.gameInfo+Path.validFileName(game, "json"));
 		file.append(((JSONObject)((JSONArray)json.get("results")).get(0)).toJSONString());
 		file.close();
-		file = null;
-		System.gc();
 
 		return true;
 	}
 
-	public static boolean downloadGameImage(String game) throws FileNotFoundException, IOException, ParseException{
-		JSONObject json = (JSONObject)(new JSONParser()).parse(new FileReader(Path.gameInfo+Path.validFileName(game, "json")));
+	public static void downloadGameImage(String game) throws IOException, ParseException{
+
+		FileReader reader = new FileReader(Path.gameInfo+Path.validFileName(game, "json"));
+		JSONObject json = (JSONObject)(new JSONParser()).parse(reader);
+		reader.close();
+
 		BufferedImage image = ImageIO.read(new URL((String)json.get("background_image")));
 
 		if (image != null) {
@@ -162,20 +166,17 @@ public class GameData{
 			}
 		}
 		ImageIO.write(image,"jpg",new File(Path.gameImage+Path.validFileName(game, "jpg")));
-		return true;
 	}
 
 	public static boolean deleteGameInfo(String game){
-
+		
 		File file = new File(Path.gameInfo+Path.validFileName(game, "json"));
 		return file.delete();
-		// Files.delete(Paths.get(Path.gameInfo+Path.validFileName(game, "json")));
-		// return true;
 	}
 
-	public static boolean deleteGameImage(String game){
+	public static void deleteGameImage(String game){
 		
 		File file = new File(Path.gameImage+Path.validFileName(game, "jpg"));
-		return file.delete();
+		file.delete();
 	}
 }
