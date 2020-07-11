@@ -1,9 +1,13 @@
 package controller;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import javax.swing.JTextField;
 
 import org.json.simple.parser.ParseException;
 
@@ -17,12 +21,20 @@ import util.Colour;
 import util.Language;
 import util.Path;
 
-public class EditGameController implements ActionListener{
+public class EditGameController implements ActionListener, KeyListener{
 
     private MainController parent;
     private EditGamePanel view;
     private GameStat actual;
     private String downloaded;
+
+    private String oldName;
+    private String oldInfoName;
+    private int oldYear;
+    private int oldRate;
+    private String oldComment;
+    private String oldNote;
+    private String oldSpoiler;
 
     public EditGameController(EditGamePanel v, MainController p){
         view = v;
@@ -35,21 +47,26 @@ public class EditGameController implements ActionListener{
         view.btCreate.addActionListener(this);
         view.btChange.addActionListener(this);
         view.btCancel.addActionListener(this);
+
+        view.txtYear.addKeyListener(this);
     }
 
     public void setInitialValues(GameStat initial){
-        if(initial != null){
-            actual = initial;
-            view.txtName.setText(initial.getGame());
-            if((new File(Path.gameInfo+Path.validFileName(initial.getGame(),".json"))).exists()){
-                downloaded = initial.getGame();
+        actual = initial;
+        if(actual != null){
+            view.txtName.setText(actual.getGame());
+            if((new File(Path.gameInfo+Path.validFileName(actual.getGame(),"json"))).exists()){
+                downloaded = actual.getGame();
                 view.btDelete.setEnabled(true);
+            }else{
+                downloaded = null;
+                view.btDelete.setEnabled(false);
             }
-            view.txtYear.setText(Integer.toString(initial.getYear()));
-            view.btRate[initial.getRate()].setSelected(true);
-            view.aComment.setText(initial.getComment());
-            view.aNote.setText(initial.getNote());
-            view.aSpoiler.setText(initial.getSpoiler());
+            view.txtYear.setText(actual.getYear() <= -1 ? "" : Integer.toString(actual.getYear()));
+            view.btRate[actual.getRate()].setSelected(true);
+            view.aComment.setText(actual.getComment());
+            view.aNote.setText(actual.getNote());
+            view.aSpoiler.setText(actual.getSpoiler());
             
             view.btCreate.setEnabled(false);
             view.btCreate.setVisible(false);
@@ -70,6 +87,32 @@ public class EditGameController implements ActionListener{
             view.btChange.setEnabled(false);
             view.btChange.setVisible(false);
         }
+        oldName = view.txtName.getText().trim();
+        oldInfoName = downloaded;
+        oldYear = Integer.parseInt("".equals(view.txtYear.getText().trim()) ? "-1" : view.txtYear.getText().trim());
+        for(int i = 0; i < GameStat.RATE_OPTIONS; i++)
+            if(view.btRate[i].isSelected()){ oldRate = i; break; }
+        oldComment = view.aComment.getText();
+        oldNote = view.aNote.getText();
+        oldSpoiler = view.aSpoiler.getText();
+    }
+
+    private boolean sameValues(){
+        boolean flag = true;
+        flag = (flag && oldName.equals(view.txtName.getText().trim()));
+        try{
+            flag = (flag && oldInfoName.equals(downloaded));
+        }catch(NullPointerException e){
+            flag = (flag && null == downloaded);
+        }
+        flag = (flag && (oldYear == Integer.parseInt("".equals(view.txtYear.getText().trim()) ? "-1" : view.txtYear.getText().trim())));
+        for(int i = 0; i < GameStat.RATE_OPTIONS; i++)
+            if(view.btRate[i].isSelected()){ flag = (flag && (oldRate == i)); break; }
+        flag = (flag && oldComment.equals(view.aComment.getText()));
+        flag = (flag && oldNote.equals(view.aNote.getText()));
+        flag = (flag && oldSpoiler.equals(view.aSpoiler.getText()));
+
+        return flag;
     }
 
     public void downloadGameInfo(){
@@ -118,18 +161,38 @@ public class EditGameController implements ActionListener{
     }
 
     public void deleteGameInfo(){
-        System.out.println("Deleted info: ("+downloaded+"): "+GameData.deleteGameInfo(downloaded));
+        view.btDelete.setEnabled(!GameData.deleteGameInfo(downloaded));
         GameData.deleteGameImage(downloaded);
-        view.btDelete.setEnabled(false);
         downloaded = null;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == view.btCancel) parent.frame.changePanel(parent.frame.pGeneral);
-        else{
+        if(e.getSource() == view.btCancel){
+            if(sameValues())
+                parent.frame.changePanel(parent.frame.pGeneral);
+            else if(Advice.showOptionAdvice(
+                view,
+                Language.loadMessage("g_warning"),
+                Language.loadMessage("g_unsaved"),
+                new String[]{
+                    Language.loadMessage("g_accept"),
+                    Language.loadMessage("g_cancel")
+                },
+                Colour.getPrimaryColor()
+            ) == 0){
+                if(oldInfoName != downloaded){
+                    if(downloaded != null) deleteGameInfo();
+                    if(oldInfoName != null){
+                        view.txtName.setText(oldInfoName);
+                        downloadGameInfo();
+                    }
+                }
+                parent.frame.changePanel(parent.frame.pGeneral);
+            }
+        }else{
             String game = view.txtName.getText().trim();
-            if(parent.mGeneral.getGameStat(game) == null){
+            if(parent.mGeneral.getGameStat(game) == null || parent.mGeneral.getGameStat(game).equals(actual)){
                 
                 if(game.length() > 0){
 
@@ -155,15 +218,17 @@ public class EditGameController implements ActionListener{
     
                         int year;
                         try{
-                            year = Integer.parseInt(view.txtYear.getText());
+                            year = Integer.parseInt(view.txtYear.getText().trim());
                         }catch(NumberFormatException e1){
                             year = -1;
                         }
                         int rate = 0;
+                        for(int i = 0; i < GameStat.RATE_OPTIONS; i++)
+                            if(view.btRate[i].isSelected()){ rate = i; break; }
                         String comment = view.aComment.getText();
                         String note = view.aNote.getText();
                         String spoiler = view.aSpoiler.getText();
-    
+                        
                         // This is in case the user has changed the name of the game (just) after downloading the game info
                         if(downloaded != null && !game.equals(downloaded)){
                             Advice.showSimpleAdvice(
@@ -176,9 +241,6 @@ public class EditGameController implements ActionListener{
                             deleteGameInfo();
                             downloadGameInfo();
                         }
-                        
-                        for(int i = 0; i < GameStat.RATE_OPTIONS; i++)
-                            if(view.btRate[i].isSelected()){ rate = i; break; }
                         
                         if(e.getSource() == view.btCreate){
                             parent.cGeneral.add(
@@ -218,4 +280,16 @@ public class EditGameController implements ActionListener{
             }
         }
     }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+        if((e.getKeyChar() < KeyEvent.VK_0 || e.getKeyChar() > KeyEvent.VK_9) || ((JTextField)e.getSource()).getText().length() >= 4)
+            e.consume();
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
 }

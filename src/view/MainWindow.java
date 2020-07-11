@@ -42,7 +42,9 @@ public class MainWindow extends JFrame{
 		getContentPane().removeAll();
 		add(pNuevo);
 		pNuevo.setVisible(true);
+		getContentPane().validate();
 		getContentPane().repaint();
 		validate();
+		repaint();
 	}
 }

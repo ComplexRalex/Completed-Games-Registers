@@ -212,12 +212,16 @@ public class ViewGamePanel extends JPanel{
         c.gridy = 0;
         pGameData = new GameDataPanel(gd);
         pGameFields.add(pGameData,c);
+        validate();
+        repaint();
     }
 
     public void removeDatabaseInfo(){
         pGameFields.remove(pGameData);
         pGameData.image = null;
         pGameData = null;
+        validate();
+        repaint();
     }
 
 }

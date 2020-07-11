@@ -33,11 +33,11 @@ public class ViewGameController implements ActionListener{
     public void setInitialValues(GameStat gs){
         actual = gs;
         view.txtName.setText(actual.getGame());
-        view.txtYear.setText(Integer.toString(actual.getYear()));
-        view.txtRate.setText(Integer.toString(actual.getRate()));
-        view.aComment.setText(actual.getComment());
-        view.aNote.setText(actual.getNote());
-        view.aSpoiler.setText(actual.getSpoiler());
+        view.txtYear.setText(actual.getYear() <= -1 ? Language.loadMessage("g_noinfo") : Integer.toString(actual.getYear()));
+        view.txtRate.setText("\""+Language.loadMessage("ge_rate_"+actual.getRate())+"\"");
+        view.aComment.setText(actual.getComment().trim().equals("") ? Language.loadMessage("g_noinfo") : actual.getComment());
+        view.aNote.setText(actual.getNote().trim().equals("") ? Language.loadMessage("g_noinfo") : actual.getNote());
+        view.aSpoiler.setText(actual.getSpoiler().trim().equals("") ? Language.loadMessage("g_noinfo") : actual.getSpoiler());
         view.viewSpoiler(false);
 
         if(actual.isInfoAvailable()){
@@ -58,7 +58,7 @@ public class ViewGameController implements ActionListener{
             else
                 view.btSpoiler.setText(Language.loadMessage("gv_show_spoiler"));
         }else{
-            parent.frame.changePanel(parent.frame.pEditGame);
+            parent.frame.changePanel(parent.frame.pGeneral);
             if(actual.isInfoAvailable()) view.removeDatabaseInfo();
         }
 

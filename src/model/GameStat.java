@@ -57,7 +57,7 @@ public class GameStat implements Serializable{
 	public void setSpoiler(String spoiler){this.spoiler = spoiler;}
 
 	public boolean isInfoAvailable(){
-		return (new File(Path.gameInfo+Path.validFileName(game, ".json"))).exists();
+		return (new File(Path.gameInfo+Path.validFileName(game, "json"))).exists();
 	}
 
 }

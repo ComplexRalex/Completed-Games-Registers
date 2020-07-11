@@ -49,6 +49,7 @@ public class Language{
 		
 		languages.get("English").put("m_title",				"Welcome, ");
 		languages.get("English").put("m_add",				"Add game register");
+		languages.get("English").put("m_remove",			"Do you want to remove this register?");
 		languages.get("English").put("m_config",			"Configuration");
 		languages.get("English").put("m_about",				"About this program");
 		languages.get("English").put("m_help",				"How to use it?");
@@ -127,10 +128,11 @@ public class Language{
 		languages.get("Spanish").put("g_wentwrong",			"¡Algo salió mal!");
 		languages.get("Spanish").put("g_indev",				"¡Aún no se ha implementado!");
 		languages.get("Spanish").put("g_restricted",		"No puede pasar, ¡váyase pa' otro lado!");
-		languages.get("English").put("g_noinfo",			"[No se obtuvo información]");
+		languages.get("Spanish").put("g_noinfo",			"[No se obtuvo información]");
 
 		languages.get("Spanish").put("m_title",				"Hola, ");
 		languages.get("Spanish").put("m_add",				"Agregar registro de juego");
+		languages.get("Spanish").put("m_remove",			"¿Quieres quitar este registro?");
 		languages.get("Spanish").put("m_config",			"Configuración");
 		languages.get("Spanish").put("m_about",				"Acerca del programa");
 		languages.get("Spanish").put("m_help",				"¿Cómo se usa?");
