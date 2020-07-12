@@ -31,7 +31,7 @@ public class ViewGamePanel extends JPanel{
     public GameDataPanel pGameData;
 
     public class GameDataPanel extends SimplePanel{
-        public JTextField txtName, txtRelease, txtRating;
+        public JTextField txtName, txtDevelopers, txtPublishers, txtRelease, txtRating;
         public JTextArea aPlatforms, aGenres, aTags;
         public BufferedImage image;
 
@@ -56,12 +56,27 @@ public class ViewGamePanel extends JPanel{
 
             txtName = new JTextField(gd.getName());
             txtName.setEditable(false);
-            add(Component.createTextField(Language.loadMessage("gv_name"), txtName, true, Colour.getBackgroundColor()));
+            add(Component.createTextField(Language.loadMessage("gv_name"), txtName, true, Colour.getPrimaryColor()));
             
+            // Establishing game description
+
+            add(Component.createPlainText(gd.getDescription(), Colour.getPrimaryColor()));
+
+            // Establishing game developers
+
+            txtDevelopers = new JTextField(oneLineList(gd.getDevelopers()));
+            add(Component.createTextField(Language.loadMessage("gv_developers"), txtDevelopers, false, Colour.getBackgroundColor()));
+
+            // Establishing game publishers
+
+            txtPublishers = new JTextField(oneLineList(gd.getPublishers()));
+            add(Component.createTextField(Language.loadMessage("gv_publishers"), txtPublishers, false, Colour.getBackgroundColor()));
+
             // Establishing game release date
 
             try {
-				txtRelease = new JTextField((new SimpleDateFormat("yyyy MM dd")).parse(gd.getReleaseDate()).toString());
+                SimpleDateFormat format = new SimpleDateFormat("MMMM dd',' yyyy");
+                txtRelease = new JTextField((format.format((new SimpleDateFormat("yyyy-MM-dd")).parse(gd.getReleaseDate()))));
 			} catch (ParseException e) {
 				txtRelease = new JTextField(gd.getReleaseDate());
 			}

@@ -15,8 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-// import java.nio.file.Files;
-// import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -57,9 +56,35 @@ public class GameData{
         return (String)data.get("name");
     }
 
+	public String getDescription(){
+		return (String)data.get("description");
+	}
+
     public BufferedImage getImage() throws IOException{
         return ImageIO.read(new File(Path.gameImage+Path.validFileName(game, "jpg")));
-    }
+	}
+	
+	public String[] getDevelopers(){
+		JSONArray developers = (JSONArray)data.get("developers");
+        String[] array = new String[developers.size()];
+
+        for(int i = 0; i < developers.size(); i++){
+            array[i] = (String)((JSONObject)developers.get(i)).get("name");
+        }
+
+        return array;
+	}
+
+	public String[] getPublishers(){
+		JSONArray publishers = (JSONArray)data.get("publishers");
+        String[] array = new String[publishers.size()];
+
+        for(int i = 0; i < publishers.size(); i++){
+            array[i] = (String)((JSONObject)publishers.get(i)).get("name");
+        }
+
+        return array;
+	}
 
     public String getReleaseDate(){
         return (String)data.get("released");
@@ -108,9 +133,9 @@ public class GameData{
 
     public float getRating(){
         return (float)(double)data.get("rating");
-    }
-
-    public static boolean downloadGameInfo(String game) throws MalformedURLException, IOException, ParseException, URISyntaxException{
+	}
+	
+	private static long searchGame(String game) throws MalformedURLException, IOException, ParseException, URISyntaxException{
 
 		URI uri = new URI("https","api.rawg.io","/api/games","search="+game,"page_size=1");
 		URL url = new URL(uri.toASCIIString());
@@ -123,16 +148,35 @@ public class GameData{
 		if(connection.getResponseCode() != 200) throw new IOException("Received not a good response from the server...");
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
+		
 		JSONObject json = (JSONObject)(new JSONParser()).parse(reader);
 		connection.disconnect();
 		reader.close();
 
-		if("0".equals(String.valueOf(json.get("count")))) return false;
+		if("0".equals(String.valueOf(json.get("count")))) throw new IOException("There were no coincidences...");
+		
+		return (long)((JSONObject)((JSONArray)json.get("results")).get(0)).get("id");
+	}
 
+    public static boolean downloadGameInfo(String game) throws MalformedURLException, IOException, ParseException, URISyntaxException{
+
+		URI uri = new URI("https","api.rawg.io","/api/games/"+searchGame(game),"");
+		URL url = new URL(uri.toASCIIString());
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		
+		connection.setRequestMethod("GET");
+		connection.setConnectTimeout(5000);
+		connection.setReadTimeout(5000);
+
+		if(connection.getResponseCode() != 200) throw new IOException("Received not a good response from the server...");
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		
 		FileWriter file = new FileWriter(Path.gameInfo+Path.validFileName(game, "json"));
-		file.append(((JSONObject)((JSONArray)json.get("results")).get(0)).toJSONString());
+		file.append(((JSONObject)(new JSONParser()).parse(reader)).toJSONString());
 		file.close();
+		connection.disconnect();
+		reader.close();
 
 		return true;
 	}
