@@ -16,7 +16,7 @@ import util.SimplePanel;
  */
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
-	public JButton btAutoSaveON, btAutoSaveOFF, btAutoBackupON, btAutoBackupOFF, btResetConfig, btWipeOut, btAccept, btReturn;
+	public JButton btAutoBackupON, btAutoBackupOFF, btExitDialogON, btExitDialogOFF, btResetConfig, btWipeOut, btAccept, btReturn;
 	public JComboBox<String> cbLang;
 	public JRadioButton btTheme[];
 	public JTextField txtUser;
@@ -49,18 +49,18 @@ public class ConfigurationPanel extends JPanel{
 
 		txtUser = new JTextField();
 		pGeneralOptions.add(Component.createTextField(Language.loadMessage("cf_change_user"), txtUser, true, Colour.getBackgroundColor()));
-
-		// - Establishing the auto-save options
-		
-		btAutoSaveON = new JButton("ON");
-		btAutoSaveOFF = new JButton("OFF");
-		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_autosave"), btAutoSaveON, btAutoSaveOFF, Colour.getBackgroundColor()));
 		
 		// - Establishing the auto-backup options
-
+		
 		btAutoBackupON = new JButton("ON");
 		btAutoBackupOFF = new JButton("OFF");
 		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_autobck"), btAutoBackupON, btAutoBackupOFF, Colour.getBackgroundColor()));
+
+		// - Establishing "show dialog on close" options
+		
+		btExitDialogON = new JButton("ON");
+		btExitDialogOFF = new JButton("OFF");
+		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_ask_on_close"), btExitDialogON, btExitDialogOFF, Colour.getBackgroundColor()));
 		
 		// - Establishing the theme options
 		

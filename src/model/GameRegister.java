@@ -40,6 +40,7 @@ public class GameRegister{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(gameStats);
 			o.close();
+			f.close();
 		}
 		catch(IOException e){
 			throw new CouldNotSaveFileException();
@@ -54,6 +55,7 @@ public class GameRegister{
 			ObjectInputStream o = new ObjectInputStream(f);
 			gameStats = (ArrayList<GameStat>)o.readObject();
 			o.close();
+			f.close();
 		}
 		catch(IOException e){
 			throw new CouldNotLoadFileException();
@@ -62,12 +64,15 @@ public class GameRegister{
 		//JOptionPane.showMessageDialog(null, "El archivo de guardado no es valido.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
 	}
 	
-	public void doBackup() throws FileNotFoundException, CouldNotBackupFileException{
-		FileOutputStream f = new FileOutputStream(Path.backups+"backup-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".dat");
+	public String doBackup() throws FileNotFoundException, CouldNotBackupFileException{
+		String fileName = Path.backups+"backup-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".dat";
+		FileOutputStream f = new FileOutputStream(fileName);
 		try{
 			ObjectOutputStream o = new ObjectOutputStream(f);
 			o.writeObject(gameStats);
 			o.close();
+			f.close();
+			return fileName;
 		}
 		catch(IOException e){
 			throw new CouldNotBackupFileException();

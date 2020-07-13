@@ -28,8 +28,8 @@ import util.Typeface;
 @SuppressWarnings("serial")
 public class GeneralPanel extends JPanel{
     private JPanel pCentral;
-    private ImageIcon iconAdd, iconHelp, iconView, iconEdit, iconRemove;
-    public JButton btAdd, btHelp, btConfig, btAbout;
+    private ImageIcon iconAdd, iconBackup, iconExport, iconHelp, iconView, iconEdit, iconRemove;
+    public JButton btAdd, btBackup, btExport, btHelp, btConfig, btAbout;
     public JLabel lbUser;
     public FirstTimePanel pNothing;
 
@@ -73,14 +73,14 @@ public class GeneralPanel extends JPanel{
             JPanel options = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
             options.setBackground(this.getBackground());
 
-            btView = new JButton(iconView);
-            btView.setBackground(Colour.getButtonColor());
+            btView = new JButton();
+            styleIconButton(btView, iconView);
 
             btEdit = new JButton(iconEdit);
-            btEdit.setBackground(Colour.getButtonColor());
+            styleIconButton(btEdit, iconEdit);
 
             btRemove = new JButton(iconRemove);
-            btRemove.setBackground(Colour.getButtonColor());
+            styleIconButton(btRemove, iconRemove);
 
             options.add(btView);
             options.add(btEdit);
@@ -108,6 +108,8 @@ public class GeneralPanel extends JPanel{
         try {
             float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
             iconAdd = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"add.png"))),Colour.getFontColor(),brightness);
+            iconBackup = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"backup.png"))),Colour.getFontColor(),brightness);
+            iconExport = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"export.png"))),Colour.getFontColor(),brightness);
             iconHelp = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"help.png"))),Colour.getFontColor(),brightness);
             iconView = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"view.png"))),Colour.getFontColor(),brightness);
             iconEdit = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"edit.png"))),Colour.getFontColor(),brightness);
@@ -144,17 +146,20 @@ public class GeneralPanel extends JPanel{
         // ----- END OF TEST AREA XD
 
         SimplePanel leftSide = new SimplePanel(Colour.getPrimaryColor());
-        btAdd = new JButton();// Language.loadMessage("m_add")
-        btAdd.setIcon(iconAdd);
-        btAdd.setBackground(Colour.getButtonColor());
-        btAdd.setForeground(Colour.getFontColor());
-        btAdd.setFont(Typeface.labelPlain);
+        btAdd = new JButton();
+        styleIconButton(btAdd, iconAdd);
         leftSide.add(btAdd);
-        btHelp = new JButton();// Language.loadMessage("m_help")
-        btHelp.setIcon(iconHelp);
-        btHelp.setBackground(Colour.getButtonColor());
-        btHelp.setForeground(Colour.getFontColor());
-        btHelp.setFont(Typeface.labelPlain);
+
+        btBackup = new JButton();
+        styleIconButton(btBackup, iconBackup);
+        leftSide.add(btBackup);
+
+        btExport = new JButton();
+        styleIconButton(btExport, iconExport);
+        leftSide.add(btExport);
+
+        btHelp = new JButton();
+        styleIconButton(btHelp, iconHelp);
         leftSide.add(btHelp);
 
         add(leftSide,BorderLayout.WEST);
@@ -163,6 +168,11 @@ public class GeneralPanel extends JPanel{
         btAbout = new JButton(Language.loadMessage("m_about"));
         
         add(Component.createGeneralOptions(new JButton[]{btConfig,btAbout},Colour.getPrimaryColor()),BorderLayout.SOUTH);
+    }
+
+    private void styleIconButton(JButton button, ImageIcon icon){
+        button.setIcon(icon);
+        button.setBackground(Colour.getButtonColor());
     }
 
     public void addToCenter(JComponent component){

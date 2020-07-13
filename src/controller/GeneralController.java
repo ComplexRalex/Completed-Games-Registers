@@ -11,7 +11,11 @@ import view.GeneralPanel;
 import view.GeneralPanel.GameRegisterPanel;
 
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
+
+import exception.CouldNotBackupFileException;
+
 import java.awt.event.ActionEvent;
 
 public class GeneralController implements ActionListener{
@@ -30,6 +34,8 @@ public class GeneralController implements ActionListener{
 
     public void initialize(){
         view.btAdd.addActionListener(this);
+        view.btBackup.addActionListener(this);
+        view.btExport.addActionListener(this);
         view.btHelp.addActionListener(this);
         view.btConfig.addActionListener(this);
         view.btAbout.addActionListener(this);
@@ -42,6 +48,9 @@ public class GeneralController implements ActionListener{
 
         if(model.getGameStats().isEmpty())
             view.addPlaceHolder();
+
+        for(GameStat gs: model.getGameStats())
+            add(gs);
     }
 
     public void add(GameStat gs){
@@ -86,11 +95,12 @@ public class GeneralController implements ActionListener{
 
                     view.removeFromCenter(games.get(gs));
                     if(model.getGameStats().isEmpty())
-                    view.addPlaceHolder();
+                        view.addPlaceHolder();
                     view.validate();
                     view.repaint();
 
                     games.remove(gs);
+                    parent.saveStats();
                 }
             }
         });
@@ -105,6 +115,25 @@ public class GeneralController implements ActionListener{
         if(e.getSource() == view.btAdd){
             parent.cEditGame.setInitialValues(null);
             parent.frame.changePanel(parent.frame.pEditGame);
+        }else if(e.getSource() == view.btBackup){
+            try {
+                Advice.showTextAreaAdvice(
+                    view,
+                    Language.loadMessage("g_success"),
+                    Language.loadMessage("m_backedup"),
+                    "Name of the backup file: "+parent.mGeneral.doBackup(),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+			} catch (FileNotFoundException | CouldNotBackupFileException e1) {
+				Advice.showTextAreaAdvice(
+                    view,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_wentwrong")+": ",
+                    e1.toString(), Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+			}
         }else if(e.getSource() == view.btConfig){
             parent.frame.changePanel(parent.frame.pConfig);
         }else{

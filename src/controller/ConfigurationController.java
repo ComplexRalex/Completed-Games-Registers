@@ -20,8 +20,8 @@ public class ConfigurationController implements ActionListener{
 	private MainController parent;
 	private ConfigurationPanel view;
 	private Configuration model;
-	private int autoSaveStatus;
 	private int autoBackupStatus;
+	private int exitDialogStatus;
 	
 	/*
 	 * PASOS SIGUIENTES PARA NO PERDERSE:
@@ -34,11 +34,11 @@ public class ConfigurationController implements ActionListener{
 	}
 	
 	public void initialize(){
-		view.btAutoSaveON.addActionListener(this);
-		view.btAutoSaveOFF.addActionListener(this);
-		
 		view.btAutoBackupON.addActionListener(this);
 		view.btAutoBackupOFF.addActionListener(this);
+		
+		view.btExitDialogON.addActionListener(this);
+		view.btExitDialogOFF.addActionListener(this);
 		
 		for(JRadioButton bt: view.btTheme)
 			bt.addActionListener(this);
@@ -57,16 +57,6 @@ public class ConfigurationController implements ActionListener{
 	public void obtainInitialConfig(){
 		view.txtUser.setText(Configuration.getUsername());
 		
-		if(Configuration.getAutoSave()){
-			Component.toggleEnabledButton(view.btAutoSaveON, false, Colour.colorON);
-			Component.toggleEnabledButton(view.btAutoSaveOFF, true, Colour.getButtonColor());
-			autoSaveStatus = 1;
-		}else{
-			Component.toggleEnabledButton(view.btAutoSaveON, true, Colour.getButtonColor());
-			Component.toggleEnabledButton(view.btAutoSaveOFF, false, Colour.colorOFF);
-			autoSaveStatus = 0;
-		}
-
 		if(Configuration.getAutoBackup()){
 			Component.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
 			Component.toggleEnabledButton(view.btAutoBackupOFF, true, Colour.getButtonColor());
@@ -76,6 +66,16 @@ public class ConfigurationController implements ActionListener{
 			Component.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
 			autoBackupStatus = 0;
 		}
+		
+		if(Configuration.getExitDialog()){
+			Component.toggleEnabledButton(view.btExitDialogON, false, Colour.colorON);
+			Component.toggleEnabledButton(view.btExitDialogOFF, true, Colour.getButtonColor());
+			exitDialogStatus = 1;
+		}else{
+			Component.toggleEnabledButton(view.btExitDialogON, true, Colour.getButtonColor());
+			Component.toggleEnabledButton(view.btExitDialogOFF, false, Colour.colorOFF);
+			exitDialogStatus = 0;
+		}
 		view.btTheme[Configuration.currentTheme()].setSelected(true);
 		
 		view.cbLang.setSelectedItem(Configuration.currentLanguage());
@@ -84,8 +84,8 @@ public class ConfigurationController implements ActionListener{
 	private boolean sameValues(){
 		boolean flag = true;
 		flag = (flag && Configuration.getUsername().equals(view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText()));
-		flag = (flag && (Configuration.getAutoSave() == (autoSaveStatus == 1)));
 		flag = (flag && (Configuration.getAutoBackup() == (autoBackupStatus == 1)));
+		flag = (flag && (Configuration.getExitDialog() == (exitDialogStatus == 1)));
 				
 		return flag;
 	}
@@ -111,19 +111,19 @@ public class ConfigurationController implements ActionListener{
 			model.setUsername(cut);
 			parent.frame.pGeneral.lbUser.setText(cut);
 		}
-
-		// Toggle enable/disable autoSave option
-		switch(autoSaveStatus){
-			case 1: model.enableAutoSave(true); break;
-			case 0: model.enableAutoSave(false);
-		}
-
+		
 		// Toggle enable/disable autoBackup option
 		switch(autoBackupStatus){
 			case 1: model.enableAutoBackup(true); break;
 			case 0: model.enableAutoBackup(false);
 		}
 
+		// Toggle enable/disable exitDialog option
+		switch(exitDialogStatus){
+			case 1: model.enableExitDialog(true); break;
+			case 0: model.enableExitDialog(false);
+		}
+		
 		// Change to selected theme
 		for(int i = 0; i < view.btTheme.length; i++){
 			if(view.btTheme[i].isSelected()){
@@ -143,12 +143,12 @@ public class ConfigurationController implements ActionListener{
 			model.saveConfiguration();
 		} catch (FileNotFoundException | CouldNotSaveFileException e1) {
 			Advice.showTextAreaAdvice(
-					null,
-					Language.loadMessage("g_oops"),
-					Language.loadMessage("g_wentwrong"),
-					e1.toString(),
-					Language.loadMessage("g_accept"),
-					Colour.getPrimaryColor()
+				null,
+				Language.loadMessage("g_oops"),
+				Language.loadMessage("g_wentwrong"),
+				e1.toString(),
+				Language.loadMessage("g_accept"),
+				Colour.getPrimaryColor()
 			);
 		}
 	}
@@ -157,10 +157,10 @@ public class ConfigurationController implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		int value;
-
-		autoSaveStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoSaveON, view.btAutoSaveOFF)) != -1) ? value : autoSaveStatus; 
-
+		
 		autoBackupStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoBackupON, view.btAutoBackupOFF)) != -1) ? value : autoBackupStatus;
+		
+		exitDialogStatus = ((value = Component.runSwitchButtonEffect(e, view.btExitDialogON, view.btExitDialogOFF)) != -1) ? value : exitDialogStatus; 
 		
 		if(source == view.btResetConfig){
 			if(Advice.showOptionAdvice(

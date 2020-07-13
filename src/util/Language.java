@@ -49,17 +49,19 @@ public class Language{
 		
 		languages.get("English").put("m_title",				"Welcome, ");
 		languages.get("English").put("m_add",				"Add game register");
+		languages.get("English").put("m_backedup",			"The registers have been backed up successfully");
 		languages.get("English").put("m_remove",			"Do you want to remove this register?");
 		languages.get("English").put("m_config",			"Configuration");
 		languages.get("English").put("m_about",				"About this program");
 		languages.get("English").put("m_help",				"How to use it?");
 		languages.get("English").put("m_nothing",			"...there's nothing here!");
+		languages.get("English").put("m_closing",			"Do you really want to exit?");
 
 		languages.get("English").put("cf_title",		 	"Configuration menu");
 		languages.get("English").put("cf_general",			"General settings");
 		languages.get("English").put("cf_change_user",		"Change username:");
-		languages.get("English").put("cf_autosave", 		"Auto-save data when a change is made:");
 		languages.get("English").put("cf_autobck", 			"Auto-backup data before closing the program:");
+		languages.get("English").put("cf_ask_on_close",		"Show a dialog before exiting the program:");
 		languages.get("English").put("cf_theme", 			"Program theme (requires restart): ");
 		languages.get("English").put("cf_lang", 			"Program language (requires restart):");
 		languages.get("English").put("cf_delicate",			"Delicate options");
@@ -134,17 +136,19 @@ public class Language{
 
 		languages.get("Spanish").put("m_title",				"Hola, ");
 		languages.get("Spanish").put("m_add",				"Agregar registro de juego");
+		languages.get("Spanish").put("m_backedup",			"Se han respaldado los registros correctamente");
 		languages.get("Spanish").put("m_remove",			"¿Quieres quitar este registro?");
 		languages.get("Spanish").put("m_config",			"Configuración");
 		languages.get("Spanish").put("m_about",				"Acerca del programa");
 		languages.get("Spanish").put("m_help",				"¿Cómo se usa?");
 		languages.get("Spanish").put("m_nothing",			"...esto se ve muy vacío");
+		languages.get("Spanish").put("m_closing",			"¿De verdad quieres salir?");
 
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
 		languages.get("Spanish").put("cf_general",			"Ajustes generales");
 		languages.get("Spanish").put("cf_change_user",		"Cambiar nombre de usuario:");
-		languages.get("Spanish").put("cf_autosave",			"Guardado automático cuando se realice un cambio:");
 		languages.get("Spanish").put("cf_autobck", 			"Respaldo automático antes de finalizar el programa:");
+		languages.get("Spanish").put("cf_ask_on_close",		"Mostrar un diálogo antes de salir del programa:");
 		languages.get("Spanish").put("cf_theme", 			"Tema del programa (requiere reinicio): ");
 		languages.get("Spanish").put("cf_lang",				"Idioma del programa (requiere reinicio):");
 		languages.get("Spanish").put("cf_delicate",			"Opciones delicadas");

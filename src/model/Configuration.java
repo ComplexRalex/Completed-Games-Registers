@@ -19,14 +19,14 @@ public class Configuration implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private static String currentUsername;
-	private static boolean autoSaveValue;
 	private static boolean autoBackupValue;
+	private static boolean exitDialogValue;
 	private static int currentTheme;
 	private static String currentLanguage;
 	
 	private String username;
-	private boolean autoSave;
 	private boolean autoBackup;
+	private boolean exitDialog;
 	private int theme;
 	private String lang;
 	
@@ -36,8 +36,8 @@ public class Configuration implements Serializable{
 
 	public void setDefaultValues(){
 		username = currentUsername = "Username";
-		autoSave = autoSaveValue = true;
 		autoBackup = autoBackupValue = false;
+		exitDialog = exitDialogValue = true;
 		theme = currentTheme = Colour.DARK_THEME;
 		lang = currentLanguage = Language.available[0];
 	}
@@ -61,7 +61,7 @@ public class Configuration implements Serializable{
 			Configuration file = (Configuration)o.readObject();
 			o.close();
 			this.username = currentUsername = file.username;
-			this.autoSave = autoSaveValue = file.autoSave;
+			this.exitDialog = exitDialogValue = file.exitDialog;
 			this.autoBackup = autoBackupValue = file.autoBackup;
 			this.theme = currentTheme = file.theme;
 			this.lang = currentLanguage = file.lang;
@@ -81,20 +81,20 @@ public class Configuration implements Serializable{
 		username = currentUsername = user;
 	}
 	
-	public static boolean getAutoSave(){
-		return autoSaveValue;
-	}
-	
-	public void enableAutoSave(boolean flag){
-		autoSave = autoSaveValue = flag;
-	}
-	
 	public static boolean getAutoBackup(){
 		return autoBackupValue;
 	}
 	
 	public void enableAutoBackup(boolean flag){
 		autoBackup = autoBackupValue = flag;
+	}
+	
+	public static boolean getExitDialog(){
+		return exitDialogValue;
+	}
+	
+	public void enableExitDialog(boolean flag){
+		exitDialog = exitDialogValue = flag;
 	}
 	
 	public static int currentTheme(){

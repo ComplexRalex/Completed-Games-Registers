@@ -246,7 +246,6 @@ public class EditGameController implements ActionListener, KeyListener{
                             parent.cGeneral.add(
                                 new GameStat(game,year,rate,comment,note,spoiler)
                             );
-                            parent.frame.changePanel(parent.frame.pGeneral);
     
                         }else if(e.getSource() == view.btChange){
                             actual.setGame(game);
@@ -256,8 +255,11 @@ public class EditGameController implements ActionListener, KeyListener{
                             actual.setNote(note);
                             actual.setSpoiler(spoiler);
                             parent.cGeneral.updateName(actual);
-                            parent.frame.changePanel(parent.frame.pGeneral);
                         }
+
+                        // Finally, saves the data (only registers) and changes panel
+                        parent.saveStats();
+                        parent.frame.changePanel(parent.frame.pGeneral);
                     }
                     
                 }else{
