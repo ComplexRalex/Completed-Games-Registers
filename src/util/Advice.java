@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
@@ -140,6 +141,7 @@ public class Advice{
         dialog.getContentPane().setBackground(bg);
         dialog.setResizable(false);
         dialog.setTitle(title);
+        dialog.setIconImage((new ImageIcon(Path.images+"advice_icon.png")).getImage());
         dialog.setModal(true);
 
         GridBagConstraints c = new GridBagConstraints();
