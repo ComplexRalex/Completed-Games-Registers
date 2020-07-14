@@ -11,10 +11,8 @@ import view.GeneralPanel;
 import view.GeneralPanel.GameRegisterPanel;
 
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
-
-import exception.CouldNotBackupFileException;
 
 import java.awt.event.ActionEvent;
 
@@ -125,7 +123,7 @@ public class GeneralController implements ActionListener{
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
-			} catch (FileNotFoundException | CouldNotBackupFileException e1) {
+			} catch (IOException e1) {
 				Advice.showTextAreaAdvice(
                     view,
                     Language.loadMessage("g_oops"),

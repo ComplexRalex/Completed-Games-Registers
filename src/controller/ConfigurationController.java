@@ -3,16 +3,18 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JRadioButton;
 
-import exception.CouldNotSaveFileException;
 import model.Configuration;
+import model.FileLock;
 import view.ConfigurationPanel;
 
 import util.Colour;
 import util.Component;
 import util.Language;
+import util.Path;
 import util.Advice;
 
 public class ConfigurationController implements ActionListener{
@@ -22,6 +24,8 @@ public class ConfigurationController implements ActionListener{
 	private Configuration model;
 	private int autoBackupStatus;
 	private int exitDialogStatus;
+
+	private FileLock lock;
 	
 	/*
 	 * PASOS SIGUIENTES PARA NO PERDERSE:
@@ -31,6 +35,7 @@ public class ConfigurationController implements ActionListener{
 		model = m;
 		view = v;
 		parent = p;
+		lock = new FileLock(Path.configFile);
 	}
 	
 	public void initialize(){
@@ -52,9 +57,11 @@ public class ConfigurationController implements ActionListener{
 		view.btReturn.addActionListener(this);
 		
 		obtainInitialConfig();
+
+		lockConfigFile(true);
 	}
 	
-	public void obtainInitialConfig(){
+	private void obtainInitialConfig(){
 		view.txtUser.setText(Configuration.getUsername());
 		
 		if(Configuration.getAutoBackup()){
@@ -135,22 +142,54 @@ public class ConfigurationController implements ActionListener{
 		// Change to selected language
 		model.changeLanguage((String)view.cbLang.getSelectedItem());
 
+		lockConfigFile(false);
 		saveSettings();
+		lockConfigFile(true);
 	}
 
 	private void saveSettings(){
 		try {
 			model.saveConfiguration();
-		} catch (FileNotFoundException | CouldNotSaveFileException e1) {
+		} catch (IOException e) {
 			Advice.showTextAreaAdvice(
 				null,
 				Language.loadMessage("g_oops"),
 				Language.loadMessage("g_wentwrong"),
-				e1.toString(),
+				e.toString(),
 				Language.loadMessage("g_accept"),
 				Colour.getPrimaryColor()
 			);
 		}
+	}
+
+	private void lockConfigFile(boolean flag){
+		if(flag){
+            try {
+				lock.lock();
+			} catch (FileNotFoundException e) {
+				Advice.showTextAreaAdvice(
+                    view,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_wentwrong")+": ",
+                    Advice.getStackTrace(e),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+			}
+        }else{
+            try {
+                lock.unlock();
+            } catch (IOException e) {
+                Advice.showTextAreaAdvice(
+                    view,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_wentwrong")+": ",
+                    Advice.getStackTrace(e),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+            }
+        }
 	}
 
 	@Override
@@ -167,7 +206,10 @@ public class ConfigurationController implements ActionListener{
 				null,
 				Language.loadMessage("g_message"),
 				Language.loadMessage("cf_yousure"),
-				new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
+				new String[]{
+					Language.loadMessage("g_accept"),
+					Language.loadMessage("g_cancel")
+				},
 				Colour.getPrimaryColor()
 			) == 0){
 				Advice.showSimpleAdvice(
@@ -183,7 +225,14 @@ public class ConfigurationController implements ActionListener{
 			}
 		}
 
-		if(source == view.btWipeOut) Advice.showSimpleAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_indev"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+		if(source == view.btWipeOut)
+			Advice.showSimpleAdvice(
+				view,
+				Language.loadMessage("g_oops"),
+				Language.loadMessage("g_indev"),
+				Language.loadMessage("g_accept"), 
+				Colour.getPrimaryColor()
+			);
 
 		if(source == view.btAccept){
 			if(resetRequest()){
@@ -202,16 +251,28 @@ public class ConfigurationController implements ActionListener{
 				}
 			} else if(!sameValues()){
 				saveCurrentSettings();
-				Advice.showSimpleAdvice(null, Language.loadMessage("g_success"), Language.loadMessage("cf_success"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+				Advice.showSimpleAdvice(
+					view,
+					Language.loadMessage("g_success"),
+					Language.loadMessage("cf_success"),
+					Language.loadMessage("g_accept"),
+					Colour.getPrimaryColor()
+				);
 			} else
-				Advice.showSimpleAdvice(null, Language.loadMessage("g_message"), Language.loadMessage("cf_no_edit"), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+				Advice.showSimpleAdvice(view,
+				Language.loadMessage("g_message"), 
+				Language.loadMessage("cf_no_edit"),
+				Language.loadMessage("g_accept"),
+				Colour.getPrimaryColor()
+			);
 		}
 		if(source == view.btReturn){
 			if(sameValues() && !resetRequest())
 				parent.frame.changePanel(parent.frame.pGeneral);
 			else
 				if(Advice.showOptionAdvice(
-					null,Language.loadMessage("g_warning"),
+					view,
+					Language.loadMessage("g_warning"),
 					Language.loadMessage("g_unsaved"),
 					new String[]{
 						Language.loadMessage("g_accept"),

@@ -3,11 +3,12 @@ package controller;
 import model.*;
 import view.*;
 import util.*;
-import exception.*;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 public class MainController{
@@ -22,6 +23,8 @@ public class MainController{
     public ViewGameController cViewGame;
     public ConfigurationController cConfig;
 
+    public FileLock lockSave;
+
     public MainController(){
         // Initializes Language
         Language.initialize();
@@ -29,10 +32,12 @@ public class MainController{
     }
 
     private void set(){
-        mGeneral = new GameRegister();
         mConfig = new Configuration();
+        mGeneral = new GameRegister();
 
-        // Necesarry because of the custom settings
+        lockSave = new FileLock(Path.saveFile);
+
+        // Necessary because of the custom settings and the saved files
         loadData();
 
         frame = new MainWindow();
@@ -56,23 +61,25 @@ public class MainController{
     private void loadData(){
         try {
             mConfig.loadConfiguration();
-        } catch (FileNotFoundException | ClassNotFoundException | CouldNotLoadFileException e) {
+        } catch ( ClassNotFoundException | IOException e) {
             Advice.showTextAreaAdvice(
                 null,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_wentwrong") + ": ",
-                e.toString(),
+                Advice.getStackTrace(e),
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
-        } try {
-			mGeneral.loadGameStats();
-		} catch (FileNotFoundException | ClassNotFoundException | CouldNotLoadFileException e) {
+        }
+        try {
+            mGeneral.loadGameStats();
+            lockSaveFile(true);
+		} catch (IOException | ClassNotFoundException e) {
 			Advice.showTextAreaAdvice(
                 null,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_wentwrong") + ": ",
-                e.toString(),
+                Advice.getStackTrace(e),
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -94,13 +101,16 @@ public class MainController{
 
     public void saveStats(){
         try {
-			mGeneral.saveGameStats();
-		} catch (FileNotFoundException | CouldNotSaveFileException e) {
+            lockSaveFile(false);
+            mGeneral.saveGameStats();
+            lockSaveFile(true);
+		} catch (IOException e) {
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_wentwrong")+": ",
-                e.toString(), Language.loadMessage("g_accept"),
+                Advice.getStackTrace(e),
+                Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
 		}
@@ -109,14 +119,45 @@ public class MainController{
     private void doBackup(){
         try {
             mGeneral.doBackup();
-        } catch (FileNotFoundException | CouldNotBackupFileException e) {
+        } catch (IOException e) {
             Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_wentwrong")+": ",
-                e.toString(), Language.loadMessage("g_accept"),
+                Advice.getStackTrace(e),
+                Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
+        }
+    }
+
+    private void lockSaveFile(boolean flag){
+        if(flag){
+            try {
+				lockSave.lock();
+			} catch (FileNotFoundException e) {
+				Advice.showTextAreaAdvice(
+                    frame,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_wentwrong")+": ",
+                    Advice.getStackTrace(e),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+			}
+        }else{
+            try {
+                lockSave.unlock();
+            } catch (IOException e) {
+                Advice.showTextAreaAdvice(
+                    frame,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_wentwrong")+": ",
+                    Advice.getStackTrace(e),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+            }
         }
     }
 
@@ -135,12 +176,12 @@ public class MainController{
                         },
                         Colour.getPrimaryColor()
                     ) == 0){
-                        if(Configuration.getAutoBackup())
+                        if(Configuration.getAutoBackup() && mGeneral.changesMade())
                             doBackup();
                         System.exit(0);
                     }
                 }else{
-                    if(Configuration.getAutoBackup())
+                    if(Configuration.getAutoBackup() && mGeneral.changesMade())
                         doBackup();
                     System.exit(0);
                 }

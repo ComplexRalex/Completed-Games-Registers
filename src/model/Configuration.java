@@ -1,15 +1,11 @@
 package model;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
-import exception.CouldNotLoadFileException;
-import exception.CouldNotSaveFileException;
 
 import util.Colour;
 import util.Language;
@@ -42,35 +38,23 @@ public class Configuration implements Serializable{
 		lang = currentLanguage = Language.available[0];
 	}
 	
-	public void saveConfiguration() throws FileNotFoundException, CouldNotSaveFileException{
+	public void saveConfiguration() throws IOException {
 		FileOutputStream f = new FileOutputStream(Path.configFile);
-		try{
-			ObjectOutputStream o = new ObjectOutputStream(f);
-			o.writeObject(this);
-			o.close();
-		}
-		catch(IOException e){
-			throw new CouldNotSaveFileException();
-		}
+		ObjectOutputStream o = new ObjectOutputStream(f);
+		o.writeObject(this);
+		o.close();
 	}
 	
-	public void loadConfiguration() throws FileNotFoundException, ClassNotFoundException, CouldNotLoadFileException{
+	public void loadConfiguration() throws ClassNotFoundException, IOException {
 		FileInputStream f = new FileInputStream(Path.configFile);
-		try{
-			ObjectInputStream o = new ObjectInputStream(f);
-			Configuration file = (Configuration)o.readObject();
-			o.close();
-			this.username = currentUsername = file.username;
-			this.exitDialog = exitDialogValue = file.exitDialog;
-			this.autoBackup = autoBackupValue = file.autoBackup;
-			this.theme = currentTheme = file.theme;
-			this.lang = currentLanguage = file.lang;
-		}
-		catch(IOException e){
-			throw new CouldNotLoadFileException();
-		}
-		//JOptionPane.showConfirmDialog(null, "No se encontro el archivo de guardado.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
-		//JOptionPane.showMessageDialog(null, "El archivo de guardado no es valido.", "Error al cargar datos", JOptionPane.ERROR_MESSAGE);
+		ObjectInputStream o = new ObjectInputStream(f);
+		Configuration file = (Configuration)o.readObject();
+		o.close();
+		this.username = currentUsername = file.username;
+		this.exitDialog = exitDialogValue = file.exitDialog;
+		this.autoBackup = autoBackupValue = file.autoBackup;
+		this.theme = currentTheme = file.theme;
+		this.lang = currentLanguage = file.lang;
 	}
 	
 	public static String getUsername(){

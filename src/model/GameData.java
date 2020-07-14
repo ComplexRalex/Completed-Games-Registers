@@ -15,7 +15,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -28,17 +27,6 @@ import org.json.simple.parser.ParseException;
 
 import util.Component;
 import util.Path;
-
-/**
- * There are some missing functions:
- * - getPublishers()
- * - getDevelopers()
- * 
- * These functions will be given with the next API request:
- * https://api.rawg.io/api/games/{id}
- * 
- * The ID of the game is given in a field with the same name
- */
 
 public class GameData{
 
