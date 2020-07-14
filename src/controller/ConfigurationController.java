@@ -2,19 +2,16 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JRadioButton;
 
 import model.Configuration;
-import model.FileLock;
 import view.ConfigurationPanel;
 
 import util.Colour;
 import util.Component;
 import util.Language;
-import util.Path;
 import util.Advice;
 
 public class ConfigurationController implements ActionListener{
@@ -24,18 +21,11 @@ public class ConfigurationController implements ActionListener{
 	private Configuration model;
 	private int autoBackupStatus;
 	private int exitDialogStatus;
-
-	private FileLock lock;
 	
-	/*
-	 * PASOS SIGUIENTES PARA NO PERDERSE:
-	 * 1. Arreglar el main (para eso se tiene que crear el controlador principal)
-	 * */
 	public ConfigurationController(Configuration m, ConfigurationPanel v, MainController p){
 		model = m;
 		view = v;
 		parent = p;
-		lock = new FileLock(Path.configFile);
 	}
 	
 	public void initialize(){
@@ -57,8 +47,6 @@ public class ConfigurationController implements ActionListener{
 		view.btReturn.addActionListener(this);
 		
 		obtainInitialConfig();
-
-		lockConfigFile(true);
 	}
 	
 	private void obtainInitialConfig(){
@@ -142,9 +130,7 @@ public class ConfigurationController implements ActionListener{
 		// Change to selected language
 		model.changeLanguage((String)view.cbLang.getSelectedItem());
 
-		lockConfigFile(false);
 		saveSettings();
-		lockConfigFile(true);
 	}
 
 	private void saveSettings(){
@@ -160,36 +146,6 @@ public class ConfigurationController implements ActionListener{
 				Colour.getPrimaryColor()
 			);
 		}
-	}
-
-	private void lockConfigFile(boolean flag){
-		if(flag){
-            try {
-				lock.lock();
-			} catch (FileNotFoundException e) {
-				Advice.showTextAreaAdvice(
-                    view,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_wentwrong")+": ",
-                    Advice.getStackTrace(e),
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
-			}
-        }else{
-            try {
-                lock.unlock();
-            } catch (IOException e) {
-                Advice.showTextAreaAdvice(
-                    view,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_wentwrong")+": ",
-                    Advice.getStackTrace(e),
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
-            }
-        }
 	}
 
 	@Override

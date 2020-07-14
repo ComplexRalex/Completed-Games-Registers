@@ -65,11 +65,13 @@ public class ViewGamePanel extends JPanel{
             // Establishing game developers
 
             txtDevelopers = new JTextField(oneLineList(gd.getDevelopers()));
+            txtDevelopers.setEditable(false);
             add(Component.createTextField(Language.loadMessage("gv_developers"), txtDevelopers, false, Colour.getBackgroundColor()));
 
             // Establishing game publishers
 
             txtPublishers = new JTextField(oneLineList(gd.getPublishers()));
+            txtPublishers.setEditable(false);
             add(Component.createTextField(Language.loadMessage("gv_publishers"), txtPublishers, false, Colour.getBackgroundColor()));
 
             // Establishing game release date

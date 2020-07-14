@@ -6,7 +6,6 @@ import util.*;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -23,8 +22,6 @@ public class MainController{
     public ViewGameController cViewGame;
     public ConfigurationController cConfig;
 
-    public FileLock lockSave;
-
     public MainController(){
         // Initializes Language
         Language.initialize();
@@ -34,8 +31,6 @@ public class MainController{
     private void set(){
         mConfig = new Configuration();
         mGeneral = new GameRegister();
-
-        lockSave = new FileLock(Path.saveFile);
 
         // Necessary because of the custom settings and the saved files
         loadData();
@@ -73,7 +68,6 @@ public class MainController{
         }
         try {
             mGeneral.loadGameStats();
-            lockSaveFile(true);
 		} catch (IOException | ClassNotFoundException e) {
 			Advice.showTextAreaAdvice(
                 null,
@@ -101,9 +95,7 @@ public class MainController{
 
     public void saveStats(){
         try {
-            lockSaveFile(false);
             mGeneral.saveGameStats();
-            lockSaveFile(true);
 		} catch (IOException e) {
 			Advice.showTextAreaAdvice(
                 frame,
@@ -128,36 +120,6 @@ public class MainController{
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
-        }
-    }
-
-    private void lockSaveFile(boolean flag){
-        if(flag){
-            try {
-				lockSave.lock();
-			} catch (FileNotFoundException e) {
-				Advice.showTextAreaAdvice(
-                    frame,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_wentwrong")+": ",
-                    Advice.getStackTrace(e),
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
-			}
-        }else{
-            try {
-                lockSave.unlock();
-            } catch (IOException e) {
-                Advice.showTextAreaAdvice(
-                    frame,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_wentwrong")+": ",
-                    Advice.getStackTrace(e),
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
-            }
         }
     }
 
