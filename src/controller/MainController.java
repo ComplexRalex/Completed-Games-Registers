@@ -23,7 +23,6 @@ public class MainController{
     public ConfigurationController cConfig;
 
     public MainController(){
-        // Initializes Language
         Language.initialize();
         set();
     }
@@ -31,10 +30,19 @@ public class MainController{
     private void set(){
         mConfig = new Configuration();
         mGeneral = new GameRegister();
-
+        
+        // Check existence of directories
+        verifyDirectories();
+        verifyConfigFile();
+        
         // Necessary because of the custom settings and the saved files
         loadData();
-
+        
+        // Setup languages and themes
+        
+        Colour.setCurrentTheme(mConfig.currentTheme());
+        Language.setCurrentLanguage(mConfig.currentLanguage());
+        
         frame = new MainWindow();
         frame.addWindowListener(createWindowAdapter());
 
@@ -52,11 +60,39 @@ public class MainController{
 
         setFrameSettings();
     }
+    
+    public void verifyDirectories(){
+        // The "data" folder will be created with these if necessary
+        if(!Path.exists(Path.backupPath)) Path.resolve(Path.backupPath);
+        if(!Path.exists(Path.gameInfo)) Path.resolve(Path.gameInfo);
+        if(!Path.exists(Path.gameImage)) Path.resolve(Path.gameImage);
+    }
+
+    // Probably require much validation...
+    public void verifySaveFile(){
+        if(!Path.exists(Path.saveFile)) saveStats();
+    }
+
+    // Probably require much validation...
+    public void verifyConfigFile(){
+        try {
+            if(!Path.exists(Path.configFile)) mConfig.saveConfiguration();
+		} catch (IOException e) {
+			Advice.showTextAreaAdvice(
+                null,
+                Language.loadMessage("g_oops"),
+                Language.loadMessage("g_wentwrong") + ": ",
+                Advice.getStackTrace(e),
+                Language.loadMessage("g_accept"),
+                Colour.getPrimaryColor()
+            );
+		}
+    }
 
     private void loadData(){
         try {
             mConfig.loadConfiguration();
-        } catch ( ClassNotFoundException | IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             Advice.showTextAreaAdvice(
                 null,
                 Language.loadMessage("g_oops"),
@@ -95,6 +131,7 @@ public class MainController{
 
     public void saveStats(){
         try {
+            Path.resolve(Path.dataPath);
             mGeneral.saveGameStats();
 		} catch (IOException e) {
 			Advice.showTextAreaAdvice(
@@ -110,6 +147,7 @@ public class MainController{
 
     private void doBackup(){
         try {
+            Path.resolve(Path.backupPath);
             mGeneral.doBackup();
         } catch (IOException e) {
             Advice.showTextAreaAdvice(
@@ -123,11 +161,15 @@ public class MainController{
         }
     }
 
+    public void suddenClose(){
+        System.exit(0);
+    }
+
     private WindowAdapter createWindowAdapter(){
         return new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent e) {
-                if(Configuration.getExitDialog()){
+                if(mConfig.getExitDialog()){
                     if(Advice.showOptionAdvice(
                         frame,
                         Language.loadMessage("g_warning"),
@@ -138,14 +180,18 @@ public class MainController{
                         },
                         Colour.getPrimaryColor()
                     ) == 0){
-                        if(Configuration.getAutoBackup() && mGeneral.changesMade())
+                        if(mConfig.getAutoBackup() && mGeneral.changesMade())
                             doBackup();
-                        System.exit(0);
+                        frame.dispose();
+                        verifyDirectories();
+                        verifyConfigFile();
                     }
                 }else{
-                    if(Configuration.getAutoBackup() && mGeneral.changesMade())
+                    if(mConfig.getAutoBackup() && mGeneral.changesMade())
                         doBackup();
-                    System.exit(0);
+                    frame.dispose();
+                    verifyDirectories();
+                    verifyConfigFile();
                 }
             }
         };

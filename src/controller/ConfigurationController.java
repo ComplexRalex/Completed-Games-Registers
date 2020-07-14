@@ -12,6 +12,7 @@ import view.ConfigurationPanel;
 import util.Colour;
 import util.Component;
 import util.Language;
+import util.Path;
 import util.Advice;
 
 public class ConfigurationController implements ActionListener{
@@ -50,9 +51,9 @@ public class ConfigurationController implements ActionListener{
 	}
 	
 	private void obtainInitialConfig(){
-		view.txtUser.setText(Configuration.getUsername());
+		view.txtUser.setText(parent.mConfig.getUsername());
 		
-		if(Configuration.getAutoBackup()){
+		if(parent.mConfig.getAutoBackup()){
 			Component.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
 			Component.toggleEnabledButton(view.btAutoBackupOFF, true, Colour.getButtonColor());
 			autoBackupStatus = 1;
@@ -62,7 +63,7 @@ public class ConfigurationController implements ActionListener{
 			autoBackupStatus = 0;
 		}
 		
-		if(Configuration.getExitDialog()){
+		if(parent.mConfig.getExitDialog()){
 			Component.toggleEnabledButton(view.btExitDialogON, false, Colour.colorON);
 			Component.toggleEnabledButton(view.btExitDialogOFF, true, Colour.getButtonColor());
 			exitDialogStatus = 1;
@@ -71,16 +72,16 @@ public class ConfigurationController implements ActionListener{
 			Component.toggleEnabledButton(view.btExitDialogOFF, false, Colour.colorOFF);
 			exitDialogStatus = 0;
 		}
-		view.btTheme[Configuration.currentTheme()].setSelected(true);
+		view.btTheme[parent.mConfig.currentTheme()].setSelected(true);
 		
-		view.cbLang.setSelectedItem(Configuration.currentLanguage());
+		view.cbLang.setSelectedItem(parent.mConfig.currentLanguage());
 	}
 
 	private boolean sameValues(){
 		boolean flag = true;
-		flag = (flag && Configuration.getUsername().equals(view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText()));
-		flag = (flag && (Configuration.getAutoBackup() == (autoBackupStatus == 1)));
-		flag = (flag && (Configuration.getExitDialog() == (exitDialogStatus == 1)));
+		flag = (flag && parent.mConfig.getUsername().equals(view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText()));
+		flag = (flag && (parent.mConfig.getAutoBackup() == (autoBackupStatus == 1)));
+		flag = (flag && (parent.mConfig.getExitDialog() == (exitDialogStatus == 1)));
 				
 		return flag;
 	}
@@ -89,11 +90,11 @@ public class ConfigurationController implements ActionListener{
 		boolean flag = true;
 		for(int i = 0; i < view.btTheme.length; i++){
 			if(view.btTheme[i].isSelected()){
-				flag = (flag && (Configuration.currentTheme() == i));
+				flag = (flag && (parent.mConfig.currentTheme() == i));
 				break;
 			}
 		}
-		flag = (flag && Configuration.currentLanguage().equals((String)view.cbLang.getSelectedItem()));
+		flag = (flag && parent.mConfig.currentLanguage().equals((String)view.cbLang.getSelectedItem()));
 
 		return !flag;
 	}
@@ -133,8 +134,9 @@ public class ConfigurationController implements ActionListener{
 		saveSettings();
 	}
 
-	private void saveSettings(){
+	public void saveSettings(){
 		try {
+			Path.resolve(Path.dataPath);
 			model.saveConfiguration();
 		} catch (IOException e) {
 			Advice.showTextAreaAdvice(

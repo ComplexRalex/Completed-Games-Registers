@@ -141,7 +141,7 @@ public class Advice{
         dialog.getContentPane().setBackground(bg);
         dialog.setResizable(false);
         dialog.setTitle(title);
-        dialog.setIconImage((new ImageIcon(Path.images+"advice_icon.png")).getImage());
+        dialog.setIconImage((new ImageIcon(Path.imagePath+"advice_icon.png")).getImage());
         dialog.setModal(true);
 
         GridBagConstraints c = new GridBagConstraints();

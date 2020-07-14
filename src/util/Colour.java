@@ -1,7 +1,6 @@
 package util;
 
 import java.awt.Color;
-import model.Configuration;
 
 /**
  * RALEX XD DON'T FORGET TO ADD THE POSSIBILITY TO ADD CUSTOM THEMES!
@@ -13,6 +12,9 @@ public class Colour {
 	public static final int LIGHT_THEME = 0;
 	public static final int DARK_THEME = 1;
 	public static final int NIGHT_THEME = 2;
+
+	// Default value is DARK_THEME = 1
+	private static int currentTheme = DARK_THEME;
 
 	public static final Color colorON = new Color(110,220,116);
 	public static final Color colorOFF = new Color(220,90,90);
@@ -42,9 +44,13 @@ public class Colour {
 	
 	public static final Color transparent = new Color(0f,0f,0f,0.0001f);
 	
+	public static void setCurrentTheme(int theme){
+		currentTheme = theme;
+	}
+
 	public static Color getFontColor(){
 		try{
-			return THEME_COLORS[Configuration.currentTheme()][0];
+			return THEME_COLORS[currentTheme][0];
 		}
 		catch(IndexOutOfBoundsException e){
 			return THEME_COLORS[DARK_THEME][0];
@@ -52,7 +58,7 @@ public class Colour {
 	}
 	public static Color getPrimaryColor(){
 		try{
-			return THEME_COLORS[Configuration.currentTheme()][1];
+			return THEME_COLORS[currentTheme][1];
 		}
 		catch(IndexOutOfBoundsException e){
 			return THEME_COLORS[DARK_THEME][1];
@@ -60,7 +66,7 @@ public class Colour {
 	}
 	public static Color getButtonColor(){
 		try{
-			return THEME_COLORS[Configuration.currentTheme()][2];
+			return THEME_COLORS[currentTheme][2];
 		}
 		catch(IndexOutOfBoundsException e){
 			return THEME_COLORS[DARK_THEME][2];
@@ -68,7 +74,7 @@ public class Colour {
 	}
 	public static Color getBackgroundColor(){
 		try{
-			return THEME_COLORS[Configuration.currentTheme()][3];
+			return THEME_COLORS[currentTheme][3];
 		}
 		catch(IndexOutOfBoundsException e){
 			return THEME_COLORS[DARK_THEME][3];

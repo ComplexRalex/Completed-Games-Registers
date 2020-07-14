@@ -29,7 +29,5 @@ public class MainLauncher{
 		
 		// Initialize MainController
 		new MainController();
-
-		// test();
 	}
 }

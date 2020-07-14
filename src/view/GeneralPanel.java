@@ -107,13 +107,13 @@ public class GeneralPanel extends JPanel{
     public void initIcons(){
         try {
             float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
-            iconAdd = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"add.png"))),Colour.getFontColor(),brightness);
-            iconBackup = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"backup.png"))),Colour.getFontColor(),brightness);
-            iconExport = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"export.png"))),Colour.getFontColor(),brightness);
-            iconHelp = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"help.png"))),Colour.getFontColor(),brightness);
-            iconView = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"view.png"))),Colour.getFontColor(),brightness);
-            iconEdit = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"edit.png"))),Colour.getFontColor(),brightness);
-            iconRemove = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.images+"remove.png"))),Colour.getFontColor(),brightness);
+            iconAdd = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"add.png"))),Colour.getFontColor(),brightness);
+            iconBackup = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"backup.png"))),Colour.getFontColor(),brightness);
+            iconExport = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"export.png"))),Colour.getFontColor(),brightness);
+            iconHelp = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"help.png"))),Colour.getFontColor(),brightness);
+            iconView = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"view.png"))),Colour.getFontColor(),brightness);
+            iconEdit = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"edit.png"))),Colour.getFontColor(),brightness);
+            iconRemove = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"remove.png"))),Colour.getFontColor(),brightness);
 		} catch (IOException e) {
 			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong"), e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
 		}

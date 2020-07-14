@@ -1,6 +1,5 @@
 package controller;
 
-import model.Configuration;
 import model.GameData;
 import model.GameRegister;
 import model.GameStat;
@@ -42,7 +41,7 @@ public class GeneralController implements ActionListener{
     }
 
     public void obtainInitialValues(){
-        view.lbUser.setText(Configuration.getUsername());
+        view.lbUser.setText(parent.mConfig.getUsername());
 
         if(model.getGameStats().isEmpty())
             view.addPlaceHolder();

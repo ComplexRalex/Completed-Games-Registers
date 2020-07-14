@@ -1,7 +1,6 @@
 package util;
 
 import java.util.HashMap;
-import model.Configuration;
 
 /**
  * RALEX, DON'T FORGET TO ADD THE POSSIBILITY TO INCLUDE CUSTOM LANGUAGES FROM JSON FILES
@@ -13,18 +12,24 @@ public class Language{
 	
 	public static final String defaultCase = "English";
 	public static final String[] available = {"English", "Spanish"};
+
+	private static String currentLang;
 	
 	private final static HashMap<String,HashMap<String,String>> languages = new HashMap<>();
 	
+	public static void setCurrentLanguage(String lang){
+		currentLang = lang;
+	}
+
 	public static void initialize(){
 		setEnglish();
 		setSpanish();
 	}
 	
 	public static String loadMessage(String code){
-		if(Configuration.currentLanguage() == null)
+		if(currentLang == null)
 			return languages.get(defaultCase).get(code);
-		return languages.get(Configuration.currentLanguage()).get(code);
+		return languages.get(currentLang).get(code);
 	}
 	
 	private static void setEnglish(){
