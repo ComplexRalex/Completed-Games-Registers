@@ -6,6 +6,7 @@ import util.*;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -178,6 +179,35 @@ public class MainController{
                 Colour.getPrimaryColor()
             );
         }
+    }
+
+    public void resetStats(){
+        mGeneral.getGameStats().clear();
+        saveStats();
+    }
+
+    public void resetConfig(){
+        mConfig.setDefaultValues();
+        saveConfig();
+    }
+
+    public void deleteDownloadedInfo(){
+        Path.resolve(Path.gameInfo);
+        File info[] = (new File(Path.gameInfo)).listFiles();
+        for(File f: info)
+            f.delete();
+
+        Path.resolve(Path.gameImage);
+        File image[] = (new File(Path.gameImage)).listFiles();
+        for(File f: image)
+            f.delete();
+    }
+
+    public void deleteBackups(){
+        Path.resolve(Path.backupPath);
+        File backup[] = (new File(Path.backupPath)).listFiles();
+        for(File f: backup)
+            f.delete();
     }
 
     public void suddenClose(){

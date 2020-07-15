@@ -23,7 +23,9 @@ import util.SimplePanel;
 
 @SuppressWarnings("serial")
 public class ViewGamePanel extends JPanel{
-    private JPanel pGameFields, pSpoiler;
+    private JPanel pGameFields, pAreaSpoiler;
+    public JPanel pYear, pComment, pNote;
+    public SimplePanel pSpoiler;
     private GridBagConstraints c;
     public JTextField txtName, txtYear, txtRate;
     public JTextArea aComment, aNote, aSpoiler;
@@ -177,7 +179,8 @@ public class ViewGamePanel extends JPanel{
 
         txtYear = new JTextField();
         txtYear.setEditable(false);
-        pGameFields.add(Component.createTextField(Language.loadMessage("ge_year"), txtYear, true, Colour.getBackgroundColor()),c);
+        pYear = Component.createTextField(Language.loadMessage("ge_year"), txtYear, true, Colour.getBackgroundColor());
+        pGameFields.add(pYear,c);
         c.gridy++;
 
         // Establishing local user rating
@@ -191,29 +194,35 @@ public class ViewGamePanel extends JPanel{
 
         aComment = new JTextArea();
         aComment.setEditable(false);
-        pGameFields.add(Component.createTextArea(Language.loadMessage("ge_comment"), aComment, 3, Colour.getBackgroundColor()),c);
+        pComment = Component.createTextArea(Language.loadMessage("ge_comment"), aComment, 3, Colour.getBackgroundColor());
+        pGameFields.add(pComment,c);
         c.gridy++;
 
         // Establishing notes
 
         aNote = new JTextArea();
         aNote.setEditable(false);
-        pGameFields.add(Component.createTextArea(Language.loadMessage("ge_note"), aNote, 2, Colour.getBackgroundColor()),c);
+        pNote = Component.createTextArea(Language.loadMessage("ge_note"), aNote, 2, Colour.getBackgroundColor());
+        pGameFields.add(pNote,c);
         c.gridy++;
+
+        // Establishing panel of spoiler text and spoiler button
+
+        pSpoiler = new SimplePanel(Colour.getPrimaryColor());
+        pGameFields.add(pSpoiler,c);
+        c.gridy = 0;
 
         // Establishing show/hide spoiler button
 
         btSpoiler = new JButton(Language.loadMessage("gv_show_spoiler"));
-        pGameFields.add(Component.createSingleButton(btSpoiler, Colour.getBackgroundColor()),c);
-        c.gridy++;
+        pSpoiler.add(Component.createSingleButton(btSpoiler, Colour.getPrimaryColor()));
 
         // Establishing spoiler
 
         aSpoiler = new JTextArea();
         aSpoiler.setEditable(false);
-        pSpoiler = Component.createTextArea(Language.loadMessage("ge_spoiler"), aSpoiler, 2, Colour.getPrimaryColor());
-        pGameFields.add(pSpoiler,c);
-        c.gridy = 0;
+        pAreaSpoiler = Component.createTextArea(Language.loadMessage("ge_spoiler"), aSpoiler, 2, Colour.getPrimaryColor());
+        pSpoiler.add(pAreaSpoiler);
 
         add(scroll,BorderLayout.CENTER);
 
@@ -223,15 +232,12 @@ public class ViewGamePanel extends JPanel{
     }
 
     public void viewSpoiler(boolean flag){
-        if(flag)
-            btSpoiler.setText(Language.loadMessage("gv_hide_spoiler"));
-        else
-            btSpoiler.setText(Language.loadMessage("gv_show_spoiler"));
-        pSpoiler.setVisible(flag);
+        btSpoiler.setText(flag ? Language.loadMessage("gv_hide_spoiler") : Language.loadMessage("gv_show_spoiler"));
+        pAreaSpoiler.setVisible(flag);
     }
 
     public boolean spoilerVisible(){
-        return pSpoiler.isVisible();
+        return pAreaSpoiler.isVisible();
     }
 
     public void addDatabaseInfo(GameData gd){

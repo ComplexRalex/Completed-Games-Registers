@@ -115,7 +115,14 @@ public class GeneralPanel extends JPanel{
             iconEdit = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"edit.png"))),Colour.getFontColor(),brightness);
             iconRemove = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"remove.png"))),Colour.getFontColor(),brightness);
 		} catch (IOException e) {
-			Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong"), e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+			Advice.showTextAreaAdvice(
+                null,
+                Language.loadMessage("g_oops"),
+                Language.loadMessage("g_wentwrong"),
+                e.toString(),
+                Language.loadMessage("g_accept"),
+                Colour.getPrimaryColor()
+            );
 		}
     }
 

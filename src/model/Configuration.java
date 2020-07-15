@@ -11,14 +11,6 @@ import util.Colour;
 import util.Language;
 import util.Path;
 
-/**
- * Next options to add:
- * - Delete backups (instant)
- * - Delete save file and current registers (requires restart)
- * - Delete all game info downloaded from RAWG database (instant)
- * 
- * - and probably more...
- */
 public class Configuration implements Serializable{
 	private static final long serialVersionUID = 1L;
 

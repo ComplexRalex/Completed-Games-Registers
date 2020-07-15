@@ -80,7 +80,7 @@ public class GeneralController implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(Advice.showOptionAdvice(
-                    view,
+                    parent.frame,
                     Language.loadMessage("g_warning"),
                     Language.loadMessage("m_remove"),
                     new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
@@ -115,7 +115,7 @@ public class GeneralController implements ActionListener{
         }else if(e.getSource() == view.btBackup){
             try {
                 Advice.showTextAreaAdvice(
-                    view,
+                    parent.frame,
                     Language.loadMessage("g_success"),
                     Language.loadMessage("m_backedup"),
                     "Name of the backup file: "+parent.mGeneral.doBackup(),
@@ -124,7 +124,7 @@ public class GeneralController implements ActionListener{
                 );
 			} catch (IOException e1) {
 				Advice.showTextAreaAdvice(
-                    view,
+                    parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("g_wentwrong")+": ",
                     e1.toString(), Language.loadMessage("g_accept"),
@@ -134,7 +134,8 @@ public class GeneralController implements ActionListener{
         }else if(e.getSource() == view.btConfig){
             parent.frame.changePanel(parent.frame.pConfig);
         }else{
-            Advice.showSimpleAdvice(null,
+            Advice.showSimpleAdvice(
+                parent.frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_indev"),
                 Language.loadMessage("g_accept"),

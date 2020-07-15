@@ -33,18 +33,49 @@ public class ViewGameController implements ActionListener{
     public void setInitialValues(GameStat gs){
         actual = gs;
         view.txtName.setText(actual.getGame());
-        view.txtYear.setText(actual.getYear() <= -1 ? Language.loadMessage("g_noinfo") : Integer.toString(actual.getYear()));
+        if(actual.getYear() > 0){
+            view.pYear.setVisible(true);
+            view.txtYear.setText(Integer.toString(actual.getYear()));
+        }else{
+            view.pYear.setVisible(false);
+            view.txtYear.setText("");
+        }
         view.txtRate.setText("\""+Language.loadMessage("ge_rate_"+actual.getRate())+"\"");
-        view.aComment.setText(actual.getComment().trim().equals("") ? Language.loadMessage("g_noinfo") : actual.getComment());
-        view.aNote.setText(actual.getNote().trim().equals("") ? Language.loadMessage("g_noinfo") : actual.getNote());
-        view.aSpoiler.setText(actual.getSpoiler().trim().equals("") ? Language.loadMessage("g_noinfo") : actual.getSpoiler());
+        if(!actual.getComment().trim().equals("")){
+            view.pComment.setVisible(true);
+            view.aComment.setText(actual.getComment());
+        }else{
+            view.pComment.setVisible(false);
+            view.aComment.setText("");
+        }
+        if(!actual.getNote().trim().equals("")){
+            view.pNote.setVisible(true);
+            view.aNote.setText(actual.getNote());
+        }else{
+            view.pNote.setVisible(false);
+            view.aNote.setText("");
+        }
+        if(!actual.getSpoiler().trim().equals("")){
+            view.pSpoiler.setVisible(true);
+            view.aSpoiler.setText(actual.getSpoiler());
+        }else{
+            view.pSpoiler.setVisible(false);
+            view.aSpoiler.setText("");
+        }
         view.viewSpoiler(false);
 
         if(actual.isInfoAvailable()){
             try{
                 view.addDatabaseInfo(new GameData(actual.getGame()));
 			}catch(IOException | ParseException e){
-				Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong"), e.toString(), Language.loadMessage("g_accept"), Colour.getPrimaryColor());
+				Advice.showTextAreaAdvice(
+                    parent.frame,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_wentwrong"),
+                    e.toString(),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
 			}
         }
     }

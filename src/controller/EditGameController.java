@@ -117,7 +117,7 @@ public class EditGameController implements ActionListener, KeyListener{
         try{
             if(GameData.downloadGameInfo(view.txtName.getText().trim())){
                 Advice.showTextAreaAdvice(
-                    view,
+                    parent.frame,
                     Language.loadMessage("g_success"),
                     Language.loadMessage("ge_success_download"),
                     "The name of the downloaded game information was: "+(new GameData(view.txtName.getText().trim())).getName(),
@@ -130,7 +130,7 @@ public class EditGameController implements ActionListener, KeyListener{
                     GameData.downloadGameImage(view.txtName.getText().trim());
                 }catch(IOException | ParseException e){
                     Advice.showTextAreaAdvice(
-                        view,
+                        parent.frame,
                         Language.loadMessage("g_oops"),
                         Language.loadMessage("g_wentwrong")+": ",
                         e.toString()+" (Not URL image provided).",
@@ -140,7 +140,7 @@ public class EditGameController implements ActionListener, KeyListener{
                 }
             }else{
                 Advice.showSimpleAdvice(
-                    view,
+                    parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("ge_fail_download"),
                     Language.loadMessage("g_accept"),
@@ -149,7 +149,7 @@ public class EditGameController implements ActionListener, KeyListener{
             }
         }catch(IOException | ParseException | URISyntaxException e){
             Advice.showTextAreaAdvice(
-                view,
+                parent.frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_wentwrong")+": ",
                 Advice.getStackTrace(e), Language.loadMessage("g_accept"),
@@ -170,7 +170,7 @@ public class EditGameController implements ActionListener, KeyListener{
             if(sameValues())
                 parent.frame.changePanel(parent.frame.pGeneral);
             else if(Advice.showOptionAdvice(
-                view,
+                parent.frame,
                 Language.loadMessage("g_warning"),
                 Language.loadMessage("g_unsaved"),
                 new String[]{
@@ -201,7 +201,7 @@ public class EditGameController implements ActionListener, KeyListener{
                             downloadGameInfo();
                         }else{
                             Advice.showSimpleAdvice(
-                                view,
+                                parent.frame,
                                 Language.loadMessage("g_message"),
                                 Language.loadMessage("ge_downloaded"),
                                 Language.loadMessage("g_accept"),
@@ -230,7 +230,7 @@ public class EditGameController implements ActionListener, KeyListener{
                         // This is in case the user has changed the name of the game (just) after downloading the game info
                         if(downloaded != null && !game.equals(downloaded)){
                             Advice.showSimpleAdvice(
-                                view,
+                                parent.frame,
                                 Language.loadMessage("g_message"),
                                 Language.loadMessage("ge_update_data"),
                                 Language.loadMessage("g_accept"),
@@ -262,7 +262,7 @@ public class EditGameController implements ActionListener, KeyListener{
                     
                 }else{
                     Advice.showSimpleAdvice(
-                        view, 
+                        parent.frame, 
                         Language.loadMessage("g_oops"),
                         Language.loadMessage("ge_no_game"),
                         Language.loadMessage("g_return"),
@@ -271,7 +271,7 @@ public class EditGameController implements ActionListener, KeyListener{
                 }
             }else{
                 Advice.showSimpleAdvice(
-                    view, 
+                    parent.frame, 
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("ge_exists"),
                     Language.loadMessage("g_accept"),

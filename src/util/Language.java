@@ -46,6 +46,7 @@ public class Language{
 		languages.get("English").put("g_warning",			"Warning!");
 		languages.get("English").put("g_success",			"Success!");
 		languages.get("English").put("g_oops",				"Oops!");
+		languages.get("English").put("g_done",				"The operation was successful");
 		languages.get("English").put("g_unsaved",			"There are some unsaved changes, are you sure?");
 		languages.get("English").put("g_wentwrong",			"Something went wrong!");
 		languages.get("English").put("g_indev",				"This is not implemented yet!");
@@ -70,8 +71,11 @@ public class Language{
 		languages.get("English").put("cf_theme", 			"Program theme (requires restart): ");
 		languages.get("English").put("cf_lang", 			"Program language (requires restart):");
 		languages.get("English").put("cf_delicate",			"Delicate options");
-		languages.get("English").put("cf_warn",				"Warning! think twice before clicking some of these options!");
+		languages.get("English").put("cf_warn",				"Warning! think twice before clicking some of these options! These don't require to be applied to take effect.");
 		languages.get("English").put("cf_reset_cf", 		"Reset configuration to default");
+		languages.get("English").put("cf_reset_save", 		"Reset registers and save.dat to default");
+		languages.get("English").put("cf_reset_db_info", 	"Delete game info downloaded from RAWG database");
+		languages.get("English").put("cf_reset_backups", 	"Delete currently stored backups");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
 		languages.get("English").put("cf_yousure",			"Do you really want to do it?");
 		languages.get("English").put("cf_success",			"The settings have been saved!");
@@ -133,6 +137,7 @@ public class Language{
 		languages.get("Spanish").put("g_warning",			"¡Advertencia!");
 		languages.get("Spanish").put("g_success",			"¡Éxito!");
 		languages.get("Spanish").put("g_oops",				"¡Ups!");
+		languages.get("Spanish").put("g_done",				"Se ha realizado la operación correctamente");
 		languages.get("Spanish").put("g_unsaved",			"No se han guardado algunos cambios, ¿quieres continuar?");
 		languages.get("Spanish").put("g_wentwrong",			"¡Algo salió mal!");
 		languages.get("Spanish").put("g_indev",				"¡Aún no se ha implementado!");
@@ -157,8 +162,11 @@ public class Language{
 		languages.get("Spanish").put("cf_theme", 			"Tema del programa (requiere reinicio): ");
 		languages.get("Spanish").put("cf_lang",				"Idioma del programa (requiere reinicio):");
 		languages.get("Spanish").put("cf_delicate",			"Opciones delicadas");
-		languages.get("Spanish").put("cf_warn",				"¡Cuidado! ¡piénsalo dos veces antes de presionar alguna de las opciones!");
+		languages.get("Spanish").put("cf_warn",				"¡Cuidado! ¡piénsalo dos veces antes de presionar alguna de las opciones! No requieren ser aplicadas para hacer efecto.");
 		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto");
+		languages.get("Spanish").put("cf_reset_save",		"Restaurar registros y save.dat por defecto");
+		languages.get("Spanish").put("cf_reset_db_info", 	"Borrar información de juegos descargada de la RAWG database");
+		languages.get("Spanish").put("cf_reset_backups", 	"Borrar backups creados hasta el momento");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
 		languages.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");
 		languages.get("Spanish").put("cf_success",			"¡Se han guardado los cambios!");

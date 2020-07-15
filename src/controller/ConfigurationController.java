@@ -41,6 +41,9 @@ public class ConfigurationController implements ActionListener{
 		view.cbLang.addActionListener(this);
 
 		view.btResetConfig.addActionListener(this);
+		view.btResetSave.addActionListener(this);
+		view.btDeleteGameInfo.addActionListener(this);
+		view.btResetBackups.addActionListener(this);
 		view.btWipeOut.addActionListener(this);
 		
 		view.btAccept.addActionListener(this);
@@ -138,7 +141,7 @@ public class ConfigurationController implements ActionListener{
 			model.saveConfiguration();
 		} catch (IOException e) {
 			Advice.showTextAreaAdvice(
-				null,
+				parent.frame,
 				Language.loadMessage("g_oops"),
 				Language.loadMessage("g_wentwrong"),
 				e.toString(),
@@ -157,9 +160,9 @@ public class ConfigurationController implements ActionListener{
 		
 		exitDialogStatus = ((value = Component.runSwitchButtonEffect(e, view.btExitDialogON, view.btExitDialogOFF)) != -1) ? value : exitDialogStatus; 
 		
-		if(source == view.btResetConfig){
+		if(source == view.btResetConfig || source == view.btResetSave || source == view.btWipeOut){
 			if(Advice.showOptionAdvice(
-				null,
+				parent.frame,
 				Language.loadMessage("g_message"),
 				Language.loadMessage("cf_yousure"),
 				new String[]{
@@ -169,31 +172,46 @@ public class ConfigurationController implements ActionListener{
 				Colour.getPrimaryColor()
 			) == 0){
 				Advice.showSimpleAdvice(
-					null,
+					parent.frame,
 					Language.loadMessage("g_message"),
 					Language.loadMessage("cf_reset"),
 					Language.loadMessage("g_accept"),
 					Colour.getPrimaryColor()
 				);
-				model.setDefaultValues();
-				saveSettings();
+				if(source == view.btResetConfig)
+					parent.resetConfig();
+				else if(source == view.btResetSave){
+					parent.resetStats();
+					parent.deleteDownloadedInfo();
+				}else{
+					parent.resetConfig();
+					parent.resetStats();
+					parent.deleteDownloadedInfo();
+					parent.deleteBackups();
+				}
 				parent.reset();
 			}
 		}
 
-		if(source == view.btWipeOut)
+		if(source == view.btResetBackups || source == view.btDeleteGameInfo){
+			if(source == view.btResetBackups)
+				parent.deleteBackups();
+			else
+				parent.deleteDownloadedInfo();
 			Advice.showSimpleAdvice(
-				view,
-				Language.loadMessage("g_oops"),
-				Language.loadMessage("g_indev"),
+				parent.frame,
+				Language.loadMessage("g_success"),
+				Language.loadMessage("g_done"),
 				Language.loadMessage("g_accept"), 
 				Colour.getPrimaryColor()
 			);
+		}
+			
 
 		if(source == view.btAccept){
 			if(resetRequest()){
 				if(Advice.showOptionAdvice(
-					null,
+					parent.frame,
 					Language.loadMessage("g_warning"),
 					Language.loadMessage("cf_reset"),
 					new String[]{
@@ -208,26 +226,27 @@ public class ConfigurationController implements ActionListener{
 			} else if(!sameValues()){
 				saveCurrentSettings();
 				Advice.showSimpleAdvice(
-					view,
+					parent.frame,
 					Language.loadMessage("g_success"),
 					Language.loadMessage("cf_success"),
 					Language.loadMessage("g_accept"),
 					Colour.getPrimaryColor()
 				);
 			} else
-				Advice.showSimpleAdvice(view,
-				Language.loadMessage("g_message"), 
-				Language.loadMessage("cf_no_edit"),
-				Language.loadMessage("g_accept"),
-				Colour.getPrimaryColor()
-			);
+				Advice.showSimpleAdvice(
+					parent.frame,
+					Language.loadMessage("g_message"), 
+					Language.loadMessage("cf_no_edit"),
+					Language.loadMessage("g_accept"),
+					Colour.getPrimaryColor()
+				);
 		}
 		if(source == view.btReturn){
 			if(sameValues() && !resetRequest())
 				parent.frame.changePanel(parent.frame.pGeneral);
 			else
 				if(Advice.showOptionAdvice(
-					view,
+					parent.frame,
 					Language.loadMessage("g_warning"),
 					Language.loadMessage("g_unsaved"),
 					new String[]{

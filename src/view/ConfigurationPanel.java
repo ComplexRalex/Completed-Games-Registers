@@ -16,7 +16,12 @@ import util.SimplePanel;
  */
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
-	public JButton btAutoBackupON, btAutoBackupOFF, btExitDialogON, btExitDialogOFF, btResetConfig, btWipeOut, btAccept, btReturn;
+	public JButton
+		btAutoBackupON, btAutoBackupOFF,
+		btExitDialogON, btExitDialogOFF,
+		btResetConfig, btResetSave, btResetBackups,
+		btDeleteGameInfo, btWipeOut,
+		btAccept, btReturn;
 	public JComboBox<String> cbLang;
 	public JRadioButton btTheme[];
 	public JTextField txtUser;
@@ -89,10 +94,26 @@ public class ConfigurationPanel extends JPanel{
 		btResetConfig = new JButton(Language.loadMessage("cf_reset_cf"));
 		pGeneralOptions.add(Component.createSingleButton(btResetConfig, Colour.getBackgroundColor()));
 
+		// - Establishing reset save file button
+
+		btResetSave = new JButton(Language.loadMessage("cf_reset_save"));
+		pGeneralOptions.add(Component.createSingleButton(btResetSave, Colour.getBackgroundColor()));
+
+		// - Establishing delete downloaded game database info button
+
+		btDeleteGameInfo = new JButton(Language.loadMessage("cf_reset_db_info"));
+		pGeneralOptions.add(Component.createSingleButton(btDeleteGameInfo, Colour.getBackgroundColor()));
+
+		// - Establishing reset backup files button
+
+		btResetBackups = new JButton(Language.loadMessage("cf_reset_backups"));
+		pGeneralOptions.add(Component.createSingleButton(btResetBackups, Colour.getBackgroundColor()));
+
 		// - Establishing wipe out all data button
 
 		btWipeOut = new JButton(Language.loadMessage("cf_wipeout"));
 		pGeneralOptions.add(Component.createSingleButton(btWipeOut, Colour.getBackgroundColor()));
+		btWipeOut.setBackground(Colour.colorOFF);
 
 		// Adding scroll pane into the config panel
 

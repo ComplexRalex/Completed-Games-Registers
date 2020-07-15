@@ -81,7 +81,7 @@ public class GameRegister{
 		return null;
 	}
 	
-	public boolean removeGameStat(GameStat gs){ // Maybe useless because of the view
+	public boolean removeGameStat(GameStat gs){
 		if(gs != null)
 			return gameStats.remove(gs);
 
