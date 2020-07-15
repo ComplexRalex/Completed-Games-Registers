@@ -12,7 +12,6 @@ import view.ConfigurationPanel;
 import util.Colour;
 import util.Component;
 import util.Language;
-import util.Path;
 import util.Advice;
 
 public class ConfigurationController implements ActionListener{
@@ -136,7 +135,6 @@ public class ConfigurationController implements ActionListener{
 
 	public void saveSettings(){
 		try {
-			Path.resolve(Path.dataPath);
 			model.saveConfiguration();
 		} catch (IOException e) {
 			Advice.showTextAreaAdvice(

@@ -28,18 +28,25 @@ public class MainController{
     }
 
     private void set(){
+        
+        // Initialize models (with default values)
         mConfig = new Configuration();
         mGeneral = new GameRegister();
         
-        // Check existence of directories
+        // Check existence of directories and files
         verifyDirectories();
+        /**
+         * In the case of the non-existence config and save files, these
+         * will create them as "new files". Otherwise, just won't affect
+         * the existing files.
+         */
         verifyConfigFile();
+        verifySaveFile();
         
         // Necessary because of the custom settings and the saved files
         loadData();
         
         // Setup languages and themes
-        
         Colour.setCurrentTheme(mConfig.currentTheme());
         Language.setCurrentLanguage(mConfig.currentLanguage());
         
@@ -63,30 +70,29 @@ public class MainController{
     
     public void verifyDirectories(){
         // The "data" folder will be created with these if necessary
-        if(!Path.exists(Path.backupPath)) Path.resolve(Path.backupPath);
-        if(!Path.exists(Path.gameInfo)) Path.resolve(Path.gameInfo);
-        if(!Path.exists(Path.gameImage)) Path.resolve(Path.gameImage);
+        Path.resolve(Path.backupPath);
+        Path.resolve(Path.gameInfo);
+        Path.resolve(Path.gameImage);
     }
 
     // Probably require much validation...
     public void verifySaveFile(){
+        /**
+         * Creates a save.dat file in case that doesn't already exist.
+         * This is mostly because the first run of the program must create
+         * every file and directory in order to work properly.
+         */
         if(!Path.exists(Path.saveFile)) saveStats();
     }
 
     // Probably require much validation...
     public void verifyConfigFile(){
-        try {
-            if(!Path.exists(Path.configFile)) mConfig.saveConfiguration();
-		} catch (IOException e) {
-			Advice.showTextAreaAdvice(
-                null,
-                Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentwrong") + ": ",
-                Advice.getStackTrace(e),
-                Language.loadMessage("g_accept"),
-                Colour.getPrimaryColor()
-            );
-		}
+        /**
+         * Creates a config.dat file in case that doesn't already exist.
+         * This is mostly because the first run of the program must create
+         * every file and directory in order to work properly.
+         */
+        if(!Path.exists(Path.configFile)) saveConfig();
     }
 
     private void loadData(){
@@ -94,7 +100,7 @@ public class MainController{
             mConfig.loadConfiguration();
         } catch (ClassNotFoundException | IOException e) {
             Advice.showTextAreaAdvice(
-                null,
+                frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_wentwrong") + ": ",
                 Advice.getStackTrace(e),
@@ -106,7 +112,7 @@ public class MainController{
             mGeneral.loadGameStats();
 		} catch (IOException | ClassNotFoundException e) {
 			Advice.showTextAreaAdvice(
-                null,
+                frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_wentwrong") + ": ",
                 Advice.getStackTrace(e),
@@ -131,7 +137,6 @@ public class MainController{
 
     public void saveStats(){
         try {
-            Path.resolve(Path.dataPath);
             mGeneral.saveGameStats();
 		} catch (IOException e) {
 			Advice.showTextAreaAdvice(
@@ -145,9 +150,23 @@ public class MainController{
 		}
     }
 
+    public void saveConfig(){
+        try {
+            mConfig.saveConfiguration();
+		} catch (IOException e) {
+			Advice.showTextAreaAdvice(
+                frame,
+                Language.loadMessage("g_oops"),
+                Language.loadMessage("g_wentwrong") + ": ",
+                Advice.getStackTrace(e),
+                Language.loadMessage("g_accept"),
+                Colour.getPrimaryColor()
+            );
+		}
+    }
+
     private void doBackup(){
         try {
-            Path.resolve(Path.backupPath);
             mGeneral.doBackup();
         } catch (IOException e) {
             Advice.showTextAreaAdvice(
@@ -185,6 +204,7 @@ public class MainController{
                         frame.dispose();
                         verifyDirectories();
                         verifyConfigFile();
+                        verifySaveFile();
                     }
                 }else{
                     if(mConfig.getAutoBackup() && mGeneral.changesMade())
@@ -192,6 +212,7 @@ public class MainController{
                     frame.dispose();
                     verifyDirectories();
                     verifyConfigFile();
+                    verifySaveFile();
                 }
             }
         };

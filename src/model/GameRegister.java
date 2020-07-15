@@ -30,6 +30,7 @@ public class GameRegister{
 	}
 	
 	public void saveGameStats() throws IOException {
+		Path.resolve(Path.dataPath);
 		FileOutputStream f = new FileOutputStream(Path.saveFile);
 		ObjectOutputStream o = new ObjectOutputStream(f);
 		o.writeObject(gameStats);
@@ -41,6 +42,7 @@ public class GameRegister{
 	
 	@SuppressWarnings("unchecked")
 	public void loadGameStats() throws ClassNotFoundException, IOException {
+		Path.resolve(Path.dataPath);
 		FileInputStream f = new FileInputStream(Path.saveFile);
 		ObjectInputStream o = new ObjectInputStream(f);
 		gameStats = (ArrayList<GameStat>)o.readObject();
@@ -49,6 +51,7 @@ public class GameRegister{
 	}
 	
 	public String doBackup() throws IOException {
+		Path.resolve(Path.backupPath);
 		String fileName = Path.backupPath+"backup-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".dat";
 		FileOutputStream f = new FileOutputStream(fileName);
 		ObjectOutputStream o = new ObjectOutputStream(f);
@@ -88,16 +91,6 @@ public class GameRegister{
 	public boolean changesMade(){
 		return changeMade;
 	}
-	
-	// public void generateHTMLPage() throws CouldNotCreateHTMLFileException, HTMLTemplateNotFoundException{
-	// 	HTMLGameRegister.openFileOutput(Path.html);
-	// 	HTMLGameRegister.writeTemplatePage(Path.htmlTemplateFile);
-	// 	HTMLGameRegister.writeGameIndexPage(gameStats);
-	// 	HTMLGameRegister.writeGameListPage(gameStats);
-	// 	HTMLGameRegister.closeFileOutput();
-	// 	//JOptionPane.showMessageDialog(null, "Hubo un error al generar la pagina HTML.","Error al generar archivo HTML",JOptionPane.ERROR_MESSAGE);
-	// 	// Faltan mas juasjuas, hacer los que faltan cuando empiece el controlador
-	// }
 	
 	public ArrayList<GameStat> getGameStats(){return gameStats;}
 	public ArrayList<GameStat> getGameStatsOccurrences(String title){

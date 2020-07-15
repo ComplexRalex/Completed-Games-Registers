@@ -3,7 +3,6 @@ package controller;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -19,7 +18,6 @@ import model.GameStat;
 import util.Advice;
 import util.Colour;
 import util.Language;
-import util.Path;
 
 public class EditGameController implements ActionListener, KeyListener{
 
@@ -55,7 +53,7 @@ public class EditGameController implements ActionListener, KeyListener{
         actual = initial;
         if(actual != null){
             view.txtName.setText(actual.getGame());
-            if((new File(Path.gameInfo+Path.validFileName(actual.getGame(),"json"))).exists()){
+            if(actual.isInfoAvailable()){
                 downloaded = actual.getGame();
                 view.btDelete.setEnabled(true);
             }else{
@@ -117,7 +115,6 @@ public class EditGameController implements ActionListener, KeyListener{
 
     public void downloadGameInfo(){
         try{
-            Path.resolve(Path.gameInfo);
             if(GameData.downloadGameInfo(view.txtName.getText().trim())){
                 Advice.showTextAreaAdvice(
                     view,
@@ -130,7 +127,6 @@ public class EditGameController implements ActionListener, KeyListener{
                 view.btDelete.setEnabled(true);
                 downloaded = view.txtName.getText().trim();
                 try{
-                    Path.resolve(Path.gameImage);
                     GameData.downloadGameImage(view.txtName.getText().trim());
                 }catch(IOException | ParseException e){
                     Advice.showTextAreaAdvice(
@@ -163,9 +159,7 @@ public class EditGameController implements ActionListener, KeyListener{
     }
 
     public void deleteGameInfo(){
-        Path.resolve(Path.gameInfo);
         view.btDelete.setEnabled(!GameData.deleteGameInfo(downloaded));
-        Path.resolve(Path.gameImage);
         GameData.deleteGameImage(downloaded);
         downloaded = null;
     }

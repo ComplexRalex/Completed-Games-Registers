@@ -50,7 +50,16 @@ public class ViewGamePanel extends JPanel{
             try{
                 image = gd.getImage();
                 add(Component.createImage(image, Colour.getBackgroundColor()));
-            }catch(IOException e){Advice.showTextAreaAdvice(null, Language.loadMessage("g_oops"), Language.loadMessage("g_wentwrong"), e.toString()+"The won't be shown!", Language.loadMessage("g_accept"), Colour.getPrimaryColor());}
+            }catch(IOException e){
+                Advice.showTextAreaAdvice(
+                    null,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_wentwrong"),
+                    e.toString()+"The image won't be shown!",
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+            }
         
             // Establishing game name
 

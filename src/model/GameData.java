@@ -34,6 +34,7 @@ public class GameData{
     private String game;
 
     public GameData(String name) throws FileNotFoundException, IOException, ParseException{
+		Path.resolve(Path.gameInfo);
 		FileReader file = new FileReader(Path.gameInfo+Path.validFileName(name, "json"));
 		data = (JSONObject)(new JSONParser()).parse(file);
 		file.close();
@@ -49,6 +50,7 @@ public class GameData{
 	}
 
     public BufferedImage getImage() throws IOException{
+		Path.resolve(Path.gameImage);
         return ImageIO.read(new File(Path.gameImage+Path.validFileName(game, "jpg")));
 	}
 	
@@ -160,6 +162,7 @@ public class GameData{
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		
+		Path.resolve(Path.gameInfo);
 		FileWriter file = new FileWriter(Path.gameInfo+Path.validFileName(game, "json"));
 		file.append(((JSONObject)(new JSONParser()).parse(reader)).toJSONString());
 		file.close();
@@ -171,6 +174,7 @@ public class GameData{
 
 	public static void downloadGameImage(String game) throws IOException, ParseException{
 
+		Path.resolve(Path.gameInfo);
 		FileReader reader = new FileReader(Path.gameInfo+Path.validFileName(game, "json"));
 		JSONObject json = (JSONObject)(new JSONParser()).parse(reader);
 		reader.close();
@@ -208,17 +212,20 @@ public class GameData{
 				image = scaled;
 			}
 		}
+		Path.resolve(Path.gameImage);
 		ImageIO.write(image,"jpg",new File(Path.gameImage+Path.validFileName(game, "jpg")));
 	}
 
 	public static boolean deleteGameInfo(String game){
 		
+		Path.resolve(Path.gameInfo);
 		File file = new File(Path.gameInfo+Path.validFileName(game, "json"));
 		return file.delete();
 	}
 
 	public static void deleteGameImage(String game){
 		
+		Path.resolve(Path.gameImage);
 		File file = new File(Path.gameImage+Path.validFileName(game, "jpg"));
 		file.delete();
 	}

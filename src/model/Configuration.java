@@ -13,11 +13,6 @@ import util.Path;
 
 /**
  * Next options to add:
- * - Check and resolve save file before start/close (true or false)
- * - Check and resolve save file now (instant)
- * - Check and resolve config file now (instant)
- * - Check and resolve all directories now (instant)
- * - Check and resolve everything now (instant)
  * - Delete backups (instant)
  * - Delete save file and current registers (requires restart)
  * - Delete all game info downloaded from RAWG database (instant)
@@ -46,6 +41,7 @@ public class Configuration implements Serializable{
 	}
 	
 	public void saveConfiguration() throws IOException {
+		Path.resolve(Path.dataPath);
 		FileOutputStream f = new FileOutputStream(Path.configFile);
 		ObjectOutputStream o = new ObjectOutputStream(f);
 		o.writeObject(this);
@@ -53,6 +49,7 @@ public class Configuration implements Serializable{
 	}
 	
 	public void loadConfiguration() throws ClassNotFoundException, IOException {
+		Path.resolve(Path.dataPath);
 		FileInputStream f = new FileInputStream(Path.configFile);
 		ObjectInputStream o = new ObjectInputStream(f);
 		Configuration file = (Configuration)o.readObject();
