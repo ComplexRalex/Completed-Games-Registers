@@ -7,6 +7,7 @@ import util.Colour;
 import util.Language;
 import util.Component;
 import util.SimplePanel;
+import util.Typeface;
 
 /**
  * Panel which contains every visual component about the configuration menu of the
@@ -87,7 +88,7 @@ public class ConfigurationPanel extends JPanel{
 
 		// - Establishing "warning" message
 
-		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_warn"), Colour.getPrimaryColor()));
+		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_warn"), Typeface.labelPlain, Colour.getPrimaryColor()));
 
 		// - Establishing reset configuration button
 

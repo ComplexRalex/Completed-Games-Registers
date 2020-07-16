@@ -15,11 +15,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import model.GameData;
-import util.Advice;
 import util.Colour;
 import util.Component;
 import util.Language;
 import util.SimplePanel;
+import util.Typeface;
 
 @SuppressWarnings("serial")
 public class ViewGamePanel extends JPanel{
@@ -52,16 +52,7 @@ public class ViewGamePanel extends JPanel{
             try{
                 image = gd.getImage();
                 add(Component.createImage(image, Colour.getBackgroundColor()));
-            }catch(IOException e){
-                Advice.showTextAreaAdvice(
-                    null,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_wentwrong"),
-                    e.toString()+"The image won't be shown!",
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
-            }
+            }catch(IOException e){}
         
             // Establishing game name
 
@@ -71,61 +62,76 @@ public class ViewGamePanel extends JPanel{
             
             // Establishing game description
 
-            add(Component.createPlainText(gd.getDescription(), Colour.getPrimaryColor()));
+            add(Component.createPlainText(gd.getDescription(), Typeface.textPlain, Colour.getPrimaryColor()));
 
             // Establishing game developers
 
-            txtDevelopers = new JTextField(oneLineList(gd.getDevelopers()));
-            txtDevelopers.setEditable(false);
-            add(Component.createTextField(Language.loadMessage("gv_developers"), txtDevelopers, false, Colour.getBackgroundColor()));
+            try{
+                txtDevelopers = new JTextField(oneLineList(gd.getDevelopers()));
+                txtDevelopers.setEditable(false);
+                add(Component.createTextField(Language.loadMessage("gv_developers"), txtDevelopers, false, Colour.getBackgroundColor()));
+            } catch(NullPointerException e) {}
 
             // Establishing game publishers
 
-            txtPublishers = new JTextField(oneLineList(gd.getPublishers()));
-            txtPublishers.setEditable(false);
-            add(Component.createTextField(Language.loadMessage("gv_publishers"), txtPublishers, false, Colour.getBackgroundColor()));
+            try{
+                txtPublishers = new JTextField(oneLineList(gd.getPublishers()));
+                txtPublishers.setEditable(false);
+                add(Component.createTextField(Language.loadMessage("gv_publishers"), txtPublishers, false, Colour.getBackgroundColor()));
+            } catch(NullPointerException e) {}
 
             // Establishing game release date
 
-            try {
-                SimpleDateFormat format = new SimpleDateFormat("MMMM dd',' yyyy");
-                txtRelease = new JTextField((format.format((new SimpleDateFormat("yyyy-MM-dd")).parse(gd.getReleaseDate()))));
-			} catch (ParseException e) {
-				txtRelease = new JTextField(gd.getReleaseDate());
-			}
-            txtRelease.setEditable(false);
-            add(Component.createTextField(Language.loadMessage("gv_release"), txtRelease, true, Colour.getBackgroundColor()));
+            try{
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("MMMM dd',' yyyy");
+                    txtRelease = new JTextField((format.format((new SimpleDateFormat("yyyy-MM-dd")).parse(gd.getReleaseDate()))));
+                } catch (ParseException e) {
+                    txtRelease = new JTextField(gd.getReleaseDate());
+                }
+                txtRelease.setEditable(false);
+                add(Component.createTextField(Language.loadMessage("gv_release"), txtRelease, true, Colour.getBackgroundColor()));
+            } catch(NullPointerException e) {}
 
             // Establishing game platforms
 
-            aPlatforms = new JTextArea(oneLineList(gd.getPlatforms()));
-            aPlatforms.setEditable(false);
-            add(Component.createTextArea(Language.loadMessage("gv_platforms"), aPlatforms, 2, Colour.getBackgroundColor()));
+            try{
+                aPlatforms = new JTextArea(oneLineList(gd.getPlatforms()));
+                aPlatforms.setEditable(false);
+                add(Component.createTextArea(Language.loadMessage("gv_platforms"), aPlatforms, 2, Colour.getBackgroundColor()));
+            } catch(NullPointerException e) {}
 
             // Establishing game genres
 
-            aGenres = new JTextArea(oneLineList(gd.getGenres()));
-            aGenres.setEditable(false);
-            add(Component.createTextArea(Language.loadMessage("gv_genres"), aGenres, 2, Colour.getBackgroundColor()));
-            
+            try{
+                aGenres = new JTextArea(oneLineList(gd.getGenres()));
+                aGenres.setEditable(false);
+                add(Component.createTextArea(Language.loadMessage("gv_genres"), aGenres, 2, Colour.getBackgroundColor()));
+            } catch(NullPointerException e) {}
+
             // Establishing game tags
 
-            aTags = new JTextArea(oneLineList(gd.getTags()));
-            aTags.setEditable(false);
-            add(Component.createTextArea(Language.loadMessage("gv_tags"), aTags, 3, Colour.getBackgroundColor()));
+            try{
+                aTags = new JTextArea(oneLineList(gd.getTags()));
+                aTags.setEditable(false);
+                add(Component.createTextArea(Language.loadMessage("gv_tags"), aTags, 3, Colour.getBackgroundColor()));
+            } catch(NullPointerException e) {}
 
             // Establishing game rating
 
-            txtRating = new JTextField(Float.toString(gd.getRating()));
-            txtRating.setEditable(false);
-            add(Component.createTextField(Language.loadMessage("gv_rating"), txtRating, true, Colour.getBackgroundColor()));
-        
+            try{
+                txtRating = new JTextField(Float.toString(gd.getRating()));
+                txtRating.setEditable(false);
+                add(Component.createTextField(Language.loadMessage("gv_rating"), txtRating, true, Colour.getBackgroundColor()));
+            } catch(NullPointerException e) {}
+
             // Establishing gap
 
             add(Component.createGap(35,Colour.getBackgroundColor()));
         }
 
         private String oneLineList(String[] elements){
+            if(elements.length == 0) throw new NullPointerException();
             String string = "";
             String[] array = elements;
 

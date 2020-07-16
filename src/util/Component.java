@@ -19,6 +19,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Dimension;
 
 public class Component{
@@ -90,10 +91,11 @@ public class Component{
      * provided.
      * 
      * @param text String that contains the paragraph text
+     * @param font Font the text will have
      * @param bg Background color
      * @return JPanel that contains the given paragraph
      */
-    public static JPanel createPlainText(String text, Color bg){
+    public static JPanel createPlainText(String text, Font font, Color bg){
         // Initializing new panel
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,13,13));
         panel.setBackground(bg);
@@ -105,8 +107,8 @@ public class Component{
             " color: #%06x; text-align: justify;'>%s",
             width-149,
             Integer.valueOf(bg.getRGB() & 0x00FFFFFF),
-            Typeface.labelPlain.getName(),
-            Typeface.labelPlain.getSize(),
+            font.getName(),
+            font.getSize(),
             Integer.valueOf(Colour.getFontColor().getRGB() & 0x00FFFFFF),
             text
         ));

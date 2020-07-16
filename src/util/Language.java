@@ -35,7 +35,7 @@ public class Language{
 	private static void setEnglish(){
 		languages.put("English",new HashMap<>());
 		
-		languages.get("English").put("p_title", 			"Completed-Game Register");
+		languages.get("English").put("p_title", 			"Completed-Games Register");
 
 		languages.get("English").put("g_accept",			"Accept");
 		languages.get("English").put("g_apply",				"Apply");

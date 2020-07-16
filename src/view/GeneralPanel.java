@@ -17,7 +17,6 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-import util.Advice;
 import util.Colour;
 import util.Component;
 import util.Language;
@@ -114,16 +113,7 @@ public class GeneralPanel extends JPanel{
             iconView = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"view.png"))),Colour.getFontColor(),brightness);
             iconEdit = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"edit.png"))),Colour.getFontColor(),brightness);
             iconRemove = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"remove.png"))),Colour.getFontColor(),brightness);
-		} catch (IOException e) {
-			Advice.showTextAreaAdvice(
-                null,
-                Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentwrong"),
-                e.toString(),
-                Language.loadMessage("g_accept"),
-                Colour.getPrimaryColor()
-            );
-		}
+		} catch (IOException e) {}
     }
 
     public void initComponents(){
@@ -142,15 +132,11 @@ public class GeneralPanel extends JPanel{
         pWelcome.add(lbUser);
         add(pWelcome,BorderLayout.NORTH);
 
-        // ----- TEST AREA
-
         pCentral = new JPanel(new GridLayout(0,1,10,6));
         pCentral.setBackground(Colour.getPrimaryColor());
         JScrollPane scroll = Component.createScrollPane(pCentral);
 
         add(scroll,BorderLayout.CENTER);
-
-        // ----- END OF TEST AREA XD
 
         SimplePanel leftSide = new SimplePanel(Colour.getPrimaryColor());
         btAdd = new JButton();
