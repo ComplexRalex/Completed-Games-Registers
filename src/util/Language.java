@@ -92,7 +92,7 @@ public class Language{
 		languages.get("English").put("ge_rating",			"Rating:");
 		languages.get("English").put("ge_rate_0",			"I don't know!");
 		languages.get("English").put("ge_rate_1",			"NOPE");
-		languages.get("English").put("ge_rate_2",			"Meh");
+		languages.get("English").put("ge_rate_2",			"Neh");
 		languages.get("English").put("ge_rate_3",			"Neutral");
 		languages.get("English").put("ge_rate_4",			"Nice");
 		languages.get("English").put("ge_rate_5",			"HELL YEAH!");
@@ -122,9 +122,20 @@ public class Language{
 
 		languages.get("English").put("h_title",				"Quick help");
 		languages.get("English").put("h_what_is",			"What is this?");
-		languages.get("English").put("h_what_is_text",		"This program will allow you to have a record of all the games you have completed so far so you can check them out or even add more the next time.");
+		languages.get("English").put("h_what_is_text",		"This program will allow you to have a record of all the games you have completed so far so you can check them out or even add more the next time!");
+		languages.get("English").put("h_register",			"What is a completed-game register?");
+		languages.get("English").put("h_register_text",		"It's an object that contains the following fields:"+
+															"<ul>"+
+																"<li>Name of the game. This is the unique non-optional field.</li>"+
+																"<li>The year which you've beaten (completed) the game.</li>"+
+																"<li>The rating measured by 6 different expressions such as \"Nice\" or \"Neh\".</li>"+
+																"<li>A comment about the game.</li>"+
+																"<li>A note about the game, for example, something you have to consider before playing the game.</li>"+
+																"<li>A spoiler about the game. This won't be visible at first when you view the register.</li>"+
+															"</ul>"+
+															"You can add a completed-game register clicking the \"<i>plus</i> button\" (explained below).");
 		languages.get("English").put("h_options",			"What does each option do?");
-		languages.get("English").put("h_options_add",		"If you want to create and add a completed-game register, click this button. It will display a panel where you can add the game name and more information you'd like to save.");
+		languages.get("English").put("h_options_add",		"If you want to add a completed-game register, click this button. It will display a panel where you can add the game name and more information you'd like to save.");
 		languages.get("English").put("h_options_backup",	"You don't feel comfortable just by knowing that the program saves automatically the registers? Hey, it's okay! you can make a backup with this option!");
 		languages.get("English").put("h_options_export",	"This option will allow you to export the current registers into a JSON file which will contain everything you entered! Except, of course, the game info downloaded from the database).");
 		languages.get("English").put("h_options_help",		"Well... as you can see, this option will show you a panel explaining stuff shown in this program!");
@@ -226,8 +237,19 @@ public class Language{
 		languages.get("Spanish").put("h_title",				"Ayuda rápida");
 		languages.get("Spanish").put("h_what_is",			"¿Qué es esto?");
 		languages.get("Spanish").put("h_what_is_text",		"Este programa te permitirá tener un récord de todos los juegos que has completado hasta el momento para posteriormente poder visualizarlos o incluso agregar más.");
+		languages.get("Spanish").put("h_register",			"¿Qué es un registro de juego completado?");
+		languages.get("Spanish").put("h_register_text",		"Es un objeto que contiene los siguientes campos:"+
+															"<ul>"+
+																"<li>Nombre del juego. Este es el único campo no opcional.</li>"+
+																"<li>El año en el que has vencido (o completado) el juego.</li>"+
+																"<li>El puntaje medido por 6 expresiones, tales como \"Chido\" o \"Meh\".</li>"+
+																"<li>Un comentario acerca del juego.</li>"+
+																"<li>Una nota sobre el juego, por ejemplo, algo que debes considerar antes de jugar.</li>"+
+																"<li>Un spoiler sobre el juego. Este no será visible al principio cuando veas el registro.</li>"+
+															"</ul>"+
+															"Puedes agregar un registro de juego completado presionando el \"botón <i>más</i>\" (explicado abajo).");
 		languages.get("Spanish").put("h_options",			"¿Qué hace cada opción?");
-		languages.get("Spanish").put("h_options_add",		"Si quieres crear y agregar un registro de juego completado, presiona este botón. Te mostrará un panel en donde podrás agregar el nombre del juego y más información que quisieras guardar.");
+		languages.get("Spanish").put("h_options_add",		"Si quieres agregar un registro de juego completado, presiona este botón. Te mostrará un panel en donde podrás agregar el nombre del juego y más información que quisieras guardar.");
 		languages.get("Spanish").put("h_options_backup",	"¿No es suficiente para tí saber que el programa guarda los registros automáticamente? Si gustas, ¡puedes hacer una copia de seguridad con esta opción!");
 		languages.get("Spanish").put("h_options_export",	"Esta opción te permitirá exportar los registros actuales a un archivo JSON que contendrá toda la información que ingresaste, excepto la que descargaste de la base de datos.");
 		languages.get("Spanish").put("h_options_help",		"Bueno... como puedes ver, ¡esta opción te mostrará un panel explicando las cosas mostradas en este programa!");

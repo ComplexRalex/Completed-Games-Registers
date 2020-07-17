@@ -54,11 +54,11 @@ public class HelpPanel extends JPanel{
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_what_is"), Colour.getPrimaryColor()));
         panel.add(Component.createPlainText(Language.loadMessage("h_what_is_text"), Typeface.labelPlain, Colour.getBackgroundColor()));
-        
-        panel.add(Component.createGap(20,Colour.getBackgroundColor()));
+
+        panel.add(Component.createSubtitle(Language.loadMessage("h_register"), Colour.getPrimaryColor()));
+        panel.add(Component.createPlainText(Language.loadMessage("h_register_text"), Typeface.labelPlain, Colour.getBackgroundColor()));
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_options"), Colour.getPrimaryColor()));
-
         panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getAdd(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_add"), Colour.getBackgroundColor()));
         panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getBackup(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_backup"), Colour.getBackgroundColor()));
         panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getExport(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_export"), Colour.getBackgroundColor()));
