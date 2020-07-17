@@ -13,8 +13,8 @@ public class Colour {
 	public static final int DARK_THEME = 1;
 	public static final int NIGHT_THEME = 2;
 
-	// Default value is DARK_THEME = 1
-	private static int currentTheme = DARK_THEME;
+	// Default value is NIGHT_THEME = 2
+	private static int currentTheme = NIGHT_THEME;
 
 	public static final Color colorON = new Color(110,220,116);
 	public static final Color colorOFF = new Color(220,90,90);
@@ -53,7 +53,7 @@ public class Colour {
 			return THEME_COLORS[currentTheme][0];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[DARK_THEME][0];
+			return THEME_COLORS[NIGHT_THEME][0];
 		}
 	}
 	public static Color getPrimaryColor(){
@@ -61,7 +61,7 @@ public class Colour {
 			return THEME_COLORS[currentTheme][1];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[DARK_THEME][1];
+			return THEME_COLORS[NIGHT_THEME][1];
 		}
 	}
 	public static Color getButtonColor(){
@@ -69,7 +69,7 @@ public class Colour {
 			return THEME_COLORS[currentTheme][2];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[DARK_THEME][2];
+			return THEME_COLORS[NIGHT_THEME][2];
 		}
 	}
 	public static Color getBackgroundColor(){
@@ -77,7 +77,7 @@ public class Colour {
 			return THEME_COLORS[currentTheme][3];
 		}
 		catch(IndexOutOfBoundsException e){
-			return THEME_COLORS[DARK_THEME][3];
+			return THEME_COLORS[NIGHT_THEME][3];
 		}
 	}
 

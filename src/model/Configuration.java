@@ -28,7 +28,7 @@ public class Configuration implements Serializable{
 		username = "Username";
 		autoBackup = false;
 		exitDialog = true;
-		theme = Colour.DARK_THEME;
+		theme = Colour.NIGHT_THEME;
 		lang = Language.available[0];
 	}
 	

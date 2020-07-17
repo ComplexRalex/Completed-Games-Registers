@@ -130,7 +130,9 @@ public class GeneralController implements ActionListener{
                     e1.toString(), Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
-			}
+            }
+        }else if(e.getSource() == view.btHelp){
+            parent.frame.changePanel(parent.frame.pHelp);
         }else if(e.getSource() == view.btConfig){
             parent.frame.changePanel(parent.frame.pConfig);
         }else{

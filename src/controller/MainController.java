@@ -21,10 +21,12 @@ public class MainController{
     public GeneralController cGeneral;
     public EditGameController cEditGame;
     public ViewGameController cViewGame;
+    public HelpController cHelp;
     public ConfigurationController cConfig;
 
     public MainController(){
         Language.initialize();
+        Image.initialize();
         set();
     }
 
@@ -62,6 +64,9 @@ public class MainController{
 
         cViewGame = new ViewGameController(frame.pViewGame, this);
         cViewGame.initialize();
+
+        cHelp = new HelpController(frame.pHelp, this);
+        cHelp.initialize();
 
         cConfig = new ConfigurationController(mConfig, frame.pConfig, this);
         cConfig.initialize();

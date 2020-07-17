@@ -4,13 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -19,8 +15,8 @@ import javax.swing.JTextArea;
 
 import util.Colour;
 import util.Component;
+import util.Image;
 import util.Language;
-import util.Path;
 import util.SimplePanel;
 import util.Typeface;
 
@@ -104,16 +100,14 @@ public class GeneralPanel extends JPanel{
     }
 
     public void initIcons(){
-        try {
-            float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
-            iconAdd = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"add.png"))),Colour.getFontColor(),brightness);
-            iconBackup = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"backup.png"))),Colour.getFontColor(),brightness);
-            iconExport = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"export.png"))),Colour.getFontColor(),brightness);
-            iconHelp = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"help.png"))),Colour.getFontColor(),brightness);
-            iconView = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"view.png"))),Colour.getFontColor(),brightness);
-            iconEdit = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"edit.png"))),Colour.getFontColor(),brightness);
-            iconRemove = Component.colorAndShadowIcon(new ImageIcon(ImageIO.read(new File(Path.imagePath+"remove.png"))),Colour.getFontColor(),brightness);
-		} catch (IOException e) {}
+        float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
+        iconAdd = new ImageIcon(Image.colorAndShadow(Image.getAdd(),Colour.getFontColor(),brightness));
+        iconBackup = new ImageIcon(Image.colorAndShadow(Image.getBackup(),Colour.getFontColor(),brightness));
+        iconExport = new ImageIcon(Image.colorAndShadow(Image.getExport(),Colour.getFontColor(),brightness));
+        iconHelp = new ImageIcon(Image.colorAndShadow(Image.getHelp(),Colour.getFontColor(),brightness));
+        iconView = new ImageIcon(Image.colorAndShadow(Image.getView(),Colour.getFontColor(),brightness));
+        iconEdit = new ImageIcon(Image.colorAndShadow(Image.getEdit(),Colour.getFontColor(),brightness));
+        iconRemove = new ImageIcon(Image.colorAndShadow(Image.getRemove(),Colour.getFontColor(),brightness));
     }
 
     public void initComponents(){

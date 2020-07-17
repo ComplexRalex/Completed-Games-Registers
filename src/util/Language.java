@@ -35,7 +35,7 @@ public class Language{
 	private static void setEnglish(){
 		languages.put("English",new HashMap<>());
 		
-		languages.get("English").put("p_title", 			"Completed-Games Register");
+		languages.get("English").put("p_title", 			"Completed-Games Registers");
 
 		languages.get("English").put("g_accept",			"Accept");
 		languages.get("English").put("g_apply",				"Apply");
@@ -120,13 +120,25 @@ public class Language{
 		languages.get("English").put("gv_show_spoiler",		"Show spoiler");
 		languages.get("English").put("gv_hide_spoiler",		"Hide spoiler");
 
+		languages.get("English").put("h_title",				"Quick help");
+		languages.get("English").put("h_what_is",			"What is this?");
+		languages.get("English").put("h_what_is_text",		"This program will allow you to have a record of all the games you have completed so far so you can check them out or even add more the next time.");
+		languages.get("English").put("h_options",			"What does each option do?");
+		languages.get("English").put("h_options_add",		"If you want to create and add a completed-game register, click this button. It will display a panel where you can add the game name and more information you'd like to save.");
+		languages.get("English").put("h_options_backup",	"You don't feel comfortable just by knowing that the program saves automatically the registers? Hey, it's okay! you can make a backup with this option!");
+		languages.get("English").put("h_options_export",	"This option will allow you to export the current registers into a JSON file which will contain everything you entered! Except, of course, the game info downloaded from the database).");
+		languages.get("English").put("h_options_help",		"Well... as you can see, this option will show you a panel explaining stuff shown in this program!");
+		languages.get("English").put("h_options_view",		"This kind-of eye will show you the information you entered about that game and will include its online information (in case you downloaded it).");
+		languages.get("English").put("h_options_edit",		"If you click this, you can modify anything about that register you created before. Displays the same panel as the one where you entered a new register, but now with the given information.");
+		languages.get("English").put("h_options_remove",	"I present to you: the trash can!. If you think that was not a good choice adding that game register, you can remove it just by clicking this!");
+
 		languages.get("English").put("m_chale",				"Duuude, that's not fair!");
 	}
 	
 	private static void setSpanish(){
 		languages.put("Spanish",new HashMap<>());
 
-		languages.get("Spanish").put("p_title", 			"Registro de Juegos Completados");
+		languages.get("Spanish").put("p_title", 			"Registros de Juegos Completados");
 		
 		languages.get("Spanish").put("g_accept",			"Aceptar");
 		languages.get("Spanish").put("g_apply",				"Aplicar");
@@ -210,6 +222,18 @@ public class Language{
 		languages.get("Spanish").put("gv_rating",			"Puntaje de usuarios:");
 		languages.get("Spanish").put("gv_show_spoiler",		"Mostrar spoiler");
 		languages.get("Spanish").put("gv_hide_spoiler",		"Ocultar spoiler");
+
+		languages.get("Spanish").put("h_title",				"Ayuda rápida");
+		languages.get("Spanish").put("h_what_is",			"¿Qué es esto?");
+		languages.get("Spanish").put("h_what_is_text",		"Este programa te permitirá tener un récord de todos los juegos que has completado hasta el momento para posteriormente poder visualizarlos o incluso agregar más.");
+		languages.get("Spanish").put("h_options",			"¿Qué hace cada opción?");
+		languages.get("Spanish").put("h_options_add",		"Si quieres crear y agregar un registro de juego completado, presiona este botón. Te mostrará un panel en donde podrás agregar el nombre del juego y más información que quisieras guardar.");
+		languages.get("Spanish").put("h_options_backup",	"¿No es suficiente para tí saber que el programa guarda los registros automáticamente? Si gustas, ¡puedes hacer una copia de seguridad con esta opción!");
+		languages.get("Spanish").put("h_options_export",	"Esta opción te permitirá exportar los registros actuales a un archivo JSON que contendrá toda la información que ingresaste, excepto la que descargaste de la base de datos.");
+		languages.get("Spanish").put("h_options_help",		"Bueno... como puedes ver, ¡esta opción te mostrará un panel explicando las cosas mostradas en este programa!");
+		languages.get("Spanish").put("h_options_view",		"Esta especie de... ojo, te mostrará la información que ingresaste sobre dicho juego e incluirá su información online (en caso de haberla descargado).");
+		languages.get("Spanish").put("h_options_edit",		"Si haces click aquí, podrás modificar cualquier cosa sobre ese registro que agregaste. Muestra el mismo panel en donde sueles agregar registros, pero esta vez con la información previa.");
+		languages.get("Spanish").put("h_options_remove",	"Te presento: ¡el bote de basura!. Si crees que no fue una buena idea agregar ese registro, ¡lo puedes borrar con solo dar click a esto!");
 
 		languages.get("Spanish").put("m_chale",				"Chaaale... quería ver qué onda");
 	}
