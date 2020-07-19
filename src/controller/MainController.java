@@ -26,7 +26,6 @@ public class MainController{
 
     public MainController(){
         Language.initialize();
-        Image.initialize();
         set();
     }
 

@@ -140,7 +140,9 @@ public class Advice{
         dialog.getContentPane().setBackground(bg);
         dialog.setResizable(false);
         dialog.setTitle(title);
-        dialog.setIconImage(Image.getAdvice());
+        try{
+        	dialog.setIconImage((new ImageResource()).resource(ImageResource.ADVICE));
+        }catch(IllegalArgumentException | NullPointerException e){/* In case of non-existence, it will be ignored.*/}
         dialog.setModal(true);
 
         GridBagConstraints c = new GridBagConstraints();

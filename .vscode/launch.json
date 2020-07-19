@@ -6,10 +6,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Completed Games Register",
+            "name": "Debug (Launch)-MainLauncher<Completed-Games Registers>",
             "request": "launch",
             "mainClass": "MainLauncher",
-            "projectName": "Completed Games Register_43063c"
+            "projectName": "Completed-Games Registers"
         }
     ]
 }

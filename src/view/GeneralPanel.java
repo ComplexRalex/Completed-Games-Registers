@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
 
 import util.Colour;
 import util.Component;
-import util.Image;
+import util.ImageResource;
 import util.Language;
 import util.SimplePanel;
 import util.Typeface;
@@ -27,6 +27,8 @@ public class GeneralPanel extends JPanel{
     public JButton btAdd, btBackup, btExport, btHelp, btConfig, btAbout;
     public JLabel lbUser;
     public FirstTimePanel pNothing;
+    
+    private boolean loadedIcons;
 
     public GeneralPanel(){
         setLayout(new BorderLayout());
@@ -67,15 +69,25 @@ public class GeneralPanel extends JPanel{
 
             JPanel options = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
             options.setBackground(this.getBackground());
-
-            btView = new JButton();
-            styleIconButton(btView, iconView);
-
-            btEdit = new JButton(iconEdit);
-            styleIconButton(btEdit, iconEdit);
-
-            btRemove = new JButton(iconRemove);
-            styleIconButton(btRemove, iconRemove);
+            
+            if(loadedIcons){
+            	btView = new JButton(iconView);
+            	btEdit = new JButton(iconEdit);
+            	btRemove = new JButton(iconRemove);
+            }else{
+            	btView = new JButton(Language.loadMessage("m_option_view"));
+            	btView.setForeground(Colour.getFontColor());
+            	btView.setFont(Typeface.buttonBold);
+        		btEdit = new JButton(Language.loadMessage("m_option_edit"));
+            	btEdit.setForeground(Colour.getFontColor());
+            	btEdit.setFont(Typeface.buttonBold);
+        		btRemove = new JButton(Language.loadMessage("m_option_remove"));
+            	btRemove.setForeground(Colour.getFontColor());
+            	btRemove.setFont(Typeface.buttonBold);
+        	}
+            btView.setBackground(Colour.getButtonColor());
+            btEdit.setBackground(Colour.getButtonColor());
+            btRemove.setBackground(Colour.getButtonColor());
 
             options.add(btView);
             options.add(btEdit);
@@ -100,14 +112,20 @@ public class GeneralPanel extends JPanel{
     }
 
     public void initIcons(){
-        float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
-        iconAdd = new ImageIcon(Image.colorAndShadow(Image.getAdd(),Colour.getFontColor(),brightness));
-        iconBackup = new ImageIcon(Image.colorAndShadow(Image.getBackup(),Colour.getFontColor(),brightness));
-        iconExport = new ImageIcon(Image.colorAndShadow(Image.getExport(),Colour.getFontColor(),brightness));
-        iconHelp = new ImageIcon(Image.colorAndShadow(Image.getHelp(),Colour.getFontColor(),brightness));
-        iconView = new ImageIcon(Image.colorAndShadow(Image.getView(),Colour.getFontColor(),brightness));
-        iconEdit = new ImageIcon(Image.colorAndShadow(Image.getEdit(),Colour.getFontColor(),brightness));
-        iconRemove = new ImageIcon(Image.colorAndShadow(Image.getRemove(),Colour.getFontColor(),brightness));
+    	try{
+	    	ImageResource res = new ImageResource();
+	        float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
+	        iconAdd = new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.ADD),Colour.getFontColor(),brightness));
+	        iconBackup = new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.BACKUP),Colour.getFontColor(),brightness));
+	        iconExport = new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.EXPORT),Colour.getFontColor(),brightness));
+	        iconHelp = new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.HELP),Colour.getFontColor(),brightness));
+	        iconView = new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.VIEW),Colour.getFontColor(),brightness));
+	        iconEdit = new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.EDIT),Colour.getFontColor(),brightness));
+	        iconRemove = new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.REMOVE),Colour.getFontColor(),brightness));
+	        loadedIcons = true;
+    	}catch(IllegalArgumentException | NullPointerException e){
+            loadedIcons = false;
+    	}
     }
 
     public void initComponents(){
@@ -133,20 +151,34 @@ public class GeneralPanel extends JPanel{
         add(scroll,BorderLayout.CENTER);
 
         SimplePanel leftSide = new SimplePanel(Colour.getPrimaryColor());
-        btAdd = new JButton();
-        styleIconButton(btAdd, iconAdd);
+        
+        if(loadedIcons){
+        	btAdd = new JButton(iconAdd);
+        	btBackup = new JButton(iconBackup);
+        	btExport = new JButton(iconExport);
+        	btHelp = new JButton(iconHelp);
+        }else{
+        	btAdd = new JButton(Language.loadMessage("m_option_add"));
+        	btAdd.setForeground(Colour.getFontColor());
+        	btAdd.setFont(Typeface.buttonBold);
+        	btBackup = new JButton(Language.loadMessage("m_option_backup"));
+        	btBackup.setForeground(Colour.getFontColor());
+        	btBackup.setFont(Typeface.buttonBold);
+        	btExport = new JButton(Language.loadMessage("m_option_export"));
+        	btExport.setForeground(Colour.getFontColor());
+        	btExport.setFont(Typeface.buttonBold);
+        	btHelp = new JButton(Language.loadMessage("m_option_help"));
+        	btHelp.setForeground(Colour.getFontColor());
+        	btHelp.setFont(Typeface.buttonBold);
+    	}
+        btAdd.setBackground(Colour.getButtonColor());
+        btBackup.setBackground(Colour.getButtonColor());
+        btExport.setBackground(Colour.getButtonColor());
+        btHelp.setBackground(Colour.getButtonColor());
+        
         leftSide.add(btAdd);
-
-        btBackup = new JButton();
-        styleIconButton(btBackup, iconBackup);
         leftSide.add(btBackup);
-
-        btExport = new JButton();
-        styleIconButton(btExport, iconExport);
         leftSide.add(btExport);
-
-        btHelp = new JButton();
-        styleIconButton(btHelp, iconHelp);
         leftSide.add(btHelp);
 
         add(leftSide,BorderLayout.WEST);
@@ -155,11 +187,6 @@ public class GeneralPanel extends JPanel{
         btAbout = new JButton(Language.loadMessage("m_about"));
         
         add(Component.createGeneralOptions(new JButton[]{btConfig,btAbout},Colour.getPrimaryColor()),BorderLayout.SOUTH);
-    }
-
-    private void styleIconButton(JButton button, ImageIcon icon){
-        button.setIcon(icon);
-        button.setBackground(Colour.getButtonColor());
     }
 
     public void addToCenter(JComponent component){

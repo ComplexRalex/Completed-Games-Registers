@@ -1,8 +1,8 @@
 package util;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -10,59 +10,82 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
 
-public class Image{
+/**
+ * ImageResource provides a way to obtain images that are located
+ * in the resource folder of the project.
+ * 
+ * @author Alex
+ *
+ */
+public class ImageResource{
     
-    private static BufferedImage add;
-    private static BufferedImage backup;
-    private static BufferedImage export;
-    private static BufferedImage help;
-    private static BufferedImage view;
-    private static BufferedImage edit;
-    private static BufferedImage remove;
+	/**
+	 * ClassLoader which will be used to load the resources
+	 */
+	private ClassLoader loader;
+	
+	/**
+	 * Path to the image add.png in the resources folder.
+	 */
+    public static final String ADD = Path.guiPath+"add.png";
+    /**
+	 * Path to the image backup.png in the resources folder.
+	 */
+    public static final String BACKUP = Path.guiPath+"backup.png";
+    /**
+	 * Path to the image export.png in the resources folder.
+	 */
+    public static final String EXPORT = Path.guiPath+"export.png";
+    /**
+	 * Path to the image help.png in the resources folder.
+	 */
+    public static final String HELP = Path.guiPath+"help.png";
+    /**
+	 * Path to the image view.png in the resources folder.
+	 */
+    public static final String VIEW = Path.guiPath+"view.png";
+    /**
+	 * Path to the image edit.png in the resources folder.
+	 */
+    public static final String EDIT = Path.guiPath+"edit.png";
+    /**
+	 * Path to the image remove.png in the resources folder.
+	 */
+    public static final String REMOVE = Path.guiPath+"remove.png";
 
-    private static BufferedImage frame;
-    private static BufferedImage advice;
+    /**
+	 * Path to the image frame_icon.png in the resources folder.
+	 */
+    public static final String FRAME = Path.iconPath+"frame_icon.png";
+    /**
+	 * Path to the image advice_icon.png in the resources folder.
+	 */
+    public static final String ADVICE = Path.iconPath+"advice_icon.png";
     
-    // Theoricatelly, it shouldn't throw an IOException
-    public static void initialize(){
-        try{
-            add = ImageIO.read(new File(Path.imagePath+"add.png"));
-        }catch(IOException e){}
-        try{
-            backup = ImageIO.read(new File(Path.imagePath+"backup.png"));
-        }catch(IOException e){}
-        try{
-            export = ImageIO.read(new File(Path.imagePath+"export.png"));
-        }catch(IOException e){}
-        try{
-            help = ImageIO.read(new File(Path.imagePath+"help.png"));
-        }catch(IOException e){}
-        try{
-            view = ImageIO.read(new File(Path.imagePath+"view.png"));
-        }catch(IOException e){}
-        try{
-            edit = ImageIO.read(new File(Path.imagePath+"edit.png"));
-        }catch(IOException e){}
-        try{
-            remove = ImageIO.read(new File(Path.imagePath+"remove.png"));
-        }catch(IOException e){}
-        try{
-            frame = ImageIO.read(new File(Path.imagePath+"frame_icon.png"));
-        }catch(IOException e){}
-        try{
-            advice = ImageIO.read(new File(Path.imagePath+"advice_icon.png"));
-        }catch(IOException e){}
+    /**
+     * Initializes a ClassLoader in order to obtain the resources later.
+     */
+    public ImageResource(){
+    	loader = getClass().getClassLoader();
     }
-
-	public static BufferedImage getAdd(){return add;}
-	public static BufferedImage getBackup(){return backup;}
-	public static BufferedImage getExport(){return export;}
-	public static BufferedImage getHelp(){return help;}
-	public static BufferedImage getView(){return view;}
-	public static BufferedImage getEdit(){return edit;}
-    public static BufferedImage getRemove(){return remove;}
-    public static BufferedImage getFrame(){return frame;}
-    public static BufferedImage getAdvice(){return advice;}
+    
+    /**
+     * Requests the given image. It's recommended to use one of the
+     * static variables in this class.
+     * 
+     * @param image String with the given path to the image.
+     * @return a BufferedImage
+     */
+	public BufferedImage resource(String image){
+		try{
+			URL link = loader.getResource(image);
+			if(link == null) throw new IllegalArgumentException();
+			return ImageIO.read(link);
+		}catch(IOException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException();
+		}
+	}
     
     /**
      * Colors the given BufferedImage (with the given color) and also

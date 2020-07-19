@@ -54,7 +54,13 @@ public class Language{
 		languages.get("English").put("g_noinfo",			"[No info provided]");
 		
 		languages.get("English").put("m_title",				"Welcome, ");
-		languages.get("English").put("m_add",				"Add game register");
+		languages.get("English").put("m_option_add",		"Add");
+		languages.get("English").put("m_option_backup",		"Backup");
+		languages.get("English").put("m_option_export",		"Export");
+		languages.get("English").put("m_option_help",		"Help!");
+		languages.get("English").put("m_option_view",		"View");
+		languages.get("English").put("m_option_edit",		"Edit");
+		languages.get("English").put("m_option_remove",		"Remove");
 		languages.get("English").put("m_backedup",			"The registers have been backed up successfully");
 		languages.get("English").put("m_remove",			"Do you want to remove this register?");
 		languages.get("English").put("m_config",			"Configuration");
@@ -168,7 +174,13 @@ public class Language{
 		languages.get("Spanish").put("g_noinfo",			"[No se obtuvo información]");
 
 		languages.get("Spanish").put("m_title",				"Hola, ");
-		languages.get("Spanish").put("m_add",				"Agregar registro de juego");
+		languages.get("Spanish").put("m_option_add",		"Agregar");
+		languages.get("Spanish").put("m_option_backup",		"Respaldar");
+		languages.get("Spanish").put("m_option_export",		"Exportar");
+		languages.get("Spanish").put("m_option_help",		"¡Ayuda!");
+		languages.get("Spanish").put("m_option_view",		"Ver");
+		languages.get("Spanish").put("m_option_edit",		"Editar");
+		languages.get("Spanish").put("m_option_remove",		"Borrar");
 		languages.get("Spanish").put("m_backedup",			"Se han respaldado los registros correctamente");
 		languages.get("Spanish").put("m_remove",			"¿Quieres quitar este registro?");
 		languages.get("Spanish").put("m_config",			"Configuración");

@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 
 import util.Colour;
 import util.Component;
-import util.Image;
+import util.ImageResource;
 import util.Language;
 import util.SimplePanel;
 import util.Typeface;
@@ -35,6 +35,19 @@ public class HelpPanel extends JPanel{
             add(Component.createPlainText(description, Typeface.labelPlain, bg));
 
         }
+        
+        public IconDescription(String text, String description, Color bg){
+        	setBackground(bg);
+            setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
+
+            JLabel lbIcon = new JLabel(text);
+            lbIcon.setForeground(Colour.getFontColor());
+            lbIcon.setFont(Typeface.buttonBold);
+            lbIcon.setBorder(BorderFactory.createEmptyBorder(13,13,13,0));
+
+            add(lbIcon);
+            add(Component.createPlainText(description, Typeface.labelPlain, bg));
+        }
     }
 
     public HelpPanel(){
@@ -44,6 +57,7 @@ public class HelpPanel extends JPanel{
     }
 
     public void initComponents(){
+    	ImageResource res = new ImageResource();
         
         float brightness = 0.035f*Colour.getLuminance(Colour.getBackgroundColor());
 
@@ -59,14 +73,23 @@ public class HelpPanel extends JPanel{
         panel.add(Component.createPlainText(Language.loadMessage("h_register_text"), Typeface.labelPlain, Colour.getBackgroundColor()));
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_options"), Colour.getPrimaryColor()));
-        panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getAdd(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_add"), Colour.getBackgroundColor()));
-        panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getBackup(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_backup"), Colour.getBackgroundColor()));
-        panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getExport(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_export"), Colour.getBackgroundColor()));
-        panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getHelp(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_help"), Colour.getBackgroundColor()));
-        panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getView(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_view"), Colour.getBackgroundColor()));
-        panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getEdit(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_edit"), Colour.getBackgroundColor()));
-        panel.add(new IconDescription(new ImageIcon(Image.colorAndShadow(Image.getRemove(), Colour.getFontColor(), brightness)), Language.loadMessage("h_options_remove"), Colour.getBackgroundColor()));
-        
+        try{
+	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.ADD),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_add"), Colour.getBackgroundColor()));
+	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.BACKUP),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_backup"), Colour.getBackgroundColor()));
+	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.EXPORT),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_export"), Colour.getBackgroundColor()));
+	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.HELP),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_help"), Colour.getBackgroundColor()));
+	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.VIEW),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_view"), Colour.getBackgroundColor()));
+	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.EDIT),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_edit"), Colour.getBackgroundColor()));
+	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.REMOVE),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_remove"), Colour.getBackgroundColor()));
+        }catch(IllegalArgumentException | NullPointerException e){
+        	 panel.add(new IconDescription(Language.loadMessage("m_option_add"), Language.loadMessage("h_options_add"), Colour.getBackgroundColor()));
+        	 panel.add(new IconDescription(Language.loadMessage("m_option_backup"), Language.loadMessage("h_options_backup"), Colour.getBackgroundColor()));
+        	 panel.add(new IconDescription(Language.loadMessage("m_option_export"), Language.loadMessage("h_options_export"), Colour.getBackgroundColor()));
+        	 panel.add(new IconDescription(Language.loadMessage("m_option_help"), Language.loadMessage("h_options_help"), Colour.getBackgroundColor()));
+        	 panel.add(new IconDescription(Language.loadMessage("m_option_view"), Language.loadMessage("h_options_view"), Colour.getBackgroundColor()));
+        	 panel.add(new IconDescription(Language.loadMessage("m_option_edit"), Language.loadMessage("h_options_edit"), Colour.getBackgroundColor()));
+        	 panel.add(new IconDescription(Language.loadMessage("m_option_remove"), Language.loadMessage("h_options_remove"), Colour.getBackgroundColor()));
+        }
         add(scroll,BorderLayout.CENTER);
         
         btReturn = new JButton(Language.loadMessage("g_return"));

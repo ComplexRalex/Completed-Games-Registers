@@ -40,9 +40,13 @@ public class Path {
 	public static final String gameImage = gamePath+"image/";
 
 	/**
-	 * Image folder path
+	 * Icon folder path
 	 */
-	public static final String imagePath = srcPath+"image/";
+	public static final String iconPath = "icon/";
+	/**
+	 * GUI folder path
+	 */
+	public static final String guiPath = "gui/";
 
 	/**
 	 * Creates a file name with the given name in lower case, without any

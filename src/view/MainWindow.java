@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import util.Image;
+import util.ImageResource;
 import util.Language;
 
 @SuppressWarnings("serial")
@@ -33,7 +33,9 @@ public class MainWindow extends JFrame{
 
 	private void setWindow(){
 		setTitle(Language.loadMessage("p_title"));
-		setIconImage(Image.getFrame());
+		try{
+			setIconImage((new ImageResource()).resource(ImageResource.FRAME));
+		}catch(IllegalArgumentException | NullPointerException e){/* In case of non-existence, it will be ignored.*/}
 		setSize(new Dimension((int)(Toolkit.getDefaultToolkit().getScreenSize().getWidth()*0.70),(int)(Toolkit.getDefaultToolkit().getScreenSize().getHeight()*0.70)));
 		setMinimumSize(new Dimension(720,480));
 		setResizable(true);
