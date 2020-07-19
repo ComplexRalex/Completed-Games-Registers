@@ -71,7 +71,7 @@ public class ViewGameController implements ActionListener{
 				Advice.showTextAreaAdvice(
                     parent.frame,
                     Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_wentwrong"),
+                    Language.loadMessage("g_went_wrong"),
                     e.toString(),
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()

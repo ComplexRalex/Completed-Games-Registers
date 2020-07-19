@@ -48,10 +48,12 @@ public class Language{
 		languages.get("English").put("g_oops",				"Oops!");
 		languages.get("English").put("g_done",				"The operation was successful");
 		languages.get("English").put("g_unsaved",			"There are some unsaved changes, are you sure?");
-		languages.get("English").put("g_wentwrong",			"Something went wrong!");
+		languages.get("English").put("g_went_wrong",		"Something went wrong!");
 		languages.get("English").put("g_indev",				"This is not implemented yet!");
 		languages.get("English").put("g_restricted",		"You shall not pass here!");
-		languages.get("English").put("g_noinfo",			"[No info provided]");
+		languages.get("English").put("g_no_info",			"[No info provided]");
+		languages.get("English").put("g_will_browse",		"The following page will open in your web browser:");
+		languages.get("English").put("g_cant_browse",		"It was not possible to open the web browser...");
 		
 		languages.get("English").put("m_title",				"Welcome, ");
 		languages.get("English").put("m_option_add",		"Add");
@@ -72,7 +74,8 @@ public class Language{
 		languages.get("English").put("cf_title",		 	"Configuration menu");
 		languages.get("English").put("cf_general",			"General settings");
 		languages.get("English").put("cf_change_user",		"Change username:");
-		languages.get("English").put("cf_autobck", 			"Auto-backup data before closing the program:");
+		languages.get("English").put("cf_auto_backup_note",	"Note: Automatic backup only works when changes have been made in the current session (avoiding duplicate files).");
+		languages.get("English").put("cf_auto_backup", 		"Auto-backup data before closing the program:");
 		languages.get("English").put("cf_ask_on_close",		"Show a dialog before exiting the program:");
 		languages.get("English").put("cf_theme", 			"Program theme (requires restart): ");
 		languages.get("English").put("cf_lang", 			"Program language (requires restart):");
@@ -83,6 +86,7 @@ public class Language{
 		languages.get("English").put("cf_reset_db_info", 	"Delete game info downloaded from RAWG database");
 		languages.get("English").put("cf_reset_backups", 	"Delete currently stored backups");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
+		languages.get("English").put("cf_sudden_close",		"Quit program instantly, without validations (Not recommended)");
 		languages.get("English").put("cf_yousure",			"Do you really want to do it?");
 		languages.get("English").put("cf_success",			"The settings have been saved!");
 		languages.get("English").put("cf_no_edit",			"There were no changes...");
@@ -132,13 +136,14 @@ public class Language{
 		languages.get("English").put("h_register",			"What is a completed-game register?");
 		languages.get("English").put("h_register_text",		"It's an object that contains the following fields:"+
 															"<ul>"+
-																"<li>Name of the game. This is the unique non-optional field.</li>"+
+																"<li>Name of the game (non-optional field).</li>"+
 																"<li>The year which you've beaten (completed) the game.</li>"+
 																"<li>The rating measured by 6 different expressions such as \"Nice\" or \"Neh\".</li>"+
 																"<li>A comment about the game.</li>"+
-																"<li>A note about the game, for example, something you have to consider before playing the game.</li>"+
+																"<li>A note about the game, for example, something you have to consider before playing it.</li>"+
 																"<li>A spoiler about the game. This won't be visible at first when you view the register.</li>"+
 															"</ul>"+
+															"Besides, you can download game information such as an image, its description, its developers, and even it score! (Thanks, RAWG database).<br>"+
 															"You can add a completed-game register clicking the \"<i>plus</i> button\" (explained below).");
 		languages.get("English").put("h_options",			"What does each option do?");
 		languages.get("English").put("h_options_add",		"If you want to add a completed-game register, click this button. It will display a panel where you can add the game name and more information you'd like to save.");
@@ -148,6 +153,8 @@ public class Language{
 		languages.get("English").put("h_options_view",		"This kind-of eye will show you the information you entered about that game and will include its online information (in case you downloaded it).");
 		languages.get("English").put("h_options_edit",		"If you click this, you can modify anything about that register you created before. Displays the same panel as the one where you entered a new register, but now with the given information.");
 		languages.get("English").put("h_options_remove",	"I present to you: the trash can!. If you think that was not a good choice adding that game register, you can remove it just by clicking this!");
+		languages.get("English").put("h_report_issue",		"Did you see any bug?");
+		languages.get("English").put("h_report_issue_text",	"Report an issue (GitHub page)");
 
 		languages.get("English").put("m_chale",				"Duuude, that's not fair!");
 	}
@@ -168,10 +175,12 @@ public class Language{
 		languages.get("Spanish").put("g_oops",				"¡Ups!");
 		languages.get("Spanish").put("g_done",				"Se ha realizado la operación correctamente");
 		languages.get("Spanish").put("g_unsaved",			"No se han guardado algunos cambios, ¿quieres continuar?");
-		languages.get("Spanish").put("g_wentwrong",			"¡Algo salió mal!");
+		languages.get("Spanish").put("g_went_wrong",		"¡Algo salió mal!");
 		languages.get("Spanish").put("g_indev",				"¡Aún no se ha implementado!");
 		languages.get("Spanish").put("g_restricted",		"No puede pasar, ¡váyase pa' otro lado!");
-		languages.get("Spanish").put("g_noinfo",			"[No se obtuvo información]");
+		languages.get("Spanish").put("g_no_info",			"[No se obtuvo información]");
+		languages.get("Spanish").put("g_will_browse",		"La siguiente página se abrirá en tu navegador web:");
+		languages.get("Spanish").put("g_cant_browse",		"No fue posible abrir el navegador web...");
 
 		languages.get("Spanish").put("m_title",				"Hola, ");
 		languages.get("Spanish").put("m_option_add",		"Agregar");
@@ -186,13 +195,14 @@ public class Language{
 		languages.get("Spanish").put("m_config",			"Configuración");
 		languages.get("Spanish").put("m_about",				"Acerca del programa");
 		languages.get("Spanish").put("m_help",				"¿Cómo se usa?");
-		languages.get("Spanish").put("m_nothing",			"...esto se ve muy vacío");
+		languages.get("Spanish").put("m_nothing",			"...esto se ve muy vacío!");
 		languages.get("Spanish").put("m_closing",			"¿De verdad quieres salir?");
 
 		languages.get("Spanish").put("cf_title", 			"Menú de configuración");
 		languages.get("Spanish").put("cf_general",			"Ajustes generales");
 		languages.get("Spanish").put("cf_change_user",		"Cambiar nombre de usuario:");
-		languages.get("Spanish").put("cf_autobck", 			"Respaldo automático antes de finalizar el programa:");
+		languages.get("Spanish").put("cf_auto_backup_note",	"Nota: El respaldo automático solamente funciona cuando se ha realizado algún cambio en la sesión actual (con el fin de evitar archivos duplicados).");
+		languages.get("Spanish").put("cf_auto_backup", 		"Respaldo automático antes de finalizar el programa:");
 		languages.get("Spanish").put("cf_ask_on_close",		"Mostrar un diálogo antes de salir del programa:");
 		languages.get("Spanish").put("cf_theme", 			"Tema del programa (requiere reinicio): ");
 		languages.get("Spanish").put("cf_lang",				"Idioma del programa (requiere reinicio):");
@@ -200,9 +210,10 @@ public class Language{
 		languages.get("Spanish").put("cf_warn",				"¡Cuidado! ¡piénsalo dos veces antes de presionar alguna de las opciones! No requieren ser aplicadas para hacer efecto.");
 		languages.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto");
 		languages.get("Spanish").put("cf_reset_save",		"Restaurar registros y save.dat por defecto");
-		languages.get("Spanish").put("cf_reset_db_info", 	"Borrar información de juegos descargada de la RAWG database");
+		languages.get("Spanish").put("cf_reset_db_info", 	"Borrar información de juegos descargada de la base de datos de RAWG");
 		languages.get("Spanish").put("cf_reset_backups", 	"Borrar backups creados hasta el momento");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
+		languages.get("Spanish").put("cf_sudden_close",		"Cerrar el programa instantáneamente, sin validaciones (No recomendado)");
 		languages.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");
 		languages.get("Spanish").put("cf_success",			"¡Se han guardado los cambios!");
 		languages.get("Spanish").put("cf_no_edit",			"No hubo cambios...");
@@ -211,8 +222,8 @@ public class Language{
 		languages.get("Spanish").put("ge_title",			"Registro de juego");
 		languages.get("Spanish").put("ge_main_info", 		"Información del juego");
 		languages.get("Spanish").put("ge_name",				"Nombre del juego:");
-		languages.get("Spanish").put("ge_download",			"Descargar información del juego de la RAWG database");
-		languages.get("Spanish").put("ge_delete",			"Borrar información del juego de la RAWG database");
+		languages.get("Spanish").put("ge_download",			"Descargar información del juego de la base de datos de RAWG");
+		languages.get("Spanish").put("ge_delete",			"Borrar información del juego de la base de datos de RAWG");
 		languages.get("Spanish").put("ge_user_info", 		"Información del usuario");
 		languages.get("Spanish").put("ge_year",				"Año de completación:");
 		languages.get("Spanish").put("ge_rating",			"Puntaje:");
@@ -234,7 +245,7 @@ public class Language{
 		languages.get("Spanish").put("ge_update_data",		"La información del juego se volverá a descargar");
 
 		languages.get("Spanish").put("gv_title",			"Datos del juego");
-		languages.get("Spanish").put("gv_db_info",			"Información de la database");
+		languages.get("Spanish").put("gv_db_info",			"Información de la base de datos");
 		languages.get("Spanish").put("gv_name",				"Nombre del juego:");
 		languages.get("Spanish").put("gv_developers",		"Desarrolladores:");
 		languages.get("Spanish").put("gv_publishers",		"Distribuidores:");
@@ -248,17 +259,18 @@ public class Language{
 
 		languages.get("Spanish").put("h_title",				"Ayuda rápida");
 		languages.get("Spanish").put("h_what_is",			"¿Qué es esto?");
-		languages.get("Spanish").put("h_what_is_text",		"Este programa te permitirá tener un récord de todos los juegos que has completado hasta el momento para posteriormente poder visualizarlos o incluso agregar más.");
+		languages.get("Spanish").put("h_what_is_text",		"Este programa te permitirá tener un récord de todos los juegos que has completado hasta el momento para posteriormente poder visualizarlos o incluso ¡agregar más!");
 		languages.get("Spanish").put("h_register",			"¿Qué es un registro de juego completado?");
 		languages.get("Spanish").put("h_register_text",		"Es un objeto que contiene los siguientes campos:"+
 															"<ul>"+
-																"<li>Nombre del juego. Este es el único campo no opcional.</li>"+
+																"<li>Nombre del juego (campo no opcional).</li>"+
 																"<li>El año en el que has vencido (o completado) el juego.</li>"+
-																"<li>El puntaje medido por 6 expresiones, tales como \"Chido\" o \"Meh\".</li>"+
+																"<li>El puntaje medido por 6 diferentes expresiones, tales como \"Chido\" o \"Meh\".</li>"+
 																"<li>Un comentario acerca del juego.</li>"+
 																"<li>Una nota sobre el juego, por ejemplo, algo que debes considerar antes de jugar.</li>"+
 																"<li>Un spoiler sobre el juego. Este no será visible al principio cuando veas el registro.</li>"+
 															"</ul>"+
+															"¡Además, podrás descargar información del juego como una imágen, su descripción, sus desarrolladores e incluso su puntaje! (Gracias a la base de datos de RAWG).<br>"+
 															"Puedes agregar un registro de juego completado presionando el \"botón <i>más</i>\" (explicado abajo).");
 		languages.get("Spanish").put("h_options",			"¿Qué hace cada opción?");
 		languages.get("Spanish").put("h_options_add",		"Si quieres agregar un registro de juego completado, presiona este botón. Te mostrará un panel en donde podrás agregar el nombre del juego y más información que quisieras guardar.");
@@ -268,6 +280,8 @@ public class Language{
 		languages.get("Spanish").put("h_options_view",		"Esta especie de... ojo, te mostrará la información que ingresaste sobre dicho juego e incluirá su información online (en caso de haberla descargado).");
 		languages.get("Spanish").put("h_options_edit",		"Si haces click aquí, podrás modificar cualquier cosa sobre ese registro que agregaste. Muestra el mismo panel en donde sueles agregar registros, pero esta vez con la información previa.");
 		languages.get("Spanish").put("h_options_remove",	"Te presento: ¡el bote de basura!. Si crees que no fue una buena idea agregar ese registro, ¡lo puedes borrar con solo dar click a esto!");
+		languages.get("Spanish").put("h_report_issue",		"¿Viste algún error?");
+		languages.get("Spanish").put("h_report_issue_text",	"Reportar problema (página GitHub)");
 
 		languages.get("Spanish").put("m_chale",				"Chaaale... quería ver qué onda");
 	}

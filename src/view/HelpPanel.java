@@ -20,7 +20,7 @@ import util.Typeface;
 
 @SuppressWarnings("serial")
 public class HelpPanel extends JPanel{
-    public JButton btReturn;
+    public JButton btReportIssue, btReturn;
 
     public class IconDescription extends JPanel{
         
@@ -90,6 +90,11 @@ public class HelpPanel extends JPanel{
         	 panel.add(new IconDescription(Language.loadMessage("m_option_edit"), Language.loadMessage("h_options_edit"), Colour.getBackgroundColor()));
         	 panel.add(new IconDescription(Language.loadMessage("m_option_remove"), Language.loadMessage("h_options_remove"), Colour.getBackgroundColor()));
         }
+
+        panel.add(Component.createSubtitle(Language.loadMessage("h_report_issue"), Colour.getPrimaryColor()));
+        btReportIssue = new JButton(Language.loadMessage("h_report_issue_text"));
+        panel.add(Component.createSingleButton(btReportIssue, Colour.getBackgroundColor()));
+
         add(scroll,BorderLayout.CENTER);
         
         btReturn = new JButton(Language.loadMessage("g_return"));

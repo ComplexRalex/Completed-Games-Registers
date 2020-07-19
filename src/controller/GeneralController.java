@@ -126,7 +126,7 @@ public class GeneralController implements ActionListener{
 				Advice.showTextAreaAdvice(
                     parent.frame,
                     Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_wentwrong")+": ",
+                    Language.loadMessage("g_went_wrong")+": ",
                     e1.toString(), Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );

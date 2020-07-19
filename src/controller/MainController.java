@@ -107,7 +107,7 @@ public class MainController{
             Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentwrong") + ": ",
+                Language.loadMessage("g_went_wrong") + ": ",
                 Advice.getStackTrace(e),
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
@@ -119,7 +119,7 @@ public class MainController{
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentwrong") + ": ",
+                Language.loadMessage("g_went_wrong") + ": ",
                 Advice.getStackTrace(e),
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
@@ -147,7 +147,7 @@ public class MainController{
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentwrong")+": ",
+                Language.loadMessage("g_went_wrong")+": ",
                 Advice.getStackTrace(e),
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
@@ -162,7 +162,7 @@ public class MainController{
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentwrong") + ": ",
+                Language.loadMessage("g_went_wrong") + ": ",
                 Advice.getStackTrace(e),
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
@@ -177,7 +177,7 @@ public class MainController{
             Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentwrong")+": ",
+                Language.loadMessage("g_went_wrong")+": ",
                 Advice.getStackTrace(e),
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()

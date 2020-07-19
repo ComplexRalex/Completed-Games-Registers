@@ -56,11 +56,15 @@ public class ConfigurationPanel extends JPanel{
 		txtUser = new JTextField();
 		pGeneralOptions.add(Component.createTextField(Language.loadMessage("cf_change_user"), txtUser, true, Colour.getBackgroundColor()));
 		
+		// - Establishing a note about the auto-backup option
+
+		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_auto_backup_note"), Typeface.textPlain, Colour.getPrimaryColor()));
+
 		// - Establishing the auto-backup options
 		
 		btAutoBackupON = new JButton("ON");
 		btAutoBackupOFF = new JButton("OFF");
-		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_autobck"), btAutoBackupON, btAutoBackupOFF, Colour.getBackgroundColor()));
+		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_auto_backup"), btAutoBackupON, btAutoBackupOFF, Colour.getBackgroundColor()));
 
 		// - Establishing "show dialog on close" options
 		
