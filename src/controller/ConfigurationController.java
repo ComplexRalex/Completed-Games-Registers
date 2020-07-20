@@ -21,11 +21,13 @@ public class ConfigurationController implements ActionListener{
 	private Configuration model;
 	private int autoBackupStatus;
 	private int exitDialogStatus;
+	private int maxLength;
 	
 	public ConfigurationController(Configuration m, ConfigurationPanel v, MainController p){
 		model = m;
 		view = v;
 		parent = p;
+		maxLength = 35;
 	}
 	
 	public void initialize(){
@@ -40,6 +42,7 @@ public class ConfigurationController implements ActionListener{
 
 		view.cbLang.addActionListener(this);
 
+		view.btSuddenClose.addActionListener(this);
 		view.btResetConfig.addActionListener(this);
 		view.btResetSave.addActionListener(this);
 		view.btDeleteGameInfo.addActionListener(this);
@@ -81,7 +84,7 @@ public class ConfigurationController implements ActionListener{
 
 	private boolean sameValues(){
 		boolean flag = true;
-		flag = (flag && parent.mConfig.getUsername().equals(view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText()));
+		flag = (flag && parent.mConfig.getUsername().equals(view.txtUser.getText().length() > maxLength ? view.txtUser.getText().substring(0, maxLength) : view.txtUser.getText()));
 		flag = (flag && (parent.mConfig.getAutoBackup() == (autoBackupStatus == 1)));
 		flag = (flag && (parent.mConfig.getExitDialog() == (exitDialogStatus == 1)));
 				
@@ -104,7 +107,7 @@ public class ConfigurationController implements ActionListener{
 	private void saveCurrentSettings(){
 		// Change username (if qualify)
 		if(view.txtUser.getText().length() > 0){
-			String cut = view.txtUser.getText().length() > 25 ? view.txtUser.getText().substring(0, 25) : view.txtUser.getText();
+			String cut = view.txtUser.getText().length() > maxLength ? view.txtUser.getText().substring(0, maxLength) : view.txtUser.getText();
 			view.txtUser.setText(cut);
 			model.setUsername(cut);
 			parent.frame.pGeneral.lbUser.setText(cut);
@@ -160,7 +163,9 @@ public class ConfigurationController implements ActionListener{
 		
 		exitDialogStatus = ((value = Component.runSwitchButtonEffect(e, view.btExitDialogON, view.btExitDialogOFF)) != -1) ? value : exitDialogStatus; 
 		
-		if(source == view.btResetConfig || source == view.btResetSave || source == view.btWipeOut){
+		if(source == view.btSuddenClose)
+			parent.suddenClose();
+		else if(source == view.btResetConfig || source == view.btResetSave || source == view.btWipeOut){
 			if(Advice.showOptionAdvice(
 				parent.frame,
 				Language.loadMessage("g_message"),
@@ -191,9 +196,7 @@ public class ConfigurationController implements ActionListener{
 				}
 				parent.reset();
 			}
-		}
-
-		if(source == view.btResetBackups || source == view.btDeleteGameInfo){
+		}else if(source == view.btResetBackups || source == view.btDeleteGameInfo){
 			if(source == view.btResetBackups)
 				parent.deleteBackups();
 			else
@@ -205,10 +208,7 @@ public class ConfigurationController implements ActionListener{
 				Language.loadMessage("g_accept"), 
 				Colour.getPrimaryColor()
 			);
-		}
-			
-
-		if(source == view.btAccept){
+		}else if(source == view.btAccept){
 			if(resetRequest()){
 				if(Advice.showOptionAdvice(
 					parent.frame,
@@ -223,7 +223,7 @@ public class ConfigurationController implements ActionListener{
 					saveCurrentSettings();
 					parent.reset();
 				}
-			} else if(!sameValues()){
+			}else if(!sameValues()){
 				saveCurrentSettings();
 				Advice.showSimpleAdvice(
 					parent.frame,
@@ -232,7 +232,7 @@ public class ConfigurationController implements ActionListener{
 					Language.loadMessage("g_accept"),
 					Colour.getPrimaryColor()
 				);
-			} else
+			}else
 				Advice.showSimpleAdvice(
 					parent.frame,
 					Language.loadMessage("g_message"), 
@@ -240,8 +240,7 @@ public class ConfigurationController implements ActionListener{
 					Language.loadMessage("g_accept"),
 					Colour.getPrimaryColor()
 				);
-		}
-		if(source == view.btReturn){
+		}else if(source == view.btReturn){
 			if(sameValues() && !resetRequest())
 				parent.frame.changePanel(parent.frame.pGeneral);
 			else

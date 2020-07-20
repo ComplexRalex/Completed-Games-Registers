@@ -21,6 +21,7 @@ public class ConfigurationPanel extends JPanel{
 		btAutoBackupON, btAutoBackupOFF,
 		btExitDialogON, btExitDialogOFF,
 		btResetConfig, btResetSave, btResetBackups,
+		btSuddenClose,
 		btDeleteGameInfo, btWipeOut,
 		btAccept, btReturn;
 	public JComboBox<String> cbLang;
@@ -93,6 +94,12 @@ public class ConfigurationPanel extends JPanel{
 		// - Establishing "warning" message
 
 		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_warn"), Typeface.labelPlain, Colour.getPrimaryColor()));
+
+		// - Establishing sudden close button
+
+		btSuddenClose = new JButton(Language.loadMessage("cf_sudden_close"));
+		pGeneralOptions.add(Component.createSingleButton(btSuddenClose, Colour.getBackgroundColor()));
+		btSuddenClose.setBackground(Colour.colorOFF);
 
 		// - Establishing reset configuration button
 

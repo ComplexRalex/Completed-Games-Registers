@@ -86,7 +86,7 @@ public class Language{
 		languages.get("English").put("cf_reset_db_info", 	"Delete game info downloaded from RAWG database");
 		languages.get("English").put("cf_reset_backups", 	"Delete currently stored backups");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
-		languages.get("English").put("cf_sudden_close",		"Quit program instantly, without validations (Not recommended)");
+		languages.get("English").put("cf_sudden_close",		"Quit program suddenly, without validations (Not recommended)");
 		languages.get("English").put("cf_yousure",			"Do you really want to do it?");
 		languages.get("English").put("cf_success",			"The settings have been saved!");
 		languages.get("English").put("cf_no_edit",			"There were no changes...");
@@ -213,7 +213,7 @@ public class Language{
 		languages.get("Spanish").put("cf_reset_db_info", 	"Borrar información de juegos descargada de la base de datos de RAWG");
 		languages.get("Spanish").put("cf_reset_backups", 	"Borrar backups creados hasta el momento");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
-		languages.get("Spanish").put("cf_sudden_close",		"Cerrar el programa instantáneamente, sin validaciones (No recomendado)");
+		languages.get("Spanish").put("cf_sudden_close",		"Cerrar el programa repentinamente, sin validaciones (No recomendado)");
 		languages.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");
 		languages.get("Spanish").put("cf_success",			"¡Se han guardado los cambios!");
 		languages.get("Spanish").put("cf_no_edit",			"No hubo cambios...");

@@ -214,6 +214,15 @@ public class MainController{
             f.delete();
     }
 
+    public void defaultClose(){
+        if(mConfig.getAutoBackup() && mGeneral.changesMade())
+            doBackup();
+        frame.dispose();
+        verifyDirectories();
+        verifyConfigFile();
+        verifySaveFile();
+    }
+
     public void suddenClose(){
         System.exit(0);
     }
@@ -221,7 +230,7 @@ public class MainController{
     private WindowAdapter createWindowAdapter(){
         return new WindowAdapter(){
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(WindowEvent e){
                 if(mConfig.getExitDialog()){
                     if(Advice.showOptionAdvice(
                         frame,
@@ -232,22 +241,10 @@ public class MainController{
                             Language.loadMessage("g_cancel")
                         },
                         Colour.getPrimaryColor()
-                    ) == 0){
-                        if(mConfig.getAutoBackup() && mGeneral.changesMade())
-                            doBackup();
-                        frame.dispose();
-                        verifyDirectories();
-                        verifyConfigFile();
-                        verifySaveFile();
-                    }
-                }else{
-                    if(mConfig.getAutoBackup() && mGeneral.changesMade())
-                        doBackup();
-                    frame.dispose();
-                    verifyDirectories();
-                    verifyConfigFile();
-                    verifySaveFile();
-                }
+                    ) == 0)
+                        defaultClose();
+                }else
+                    defaultClose();
             }
         };
     }
