@@ -131,6 +131,25 @@ public class GeneralController implements ActionListener{
                     Colour.getPrimaryColor()
                 );
             }
+        }else if(e.getSource() == view.btExport){
+            try {
+                Advice.showTextAreaAdvice(
+                    parent.frame,
+                    Language.loadMessage("g_success"),
+                    Language.loadMessage("m_exported"),
+                    "Name of the exported file: "+parent.mGeneral.exportStats(),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+			} catch (IOException e1) {
+				Advice.showTextAreaAdvice(
+                    parent.frame,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_went_wrong")+": ",
+                    e1.toString(), Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+            }
         }else if(e.getSource() == view.btHelp){
             parent.frame.changePanel(parent.frame.pHelp);
         }else if(e.getSource() == view.btConfig){

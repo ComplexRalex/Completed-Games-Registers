@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.JRadioButton;
@@ -14,7 +16,7 @@ import util.Component;
 import util.Language;
 import util.Advice;
 
-public class ConfigurationController implements ActionListener{
+public class ConfigurationController implements ActionListener, KeyListener{
 	
 	private MainController parent;
 	private ConfigurationPanel view;
@@ -27,10 +29,12 @@ public class ConfigurationController implements ActionListener{
 		model = m;
 		view = v;
 		parent = p;
-		maxLength = 35;
+		maxLength = 45;
 	}
 	
 	public void initialize(){
+		view.txtUser.addKeyListener(this);
+
 		view.btAutoBackupON.addActionListener(this);
 		view.btAutoBackupOFF.addActionListener(this);
 		
@@ -47,6 +51,7 @@ public class ConfigurationController implements ActionListener{
 		view.btResetSave.addActionListener(this);
 		view.btDeleteGameInfo.addActionListener(this);
 		view.btResetBackups.addActionListener(this);
+		view.btResetExports.addActionListener(this);
 		view.btWipeOut.addActionListener(this);
 		
 		view.btAccept.addActionListener(this);
@@ -84,7 +89,7 @@ public class ConfigurationController implements ActionListener{
 
 	private boolean sameValues(){
 		boolean flag = true;
-		flag = (flag && parent.mConfig.getUsername().equals(view.txtUser.getText().length() > maxLength ? view.txtUser.getText().substring(0, maxLength) : view.txtUser.getText()));
+		flag = (flag && parent.mConfig.getUsername().equals(view.txtUser.getText().trim()));
 		flag = (flag && (parent.mConfig.getAutoBackup() == (autoBackupStatus == 1)));
 		flag = (flag && (parent.mConfig.getExitDialog() == (exitDialogStatus == 1)));
 				
@@ -107,7 +112,7 @@ public class ConfigurationController implements ActionListener{
 	private void saveCurrentSettings(){
 		// Change username (if qualify)
 		if(view.txtUser.getText().length() > 0){
-			String cut = view.txtUser.getText().length() > maxLength ? view.txtUser.getText().substring(0, maxLength) : view.txtUser.getText();
+			String cut = view.txtUser.getText().trim();
 			view.txtUser.setText(cut);
 			model.setUsername(cut);
 			parent.frame.pGeneral.lbUser.setText(cut);
@@ -139,6 +144,7 @@ public class ConfigurationController implements ActionListener{
 		saveSettings();
 	}
 
+	// Add secret message when the user paste a username from the clipboard (in case the text exceeds the limit)
 	public void saveSettings(){
 		try {
 			model.saveConfiguration();
@@ -193,12 +199,15 @@ public class ConfigurationController implements ActionListener{
 					parent.resetStats();
 					parent.deleteDownloadedInfo();
 					parent.deleteBackups();
+					parent.deleteExports();
 				}
 				parent.reset();
 			}
-		}else if(source == view.btResetBackups || source == view.btDeleteGameInfo){
+		}else if(source == view.btResetBackups || source == view.btResetExports || source == view.btDeleteGameInfo){
 			if(source == view.btResetBackups)
 				parent.deleteBackups();
+			else if(source == view.btResetExports)
+				parent.deleteExports();
 			else
 				parent.deleteDownloadedInfo();
 			Advice.showSimpleAdvice(
@@ -259,5 +268,20 @@ public class ConfigurationController implements ActionListener{
 				}
 		}
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// add validation when caret it's at the start of a string and the user typed a space
+		if(view.txtUser.getText().trim().length() >= maxLength &&
+		view.txtUser.getText().trim().length() - (view.txtUser.getSelectedText() == null ? 0 : view.txtUser.getSelectedText().trim().length()) >= maxLength)
+			e.consume();
+		System.out.println(e.getKeyChar());
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
 
 }

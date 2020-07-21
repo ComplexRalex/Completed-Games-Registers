@@ -249,9 +249,9 @@ public class EditGameController implements ActionListener, KeyListener{
                             actual.setGame(game);
                             actual.setYear(year);
                             actual.setRate(rate);
-                            actual.setComment(comment);
-                            actual.setNote(note);
-                            actual.setSpoiler(spoiler);
+                            actual.setComment(("".equals(comment.trim()) ? "" : comment));
+                            actual.setNote(("".equals(note.trim()) ? "" : note));
+                            actual.setSpoiler(("".equals(spoiler.trim()) ? "" : spoiler));
                             parent.cGeneral.updateName(actual);
                         }
 

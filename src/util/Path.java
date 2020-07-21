@@ -27,6 +27,11 @@ public class Path {
 	public static final String backupPath = dataPath+"backup/";
 	
 	/**
+	 * Export files folder path
+	 */
+	public static final String exportPath = dataPath+"export/";
+
+	/**
 	 * Game Database API data folder
 	 */
 	public static final String gamePath = dataPath+"game/";

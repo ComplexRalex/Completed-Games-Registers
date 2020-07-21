@@ -3,6 +3,8 @@ package model;
 import java.io.File;
 import java.io.Serializable;
 
+import org.json.simple.JSONObject;
+
 import util.Path;
 
 public class GameStat implements Serializable{
@@ -55,6 +57,19 @@ public class GameStat implements Serializable{
 	public void setComment(String comment){this.comment = comment;}
 	public void setNote(String note){this.note = note;}
 	public void setSpoiler(String spoiler){this.spoiler = spoiler;}
+
+	public JSONObject exportStat(){
+		JSONObject json = new JSONObject();
+
+		json.put("game", game);
+		json.put("year", (year == -1 ? null : year));
+		json.put("rate", rate);
+		json.put("comment", ("".equals(comment) ? null : comment));
+		json.put("note", ("".equals(note) ? null : note));
+		json.put("spoiler", ("".equals(spoiler) ? null : spoiler));
+
+		return json;
+	}
 
 	public boolean isInfoAvailable(){
 		Path.resolve(Path.gameInfo);

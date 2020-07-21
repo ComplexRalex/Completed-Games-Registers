@@ -2,12 +2,16 @@ package model;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import util.Path;
 
@@ -60,6 +64,23 @@ public class GameRegister{
 		f.close();
 
 		return fileName;
+	}
+
+	public String exportStats() throws IOException {
+		Path.resolve(Path.exportPath);
+		String filename = Path.exportPath+"export-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".json";
+
+		JSONArray array = new JSONArray();
+		for(GameStat gs: gameStats)
+			array.add(gs.exportStat());
+		JSONObject json = new JSONObject();
+		json.put("registers",array);
+
+		FileWriter f = new FileWriter(filename);
+		f.append(json.toJSONString());
+		f.close();
+
+		return filename;
 	}
 	
 	public boolean addGameStat(GameStat gs){

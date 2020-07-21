@@ -214,6 +214,13 @@ public class MainController{
             f.delete();
     }
 
+    public void deleteExports(){
+        Path.resolve(Path.exportPath);
+        File export[] = (new File(Path.exportPath)).listFiles();
+        for(File f: export)
+            f.delete();
+    }
+
     public void defaultClose(){
         if(mConfig.getAutoBackup() && mGeneral.changesMade())
             doBackup();

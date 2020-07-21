@@ -63,7 +63,8 @@ public class Language{
 		languages.get("English").put("m_option_view",		"View");
 		languages.get("English").put("m_option_edit",		"Edit");
 		languages.get("English").put("m_option_remove",		"Remove");
-		languages.get("English").put("m_backedup",			"The registers have been backed up successfully");
+		languages.get("English").put("m_backedup",			"The registers were successfully backed up");
+		languages.get("English").put("m_exported",			"The registers were successfully exported");
 		languages.get("English").put("m_remove",			"Do you want to remove this register?");
 		languages.get("English").put("m_config",			"Configuration");
 		languages.get("English").put("m_about",				"About this program");
@@ -85,6 +86,7 @@ public class Language{
 		languages.get("English").put("cf_reset_save", 		"Reset registers and save.dat to default");
 		languages.get("English").put("cf_reset_db_info", 	"Delete game info downloaded from RAWG database");
 		languages.get("English").put("cf_reset_backups", 	"Delete currently stored backups");
+		languages.get("English").put("cf_reset_exports", 	"Delete currently stored exports");
 		languages.get("English").put("cf_wipeout", 			"Wipe out all data");
 		languages.get("English").put("cf_sudden_close",		"Quit program suddenly, without validations (Not recommended)");
 		languages.get("English").put("cf_yousure",			"Do you really want to do it?");
@@ -191,6 +193,7 @@ public class Language{
 		languages.get("Spanish").put("m_option_edit",		"Editar");
 		languages.get("Spanish").put("m_option_remove",		"Borrar");
 		languages.get("Spanish").put("m_backedup",			"Se han respaldado los registros correctamente");
+		languages.get("Spanish").put("m_exported",			"Se han exportado los registros correctamente");
 		languages.get("Spanish").put("m_remove",			"¿Quieres quitar este registro?");
 		languages.get("Spanish").put("m_config",			"Configuración");
 		languages.get("Spanish").put("m_about",				"Acerca del programa");
@@ -212,6 +215,7 @@ public class Language{
 		languages.get("Spanish").put("cf_reset_save",		"Restaurar registros y save.dat por defecto");
 		languages.get("Spanish").put("cf_reset_db_info", 	"Borrar información de juegos descargada de la base de datos de RAWG");
 		languages.get("Spanish").put("cf_reset_backups", 	"Borrar backups creados hasta el momento");
+		languages.get("Spanish").put("cf_reset_exports", 	"Borrar exportaciones creadas hasta el momento");
 		languages.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
 		languages.get("Spanish").put("cf_sudden_close",		"Cerrar el programa repentinamente, sin validaciones (No recomendado)");
 		languages.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");
