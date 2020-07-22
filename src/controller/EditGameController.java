@@ -120,7 +120,7 @@ public class EditGameController implements ActionListener, KeyListener{
                     parent.frame,
                     Language.loadMessage("g_success"),
                     Language.loadMessage("ge_success_download"),
-                    "The name of the downloaded game information was: "+(new GameData(view.txtName.getText().trim())).getName(),
+                    "The name of the downloaded game information was: "+(new GameData(view.txtName.getText().trim())).getName(), 40, 2,
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
@@ -133,7 +133,7 @@ public class EditGameController implements ActionListener, KeyListener{
                         parent.frame,
                         Language.loadMessage("g_oops"),
                         Language.loadMessage("g_went_wrong")+": ",
-                        e.toString()+" (Not URL image provided).",
+                        Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                         Language.loadMessage("g_accept"),
                         Colour.getPrimaryColor()
                     );
@@ -152,7 +152,8 @@ public class EditGameController implements ActionListener, KeyListener{
                 parent.frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong")+": ",
-                Advice.getStackTrace(e), Language.loadMessage("g_accept"),
+                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
         }

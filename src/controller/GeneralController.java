@@ -118,7 +118,7 @@ public class GeneralController implements ActionListener{
                     parent.frame,
                     Language.loadMessage("g_success"),
                     Language.loadMessage("m_backedup"),
-                    "Name of the backup file: "+parent.mGeneral.doBackup(),
+                    "Name of the backup file: "+parent.mGeneral.doBackup(), 40, 2,
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
@@ -127,7 +127,8 @@ public class GeneralController implements ActionListener{
                     parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("g_went_wrong")+": ",
-                    e1.toString(), Language.loadMessage("g_accept"),
+                    Advice.getStackTrace(e1), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                    Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
             }
@@ -137,7 +138,7 @@ public class GeneralController implements ActionListener{
                     parent.frame,
                     Language.loadMessage("g_success"),
                     Language.loadMessage("m_exported"),
-                    "Name of the exported file: "+parent.mGeneral.exportStats(),
+                    "Name of the exported file: "+parent.mGeneral.exportStats(), 40, 2,
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
@@ -146,13 +147,15 @@ public class GeneralController implements ActionListener{
                     parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("g_went_wrong")+": ",
-                    e1.toString(), Language.loadMessage("g_accept"),
+                    Advice.getStackTrace(e1), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                    Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
             }
         }else if(e.getSource() == view.btHelp){
             parent.frame.changePanel(parent.frame.pHelp);
         }else if(e.getSource() == view.btConfig){
+            parent.cConfig.obtainInitialConfig();
             parent.frame.changePanel(parent.frame.pConfig);
         }else{
             Advice.showSimpleAdvice(

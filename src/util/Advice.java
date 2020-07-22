@@ -1,7 +1,9 @@
 package util;
 
 import java.io.StringWriter;
+import java.util.Calendar;
 import java.io.PrintWriter;
+import java.awt.Container;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -24,6 +26,18 @@ public class Advice{
     private static String selected = "";
 
     /**
+     * Default columns of JTextField in case of showing a stack trace of
+     * an exception.
+     */
+    public final static int EXCEPTION_WIDTH = 60;
+
+    /**
+     * Default rows of JTextField in case of showing a stack trace of an
+     * exception.
+     */
+    public final static int EXCEPTION_HEIGHT = 10;
+
+    /**
      * Displays a frame with some simple advice message.
      * 
      * @param parent Container where this frame will show up
@@ -32,7 +46,7 @@ public class Advice{
      * @param okay_op Text inside the <i>okay</i> button
      * @param bg Background color
      */
-    public static void showSimpleAdvice(java.awt.Component parent, String title, String message, String okay_op, Color bg){
+    public static void showSimpleAdvice(Container parent, String title, String message, String okay_op, Color bg){
         showOptionComponentAdvice(parent, title, message, null, new String[]{okay_op}, bg);
     }
 
@@ -50,7 +64,7 @@ public class Advice{
      * <b>0</b>. If it is not selected any button but the
      * close-button window, it will return <b>-1</b>.
      */
-    public static int showOptionAdvice(java.awt.Component parent, String title, String message, String options[], Color bg){
+    public static int showOptionAdvice(Container parent, String title, String message, String options[], Color bg){
         return showOptionComponentAdvice(parent, title, message, null, options, bg);
     }
 
@@ -63,11 +77,13 @@ public class Advice{
      * @param message Text that will show up inside the frame
      * @param longMessage Long text that will be show inside a
      * JTextArea. Note that this text area won't be editable.
+     * @param width Number of columns of the JTextArea
+     * @param height Number of rows of the JTextArea
      * @param okay_op Text inside the <i>okay</i> button
      * @param bg Background color
      */
-    public static void showTextAreaAdvice(java.awt.Component parent, String title, String message, String longMessage, String okay_op, Color bg){
-        showOptionTextAreaAdvice(parent, title, message, longMessage, new String[]{okay_op},bg);
+    public static void showTextAreaAdvice(Container parent, String title, String message, String longMessage, int width, int height, String okay_op, Color bg){
+        showOptionTextAreaAdvice(parent, title, message, longMessage, width, height, new String[]{okay_op}, bg);
     }
 
     /**
@@ -79,6 +95,8 @@ public class Advice{
      * @param message Text that will show up inside the frame
      * @param longMessage Long text that will be show inside a
      * JTextArea. Note that this text area won't be editable.
+     * @param width Number of columns of the JTextArea
+     * @param height Number of rows of the JTextArea
      * @param options String array containing every option
      * @param bg Background color
      * @return Array index of the selected option in the frame. 
@@ -86,9 +104,9 @@ public class Advice{
      * <b>0</b>. If it is not selected any button but the
      * close-button window, it will return <b>-1</b>.
      */
-    public static int showOptionTextAreaAdvice(java.awt.Component parent, String title, String message, String longMessage, String options[], Color bg){  
+    public static int showOptionTextAreaAdvice(Container parent, String title, String message, String longMessage, int width, int height, String options[], Color bg){  
 
-        JTextArea area = new JTextArea(longMessage,5,40);
+        JTextArea area = new JTextArea(longMessage,height,width);
         area.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
         area.setForeground(Colour.getFontColor());
         area.setCaretColor(Colour.getFontColor());
@@ -114,7 +132,7 @@ public class Advice{
      * @param okay_op Text inside the <i>okay</i> button
      * @param bg Background color
      */
-    public static void showComponentAdvice(java.awt.Component parent, String title, String message, java.awt.Component component, String okay_op, Color bg){
+    public static void showComponentAdvice(Container parent, String title, String message, java.awt.Component component, String okay_op, Color bg){
         showOptionComponentAdvice(parent, title, message, component, new String[]{okay_op}, bg);
     }
 
@@ -133,7 +151,7 @@ public class Advice{
      * <b>0</b>. If it is not selected any button but the
      * close-button window, it will return <b>-1</b>.
      */
-    public static int showOptionComponentAdvice(java.awt.Component parent, String title, String message, java.awt.Component component, String options[], Color bg){
+    public static int showOptionComponentAdvice(Container parent, String title, String message, java.awt.Component component, String options[], Color bg){
 
         JDialog dialog = new JDialog();
         dialog.setLayout(new GridBagLayout());
@@ -249,6 +267,30 @@ public class Advice{
      */
     public static String getStackTrace(Throwable e){
         StringWriter writer = new StringWriter();
+        Calendar today = Calendar.getInstance();
+        
+        writer.append(" > Time: "+
+            (today.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "")+today.get(Calendar.HOUR_OF_DAY)+":"+
+            (today.get(Calendar.MINUTE) < 10 ? "0" : "")+today.get(Calendar.MINUTE)+":"+
+            (today.get(Calendar.SECOND) < 10 ? "0" : "")+today.get(Calendar.SECOND)+"\n");
+        writer.append(" > Day: "+today.get(Calendar.DAY_OF_MONTH)+"\n");
+        writer.append(" > Month: "+today.get(Calendar.MONTH)+"\n");
+        writer.append(" > Year: "+today.get(Calendar.YEAR)+"\n\n");
+        
+        writer.append(" | --- --- --- --- --- --- --- |"+"\n\n");
+        
+        writer.append(" > Exception.toString(): "+e.toString()+"\n\n");
+        
+        writer.append(" | --- --- --- --- --- --- --- |"+"\n\n");
+
+        writer.append(" > Class: "+e.getClass()+"\n");
+        writer.append(" > Message: "+e.getMessage()+"\n");
+        writer.append(" > Localized message: "+e.getLocalizedMessage()+"\n");
+        writer.append(" > Cause: "+e.getCause()+"\n\n");
+        
+        writer.append(" | --- --- --- --- --- --- --- |"+"\n\n");
+
+        writer.append(" > Stack trace:\n");
         e.printStackTrace(new PrintWriter(writer));
 
         return writer.toString();

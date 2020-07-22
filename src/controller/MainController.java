@@ -108,7 +108,7 @@ public class MainController{
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong") + ": ",
-                Advice.getStackTrace(e),
+                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -120,7 +120,7 @@ public class MainController{
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong") + ": ",
-                Advice.getStackTrace(e),
+                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -148,7 +148,7 @@ public class MainController{
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong")+": ",
-                Advice.getStackTrace(e),
+                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -163,7 +163,7 @@ public class MainController{
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong") + ": ",
-                Advice.getStackTrace(e),
+                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -178,7 +178,7 @@ public class MainController{
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong")+": ",
-                Advice.getStackTrace(e),
+                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );

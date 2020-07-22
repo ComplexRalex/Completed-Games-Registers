@@ -72,7 +72,7 @@ public class ViewGameController implements ActionListener{
                     parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("g_went_wrong"),
-                    e.toString(),
+                    Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );

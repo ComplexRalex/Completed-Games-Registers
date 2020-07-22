@@ -60,7 +60,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		obtainInitialConfig();
 	}
 	
-	private void obtainInitialConfig(){
+	public void obtainInitialConfig(){
 		view.txtUser.setText(parent.mConfig.getUsername());
 		
 		if(parent.mConfig.getAutoBackup()){
@@ -144,7 +144,6 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		saveSettings();
 	}
 
-	// Add secret message when the user paste a username from the clipboard (in case the text exceeds the limit)
 	public void saveSettings(){
 		try {
 			model.saveConfiguration();
@@ -153,7 +152,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 				parent.frame,
 				Language.loadMessage("g_oops"),
 				Language.loadMessage("g_went_wrong"),
-				e.toString(),
+				Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
 				Language.loadMessage("g_accept"),
 				Colour.getPrimaryColor()
 			);
@@ -271,11 +270,11 @@ public class ConfigurationController implements ActionListener, KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// add validation when caret it's at the start of a string and the user typed a space
-		if(view.txtUser.getText().trim().length() >= maxLength &&
-		view.txtUser.getText().trim().length() - (view.txtUser.getSelectedText() == null ? 0 : view.txtUser.getSelectedText().trim().length()) >= maxLength)
+		if(e.getKeyChar() == KeyEvent.VK_SPACE && view.txtUser.getCaretPosition() == 0)
 			e.consume();
-		System.out.println(e.getKeyChar());
+		if(view.txtUser.getText().length() >= maxLength &&
+		view.txtUser.getText().length() - (view.txtUser.getSelectedText() == null ? 0 : view.txtUser.getSelectedText().length()) >= maxLength)
+			e.consume();
 	}
 
 	@Override

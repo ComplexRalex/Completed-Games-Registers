@@ -38,7 +38,7 @@ public class HelpController implements ActionListener{
                     parent.frame,
                     Language.loadMessage("g_message"),
                     Language.loadMessage("g_will_browse"),
-                    "https://github.com/ComplexRalex/Completed-Games-Register-Java/issues/new/choose",
+                    "https://github.com/ComplexRalex/Completed-Games-Register-Java/issues/new/choose", 50, 2,
                     new String[]{
                         Language.loadMessage("g_accept"),
                         Language.loadMessage("g_cancel")
@@ -49,10 +49,11 @@ public class HelpController implements ActionListener{
                         Desktop.getDesktop().browse(new URI("https://github.com/ComplexRalex/Completed-Games-Register-Java/issues/new/choose"));
                     } catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
-                        Advice.showSimpleAdvice(
+                        Advice.showTextAreaAdvice(
                             parent.frame,
                             Language.loadMessage("g_oops"),
-                            Language.loadMessage("g_wentworng"),
+                            Language.loadMessage("g_wentworng")+": ",
+                            Advice.getStackTrace(e1), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                             Language.loadMessage("g_accept"),
                             Colour.getPrimaryColor()
                         );
