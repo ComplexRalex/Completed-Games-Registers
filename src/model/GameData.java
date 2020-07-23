@@ -20,10 +20,9 @@ import java.util.Queue;
 
 import javax.imageio.ImageIO;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import util.Component;
 import util.Path;
@@ -33,20 +32,28 @@ public class GameData{
     private JSONObject data;
     private String game;
 
-    public GameData(String name) throws FileNotFoundException, IOException, ParseException{
+    public GameData(String name) throws FileNotFoundException, IOException, JSONException{
 		Path.resolve(Path.gameInfo);
 		FileReader file = new FileReader(Path.gameInfo+Path.validFileName(name, "json"));
-		data = (JSONObject)(new JSONParser()).parse(file);
+		BufferedReader reader = new BufferedReader(file);
+
+		String jsonString = "", line;
+		while((line = reader.readLine()) != null)
+			jsonString += line+"\n";
+		
+		reader.close();
 		file.close();
-        game = name;
+
+		data = new JSONObject(jsonString);
+		game = name;
     }
 
     public String getName(){
-        return (String)data.get("name");
+        return data.getString("name");
     }
 
 	public String getDescription(){
-		return (String)data.get("description");
+		return data.getString("description");
 	}
 
     public BufferedImage getImage() throws IOException{
@@ -55,48 +62,48 @@ public class GameData{
 	}
 	
 	public String[] getDevelopers(){
-		JSONArray developers = (JSONArray)data.get("developers");
-        String[] array = new String[developers.size()];
+		JSONArray developers = data.getJSONArray("developers");
+        String[] array = new String[developers.length()];
 
-        for(int i = 0; i < developers.size(); i++){
-            array[i] = (String)((JSONObject)developers.get(i)).get("name");
+        for(int i = 0; i < developers.length(); i++){
+            array[i] = developers.getJSONObject(i).getString("name");
         }
 
         return array;
 	}
 
 	public String[] getPublishers(){
-		JSONArray publishers = (JSONArray)data.get("publishers");
-        String[] array = new String[publishers.size()];
+		JSONArray publishers = data.getJSONArray("publishers");
+        String[] array = new String[publishers.length()];
 
-        for(int i = 0; i < publishers.size(); i++){
-            array[i] = (String)((JSONObject)publishers.get(i)).get("name");
+        for(int i = 0; i < publishers.length(); i++){
+            array[i] = publishers.getJSONObject(i).getString("name");
         }
 
         return array;
 	}
 
     public String getReleaseDate(){
-        return (String)data.get("released");
+        return data.getString("released");
     }
 
     public String[] getPlatforms(){
-        JSONArray platforms = (JSONArray)data.get("platforms");
-        String[] array = new String[platforms.size()];
+        JSONArray platforms = data.getJSONArray("platforms");
+        String[] array = new String[platforms.length()];
 
-        for(int i = 0; i < platforms.size(); i++){
-            array[i] = (String)((JSONObject)((JSONObject)platforms.get(i)).get("platform")).get("name");
+        for(int i = 0; i < platforms.length(); i++){
+            array[i] = platforms.getJSONObject(i).getJSONObject("platform").getString("name");
         }
 
         return array;
     }
 
     public String[] getGenres(){
-        JSONArray genres = (JSONArray)data.get("genres");
-        String[] array = new String[genres.size()];
+        JSONArray genres = data.getJSONArray("genres");
+        String[] array = new String[genres.length()];
 
-        for(int i = 0; i < genres.size(); i++){
-            array[i] = (String)((JSONObject)genres.get(i)).get("name");
+        for(int i = 0; i < genres.length(); i++){
+            array[i] = genres.getJSONObject(i).getString("name");
         }
 
         return array;
@@ -107,9 +114,9 @@ public class GameData{
         Queue<String> engTags = new LinkedList<String>();
 
         JSONObject object;
-        for(int i = 0; i < tags.size(); i++){
-            if(((String)((object = (JSONObject)tags.get(i)).get("language"))).equals("eng"));
-                engTags.add((String)object.get("name"));
+        for(int i = 0; i < tags.length(); i++){
+            if(((object = tags.getJSONObject(i)).getString("language")).equals("eng"));
+                engTags.add(object.getString("name"));
         }
 
         int size;
@@ -122,10 +129,10 @@ public class GameData{
     }
 
     public float getRating(){
-        return (float)(double)data.get("rating");
+        return data.getFloat("rating");
 	}
 	
-	private static long searchGame(String game) throws MalformedURLException, IOException, ParseException, URISyntaxException{
+	private static int searchGame(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 
 		URI uri = new URI("https","api.rawg.io","/api/games","search="+game,"page_size=1");
 		URL url = new URL(uri.toASCIIString());
@@ -139,16 +146,21 @@ public class GameData{
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 		
-		JSONObject json = (JSONObject)(new JSONParser()).parse(reader);
+		String jsonString = "", line;
+		while((line = reader.readLine()) != null)
+			jsonString += line+"\n";
+
 		connection.disconnect();
 		reader.close();
-
-		if("0".equals(String.valueOf(json.get("count")))) throw new IOException("There were no coincidences...");
 		
-		return (long)((JSONObject)((JSONArray)json.get("results")).get(0)).get("id");
+		JSONObject json = new JSONObject(jsonString);
+
+		if("0".equals(String.valueOf(json.getInt("count")))) throw new IOException("There were no coincidences...");
+		
+		return json.getJSONArray("results").getJSONObject(0).getInt("id");
 	}
 
-    public static boolean downloadGameInfo(String game) throws MalformedURLException, IOException, ParseException, URISyntaxException{
+    public static boolean downloadGameInfo(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 
 		URI uri = new URI("https","api.rawg.io","/api/games/"+searchGame(game),"");
 		URL url = new URL(uri.toASCIIString());
@@ -161,25 +173,38 @@ public class GameData{
 		if(connection.getResponseCode() != 200) throw new IOException("Received not a good response from the server...");
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+		String jsonString = "", line;
+		while((line = reader.readLine()) != null)
+			jsonString += line+"\n";
 		
-		Path.resolve(Path.gameInfo);
-		FileWriter file = new FileWriter(Path.gameInfo+Path.validFileName(game, "json"));
-		file.append(((JSONObject)(new JSONParser()).parse(reader)).toJSONString());
-		file.close();
 		connection.disconnect();
 		reader.close();
+
+		Path.resolve(Path.gameInfo);
+		FileWriter file = new FileWriter(Path.gameInfo+Path.validFileName(game, "json"));
+		file.append(jsonString);
+		file.close();
 
 		return true;
 	}
 
-	public static void downloadGameImage(String game) throws IOException, ParseException{
+	public static void downloadGameImage(String game) throws IOException, JSONException{
 
 		Path.resolve(Path.gameInfo);
-		FileReader reader = new FileReader(Path.gameInfo+Path.validFileName(game, "json"));
-		JSONObject json = (JSONObject)(new JSONParser()).parse(reader);
-		reader.close();
+		FileReader file = new FileReader(Path.gameInfo+Path.validFileName(game, "json"));
+		BufferedReader reader = new BufferedReader(file);
 
-		BufferedImage image = ImageIO.read(new URL((String)json.get("background_image")));
+		String jsonString = "", line;
+		while((line = reader.readLine()) != null)
+			jsonString += line+"\n";
+
+		reader.close();
+		file.close();
+
+		JSONObject json = new JSONObject(jsonString);
+			
+		BufferedImage image = ImageIO.read(new URL(json.getString("background_image")));
 
 		if (image != null) {
 			int

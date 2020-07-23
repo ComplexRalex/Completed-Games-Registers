@@ -3,7 +3,7 @@ package model;
 import java.io.File;
 import java.io.Serializable;
 
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
 import util.Path;
 
@@ -27,12 +27,12 @@ public class GameStat implements Serializable{
 	private String spoiler;
 
 	public GameStat(String g, int y, int r, String c, String n, String s){
-		game = g;
-		year = y;
-		rate = r;
-		comment = c;
-		note = n;
-		spoiler = s;
+		game = g.trim();
+		year = (y < 0 ? -1 : y);
+		rate = (r > 5 || r < 0 ? 0 : r);
+		comment = ("".equals(c.trim()) ? "" : c);
+		note = ("".equals(n.trim()) ? "" : n);
+		spoiler = ("".equals(s.trim()) ? "" : s);
 	}
 	
 	public GameStat(GameStat gs){
@@ -51,22 +51,22 @@ public class GameStat implements Serializable{
 	public String getNote(){return note;}
 	public String getSpoiler(){return spoiler;}
 	
-	public void setGame(String game){this.game = game;}
-	public void setYear(int year){this.year = year;}
-	public void setRate(int rate){this.rate = rate;}
-	public void setComment(String comment){this.comment = comment;}
-	public void setNote(String note){this.note = note;}
-	public void setSpoiler(String spoiler){this.spoiler = spoiler;}
+	public void setGame(String game){this.game = game.trim();}
+	public void setYear(int year){this.year = (year < 0 ? -1 : year);}
+	public void setRate(int rate){this.rate = (rate > 5 || rate < 0 ? 0 : rate);}
+	public void setComment(String comment){this.comment = ("".equals(comment.trim()) ? "" : comment);}
+	public void setNote(String note){this.note = ("".equals(note.trim()) ? "" : note);}
+	public void setSpoiler(String spoiler){this.spoiler = ("".equals(spoiler.trim()) ? "" : spoiler);}
 
 	public JSONObject exportStat(){
 		JSONObject json = new JSONObject();
 
 		json.put("game", game);
-		json.put("year", (year == -1 ? null : year));
+		json.put("year", year);
 		json.put("rate", rate);
-		json.put("comment", ("".equals(comment) ? null : comment));
-		json.put("note", ("".equals(note) ? null : note));
-		json.put("spoiler", ("".equals(spoiler) ? null : spoiler));
+		json.put("comment", comment);
+		json.put("note", note);
+		json.put("spoiler", spoiler);
 
 		return json;
 	}

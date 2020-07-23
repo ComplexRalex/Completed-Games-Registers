@@ -3,7 +3,7 @@ package controller;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import org.json.simple.parser.ParseException;
+import org.json.JSONException;
 
 import model.GameData;
 import model.GameStat;
@@ -40,6 +40,7 @@ public class ViewGameController implements ActionListener{
             view.pYear.setVisible(false);
             view.txtYear.setText("");
         }
+        view.pRate.setVisible(actual.getRate() != 0);
         view.txtRate.setText("\""+Language.loadMessage("ge_rate_"+actual.getRate())+"\"");
         if(!actual.getComment().trim().equals("")){
             view.pComment.setVisible(true);
@@ -67,7 +68,7 @@ public class ViewGameController implements ActionListener{
         if(actual.isInfoAvailable()){
             try{
                 view.addDatabaseInfo(new GameData(actual.getGame()));
-			}catch(IOException | ParseException e){
+			}catch(IOException | JSONException e){
 				Advice.showTextAreaAdvice(
                     parent.frame,
                     Language.loadMessage("g_oops"),

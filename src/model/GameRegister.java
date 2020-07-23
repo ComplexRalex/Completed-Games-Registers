@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import util.Path;
 
@@ -72,12 +72,12 @@ public class GameRegister{
 
 		JSONArray array = new JSONArray();
 		for(GameStat gs: gameStats)
-			array.add(gs.exportStat());
+			array.put(gs.exportStat());
 		JSONObject json = new JSONObject();
 		json.put("registers",array);
 
 		FileWriter f = new FileWriter(filename);
-		f.append(json.toJSONString());
+		f.append(json.toString());
 		f.close();
 
 		return filename;

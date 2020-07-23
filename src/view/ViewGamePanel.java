@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.json.JSONException;
+
 import model.GameData;
 import util.Colour;
 import util.Component;
@@ -24,7 +26,7 @@ import util.Typeface;
 @SuppressWarnings("serial")
 public class ViewGamePanel extends JPanel{
     private JPanel pGameFields, pAreaSpoiler;
-    public JPanel pYear, pComment, pNote;
+    public JPanel pRate, pYear, pComment, pNote;
     public SimplePanel pSpoiler;
     private GridBagConstraints c;
     public JTextField txtName, txtYear, txtRate;
@@ -70,7 +72,7 @@ public class ViewGamePanel extends JPanel{
                 txtDevelopers = new JTextField(oneLineList(gd.getDevelopers()));
                 txtDevelopers.setEditable(false);
                 add(Component.createTextField(Language.loadMessage("gv_developers"), txtDevelopers, false, Colour.getBackgroundColor()));
-            } catch(NullPointerException e) {}
+            } catch(NullPointerException | JSONException e) {}
 
             // Establishing game publishers
 
@@ -78,7 +80,7 @@ public class ViewGamePanel extends JPanel{
                 txtPublishers = new JTextField(oneLineList(gd.getPublishers()));
                 txtPublishers.setEditable(false);
                 add(Component.createTextField(Language.loadMessage("gv_publishers"), txtPublishers, false, Colour.getBackgroundColor()));
-            } catch(NullPointerException e) {}
+            } catch(NullPointerException | JSONException e) {}
 
             // Establishing game release date
 
@@ -91,7 +93,7 @@ public class ViewGamePanel extends JPanel{
                 }
                 txtRelease.setEditable(false);
                 add(Component.createTextField(Language.loadMessage("gv_release"), txtRelease, true, Colour.getBackgroundColor()));
-            } catch(NullPointerException e) {}
+            } catch(NullPointerException | JSONException e) {}
 
             // Establishing game platforms
 
@@ -99,7 +101,7 @@ public class ViewGamePanel extends JPanel{
                 aPlatforms = new JTextArea(oneLineList(gd.getPlatforms()));
                 aPlatforms.setEditable(false);
                 add(Component.createTextArea(Language.loadMessage("gv_platforms"), aPlatforms, 2, Colour.getBackgroundColor()));
-            } catch(NullPointerException e) {}
+            } catch(NullPointerException | JSONException e) {}
 
             // Establishing game genres
 
@@ -107,7 +109,7 @@ public class ViewGamePanel extends JPanel{
                 aGenres = new JTextArea(oneLineList(gd.getGenres()));
                 aGenres.setEditable(false);
                 add(Component.createTextArea(Language.loadMessage("gv_genres"), aGenres, 2, Colour.getBackgroundColor()));
-            } catch(NullPointerException e) {}
+            } catch(NullPointerException | JSONException e) {}
 
             // Establishing game tags
 
@@ -115,7 +117,7 @@ public class ViewGamePanel extends JPanel{
                 aTags = new JTextArea(oneLineList(gd.getTags()));
                 aTags.setEditable(false);
                 add(Component.createTextArea(Language.loadMessage("gv_tags"), aTags, 3, Colour.getBackgroundColor()));
-            } catch(NullPointerException e) {}
+            } catch(NullPointerException | JSONException e) {}
 
             // Establishing game rating
 
@@ -123,7 +125,7 @@ public class ViewGamePanel extends JPanel{
                 txtRating = new JTextField(Float.toString(gd.getRating()));
                 txtRating.setEditable(false);
                 add(Component.createTextField(Language.loadMessage("gv_rating"), txtRating, true, Colour.getBackgroundColor()));
-            } catch(NullPointerException e) {}
+            } catch(NullPointerException | JSONException e) {}
 
             // Establishing gap
 
@@ -193,7 +195,8 @@ public class ViewGamePanel extends JPanel{
 
         txtRate = new JTextField();
         txtRate.setEditable(false);
-        pGameFields.add(Component.createTextField(Language.loadMessage("ge_rating"), txtRate, true, Colour.getBackgroundColor()),c);
+        pRate = Component.createTextField(Language.loadMessage("ge_rating"), txtRate, true, Colour.getBackgroundColor());
+        pGameFields.add(pRate,c);
         c.gridy++;
 
         // Establishing comments

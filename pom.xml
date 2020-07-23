@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>Completed-Games Registers</name>
+    <groupId>com.complexralex.cgr</groupId>
+    <artifactId>completed-games-registers</artifactId>
+    <version>1</version>
+
+    <properties>
+        <java-version>1.8.0_251</java-version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20200518</version>
+        </dependency>
+    </dependencies>
+</project>

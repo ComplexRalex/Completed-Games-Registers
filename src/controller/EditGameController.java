@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 
 import javax.swing.JTextField;
 
-import org.json.simple.parser.ParseException;
+import org.json.JSONException;
 
 import java.awt.event.ActionEvent;
 
@@ -128,7 +128,7 @@ public class EditGameController implements ActionListener, KeyListener{
                 downloaded = view.txtName.getText().trim();
                 try{
                     GameData.downloadGameImage(view.txtName.getText().trim());
-                }catch(IOException | ParseException e){
+                }catch(IOException | JSONException e){
                     Advice.showTextAreaAdvice(
                         parent.frame,
                         Language.loadMessage("g_oops"),
@@ -147,7 +147,7 @@ public class EditGameController implements ActionListener, KeyListener{
                     Colour.getPrimaryColor()
                 );
             }
-        }catch(IOException | ParseException | URISyntaxException e){
+        }catch(IOException | JSONException | URISyntaxException e){
             Advice.showTextAreaAdvice(
                 parent.frame,
                 Language.loadMessage("g_oops"),
@@ -250,9 +250,9 @@ public class EditGameController implements ActionListener, KeyListener{
                             actual.setGame(game);
                             actual.setYear(year);
                             actual.setRate(rate);
-                            actual.setComment(("".equals(comment.trim()) ? "" : comment));
-                            actual.setNote(("".equals(note.trim()) ? "" : note));
-                            actual.setSpoiler(("".equals(spoiler.trim()) ? "" : spoiler));
+                            actual.setComment(comment);
+                            actual.setNote(note);
+                            actual.setSpoiler(spoiler);
                             parent.cGeneral.updateName(actual);
                         }
 
