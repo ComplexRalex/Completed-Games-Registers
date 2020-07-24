@@ -63,6 +63,8 @@ public class Language{
 		languages.get("English").put("m_option_view",		"View");
 		languages.get("English").put("m_option_edit",		"Edit");
 		languages.get("English").put("m_option_remove",		"Remove");
+		languages.get("English").put("m_option_recent",		"Recently added");
+		languages.get("English").put("m_text_recent",		"This register will be ordered in the next reset");
 		languages.get("English").put("m_backedup",			"The registers were successfully backed up");
 		languages.get("English").put("m_exported",			"The registers were successfully exported");
 		languages.get("English").put("m_remove",			"Do you want to remove this register?");
@@ -98,7 +100,7 @@ public class Language{
 		languages.get("English").put("ge_main_info", 		"Game main info");
 		languages.get("English").put("ge_name",				"Game name:");
 		languages.get("English").put("ge_download",			"Download game info from RAWG database");
-		languages.get("English").put("ge_delete",			"Delete game info from RAWG database");
+		languages.get("English").put("ge_delete",			"Delete game info downloaded from RAWG database");
 		languages.get("English").put("ge_user_info", 		"Game user info");
 		languages.get("English").put("ge_year",				"Year of completion:");
 		languages.get("English").put("ge_rating",			"Rating:");
@@ -192,6 +194,8 @@ public class Language{
 		languages.get("Spanish").put("m_option_view",		"Ver");
 		languages.get("Spanish").put("m_option_edit",		"Editar");
 		languages.get("Spanish").put("m_option_remove",		"Borrar");
+		languages.get("Spanish").put("m_option_recent",		"Agregado recientemente");
+		languages.get("Spanish").put("m_text_recent",		"Este registro se ordenará en el próximo reinicio.");
 		languages.get("Spanish").put("m_backedup",			"Se han respaldado los registros correctamente");
 		languages.get("Spanish").put("m_exported",			"Se han exportado los registros correctamente");
 		languages.get("Spanish").put("m_remove",			"¿Quieres quitar este registro?");
@@ -227,7 +231,7 @@ public class Language{
 		languages.get("Spanish").put("ge_main_info", 		"Información del juego");
 		languages.get("Spanish").put("ge_name",				"Nombre del juego:");
 		languages.get("Spanish").put("ge_download",			"Descargar información del juego de la base de datos de RAWG");
-		languages.get("Spanish").put("ge_delete",			"Borrar información del juego de la base de datos de RAWG");
+		languages.get("Spanish").put("ge_delete",			"Borrar información del juego descargada de la base de datos de RAWG");
 		languages.get("Spanish").put("ge_user_info", 		"Información del usuario");
 		languages.get("Spanish").put("ge_year",				"Año de completación:");
 		languages.get("Spanish").put("ge_rating",			"Puntaje:");

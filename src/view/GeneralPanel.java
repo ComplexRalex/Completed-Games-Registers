@@ -41,16 +41,16 @@ public class GeneralPanel extends JPanel{
     }
 
     public class GameRegisterPanel extends JPanel{
-        public JButton btView, btEdit, btRemove;
+        public JButton btView, btEdit, btRemove, btRecent;
         public JTextArea aName;
 
-        public GameRegisterPanel(String game){
+        public GameRegisterPanel(String game, boolean recent){
             setLayout(new BorderLayout());
             setBackground(Colour.getBackgroundColor());
-            initComponents(game);
+            initComponents(game, recent);
         }
 
-        public void initComponents(String game){
+        public void initComponents(String game, boolean recent){
 
             JPanel title = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
             title.setBackground(this.getBackground());
@@ -62,12 +62,17 @@ public class GeneralPanel extends JPanel{
             aName.setWrapStyleWord(true);
             aName.setEditable(false);
             aName.setFont(Typeface.labelBold);
-            aName.setColumns(17);
+            aName.setColumns(18);
             title.add(aName);
 
             add(title,BorderLayout.WEST);
 
-            JPanel options = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
+            JPanel rightSide = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
+            rightSide.setBackground(this.getBackground());
+
+            SimplePanel buttons = new SimplePanel(this.getBackground());
+
+            JPanel options = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
             options.setBackground(this.getBackground());
             
             if(loadedIcons){
@@ -93,7 +98,25 @@ public class GeneralPanel extends JPanel{
             options.add(btEdit);
             options.add(btRemove);
 
-            add(options,BorderLayout.EAST);
+            buttons.add(options);
+
+            if(recent){
+                JPanel pRecent = new JPanel(new FlowLayout(FlowLayout.CENTER,0,2));
+                pRecent.setBackground(this.getBackground());
+    
+                btRecent = new JButton(Language.loadMessage("m_option_recent"));
+                btRecent.setBackground(Colour.getButtonColor());
+                btRecent.setForeground(Colour.getFontColor());
+                btRecent.setFont(Typeface.buttonItalic);
+    
+                pRecent.add(btRecent);
+
+                buttons.add(pRecent);
+            }
+
+            rightSide.add(buttons);
+
+            add(rightSide,BorderLayout.EAST);
         }
     }
 

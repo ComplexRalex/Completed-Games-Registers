@@ -10,6 +10,7 @@ public class Typeface {
     public static final Font labelBold = new Font("Open Sans",1,16);
     public static final Font labelPlain = new Font("Open Sans",0,16);
     public static final Font buttonBold = new Font("Open Sans",1,14);
+    public static final Font buttonItalic = new Font("Open Sans",2,14);
     public static final Font buttonPlain = new Font("Open Sans",0,14);
 
 }

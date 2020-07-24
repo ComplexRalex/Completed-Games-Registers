@@ -47,20 +47,20 @@ public class GeneralController implements ActionListener{
             view.addPlaceHolder();
 
         for(GameStat gs: model.getGameStats())
-            add(gs);
+            add(gs, false);
     }
 
-    public void add(GameStat gs){
+    public void add(GameStat gs, boolean recent){
         if(games.isEmpty()) view.removePlaceHolder();
         model.addGameStat(gs);
-        games.put(gs,view.new GameRegisterPanel(gs.getGame()));
+        games.put(gs,view.new GameRegisterPanel(gs.getGame(), recent));
         view.addToCenter(games.get(gs));
         view.repaint();
 
-        addActions(gs);
+        addActions(gs, recent);
     }
 
-    private void addActions(GameStat gs){
+    private void addActions(GameStat gs, boolean recent){
         GameRegisterPanel panel = games.get(gs);
         panel.btView.addActionListener(new ActionListener(){
             @Override
@@ -101,6 +101,19 @@ public class GeneralController implements ActionListener{
                 }
             }
         });
+        if(recent)
+            panel.btRecent.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Advice.showSimpleAdvice(
+                        parent.frame,
+                        Language.loadMessage("g_message"),
+                        Language.loadMessage("m_text_recent"),
+                        Language.loadMessage("g_accept"), 
+                        Colour.getPrimaryColor()
+                    );
+                }
+            });
     }
 
     public void updateName(GameStat gs){

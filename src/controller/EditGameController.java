@@ -243,7 +243,8 @@ public class EditGameController implements ActionListener, KeyListener{
                         
                         if(e.getSource() == view.btCreate){
                             parent.cGeneral.add(
-                                new GameStat(game,year,rate,comment,note,spoiler)
+                                new GameStat(game,year,rate,comment,note,spoiler),
+                                true
                             );
     
                         }else if(e.getSource() == view.btChange){
