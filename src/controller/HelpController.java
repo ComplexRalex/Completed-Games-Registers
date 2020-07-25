@@ -9,6 +9,7 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import system.Software;
 import util.Advice;
 import util.Colour;
 import util.Language;
@@ -38,7 +39,7 @@ public class HelpController implements ActionListener{
                     parent.frame,
                     Language.loadMessage("g_message"),
                     Language.loadMessage("g_will_browse"),
-                    "https://github.com/ComplexRalex/Completed-Games-Register-Java/issues/new/choose", 50, 2,
+                    Software.ISSUES_PAGE, 50, 2,
                     new String[]{
                         Language.loadMessage("g_accept"),
                         Language.loadMessage("g_cancel")
@@ -46,7 +47,7 @@ public class HelpController implements ActionListener{
                     Colour.getPrimaryColor()
                 ) == 0){
                     try {
-                        Desktop.getDesktop().browse(new URI("https://github.com/ComplexRalex/Completed-Games-Register-Java/issues/new/choose"));
+                        Desktop.getDesktop().browse(new URI(Software.ISSUES_PAGE));
                     } catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
                         Advice.showTextAreaAdvice(

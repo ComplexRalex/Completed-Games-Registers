@@ -32,6 +32,11 @@ public class Software {
     };
 
     /**
+     * URL of the report issues page of the project (in GitHub)
+     */
+    public static final String ISSUES_PAGE = "https://github.com/ComplexRalex/Completed-Games-Registers/issues/new/choose";
+
+    /**
      * URL of the source code page of the project (in GitHub)
      */
     public static final String SOURCE_CODE_PAGE = "https://github.com/ComplexRalex/Completed-Games-Registers";
