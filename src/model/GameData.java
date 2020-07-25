@@ -131,6 +131,10 @@ public class GameData{
     public float getRating(){
         return data.getFloat("rating");
 	}
+
+	public int getID(){
+		return data.getInt("id");
+	}
 	
 	private static int searchGame(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 

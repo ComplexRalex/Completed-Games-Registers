@@ -1,7 +1,10 @@
 package controller;
 
+import java.awt.Desktop;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.json.JSONException;
 
@@ -67,7 +70,48 @@ public class ViewGameController implements ActionListener{
 
         if(actual.isInfoAvailable()){
             try{
-                view.addDatabaseInfo(new GameData(actual.getGame()));
+                GameData gd = new GameData(actual.getGame());
+                ViewGamePanel.GameDataPanel panel = view.addDatabaseInfo(gd);
+                panel.btMoreDetails.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
+                            if(Advice.showOptionTextAreaAdvice(
+                                parent.frame,
+                                Language.loadMessage("g_message"),
+                                Language.loadMessage("g_will_browse"),
+                                "https://rawg.io/games/"+gd.getID(), 50, 2,
+                                new String[]{
+                                    Language.loadMessage("g_accept"),
+                                    Language.loadMessage("g_cancel")
+                                },
+                                Colour.getPrimaryColor()
+                            ) == 0){
+                                try {
+                                    Desktop.getDesktop().browse(new URI("https://rawg.io/games/"+gd.getID()));
+                                } catch (IOException | URISyntaxException e1) {
+                                    e1.printStackTrace();
+                                    Advice.showTextAreaAdvice(
+                                        parent.frame,
+                                        Language.loadMessage("g_oops"),
+                                        Language.loadMessage("g_wentworng")+": ",
+                                        Advice.getStackTrace(e1), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                                        Language.loadMessage("g_accept"),
+                                        Colour.getPrimaryColor()
+                                    );
+                                }
+                            }
+                        }else{
+                            Advice.showSimpleAdvice(
+                                parent.frame,
+                                Language.loadMessage("g_oops"),
+                                Language.loadMessage("g_wentworng"),
+                                Language.loadMessage("g_accept"),
+                                Colour.getPrimaryColor()
+                            );
+                        }
+                    }
+                });
 			}catch(IOException | JSONException e){
 				Advice.showTextAreaAdvice(
                     parent.frame,

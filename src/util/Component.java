@@ -90,10 +90,12 @@ public class Component{
      * 
      * @param text String that contains the paragraph text
      * @param font Font the text will have
+     * @param centered Determines if the text will be centered (true) or
+     * justified (false)
      * @param bg Background color
      * @return JPanel that contains the given paragraph
      */
-    public static JPanel createPlainText(String text, Font font, Color bg){
+    public static JPanel createPlainText(String text, Font font, boolean centered, Color bg){
         // Initializing new panel
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,13,13));
         panel.setBackground(bg);
@@ -102,7 +104,7 @@ public class Component{
         JLabel label = new JLabel(String.format(
             "<html><body style='width: %dpx; background: #%06x;"+
             "font-family: %s; font-weight: normal; font-size: %d;"+
-            " color: #%06x; text-align: justify;'>%s",
+            " color: #%06x; text-align: "+(centered ? "center;" : "justify;")+"'>%s",
             width-149,
             Integer.valueOf(bg.getRGB() & 0x00FFFFFF),
             font.getName(),
@@ -288,16 +290,20 @@ public class Component{
         panel.setBackground(bg);
         panel.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, bg));
 
-        // Initializing description panel which will contain the JLabel
-        JPanel description = new JPanel(new FlowLayout(FlowLayout.LEFT,10,5));
-        description.setPreferredSize(dim1LinePanel);
-        description.setBackground(bg);
+        if(info != null){
+            // Initializing description panel which will contain the JLabel
+            JPanel description = new JPanel(new FlowLayout(FlowLayout.LEFT,10,5));
+            description.setPreferredSize(dim1LinePanel);
+            description.setBackground(bg);
 
-        // Initializing label info
-        JLabel desc = new JLabel(info);
-        desc.setFont(Typeface.labelPlain);
-        desc.setForeground(Colour.getFontColor());
-        description.add(desc);
+            // Initializing label info
+            JLabel desc = new JLabel(info);
+            desc.setFont(Typeface.labelPlain);
+            desc.setForeground(Colour.getFontColor());
+            description.add(desc);
+            
+            panel.add(description);
+        }
 
         // Initializing text area field specified
         area.setRows(rows);
@@ -312,8 +318,6 @@ public class Component{
         // Initializing scroll pane for the text area field
         JScrollPane scroll = new JScrollPane(area);
 
-        // Adding those panels into the new panel
-        panel.add(description);
         panel.add(scroll);
 
         return panel;

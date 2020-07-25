@@ -6,8 +6,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import system.Software;
 import util.ImageResource;
-import util.Language;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame{
@@ -16,6 +16,7 @@ public class MainWindow extends JFrame{
 	public ViewGamePanel pViewGame;
 	public HelpPanel pHelp;
 	public ConfigurationPanel pConfig;
+	public AboutPanel pAbout;
 	
 	public MainWindow(){
 		// Initialize the frame
@@ -27,12 +28,13 @@ public class MainWindow extends JFrame{
 		pViewGame = new ViewGamePanel();
 		pHelp = new HelpPanel();
 		pConfig = new ConfigurationPanel();
+		pAbout = new AboutPanel();
 		
 		changePanel(pGeneral);
 	}
 
 	private void setWindow(){
-		setTitle(Language.loadMessage("p_title"));
+		setTitle(Software.NAME);
 		try{
 			setIconImage((new ImageResource()).resource(ImageResource.FRAME));
 		}catch(IllegalArgumentException | NullPointerException e){/* In case of non-existence, it will be ignored.*/}

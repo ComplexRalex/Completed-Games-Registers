@@ -170,6 +170,8 @@ public class GeneralController implements ActionListener{
         }else if(e.getSource() == view.btConfig){
             parent.cConfig.obtainInitialConfig();
             parent.frame.changePanel(parent.frame.pConfig);
+        }else if(e.getSource() == view.btAbout){
+            parent.frame.changePanel(parent.frame.pAbout);
         }else{
             Advice.showSimpleAdvice(
                 parent.frame,

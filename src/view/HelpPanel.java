@@ -32,7 +32,7 @@ public class HelpPanel extends JPanel{
             lbIcon.setBorder(BorderFactory.createEmptyBorder(13,13,13,0));
 
             add(lbIcon);
-            add(Component.createPlainText(description, Typeface.labelPlain, bg));
+            add(Component.createPlainText(description, Typeface.labelPlain, false, bg));
 
         }
         
@@ -46,7 +46,7 @@ public class HelpPanel extends JPanel{
             lbIcon.setBorder(BorderFactory.createEmptyBorder(13,13,13,0));
 
             add(lbIcon);
-            add(Component.createPlainText(description, Typeface.labelPlain, bg));
+            add(Component.createPlainText(description, Typeface.labelPlain, false, bg));
         }
     }
 
@@ -67,10 +67,10 @@ public class HelpPanel extends JPanel{
         add(Component.createTitle(Language.loadMessage("h_title"), Colour.getPrimaryColor()),BorderLayout.NORTH);
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_what_is"), Colour.getPrimaryColor()));
-        panel.add(Component.createPlainText(Language.loadMessage("h_what_is_text"), Typeface.labelPlain, Colour.getBackgroundColor()));
+        panel.add(Component.createPlainText(Language.loadMessage("h_what_is_text"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_register"), Colour.getPrimaryColor()));
-        panel.add(Component.createPlainText(Language.loadMessage("h_register_text"), Typeface.labelPlain, Colour.getBackgroundColor()));
+        panel.add(Component.createPlainText(Language.loadMessage("h_register_text"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_options"), Colour.getPrimaryColor()));
         try{

@@ -35,6 +35,7 @@ public class ViewGamePanel extends JPanel{
     public GameDataPanel pGameData;
 
     public class GameDataPanel extends SimplePanel{
+        public JButton btMoreDetails;
         public JTextField txtName, txtDevelopers, txtPublishers, txtRelease, txtRating;
         public JTextArea aPlatforms, aGenres, aTags;
         public BufferedImage image;
@@ -64,7 +65,7 @@ public class ViewGamePanel extends JPanel{
             
             // Establishing game description
 
-            add(Component.createPlainText(gd.getDescription(), Typeface.textPlain, Colour.getPrimaryColor()));
+            add(Component.createPlainText(gd.getDescription(), Typeface.textPlain, false, Colour.getPrimaryColor()));
 
             // Establishing game developers
 
@@ -127,6 +128,9 @@ public class ViewGamePanel extends JPanel{
                 add(Component.createTextField(Language.loadMessage("gv_rating"), txtRating, true, Colour.getBackgroundColor()));
             } catch(NullPointerException | JSONException e) {}
 
+            btMoreDetails = new JButton(Language.loadMessage("gv_more_details"));
+            add(Component.createSingleButton(btMoreDetails, Colour.getPrimaryColor()));
+            
             // Establishing gap
 
             add(Component.createGap(35,Colour.getBackgroundColor()));
@@ -249,12 +253,14 @@ public class ViewGamePanel extends JPanel{
         return pAreaSpoiler.isVisible();
     }
 
-    public void addDatabaseInfo(GameData gd){
+    public GameDataPanel addDatabaseInfo(GameData gd){
         c.gridy = 0;
         pGameData = new GameDataPanel(gd);
         pGameFields.add(pGameData,c);
         validate();
         repaint();
+
+        return pGameData;
     }
 
     public void removeDatabaseInfo(){

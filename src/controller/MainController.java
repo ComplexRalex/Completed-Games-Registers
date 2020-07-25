@@ -23,9 +23,9 @@ public class MainController{
     public ViewGameController cViewGame;
     public HelpController cHelp;
     public ConfigurationController cConfig;
+    public AboutController cAbout;
 
     public MainController(){
-        Language.initialize();
         set();
     }
 
@@ -69,6 +69,9 @@ public class MainController{
 
         cConfig = new ConfigurationController(mConfig, frame.pConfig, this);
         cConfig.initialize();
+
+        cAbout = new AboutController(frame.pAbout, this);
+        cAbout.initialize();
 
         setFrameSettings();
     }

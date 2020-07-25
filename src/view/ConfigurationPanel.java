@@ -59,7 +59,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		// - Establishing a note about the auto-backup option
 
-		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_auto_backup_note"), Typeface.textPlain, Colour.getPrimaryColor()));
+		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_auto_backup_note"), Typeface.textPlain, false, Colour.getPrimaryColor()));
 
 		// - Establishing the auto-backup options
 		
@@ -93,7 +93,7 @@ public class ConfigurationPanel extends JPanel{
 
 		// - Establishing "warning" message
 
-		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_warn"), Typeface.labelPlain, Colour.getPrimaryColor()));
+		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_warn"), Typeface.labelPlain, false, Colour.getPrimaryColor()));
 
 		// - Establishing sudden close button
 
