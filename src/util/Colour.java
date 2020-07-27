@@ -24,9 +24,9 @@ public class Colour {
 	private static final Color[][] THEME_COLORS = {
 			{	// Light Colors
 				new Color(10,10,10),	// Font Color
-				new Color(230,230,230),	// (Maybe) Background Color
-				new Color(240,240,240), // Button Color
-				new Color(250,250,250)	// Background Color	
+				new Color(210,210,210),	// (Maybe) Background Color
+				new Color(230,230,230), // Button Color
+				new Color(245,245,245)	// Background Color	
 			},
 			{	// Dark Colors
 				new Color(230,230,230),
@@ -37,7 +37,7 @@ public class Colour {
 			{	// Night Colors
 				new Color(225,226,238),
 				new Color(60,62,78),
-				new Color(50,51,65),
+				new Color(42,43,55),
 				new Color(35,34,40)
 			}
 	};

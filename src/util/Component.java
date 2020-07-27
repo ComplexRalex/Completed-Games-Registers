@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -545,6 +547,8 @@ public class Component{
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
+        scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI());
+        scroll.getVerticalScrollBar().setUnitIncrement(3);
         
         return scroll;
     }

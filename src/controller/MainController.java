@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 public class MainController{
 
@@ -51,6 +52,9 @@ public class MainController{
         // Setup languages and themes
         Colour.setCurrentTheme(mConfig.currentTheme());
         Language.setCurrentLanguage(mConfig.currentLanguage());
+
+        // Make additional changes in UI
+        makeUIchanges();
         
         frame = new MainWindow();
         frame.addWindowListener(createWindowAdapter());
@@ -134,6 +138,15 @@ public class MainController{
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    private void makeUIchanges(){
+        // This is because I want to color the ScrollBar and I don't see another way to do it...
+		UIManager.put("ScrollBar.thumb",Colour.getPrimaryColor());
+		UIManager.put("ScrollBar.thumbHighlight",Colour.getPrimaryColor());
+		UIManager.put("ScrollBar.thumbShadow",Colour.getPrimaryColor());
+		UIManager.put("ScrollBar.thumbDarkShadow",Colour.getButtonColor());
+		UIManager.put("ScrollBar.track",Colour.getButtonColor());
     }
 
     public void reset(){
