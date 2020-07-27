@@ -19,11 +19,15 @@ import java.awt.AlphaComposite;
  */
 public class ImageResource{
     
-	/**
-	 * ClassLoader which will be used to load the resources
+    /**
+     * ClassLoader which will be used to load the resources
 	 */
-	private ClassLoader loader;
+    private ClassLoader loader;
 	
+    /**
+     * Path to the image logotype.png in the resources folder.
+     */
+    public static final String LOGOTYPE = Path.guiPath+"logotype.png";
 	/**
 	 * Path to the image add.png in the resources folder.
 	 */

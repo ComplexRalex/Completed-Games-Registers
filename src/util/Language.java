@@ -166,6 +166,7 @@ public class Language{
 		map.get("English").put("h_report_issue",		"Did you see any bug?");
 		map.get("English").put("h_report_issue_text",	"Report an issue (GitHub page)");
 
+		map.get("English").put("ac_brief",				"Keep a record of all the games you have completed so far!");
 		map.get("English").put("ac_title",				"About & Credits");
 		map.get("English").put("ac_details",			"Details");
 		map.get("English").put("ac_version",			"Version");
@@ -315,6 +316,7 @@ public class Language{
 		map.get("Spanish").put("h_report_issue",		"¿Viste algún error?");
 		map.get("Spanish").put("h_report_issue_text",	"Reportar problema (página GitHub)");
 
+		map.get("Spanish").put("ac_brief",				"¡Crea un récord de todos los juegos que has completado hasta el momento!");
 		map.get("Spanish").put("ac_title",				"Acerca del programa y créditos");
 		map.get("Spanish").put("ac_details",			"Detalles");
 		map.get("Spanish").put("ac_version",			"Versión");

@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import system.Software;
 import util.Colour;
 import util.Component;
+import util.ImageResource;
 import util.Language;
 import util.SimplePanel;
 import util.Typeface;
@@ -72,6 +73,19 @@ public class AboutPanel extends JPanel{
 
         SimplePanel centeredPanel = new SimplePanel();
         JScrollPane scroll = Component.createScrollPane(centeredPanel);
+
+        // Establishing logo
+        try{
+            centeredPanel.add(Component.createImage((new ImageResource()).resource(ImageResource.LOGOTYPE), Colour.getBackgroundColor()));
+		}catch(IllegalArgumentException | NullPointerException e){
+            centeredPanel.add(Component.createTitle(Software.NAME, Colour.getBackgroundColor()));
+        }
+        
+        // Establishing brief description
+        
+        centeredPanel.add(Component.createPlainText(Language.loadMessage("ac_brief"), Typeface.labelPlain, true, Colour.getBackgroundColor()));
+        
+        centeredPanel.add(Component.createGap(25, Colour.getBackgroundColor()));
 
         // Establishing "details" subtitle
 
