@@ -16,7 +16,12 @@ public class Software {
     /**
      * Necessary java version to run the project
      */
-    public static final String JAVA = "(I need to think)";
+    public static final String JAVA = "Java 1.8";
+
+    /**
+     * Java JDK version
+     */
+    public static final String JDK = "OpenJDK 1.8.0_262";
 
     /**
      * Name of the developer of the project
