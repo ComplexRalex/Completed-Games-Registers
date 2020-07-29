@@ -35,6 +35,8 @@ public class Component{
         dimSwitchButton = new Dimension(62,22),
         dimTitle = new Dimension(width,75);
 
+    public final static int SCROLLBAR_INCREMENT = 5;
+
     /**
      * Creates a title with predefined configurations and the string provided.
      * <p>
@@ -311,7 +313,7 @@ public class Component{
         area.setRows(rows);
         area.setColumns(42);
         area.setFont(Typeface.textPlain);
-        area.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
+        area.setBackground(bg == Colour.getBackgroundColor() ? Colour.getButtonColor() : Colour.getBackgroundColor());
         area.setForeground(Colour.getFontColor());
         area.setCaretColor(Colour.getFontColor());
         area.setLineWrap(true);
@@ -319,6 +321,8 @@ public class Component{
 
         // Initializing scroll pane for the text area field
         JScrollPane scroll = new JScrollPane(area);
+        scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI());
+        scroll.getVerticalScrollBar().setUnitIncrement(SCROLLBAR_INCREMENT);
 
         panel.add(scroll);
 
@@ -548,7 +552,7 @@ public class Component{
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setAlignmentY(JScrollPane.RIGHT_ALIGNMENT);
         scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI());
-        scroll.getVerticalScrollBar().setUnitIncrement(3);
+        scroll.getVerticalScrollBar().setUnitIncrement(SCROLLBAR_INCREMENT);
         
         return scroll;
     }

@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -117,6 +118,8 @@ public class Advice{
 
         JScrollPane scroll = new JScrollPane(area,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setBackground(bg);
+        scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI());
+        scroll.getVerticalScrollBar().setUnitIncrement(Component.SCROLLBAR_INCREMENT);
 
         return showOptionComponentAdvice(parent, title, message, scroll, options, bg);
     }

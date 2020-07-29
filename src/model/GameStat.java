@@ -1,13 +1,13 @@
 package model;
 
 import java.io.File;
-import java.io.Serializable;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import util.Path;
 
-public class GameStat implements Serializable{
+public class GameStat{
 
 	public static final int NO_RATE = 0;
 	public static final int RATE_1 = 1;
@@ -18,7 +18,6 @@ public class GameStat implements Serializable{
 
 	public static final int RATE_OPTIONS = 6;
 
-	private static final long serialVersionUID = 1L;
 	private String game;
 	private int year;
 	private int rate;
@@ -27,12 +26,12 @@ public class GameStat implements Serializable{
 	private String spoiler;
 
 	public GameStat(String g, int y, int r, String c, String n, String s){
-		game = g.trim();
-		year = (y < 0 ? -1 : y);
-		rate = (r > 5 || r < 0 ? 0 : r);
-		comment = ("".equals(c.trim()) ? "" : c);
-		note = ("".equals(n.trim()) ? "" : n);
-		spoiler = ("".equals(s.trim()) ? "" : s);
+		game = validateGame(g);
+		year = validateYear(y);
+		rate = validateRate(r);
+		comment = validateText(c);
+		note = validateText(n);
+		spoiler = validateText(s);
 	}
 	
 	public GameStat(GameStat gs){
@@ -43,6 +42,32 @@ public class GameStat implements Serializable{
 		note = gs.getNote();
 		spoiler = gs.getSpoiler();
 	}
+
+	public GameStat(JSONObject json){
+		try{
+			game = validateGame(json.getString("game"));
+		}catch(JSONException e){game = validateGame(null);}
+		try{
+			year = validateYear(json.getInt("year"));
+		}catch(JSONException e){year = -1;}
+		try{
+			rate = validateRate(json.getInt("rate"));
+		}catch(JSONException e){rate = 0;}
+		try{
+			comment = validateText(json.getString("comment"));
+		}catch(JSONException e){comment = validateText(null);}
+		try{
+			note = validateText(json.getString("note"));
+		}catch(JSONException e){note = validateText(null);}
+		try{
+			spoiler = validateText(json.getString("spoiler"));
+		}catch(JSONException e){spoiler = validateText(null);}
+	}
+
+	private String validateGame(String game){if(game == null) game = ""; return game.trim();}
+	private int validateYear(int year){return (year < 0 ? -1 : year);}
+	private int validateRate(int rate){return (rate > 5 || rate < 0 ? 0 : rate);}
+	private String validateText(String text){if(text == null) text = ""; return ("".equals(text.trim()) ? "" : text);}
 	
 	public String getGame(){return game;}
 	public int getYear(){return year;}
@@ -51,12 +76,12 @@ public class GameStat implements Serializable{
 	public String getNote(){return note;}
 	public String getSpoiler(){return spoiler;}
 	
-	public void setGame(String game){this.game = game.trim();}
-	public void setYear(int year){this.year = (year < 0 ? -1 : year);}
-	public void setRate(int rate){this.rate = (rate > 5 || rate < 0 ? 0 : rate);}
-	public void setComment(String comment){this.comment = ("".equals(comment.trim()) ? "" : comment);}
-	public void setNote(String note){this.note = ("".equals(note.trim()) ? "" : note);}
-	public void setSpoiler(String spoiler){this.spoiler = ("".equals(spoiler.trim()) ? "" : spoiler);}
+	public void setGame(String game){this.game = validateGame(game);}
+	public void setYear(int year){this.year = validateYear(year);}
+	public void setRate(int rate){this.rate = validateRate(rate);}
+	public void setComment(String comment){this.comment = validateText(comment);}
+	public void setNote(String note){this.note = validateText(note);}
+	public void setSpoiler(String spoiler){this.spoiler = validateText(spoiler);}
 
 	public JSONObject exportStat(){
 		JSONObject json = new JSONObject();

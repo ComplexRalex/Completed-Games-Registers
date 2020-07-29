@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,11 +34,29 @@ public class GameRegister{
 		changeMade = false;
 	}
 	
+	private ArrayList<HashMap<String,Object>> toHashMapArray(ArrayList<GameStat> stats){
+		ArrayList<HashMap<String,Object>> array = new ArrayList<>();
+
+		for(GameStat gs: stats)
+			array.add(new HashMap<String,Object>(gs.exportStat().toMap()));
+
+		return array;
+	}
+
+	private ArrayList<GameStat> fromHashMapArray(ArrayList<HashMap<String,Object>> array){
+		ArrayList<GameStat> stats = new ArrayList<>();
+
+		for(HashMap<String,Object> hashMap: array)
+			stats.add(new GameStat(new JSONObject(hashMap)));
+
+		return stats;
+	}
+
 	public void saveGameStats() throws IOException {
 		Path.resolve(Path.dataPath);
 		FileOutputStream f = new FileOutputStream(Path.saveFile);
 		ObjectOutputStream o = new ObjectOutputStream(f);
-		o.writeObject(gameStats);
+		o.writeObject(toHashMapArray(gameStats));
 		o.close();
 		f.close();
 
@@ -49,7 +68,7 @@ public class GameRegister{
 		Path.resolve(Path.dataPath);
 		FileInputStream f = new FileInputStream(Path.saveFile);
 		ObjectInputStream o = new ObjectInputStream(f);
-		gameStats = (ArrayList<GameStat>)o.readObject();
+		gameStats = fromHashMapArray((ArrayList<HashMap<String,Object>>)o.readObject());
 		o.close();
 		f.close();
 	}
