@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ import util.Typeface;
 @SuppressWarnings("serial")
 public class HelpPanel extends JPanel{
     public JButton btReportIssue, btReturn;
+    public JScrollBar scrollBar;
 
     public class IconDescription extends JPanel{
         
@@ -63,6 +65,7 @@ public class HelpPanel extends JPanel{
 
         SimplePanel panel = new SimplePanel();
         JScrollPane scroll = Component.createScrollPane(panel);
+        scrollBar = scroll.getVerticalScrollBar();
         
         add(Component.createTitle(Language.loadMessage("h_title"), Colour.getPrimaryColor()),BorderLayout.NORTH);
 
@@ -82,13 +85,13 @@ public class HelpPanel extends JPanel{
 	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.EDIT),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_edit"), Colour.getBackgroundColor()));
 	        panel.add(new IconDescription(new ImageIcon(ImageResource.colorAndShadow(res.resource(ImageResource.REMOVE),Colour.getFontColor(),brightness)), Language.loadMessage("h_options_remove"), Colour.getBackgroundColor()));
         }catch(IllegalArgumentException | NullPointerException e){
-        	 panel.add(new IconDescription(Language.loadMessage("m_option_add"), Language.loadMessage("h_options_add"), Colour.getBackgroundColor()));
-        	 panel.add(new IconDescription(Language.loadMessage("m_option_backup"), Language.loadMessage("h_options_backup"), Colour.getBackgroundColor()));
-        	 panel.add(new IconDescription(Language.loadMessage("m_option_export"), Language.loadMessage("h_options_export"), Colour.getBackgroundColor()));
-        	 panel.add(new IconDescription(Language.loadMessage("m_option_help"), Language.loadMessage("h_options_help"), Colour.getBackgroundColor()));
-        	 panel.add(new IconDescription(Language.loadMessage("m_option_view"), Language.loadMessage("h_options_view"), Colour.getBackgroundColor()));
-        	 panel.add(new IconDescription(Language.loadMessage("m_option_edit"), Language.loadMessage("h_options_edit"), Colour.getBackgroundColor()));
-        	 panel.add(new IconDescription(Language.loadMessage("m_option_remove"), Language.loadMessage("h_options_remove"), Colour.getBackgroundColor()));
+            panel.add(new IconDescription(Language.loadMessage("m_option_add"), Language.loadMessage("h_options_add"), Colour.getBackgroundColor()));
+            panel.add(new IconDescription(Language.loadMessage("m_option_backup"), Language.loadMessage("h_options_backup"), Colour.getBackgroundColor()));
+            panel.add(new IconDescription(Language.loadMessage("m_option_export"), Language.loadMessage("h_options_export"), Colour.getBackgroundColor()));
+            panel.add(new IconDescription(Language.loadMessage("m_option_help"), Language.loadMessage("h_options_help"), Colour.getBackgroundColor()));
+            panel.add(new IconDescription(Language.loadMessage("m_option_view"), Language.loadMessage("h_options_view"), Colour.getBackgroundColor()));
+            panel.add(new IconDescription(Language.loadMessage("m_option_edit"), Language.loadMessage("h_options_edit"), Colour.getBackgroundColor()));
+            panel.add(new IconDescription(Language.loadMessage("m_option_remove"), Language.loadMessage("h_options_remove"), Colour.getBackgroundColor()));
         }
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_report_issue"), Colour.getPrimaryColor()));

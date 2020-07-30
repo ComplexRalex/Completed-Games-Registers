@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
@@ -27,6 +28,7 @@ public class EditGamePanel extends JPanel{
     public JTextArea aComment, aNote, aSpoiler;
     public JButton btDownload, btDelete, btCreate, btChange, btCancel;
     public JRadioButton btRate[];
+    public JScrollBar scrollBar;
 
     public EditGamePanel(){
         this.setLayout(new BorderLayout());
@@ -44,6 +46,7 @@ public class EditGamePanel extends JPanel{
 
         SimplePanel pGameFields = new SimplePanel();
         JScrollPane scrollFields = Component.createScrollPane(pGameFields);
+        scrollBar = scrollFields.getVerticalScrollBar();
         
         // Establishing a "main game info" subtitle
 

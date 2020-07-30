@@ -66,14 +66,14 @@ public class GeneralController implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.cViewGame.setInitialValues(gs);
-                parent.frame.changePanel(parent.frame.pViewGame);
+                parent.frame.changePanel(parent.frame.pViewGame,parent.frame.pViewGame.scrollBar);
             }
         });
         panel.btEdit.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.cEditGame.setInitialValues(gs);
-                parent.frame.changePanel(parent.frame.pEditGame);
+                parent.frame.changePanel(parent.frame.pEditGame,parent.frame.pEditGame.scrollBar);
             }
         });
         panel.btRemove.addActionListener(new ActionListener(){
@@ -124,7 +124,7 @@ public class GeneralController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btAdd){
             parent.cEditGame.setInitialValues(null);
-            parent.frame.changePanel(parent.frame.pEditGame);
+            parent.frame.changePanel(parent.frame.pEditGame,parent.frame.pEditGame.scrollBar);
         }else if(e.getSource() == view.btBackup){
             try {
                 Advice.showTextAreaAdvice(
@@ -166,12 +166,12 @@ public class GeneralController implements ActionListener{
                 );
             }
         }else if(e.getSource() == view.btHelp){
-            parent.frame.changePanel(parent.frame.pHelp);
+            parent.frame.changePanel(parent.frame.pHelp,parent.frame.pHelp.scrollBar);
         }else if(e.getSource() == view.btConfig){
             parent.cConfig.obtainInitialConfig();
-            parent.frame.changePanel(parent.frame.pConfig);
+            parent.frame.changePanel(parent.frame.pConfig,parent.frame.pConfig.scrollBar);
         }else if(e.getSource() == view.btAbout){
-            parent.frame.changePanel(parent.frame.pAbout);
+            parent.frame.changePanel(parent.frame.pAbout,parent.frame.pAbout.scrollBar);
         }else{
             Advice.showSimpleAdvice(
                 parent.frame,

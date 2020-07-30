@@ -256,7 +256,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 			}
 		}else if(source == view.btReturn){
 			if(sameValues() && !resetRequest())
-				parent.frame.changePanel(parent.frame.pGeneral);
+				parent.frame.changePanel(parent.frame.pGeneral,null);
 			else
 				if(Advice.showOptionAdvice(
 					parent.frame,
@@ -269,7 +269,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 					Colour.getPrimaryColor()
 				) == 0){
 					obtainInitialConfig();
-					parent.frame.changePanel(parent.frame.pGeneral);
+					parent.frame.changePanel(parent.frame.pGeneral,null);
 				}
 		}
 	}

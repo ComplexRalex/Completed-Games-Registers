@@ -5,6 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -39,6 +40,7 @@ public class ConfigurationPanel extends JPanel{
 	public JFormattedTextField txtConnect, txtRead;
 	public JSpinner spConnect, spRead;
 	public JTextField txtUser;
+	public JScrollBar scrollBar;
 	
 	public ConfigurationPanel(){
 		this.setLayout(new BorderLayout());
@@ -59,6 +61,7 @@ public class ConfigurationPanel extends JPanel{
 		
 		SimplePanel pGeneralOptions = new SimplePanel();
 		JScrollPane scrollOptions = Component.createScrollPane(pGeneralOptions);
+		scrollBar = scrollOptions.getVerticalScrollBar();
 		
 		// - Establishing "general settings" subtitle
 

@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 
 import system.Software;
 import util.ImageResource;
@@ -30,7 +31,7 @@ public class MainWindow extends JFrame{
 		pConfig = new ConfigurationPanel();
 		pAbout = new AboutPanel();
 		
-		changePanel(pGeneral);
+		changePanel(pGeneral,null);
 	}
 
 	private void setWindow(){
@@ -43,10 +44,12 @@ public class MainWindow extends JFrame{
 		setResizable(true);
 	}
 	
-	public void changePanel(JPanel pNuevo){
+	public void changePanel(JPanel pNuevo, JScrollBar scrollBar){
 		getContentPane().removeAll();
 		add(pNuevo);
 		pNuevo.setVisible(true);
+		if(scrollBar != null) 
+			scrollBar.setValue(0);
 		getContentPane().validate();
 		getContentPane().repaint();
 		validate();

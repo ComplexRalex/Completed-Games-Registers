@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 public class AboutPanel extends JPanel{
     public LicenseTermsPanel pLicense, pRAWGTerms, pJsonJavaLicense;
     public JButton btTwitter, btSource, btAPI, btJSONSource, btReturn;
+    public JScrollBar scrollBar;
 
     public class LicenseTermsPanel extends SimplePanel{
         private JPanel pArea;
@@ -73,6 +75,7 @@ public class AboutPanel extends JPanel{
 
         SimplePanel centeredPanel = new SimplePanel();
         JScrollPane scroll = Component.createScrollPane(centeredPanel);
+        scrollBar = scroll.getVerticalScrollBar();
 
         // Establishing logo
         try{

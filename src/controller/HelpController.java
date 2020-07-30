@@ -32,7 +32,7 @@ public class HelpController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btReturn)
-            parent.frame.changePanel(parent.frame.pGeneral);
+            parent.frame.changePanel(parent.frame.pGeneral,null);
         else if(e.getSource() == view.btReportIssue){
             if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
                 if(Advice.showOptionTextAreaAdvice(

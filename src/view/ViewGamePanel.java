@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -33,6 +34,7 @@ public class ViewGamePanel extends JPanel{
     public JTextArea aComment, aNote, aSpoiler;
     public JButton btSpoiler, btReturn;
     public GameDataPanel pGameData;
+    public JScrollBar scrollBar;
 
     public class GameDataPanel extends SimplePanel{
         public JButton btMoreDetails;
@@ -174,6 +176,7 @@ public class ViewGamePanel extends JPanel{
         c.insets = Component.margin;
 
         JScrollPane scroll = Component.createScrollPane(pGameFields);
+        scrollBar = scroll.getVerticalScrollBar();
 
         // Establishing subtitle
 

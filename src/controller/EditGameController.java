@@ -169,7 +169,7 @@ public class EditGameController implements ActionListener, KeyListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btCancel){
             if(sameValues())
-                parent.frame.changePanel(parent.frame.pGeneral);
+                parent.frame.changePanel(parent.frame.pGeneral,null);
             else if(Advice.showOptionAdvice(
                 parent.frame,
                 Language.loadMessage("g_warning"),
@@ -187,7 +187,7 @@ public class EditGameController implements ActionListener, KeyListener{
                         downloadGameInfo();
                     }
                 }
-                parent.frame.changePanel(parent.frame.pGeneral);
+                parent.frame.changePanel(parent.frame.pGeneral,null);
             }
         }else{
             String game = view.txtName.getText().trim();
@@ -259,7 +259,7 @@ public class EditGameController implements ActionListener, KeyListener{
 
                         // Finally, saves the data (only registers) and changes panel
                         parent.saveStats();
-                        parent.frame.changePanel(parent.frame.pGeneral);
+                        parent.frame.changePanel(parent.frame.pGeneral,null);
                     }
                     
                 }else{
