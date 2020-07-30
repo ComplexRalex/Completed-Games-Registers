@@ -78,7 +78,7 @@ public class GameRegister{
 		String fileName = Path.backupPath+"backup-"+(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss")).format(new Date())+".dat";
 		FileOutputStream f = new FileOutputStream(fileName);
 		ObjectOutputStream o = new ObjectOutputStream(f);
-		o.writeObject(gameStats);
+		o.writeObject(toHashMapArray(gameStats));
 		o.close();
 		f.close();
 

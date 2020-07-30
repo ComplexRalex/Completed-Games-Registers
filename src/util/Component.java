@@ -5,10 +5,12 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicScrollBarUI;
@@ -452,6 +454,49 @@ public class Component{
         box.setBackground(Colour.getButtonColor());
         box.setForeground(Colour.getFontColor());
         panel.add(box);
+
+        return panel;
+    }
+
+    /**
+     * Creates a text field with a spinner and a description text with predefined
+     * configurations.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>spinner</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>,
+     * <i>CaretColor</i> and <i>PreferredSize</i>.
+     * <p>
+     * Note that the properties of the spinner can't be changed directly. It's
+     * necessary to access its components to change these properties.
+     * 
+     * @param info Brief explanation of what is the purpose of the spinner
+     * @param spinner JSpinner component
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
+    public static JPanel createSpinner(String info, JSpinner spinner, Color bg){
+        // Initializing new panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+        panel.setBackground(bg);
+        panel.setPreferredSize(dim1LinePanel);
+
+        // Initializing "info" label
+        JLabel desc = new JLabel(info);
+        desc.setFont(Typeface.labelPlain);
+        desc.setForeground(Colour.getFontColor());
+        panel.add(desc);
+        
+        // Initializing spinner specified
+        spinner.setFont(Typeface.labelPlain);
+        spinner.getComponent(0).setBackground(Colour.getButtonColor());
+        spinner.getComponent(1).setBackground(Colour.getButtonColor());
+        ((JPanel)spinner.getComponent(2)).getComponent(0).setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
+        ((JPanel)spinner.getComponent(2)).getComponent(0).setForeground(Colour.getFontColor());
+        ((JFormattedTextField)((JPanel)spinner.getComponent(2)).getComponent(0)).setCaretColor(Colour.getFontColor());
+        spinner.setPreferredSize(new Dimension(width-30-desc.getFontMetrics(Typeface.labelPlain).stringWidth(info),25));
+        panel.add(spinner);
 
         return panel;
     }

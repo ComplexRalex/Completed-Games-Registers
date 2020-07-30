@@ -35,6 +35,9 @@ public class MainController{
         // Initialize models (with default values)
         mConfig = new Configuration();
         mGeneral = new GameRegister();
+
+        // Make additional changes in UI
+        makeUIchanges();
         
         // Check existence of directories and files
         verifyDirectories();
@@ -52,8 +55,9 @@ public class MainController{
         // Setup languages and themes
         Colour.setCurrentTheme(mConfig.currentTheme());
         Language.setCurrentLanguage(mConfig.currentLanguage());
-
-        // Make additional changes in UI
+        GameData.setConnectionTimeout(mConfig.getConnectionTimeout());
+        GameData.setReadTimeout(mConfig.getReadTimeout());
+        // Update additional changes on UI
         makeUIchanges();
         
         frame = new MainWindow();
@@ -110,7 +114,7 @@ public class MainController{
     private void loadData(){
         try {
             mConfig.loadConfiguration();
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (ClassNotFoundException | IOException | ClassCastException e) {
             Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
@@ -122,7 +126,7 @@ public class MainController{
         }
         try {
             mGeneral.loadGameStats();
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException | ClassNotFoundException | ClassCastException e) {
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),

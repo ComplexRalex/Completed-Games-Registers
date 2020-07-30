@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.JRadioButton;
 
 import model.Configuration;
+import model.GameData;
 import view.ConfigurationPanel;
 
 import util.Colour;
@@ -61,9 +62,9 @@ public class ConfigurationController implements ActionListener, KeyListener{
 	}
 	
 	public void obtainInitialConfig(){
-		view.txtUser.setText(parent.mConfig.getUsername());
+		view.txtUser.setText(model.getUsername());
 		
-		if(parent.mConfig.getAutoBackup()){
+		if(model.getAutoBackup()){
 			Component.toggleEnabledButton(view.btAutoBackupON, false, Colour.colorON);
 			Component.toggleEnabledButton(view.btAutoBackupOFF, true, Colour.getButtonColor());
 			autoBackupStatus = 1;
@@ -73,7 +74,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 			autoBackupStatus = 0;
 		}
 		
-		if(parent.mConfig.getExitDialog()){
+		if(model.getExitDialog()){
 			Component.toggleEnabledButton(view.btExitDialogON, false, Colour.colorON);
 			Component.toggleEnabledButton(view.btExitDialogOFF, true, Colour.getButtonColor());
 			exitDialogStatus = 1;
@@ -82,16 +83,21 @@ public class ConfigurationController implements ActionListener, KeyListener{
 			Component.toggleEnabledButton(view.btExitDialogOFF, false, Colour.colorOFF);
 			exitDialogStatus = 0;
 		}
-		view.btTheme[parent.mConfig.currentTheme()].setSelected(true);
+		view.btTheme[model.currentTheme()].setSelected(true);
 		
-		view.cbLang.setSelectedItem(parent.mConfig.currentLanguage());
+		view.cbLang.setSelectedItem(model.currentLanguage());
+
+		view.spConnect.setValue(model.getConnectionTimeout());
+		view.spRead.setValue(model.getReadTimeout());
 	}
 
 	private boolean sameValues(){
 		boolean flag = true;
-		flag = (flag && parent.mConfig.getUsername().equals(view.txtUser.getText().trim()));
-		flag = (flag && (parent.mConfig.getAutoBackup() == (autoBackupStatus == 1)));
-		flag = (flag && (parent.mConfig.getExitDialog() == (exitDialogStatus == 1)));
+		flag = (flag && model.getUsername().equals(view.txtUser.getText().trim()));
+		flag = (flag && (model.getAutoBackup() == (autoBackupStatus == 1)));
+		flag = (flag && (model.getExitDialog() == (exitDialogStatus == 1)));
+		flag = (flag && model.getConnectionTimeout() == (int)view.spConnect.getValue());
+		flag = (flag && model.getReadTimeout() == (int)view.spRead.getValue());
 				
 		return flag;
 	}
@@ -100,11 +106,11 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		boolean flag = true;
 		for(int i = 0; i < view.btTheme.length; i++){
 			if(view.btTheme[i].isSelected()){
-				flag = (flag && (parent.mConfig.currentTheme() == i));
+				flag = (flag && (model.currentTheme() == i));
 				break;
 			}
 		}
-		flag = (flag && parent.mConfig.currentLanguage().equals((String)view.cbLang.getSelectedItem()));
+		flag = (flag && model.currentLanguage().equals((String)view.cbLang.getSelectedItem()));
 
 		return !flag;
 	}
@@ -140,6 +146,13 @@ public class ConfigurationController implements ActionListener, KeyListener{
 
 		// Change to selected language
 		model.changeLanguage((String)view.cbLang.getSelectedItem());
+
+		model.setConnectionTimeout((int)view.spConnect.getValue());
+		model.setReadTimeout((int)view.spRead.getValue());
+		
+		// External operations
+		GameData.setConnectionTimeout((int)view.spConnect.getValue());
+		GameData.setReadTimeout((int)view.spRead.getValue());
 
 		saveSettings();
 	}
@@ -231,7 +244,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 					saveCurrentSettings();
 					parent.reset();
 				}
-			}else if(!sameValues()){
+			}else{
 				saveCurrentSettings();
 				Advice.showSimpleAdvice(
 					parent.frame,
@@ -240,14 +253,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 					Language.loadMessage("g_accept"),
 					Colour.getPrimaryColor()
 				);
-			}else
-				Advice.showSimpleAdvice(
-					parent.frame,
-					Language.loadMessage("g_message"), 
-					Language.loadMessage("cf_no_edit"),
-					Language.loadMessage("g_accept"),
-					Colour.getPrimaryColor()
-				);
+			}
 		}else if(source == view.btReturn){
 			if(sameValues() && !resetRequest())
 				parent.frame.changePanel(parent.frame.pGeneral);

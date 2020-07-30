@@ -87,6 +87,14 @@ public class Language{
 		map.get("English").put("cf_ask_on_close",		"Show a dialog before exiting the program:");
 		map.get("English").put("cf_theme", 				"Program theme (requires restart): ");
 		map.get("English").put("cf_lang", 				"Program language (requires restart):");
+		map.get("English").put("cf_advanced",			"Advanced options");
+		map.get("English").put("cf_advanced_text",		"Note that these timeout values will be applied in two cases:"+
+														"<ul>"+
+															"<li>When a game is being searched by the given name</li>"+
+															"<li>When downloading the information after getting its ID</li>"+
+														"</ul>");
+		map.get("English").put("cf_connection_timeout",	"Connection timeout: ");
+		map.get("English").put("cf_read_timeout",		"Read timeout: ");
 		map.get("English").put("cf_delicate",			"Delicate options");
 		map.get("English").put("cf_warn",				"Warning! think twice before clicking some of these options! These don't require to be applied to take effect.");
 		map.get("English").put("cf_reset_cf", 			"Reset configuration to default");
@@ -145,16 +153,16 @@ public class Language{
 		map.get("English").put("h_what_is_text",		"This program will allow you to have a record of all the games you have completed so far so you can check them out or even add more the next time!");
 		map.get("English").put("h_register",			"What is a completed-game register?");
 		map.get("English").put("h_register_text",		"It's an object that contains the following fields:"+
-															"<ul>"+
-																"<li>Name of the game (non-optional field).</li>"+
-																"<li>The year which you've beaten (completed) the game.</li>"+
-																"<li>The rating measured by 6 different expressions such as \"Nice\" or \"Neh\".</li>"+
-																"<li>A comment about the game.</li>"+
-																"<li>A note about the game, for example, something you have to consider before playing it.</li>"+
-																"<li>A spoiler about the game. This won't be visible at first when you view the register.</li>"+
-															"</ul>"+
-															"Besides, you can download game information such as an image, its description, its developers, and even it score! (Thanks, RAWG database).<br>"+
-															"You can add a completed-game register clicking the \"<i>plus</i> button\" (explained below).");
+														"<ul>"+
+															"<li>Name of the game (non-optional field).</li>"+
+															"<li>The year which you've beaten (completed) the game.</li>"+
+															"<li>The rating measured by 6 different expressions such as \"Nice\" or \"Neh\".</li>"+
+															"<li>A comment about the game.</li>"+
+															"<li>A note about the game, for example, something you have to consider before playing it.</li>"+
+															"<li>A spoiler about the game. This won't be visible at first when you view the register.</li>"+
+														"</ul>"+
+														"Besides, you can download game information such as an image, its description, its developers, and even it score! (Thanks, RAWG database).<br>"+
+														"You can add a completed-game register clicking the \"<i>plus</i> button\" (explained below).");
 		map.get("English").put("h_options",				"What does each option do?");
 		map.get("English").put("h_options_add",			"If you want to add a completed-game register, click this button. It will display a panel where you can add the game name and more information you'd like to save.");
 		map.get("English").put("h_options_backup",		"You don't feel comfortable just by knowing that the program saves automatically the registers? Hey, it's okay! you can make a backup with this option!");
@@ -237,6 +245,14 @@ public class Language{
 		map.get("Spanish").put("cf_ask_on_close",		"Mostrar un diálogo antes de salir del programa:");
 		map.get("Spanish").put("cf_theme", 				"Tema del programa (requiere reinicio): ");
 		map.get("Spanish").put("cf_lang",				"Idioma del programa (requiere reinicio):");
+		map.get("Spanish").put("cf_advanced",			"Opciones avanzadas");
+		map.get("Spanish").put("cf_advanced_text",		"Toma en cuenta que los tiempos de espera serán aplicados en dos casos:"+
+														"<ul>"+
+															"<li>Cuando un juego está siendo buscado por su nombre</li>"+
+															"<li>Al descargar la información después de obtener su ID</li>"+
+														"</ul>");
+		map.get("Spanish").put("cf_connection_timeout",	"Tiempo de espera de conexión: ");
+		map.get("Spanish").put("cf_read_timeout",		"Tiempo de espera de lectura: ");
 		map.get("Spanish").put("cf_delicate",			"Opciones delicadas");
 		map.get("Spanish").put("cf_warn",				"¡Cuidado! ¡piénsalo dos veces antes de presionar alguna de las opciones! No requieren ser aplicadas para hacer efecto.");
 		map.get("Spanish").put("cf_reset_cf",			"Restaurar configuración por defecto");
@@ -295,16 +311,16 @@ public class Language{
 		map.get("Spanish").put("h_what_is_text",		"Este programa te permitirá tener un récord de todos los juegos que has completado hasta el momento para posteriormente poder visualizarlos o incluso ¡agregar más!");
 		map.get("Spanish").put("h_register",			"¿Qué es un registro de juego completado?");
 		map.get("Spanish").put("h_register_text",		"Es un objeto que contiene los siguientes campos:"+
-															"<ul>"+
-																"<li>Nombre del juego (campo no opcional).</li>"+
-																"<li>El año en el que has vencido (o completado) el juego.</li>"+
-																"<li>El puntaje medido por 6 diferentes expresiones, tales como \"Chido\" o \"Meh\".</li>"+
-																"<li>Un comentario acerca del juego.</li>"+
-																"<li>Una nota sobre el juego, por ejemplo, algo que debes considerar antes de jugar.</li>"+
-																"<li>Un spoiler sobre el juego. Este no será visible al principio cuando veas el registro.</li>"+
-															"</ul>"+
-															"¡Además, podrás descargar información del juego como una imágen, su descripción, sus desarrolladores e incluso su puntaje! (Gracias a la base de datos de RAWG).<br>"+
-															"Puedes agregar un registro de juego completado presionando el \"botón <i>más</i>\" (explicado abajo).");
+														"<ul>"+
+															"<li>Nombre del juego (campo no opcional).</li>"+
+															"<li>El año en el que has vencido (o completado) el juego.</li>"+
+															"<li>El puntaje medido por 6 diferentes expresiones, tales como \"Chido\" o \"Meh\".</li>"+
+															"<li>Un comentario acerca del juego.</li>"+
+															"<li>Una nota sobre el juego, por ejemplo, algo que debes considerar antes de jugar.</li>"+
+															"<li>Un spoiler sobre el juego. Este no será visible al principio cuando veas el registro.</li>"+
+														"</ul>"+
+														"¡Además, podrás descargar información del juego como una imágen, su descripción, sus desarrolladores e incluso su puntaje! (Gracias a la base de datos de RAWG).<br>"+
+														"Puedes agregar un registro de juego completado presionando el \"botón <i>más</i>\" (explicado abajo).");
 		map.get("Spanish").put("h_options",				"¿Qué hace cada opción?");
 		map.get("Spanish").put("h_options_add",			"Si quieres agregar un registro de juego completado, presiona este botón. Te mostrará un panel en donde podrás agregar el nombre del juego y más información que quisieras guardar.");
 		map.get("Spanish").put("h_options_backup",		"¿No es suficiente para tí saber que el programa guarda los registros automáticamente? Si gustas, ¡puedes hacer una copia de seguridad con esta opción!");
@@ -320,7 +336,7 @@ public class Language{
 		map.get("Spanish").put("ac_title",				"Acerca del programa y créditos");
 		map.get("Spanish").put("ac_details",			"Detalles");
 		map.get("Spanish").put("ac_version",			"Versión");
-		map.get("Spanish").put("ac_written_in",			"Escrito in");
+		map.get("Spanish").put("ac_written_in",			"Escrito en");
 		map.get("Spanish").put("ac_java_version",		"Versión de java requerida");
 		map.get("Spanish").put("ac_credits",			"Créditos");
 		map.get("Spanish").put("ac_developed",			"Creado, desarrollado y diseñado por");

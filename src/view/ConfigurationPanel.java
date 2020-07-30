@@ -1,8 +1,18 @@
 package view;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
+import java.awt.BorderLayout;
+
+import model.GameData;
 import util.Colour;
 import util.Language;
 import util.Component;
@@ -26,6 +36,8 @@ public class ConfigurationPanel extends JPanel{
 		btAccept, btReturn;
 	public JComboBox<String> cbLang;
 	public JRadioButton btTheme[];
+	public JFormattedTextField txtConnect, txtRead;
+	public JSpinner spConnect, spRead;
 	public JTextField txtUser;
 	
 	public ConfigurationPanel(){
@@ -82,6 +94,32 @@ public class ConfigurationPanel extends JPanel{
 
 		cbLang = new JComboBox<String>(Language.available);
 		pGeneralOptions.add(Component.createComboBox(Language.loadMessage("cf_lang"), cbLang, Colour.getBackgroundColor()));
+
+		// - Establishing gap XD
+
+		pGeneralOptions.add(Component.createGap(35,Colour.getBackgroundColor()));
+
+		// - Establishing "advanced" subtitle
+
+		pGeneralOptions.add(Component.createSubtitle(Language.loadMessage("cf_advanced"), Colour.getPrimaryColor()));
+
+		// - Establishing "advanced" message
+
+		pGeneralOptions.add(Component.createPlainText(Language.loadMessage("cf_advanced_text"), Typeface.labelPlain, false, Colour.getPrimaryColor()));
+
+		// - Establishing connection timeout spinner
+
+		spConnect = new JSpinner(new SpinnerNumberModel(5000, GameData.minTimeout, GameData.maxTimeout, 100));
+		txtConnect = ((JFormattedTextField)((JPanel)spConnect.getComponent(2)).getComponent(0));
+		txtConnect.setEditable(false);
+		pGeneralOptions.add(Component.createSpinner(Language.loadMessage("cf_connection_timeout"), spConnect, Colour.getBackgroundColor()));
+
+		// - Establishing connection timeout spinner
+
+		spRead = new JSpinner(new SpinnerNumberModel(5000, GameData.minTimeout, GameData.maxTimeout, 100));
+		txtRead = ((JFormattedTextField)((JPanel)spRead.getComponent(2)).getComponent(0));
+		txtRead.setEditable(false);
+		pGeneralOptions.add(Component.createSpinner(Language.loadMessage("cf_read_timeout"), spRead, Colour.getBackgroundColor()));
 
 		// - Establishing gap XD
 

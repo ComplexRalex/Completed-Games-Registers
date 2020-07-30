@@ -30,7 +30,13 @@ import util.Path;
 public class GameData{
 
     private JSONObject data;
-    private String game;
+	private String game;
+	
+	public static int maxTimeout = 10000;
+	public static int minTimeout = 1000;
+
+	private static int connectionTimeout = 5000;
+	private static int readTimeout = 5000;
 
     public GameData(String name) throws FileNotFoundException, IOException, JSONException{
 		Path.resolve(Path.gameInfo);
@@ -135,6 +141,14 @@ public class GameData{
 	public int getID(){
 		return data.getInt("id");
 	}
+
+	public static void setConnectionTimeout(int timeout){
+		connectionTimeout = timeout;
+	}
+
+	public static void setReadTimeout(int timeout){
+		readTimeout = timeout;
+	}
 	
 	private static int searchGame(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 
@@ -143,8 +157,8 @@ public class GameData{
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setRequestMethod("GET");
-		connection.setConnectTimeout(5000);
-		connection.setReadTimeout(5000);
+		connection.setConnectTimeout(connectionTimeout);
+		connection.setReadTimeout(readTimeout);
 
 		if(connection.getResponseCode() != 200) throw new IOException("Received not a good response from the server...");
 		
@@ -171,8 +185,8 @@ public class GameData{
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setRequestMethod("GET");
-		connection.setConnectTimeout(5000);
-		connection.setReadTimeout(5000);
+		connection.setConnectTimeout(connectionTimeout);
+		connection.setReadTimeout(readTimeout);
 
 		if(connection.getResponseCode() != 200) throw new IOException("Received not a good response from the server...");
 		
