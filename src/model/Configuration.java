@@ -180,7 +180,7 @@ public class Configuration{
 	}
 
 	/**
-	 * Creates (or overwrite) a file in {@link Path#configFile} with
+	 * Creates (or overwrites) a file in {@link Path#configFile} with
 	 * the current settings.
 	 * <p>
 	 * This method is saving a HashMap object to give more
