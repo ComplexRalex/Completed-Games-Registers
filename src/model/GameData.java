@@ -27,17 +27,69 @@ import org.json.JSONObject;
 import util.Component;
 import util.Path;
 
+/**
+ * <h3>GameData model class.</h3>
+ * This class access to the game information downloaded from
+ * the RAWG Database API and stored into JSON files. These JSON
+ * files are stored into {@link Path#gameInfo}.
+ * 
+ * @see Path
+ */
 public class GameData{
 
-    private JSONObject data;
+	/**
+	 * JSONObject which will contain the loaded JSON file.
+	 */
+	private JSONObject data;
+
+	/**
+	 * String which contains the name of the game.
+	 */
 	private String game;
 	
+	/**
+	 * Maximum timeout value.
+	 * 
+	 * @see #connectionTimeout
+	 * @see #readTimeout
+	 */
 	public static int maxTimeout = 10000;
+
+	/**
+	 * Minimum timeout value.
+	 * 
+	 * @see #connectionTimeout
+	 * @see #readTimeout
+	 */
 	public static int minTimeout = 1000;
 
+	/**
+	 * Timeout value for {@link HttpURLConnection#setConnectTimeout(int)}.
+	 * 
+	 * @see #searchGame(String)
+	 * @see #downloadGameInfo(String)
+	 */
 	private static int connectionTimeout = 5000;
+
+	/**
+	 * Timeout value for {@link HttpURLConnection#setReadTimeout(int)}.
+	 * 
+	 * @see #searchGame(String)
+	 * @see #downloadGameInfo(String)
+	 */
 	private static int readTimeout = 5000;
 
+	/**
+	 * Constructor of the GameData class. This function
+	 * will read the JSON file downloaded containing
+	 * information about the specified game.
+	 * 
+	 * @param name String containing the name of the game
+	 * and the JSON file
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws JSONException
+	 */
     public GameData(String name) throws FileNotFoundException, IOException, JSONException{
 		Path.resolve(Path.gameInfo);
 		FileReader file = new FileReader(Path.gameInfo+Path.validFileName(name, "json"));
@@ -54,19 +106,42 @@ public class GameData{
 		game = name;
     }
 
+	/**
+	 * Obtain name of the game.
+	 * 
+	 * @return String contianing the name of the game.
+	 */
     public String getName(){
         return data.getString("name");
     }
 
+	/**
+	 * Obtain description of the game in HTML format.
+	 * 
+	 * @return String contianing the description of
+	 * the game.
+	 */
 	public String getDescription(){
 		return data.getString("description");
 	}
 
+	/**
+	 * Obtain image of the game.
+	 * 
+	 * @return BufferedImage containing the background
+	 * image of the game.
+	 */
     public BufferedImage getImage() throws IOException{
 		Path.resolve(Path.gameImage);
         return ImageIO.read(new File(Path.gameImage+Path.validFileName(game, "jpg")));
 	}
 	
+	/**
+	 * Obtain a list of developers of the game.
+	 * 
+	 * @return String array containing the names of the
+	 * developers.
+	 */
 	public String[] getDevelopers(){
 		JSONArray developers = data.getJSONArray("developers");
         String[] array = new String[developers.length()];
@@ -78,6 +153,12 @@ public class GameData{
         return array;
 	}
 
+	/**
+	 * Obtain a list of publishers of the game.
+	 * 
+	 * @return String array containing the names of the
+	 * publishers.
+	 */
 	public String[] getPublishers(){
 		JSONArray publishers = data.getJSONArray("publishers");
         String[] array = new String[publishers.length()];
@@ -89,10 +170,23 @@ public class GameData{
         return array;
 	}
 
+	/**
+	 * Obtain the release date of the game.
+	 * 
+	 * @return String containing the release date of
+	 * the game.
+	 */
     public String getReleaseDate(){
         return data.getString("released");
     }
 
+	/**
+	 * Obtain a list of platforms where the game
+	 * is available.
+	 * 
+	 * @return String array of platforms that have
+	 * this game available.
+	 */
     public String[] getPlatforms(){
         JSONArray platforms = data.getJSONArray("platforms");
         String[] array = new String[platforms.length()];
@@ -104,6 +198,12 @@ public class GameData{
         return array;
     }
 
+	/**
+	 * Obtain a list of genres of the game.
+	 * 
+	 * @return String array containing the genres
+	 * of the game.
+	 */
     public String[] getGenres(){
         JSONArray genres = data.getJSONArray("genres");
         String[] array = new String[genres.length()];
@@ -115,6 +215,14 @@ public class GameData{
         return array;
     }
 
+	/**
+	 * Obtain a list of tags of the game. Note
+	 * that these tags are given by the users
+	 * on RAWG's website.
+	 * 
+	 * @return String array containing the tags
+	 * of the game,
+	 */
     public String[] getTags(){
         JSONArray tags = (JSONArray)data.get("tags");
         Queue<String> engTags = new LinkedList<String>();
@@ -134,22 +242,88 @@ public class GameData{
         return finalTags;
     }
 
+	/**
+	 * Obtain the rating of the game. Note
+	 * that this rating is meassured by all
+	 * the rates of the users on RAWG's
+	 * website.
+	 * 
+	 * @return Number of the rating of the
+	 * game.
+	 */
     public float getRating(){
         return data.getFloat("rating");
 	}
 
+	/**
+	 * Obtain the (RAWG) ID of the game.
+	 * 
+	 * @return ID of the game.
+	 */
 	public int getID(){
 		return data.getInt("id");
 	}
 
+	/**
+	 * Sets timeout value for {@link HttpURLConnection#setConnectTimeout(int)}.
+	 * 
+	 * @param timeout Number of milliseconds
+	 */
 	public static void setConnectionTimeout(int timeout){
 		connectionTimeout = timeout;
 	}
 
+	/**
+	 * Gets timeout value for {@link HttpURLConnection#setConnectTimeout(int)}.
+	 * 
+	 * @return Number of milliseconds
+	 */
+	public static int getConnectionTimeout(){
+		return connectionTimeout;
+	}
+
+	/**
+	 * Sets timeout value for {@link HttpURLConnection#setReadTimeout(int)}.
+	 * 
+	 * @param timeout Number of milliseconds
+	 */
 	public static void setReadTimeout(int timeout){
 		readTimeout = timeout;
 	}
+
+	/**
+	 * Gets timeout value for {@link HttpURLConnection#setReadTimeout(int)}.
+	 * 
+	 * @return Number of milliseconds
+	 */
+	public static int getReadTimeout(){
+		return readTimeout;
+	}
 	
+	/**
+	 * Makes a request to the {@code api.rawg.io}
+	 * page with the given name as a search value.
+	 * <p>
+	 * The full GET request String is the following:
+	 * {@code https://api.rawg.io/api/games?search=name&page_size=1}.
+	 * <p>
+	 * This function looks for the first occurrence
+	 * (game) in the search and returns its ID.
+	 * Also, the connect and read timeout is
+	 * established by {@link #connectionTimeout}
+	 * and {@link #readTimeout} respectively.
+	 * 
+	 * @param game String containing the name of the
+	 * game that will be searched
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws JSONException
+	 * @throws URISyntaxException
+	 * @see #connectionTimeout
+	 * @see #readTimeout
+	 * @return ID of the first occurrence in the
+	 * search.
+	 */
 	private static int searchGame(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 
 		URI uri = new URI("https","api.rawg.io","/api/games","search="+game,"page_size=1");
@@ -178,6 +352,33 @@ public class GameData{
 		return json.getJSONArray("results").getJSONObject(0).getInt("id");
 	}
 
+	/**
+	 * Makes a request to the {@code api.rawg.io}
+	 * with the given ID.
+	 * <p>
+	 * The full GET request String is the following:
+	 * {@code https://api.rawg.io/api/games/id}.
+	 * <p>
+	 * This function will download the game information
+	 * from the RAWG database. Also, the connect and read
+	 * timeout is established by {@link #connectionTimeout}
+	 * and {@link #readTimeout} respectively.
+	 * <p>
+	 * The downloaded game information will be stored
+	 * into {@link Path#gameInfo}.
+	 * 
+	 * @param game String containing the name of the
+	 * game which its ID will be used in the request.
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws JSONException
+	 * @throws URISyntaxException
+	 * @see Path#gameInfo
+	 * @see #connectionTimeout
+	 * @see #readTimeout
+	 * @return {@code ture} if the download was
+	 * successful. {@code false} otherwise.
+	 */
     public static boolean downloadGameInfo(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 
 		URI uri = new URI("https","api.rawg.io","/api/games/"+searchGame(game),"");
@@ -207,6 +408,20 @@ public class GameData{
 		return true;
 	}
 
+	/**
+	 * Downloads the image by the URL
+	 * provided in the downloaded JSON file.
+	 * <p>
+	 * The downloaded image will be stored into
+	 * {@link Path#gameImage}.
+	 * 
+	 * @param game String containing the name of the
+	 * game which its {@code background_image} will
+	 * be downloaded.
+	 * @throws IOException
+	 * @throws JSONException
+	 * @see Path#gameImage
+	 */
 	public static void downloadGameImage(String game) throws IOException, JSONException{
 
 		Path.resolve(Path.gameInfo);
@@ -259,6 +474,15 @@ public class GameData{
 		ImageIO.write(image,"jpg",new File(Path.gameImage+Path.validFileName(game, "jpg")));
 	}
 
+	/**
+	 * Deletes the JSON file of the game.
+	 * 
+	 * @param game String containing the name
+	 * of the game.
+	 * @see Path#gameInfo
+	 * @return {@code ture} if the delete was
+	 * successful. {@code false} otherwise.
+	 */
 	public static boolean deleteGameInfo(String game){
 		
 		Path.resolve(Path.gameInfo);
@@ -266,6 +490,13 @@ public class GameData{
 		return file.delete();
 	}
 
+	/**
+	 * Deletes the image of the game.
+	 * 
+	 * @param game String containing the name
+	 * of the game.
+	 * @see Path#gameImage
+	 */
 	public static void deleteGameImage(String game){
 		
 		Path.resolve(Path.gameImage);
