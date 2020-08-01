@@ -24,12 +24,38 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Dimension;
 
+/**
+ * <h3>Component utility class.</h3>
+ * This class provides a bunch of {@code static} functions that
+ * are used to create visual components more easily than
+ * copy-pasting the same code for the same things.
+ * <p>
+ * These functions receive some other already-initialized
+ * variables like {@link JButton}s, {@link JTextField}s, etc.
+ * To say, every created component <i>always</i> will be
+ * colored with the corresponding theme of the current session.
+ * Also some of their properties will change, like its
+ * <i>PreferredSize</i>.
+ * <p>
+ * Almost every component created has the same {@link #width}.
+ * 
+ * @see Colour
+ */
 public class Component{
 
+    /**
+     * Simple margin for the components.
+     */
     public final static Insets margin = new Insets(2,2,0,2);
 
+    /**
+     * Width value of the components.
+     */
     public final static int width = 560;
 
+    /**
+     * Dimensions used to resize components.
+     */
     public final static Dimension
         dim1LinePanel = new Dimension(width,44),
         dim2LinesPanel = new Dimension(width,80),
@@ -37,6 +63,9 @@ public class Component{
         dimSwitchButton = new Dimension(62,22),
         dimTitle = new Dimension(width,75);
 
+    /**
+     * Movement units of the scroll wheel of the mouse.
+     */
     public final static int SCROLLBAR_INCREMENT = 5;
 
     /**
@@ -580,8 +609,6 @@ public class Component{
         return panel;
 
     }
-
-    // Missing add a function that will create just one long button 
     
     /**
      * Creates a JScrollPane with predefined configurations.

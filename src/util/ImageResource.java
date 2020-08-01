@@ -11,11 +11,14 @@ import java.awt.Graphics2D;
 import java.awt.AlphaComposite;
 
 /**
- * ImageResource provides a way to obtain images that are located
+ * <h3>ImageResource utility class.</h3>
+ * This class provides a way to obtain images that are located
  * in the resource folder of the project.
+ * <p>
+ * Also, it includes the path of the resources currently
+ * available.
  * 
- * @author Alex
- *
+ * @see Path
  */
 public class ImageResource{
     
@@ -28,30 +31,37 @@ public class ImageResource{
      * Path to the image logotype.png in the resources folder.
      */
     public static final String LOGOTYPE = Path.guiPath+"logotype.png";
+
 	/**
 	 * Path to the image add.png in the resources folder.
 	 */
     public static final String ADD = Path.guiPath+"add.png";
+
     /**
 	 * Path to the image backup.png in the resources folder.
 	 */
     public static final String BACKUP = Path.guiPath+"backup.png";
+
     /**
 	 * Path to the image export.png in the resources folder.
 	 */
     public static final String EXPORT = Path.guiPath+"export.png";
+
     /**
 	 * Path to the image help.png in the resources folder.
 	 */
     public static final String HELP = Path.guiPath+"help.png";
+
     /**
 	 * Path to the image view.png in the resources folder.
 	 */
     public static final String VIEW = Path.guiPath+"view.png";
+
     /**
 	 * Path to the image edit.png in the resources folder.
 	 */
     public static final String EDIT = Path.guiPath+"edit.png";
+
     /**
 	 * Path to the image remove.png in the resources folder.
 	 */
@@ -61,6 +71,7 @@ public class ImageResource{
 	 * Path to the image frame_icon.png in the resources folder.
 	 */
     public static final String FRAME = Path.iconPath+"frame_icon.png";
+
     /**
 	 * Path to the image advice_icon.png in the resources folder.
 	 */
@@ -93,21 +104,21 @@ public class ImageResource{
     
     /**
      * Colors the given BufferedImage (with the given color) and also
-     * redraw every pixel based on the "lumminance" of such pixel,
+     * redraw every pixel based on the "luminance" of such pixel,
      * replacing its alpha value with it.
      * <p>
      * This means that, depending on every pixel RGB value, it will
-     * give a lumminance level which is determined by the following
+     * give a luminance level which is determined by the following
      * equation:
      * <p>
-     * <b>lumminance</b> = (redValue + greenValue + blueValue) / 3
+     * <b>{@code luminance}</b>{@code = (redValue + greenValue + blueValue) / 3}
      * <p>
      * Note that the given color will replace just brighter colors.
      * Thus, the darker colors aren't going to big change. Technically, 
      * the way to determine this change is by using the following 
      * equation:
      * <p>
-     * <b>newColor</b> = oldColor*lumminance/255
+     * <b>newColor</b> = oldColor*luminance/255
      * <p> The "brightness" parameter multiplies the previous 
      * magnitude.
      * 
@@ -117,6 +128,7 @@ public class ImageResource{
      * brightness that will be increased every color channel.
      * <p>
      * The default value (original brightness) is <b>1.0f<b>.
+     * @see Colour#getLuminance(Color)
      * @return The modified BufferedImage
      */
     public static BufferedImage colorAndShadow(BufferedImage image, Color color, float brightness){
@@ -139,5 +151,4 @@ public class ImageResource{
         }
         return img;
     }
-    
 }

@@ -19,10 +19,32 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+/**
+ * <h3>Advice utility class.</h3>
+ * This class have a bunch of {@code static} functions which
+ * are used to display a {@link JDialog}, showing information
+ * about the operations that are happening in the moment.
+ * <p>
+ * These methods returns a {@code int} value that determine
+ * which of the given options was selected. In fact, returns
+ * the <b>index</b> of the String option (contained in the selected
+ * {@link JButton}) in the provided String array. If it is
+ * just a option, it will return <b>0</b>. However, if none of
+ * the JButtons were clicked, the return value will be <b>-1</b>.
+ * <p>
+ * The simplest and useful method is the following:
+ * {@link #showSimpleAdvice(Container, String, String, String, Color)}.
+ * <p>
+ * The method used to display {@link Throwable}s is the following:
+ * {@link #showTextAreaAdvice(Container, String, String, String, int, int, String, Color)}
+ * with {@link #EXCEPTION_WIDTH} and {@link #EXCEPTION_HEIGHT} dimensions.
+ * 
+ * @see Colour
+ */
 public class Advice{
 
     /**
-     * Selected option in the JDialog
+     * Selected option in the current JDialog.
      */
     private static String selected = "";
 

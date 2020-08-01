@@ -56,7 +56,7 @@ public class AboutController implements ActionListener{
         if(e.getSource() == view.btReturn)
             parent.frame.changePanel(parent.frame.pGeneral,null);
         else if(e.getSource() == view.btTwitter)
-            goToPage("https://twitter.com/"+Software.DEVELOPER_USERNAMES[1]);
+            goToPage(Software.TWITTER_PROFILE);
         else if(e.getSource() == view.btSource)
             goToPage(Software.SOURCE_CODE_PAGE);
         else if(e.getSource() == view.btJSONSource)

@@ -2,34 +2,41 @@ package system;
 
 import java.util.HashMap;
 
-public class Software {
+/**
+ * <h3>Software system class.</h3>
+ * This class is used to obtain important data about this program.
+ * It contains variables like the current version, developer,
+ * licenses, etcetera.
+ */
+public class Software{
+
     /**
-     * Name of the project
+     * Name of the software project.
      */
     public static final String NAME = "Completed-Games Registers";
 
     /**
-     * Current version of the project
+     * Current version of the project.
      */
     public static final String VERSION = "1.0.0";
 
     /**
-     * Necessary java version to run the project
+     * Necessary java version to run the project.
      */
     public static final String JAVA = "Java 1.8";
 
     /**
-     * Java JDK version
+     * Java JDK version.
      */
     public static final String JDK = "OpenJDK 1.8.0_262";
 
     /**
-     * Name of the developer of the project
+     * Name of the developer of the project.
      */
     public static final String DEVELOPER = "Alejandro Batres";
 
     /**
-     * Usernames of the developer of the project
+     * Usernames of the developer of the project.
      */
     public static final String[] DEVELOPER_USERNAMES = new String[]{
         "MrAlexbross",
@@ -37,17 +44,22 @@ public class Software {
     };
 
     /**
-     * URL of the report issues page of the project (in GitHub)
+     * URL of the report issues page of the project (in GitHub).
      */
     public static final String ISSUES_PAGE = "https://github.com/ComplexRalex/Completed-Games-Registers/issues/new/choose";
 
     /**
-     * URL of the source code page of the project (in GitHub)
+     * URL of the source code page of the project (in GitHub).
      */
     public static final String SOURCE_CODE_PAGE = "https://github.com/ComplexRalex/Completed-Games-Registers";
 
     /**
-     * License of the program
+     * URL of the Twitter profile of the developer.
+     */
+    public static final String TWITTER_PROFILE = "https://twitter.com/ComplexRalex";
+
+    /**
+     * License of the program.
      */
     public static final String LICENSE = 
         "    Completed-Games Registers, a software where you can record every\n"+
@@ -70,17 +82,22 @@ public class Software {
         "   Contact by email: alejandro.batres37@gmail.com";
 
     /**
-     * Names of the used libraries
+     * Names of the used libraries.
      */
     public static final String[] LIBRARY = new String[]{
         "JSON-java"
     };
 
     /**
-     * HashMap of used libraries
+     * HashMap of used libraries.
      */
     public static final HashMap<String,HashMap<String,String>> LIBRARY_DETAILS = createLibraryMap();
     
+    /**
+     * Initializes the {@link #LIBRARY_DETAILS} variable.
+     * 
+     * @return HashMap with information about the used libraries.
+     */
     private static final HashMap<String,HashMap<String,String>> createLibraryMap(){
         HashMap<String,HashMap<String,String>> map = new HashMap<>();
         for(int i = 0; i < LIBRARY.length; i++)
@@ -117,17 +134,22 @@ public class Software {
     }
 
     /**
-     * Names of used APIs
+     * Names of used APIs.
      */
     public static final String[] API = new String[]{
         "RAWG Video Games Database API"
     };
 
     /**
-     * HashMap of used libraries
+     * HashMap of used libraries.
      */
     public static final HashMap<String,HashMap<String,String>> API_DETAILS = createAPIMap();
     
+    /**
+     * Initializes the {@link #API_DETAILS} variable.
+     * 
+     * @return HashMap with information about the used APIs. 
+     */
     private static final HashMap<String,HashMap<String,String>> createAPIMap(){
         HashMap<String,HashMap<String,String>> map = new HashMap<>();
         for(int i = 0; i < API.length; i++)
@@ -153,5 +175,4 @@ public class Software {
 
         return map;
     }
-
 }

@@ -1,27 +1,34 @@
 package util;
 
 import javax.swing.JComponent;
-//import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-//import javax.swing.JScrollPane;
 
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
 /**
- * Panel which contains every important methods and components to
- * create a JPanel with options without difficulty
+ * <h3>SimplePanel utility class.</h3>
+ * This class extends from {@link JPanel} and facilitates the way of
+ * creating a panel without making extra steps.
  */
 @SuppressWarnings("serial")
 public class SimplePanel extends JPanel{
-    protected Color bgColor;
-    protected GridBagConstraints location;
-    
-    //protected JPanel optionsPanel;
 
     /**
-     * Initializes a SimplePanel object
+     * Background color.
+     */
+    private Color bgColor;
+
+    /**
+     * Variable used to control the location of the entered
+     * components.
+     */
+    private GridBagConstraints location;
+
+    /**
+     * Constructor of the SimplePanel class. It receives a
+     * color that will be put in the background.
      * 
      * @param bg Background color
      */
@@ -41,7 +48,11 @@ public class SimplePanel extends JPanel{
     }
 
     /**
-     * Initializes a SimplePanel object with default configurations
+     * Constructor of the SimplePanel class. It will use
+     * the return of {@link Colour#getBackgroundColor()}
+     * as the background color.
+     * 
+     * @see Colour#getBackgroundColor()
      */
     public SimplePanel(){
         this(Colour.getBackgroundColor());
@@ -49,6 +60,7 @@ public class SimplePanel extends JPanel{
 
     /**
      * Simply appends the given component into the center of the SimplePanel.
+     * 
      * @param component JComponent (JPanel preferably) that will be entered
      * @return Position (index) of the given component appended into the
      * current SimplePanel.
@@ -63,6 +75,7 @@ public class SimplePanel extends JPanel{
 
     /**
      * Returns the number of components appended to the current SimplePanel.
+     * 
      * @return Integer number of components appended. Also, it will be the
      * index of the next appended component.
      */

@@ -2,25 +2,83 @@ package util;
 
 import java.util.HashMap;
 
-/**
- * RALEX, DON'T FORGET TO ADD THE POSSIBILITY TO INCLUDE CUSTOM LANGUAGES FROM JSON FILES
- * (I mean, if the language you are looking for isn't included in the system, you can add
- * it just by including it in a JSON file in a specified folder location)
- */
+// RALEX, DON'T FORGET TO ADD THE POSSIBILITY TO INCLUDE CUSTOM LANGUAGES FROM JSON FILES
+// (I mean, if the language you are looking for isn't included in the system, you can add
+// it just by including it in a JSON file in a specified folder location)
 
+/**
+ * <h3>Language utility class.</h3>
+ * This class is used to obtain the text that will be displayed
+ * in the GUI of the software corresponding to the selected
+ * language ({@link #currentLang}).
+ * <p>
+ * Currently, the software has to languages:
+ * <ul>
+ * <li><b>English</b> (default)
+ * <li><b>Spanish (MX)</b>
+ * </ul>
+ * In future updates will be added the possibility to create
+ * and use <i>custom languages</i>.
+ */
 public class Language{
 	
+	/**
+	 * Default language.
+	 */
 	public static final String defaultCase = "English";
+
+	/**
+	 * String array of available languages.
+	 */
 	public static final String[] available = {"English", "Spanish"};
 
+	/**
+	 * Variable which controls the current language in the
+	 * session.
+	 */
 	private static String currentLang;
 	
+	/**
+	 * <b>HashMap</b> that contains a pair of <b>(String,HashMap)</b>,
+	 * which its HashMap has a pair of <b>(String,String)</b>.
+	 * <p>
+	 * In other words, it's an instance of:
+	 * {@code HashMap<String,HashMap<String,String>>}.
+	 * <p>
+	 * The first pair is used as (Language,Dialogs). So, the Dialogs
+	 * has pairs of (Context,Value).
+	 * For example, if the user wants to get the "Accept" text in
+	 * Spanish, then the variable can be used like this:
+	 * {@code languages.get("Spanish").get("g_accept")}.
+	 */
 	private final static HashMap<String,HashMap<String,String>> languages = createHashMap();
 	
+	/**
+	 * Returns the name of the current language.
+	 * 
+	 * @return {@link #currentLang}'s value.
+	 */
+	public final static String getCurrentLanguage(){
+		return currentLang;
+	}
+	
+	/**
+	 * Sets the current language.
+	 * 
+	 * @param lang New {@link #currentLang}'s value.
+	 */
 	public final static void setCurrentLanguage(String lang){
 		currentLang = lang;
 	}
 
+	/**
+	 * Initializes the {@link #languages} variable. To do this, the
+	 * {@link #initialize(HashMap)} method will set the available
+	 * languages in a new HashMap and then will return it.
+	 * 
+	 * @see #initialize(HashMap)
+	 * @return HashMap with set languages.
+	 */
 	private static final HashMap<String,HashMap<String,String>> createHashMap(){
 		HashMap<String,HashMap<String,String>> map = new HashMap<>();
 		initialize(map);
@@ -28,17 +86,43 @@ public class Language{
 		return map;
 	}
 
+	/**
+	 * Call the setters of every available language in the
+	 * software.
+	 * 
+	 * @param map HashMap that will contain the available
+	 * languages
+	 * @see #setEnglish(HashMap)
+	 * @see #setSpanish(HashMap)
+	 */
 	private static void initialize(HashMap<String,HashMap<String,String>> map){
 		setEnglish(map);
 		setSpanish(map);
 	}
 	
+	/**
+	 * Retrives the String value of the provided key/code. To
+	 * achieve this, this method is using the {@link #currentLang}
+	 * value.
+	 * <p>
+	 * If the value of {@link #currentLang} is {@code null}, it
+	 * will use {@link #defaultCase} instead.
+	 * 
+	 * @param code String key
+	 * @return The String value of the received key.
+	 */
 	public static String loadMessage(String code){
 		if(currentLang == null)
 			return languages.get(defaultCase).get(code);
 		return languages.get(currentLang).get(code);
 	}
 	
+	/**
+	 * Initializes every key/code with its respective dialog
+	 * into the English language.
+	 * 
+	 * @param map HashMap that will contain this language.
+	 */
 	private static void setEnglish(HashMap<String,HashMap<String,String>> map){
 		map.put("English",new HashMap<>());
 		
@@ -197,6 +281,12 @@ public class Language{
 		map.get("English").put("m_chale",				"Duuude, that's not fair!");
 	}
 	
+	/**
+	 * Initializes every key/code with its respective dialog
+	 * into the Spanish language.
+	 * 
+	 * @param map HashMap that will contain this language.
+	 */
 	private static void setSpanish(HashMap<String,HashMap<String,String>> map){
 		map.put("Spanish",new HashMap<>());
 
