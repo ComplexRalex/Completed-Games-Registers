@@ -21,13 +21,19 @@ import util.SimplePanel;
 import util.Typeface;
 
 /**
- * Panel which contains every visual component about the configuration menu of the
- * Completed-GamesRegister program.
+ * <h3>ConfigurationPanel view class.</h3>
+ * This class extends from JPanel and is used to show
+ * the configuration menu of the program.
  * 
- * @author Alejandro Batres
+ * @see Configuration
+ * @see ConfigurationController
  */
 @SuppressWarnings("serial")
 public class ConfigurationPanel extends JPanel{
+
+	/**
+	 * Buttons used to different actions.
+	 */
 	public JButton
 		btAutoBackupON, btAutoBackupOFF,
 		btExitDialogON, btExitDialogOFF,
@@ -35,13 +41,48 @@ public class ConfigurationPanel extends JPanel{
 		btResetExports, btSuddenClose,
 		btDeleteGameInfo, btWipeOut,
 		btAccept, btReturn;
+
+	/**
+	 * Combo box showing the avilable languages.
+	 */
 	public JComboBox<String> cbLang;
+
+	/**
+	 * Array of radio-buttons to select the theme.
+	 */
 	public JRadioButton btTheme[];
+
+	/**
+	 * Formatted text fields to modify some of their
+	 * properties.
+	 */
 	public JFormattedTextField txtConnect, txtRead;
+
+	/**
+	 * Spinners used to change the read and connection
+	 * timeouts.
+	 */
 	public JSpinner spConnect, spRead;
+
+	/**
+	 * Text field used to display the username.
+	 */
 	public JTextField txtUser;
+
+	/**
+     * Scrollbar used in the {@link JScrollPane} of the central
+     * pane.
+     */
 	public JScrollBar scrollBar;
 	
+	/**
+     * Constructor of the ConfigurationPanel class. This
+	 * will set the layout manager of the current panel,
+	 * its background color and finally initialize all
+	 * of its components.
+     * 
+     * @see #initComponents()
+     */
 	public ConfigurationPanel(){
 		this.setLayout(new BorderLayout());
 		this.setBackground(Colour.getPrimaryColor());
@@ -49,7 +90,7 @@ public class ConfigurationPanel extends JPanel{
 	}
 	
 	/**
-	 * Initializes every visual component inside of the ConfigurationPanel panel.
+	 * Initializes every visual component inside of this panel.
 	 */
 	private void initComponents(){
 

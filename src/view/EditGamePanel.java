@@ -17,25 +17,61 @@ import util.SimplePanel;
 import model.GameStat;
 
 /**
- * Panel which contains every visual component about the game register
- * creation (or modification) of the program.
+ * <h3>EditGamePanel view class.</h3>
+ * This class extends from JPanel and is used to display
+ * the creation/editing menu of a <b>completed-game <i>register</i></b>.
  * 
- * @author Alejandro Batres
+ * @see EditGameController
+ * @see GameStat
+ * @see GameData
+ * @see GameRegister
  */
 @SuppressWarnings("serial")
 public class EditGamePanel extends JPanel{
+
+    /**
+     * Text fields used to modify different values.
+     */
     public JTextField txtName, txtYear;
+
+    /**
+     * Text areas used to modify a large amount of text.
+     */
     public JTextArea aComment, aNote, aSpoiler;
+
+    /**
+     * Buttons used to different actions.
+     */
     public JButton btDownload, btDelete, btCreate, btChange, btCancel;
+
+    /**
+     * Array of radio-buttons to select the rate of the game.
+     */
     public JRadioButton btRate[];
+
+    /**
+     * Scrollbar used in the {@link JScrollPane} of the central
+     * pane.
+     */
     public JScrollBar scrollBar;
 
+    /**
+     * Constructor of the EditGamePanel class. This will
+	 * set the layout manager of the current panel, its
+     * background color and finally initialize all of its
+	 * components.
+     * 
+     * @see #initComponents()
+     */
     public EditGamePanel(){
         this.setLayout(new BorderLayout());
         this.setBackground(Colour.getBackgroundColor());
         initComponents();
     }
 
+    /**
+	 * Initializes every visual component inside of this panel.
+	 */
     public void initComponents(){
         
         // Establishing the title
@@ -48,21 +84,21 @@ public class EditGamePanel extends JPanel{
         JScrollPane scrollFields = Component.createScrollPane(pGameFields);
         scrollBar = scrollFields.getVerticalScrollBar();
         
-        // Establishing a "main game info" subtitle
+        // - Establishing a "main game info" subtitle
 
         pGameFields.add(Component.createSubtitle(Language.loadMessage("ge_main_info"), Colour.getPrimaryColor()));
 
-        // Establishing game name field
+        // - Establishing game name field
 
         txtName = new JTextField();
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_name"), txtName, true, Colour.getBackgroundColor()));
 
-        // Establishing "download game info" button
+        // - Establishing "download game info" button
         
         btDownload = new JButton(Language.loadMessage("ge_download"));
         pGameFields.add(Component.createSingleButton(btDownload, Colour.getBackgroundColor()));
 
-        // Establishing "delete game info" button
+        // - Establishing "delete game info" button
 
         btDelete = new JButton(Language.loadMessage("ge_delete"));
         pGameFields.add(Component.createSingleButton(btDelete, Colour.getBackgroundColor()));
@@ -71,16 +107,16 @@ public class EditGamePanel extends JPanel{
 
 		pGameFields.add(Component.createGap(35,Colour.getBackgroundColor()));
         
-        // Establishing a "user game info" subtitle
+        // - Establishing a "user game info" subtitle
 
         pGameFields.add(Component.createSubtitle(Language.loadMessage("ge_user_info"), Colour.getPrimaryColor()));
 
-        // Establishing year of completion field
+        // - Establishing year of completion field
 
         txtYear = new JTextField();
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_year"), txtYear, true, Colour.getBackgroundColor()));
 
-        // Establishing rating options
+        // - Establishing rating options
 
         btRate = new JRadioButton[GameStat.RATE_OPTIONS];
         pGameFields.add(Component.createRadioButtons(
@@ -98,17 +134,17 @@ public class EditGamePanel extends JPanel{
         ));
         btRate[0].setSelected(true);
 
-        // Establishing comment field
+        // - Establishing comment field
 
         aComment = new JTextArea();
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_comment"), aComment, 3, Colour.getBackgroundColor()));
 
-        // Establishing note field
+        // - Establishing note field
 
         aNote = new JTextArea();
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_note"), aNote, 2, Colour.getBackgroundColor()));
 
-        // Establishing spoiler field
+        // - Establishing spoiler field
 
         aSpoiler = new JTextArea();
         pGameFields.add(Component.createTextArea(Language.loadMessage("ge_spoiler"), aSpoiler, 2, Colour.getBackgroundColor()));

@@ -20,16 +20,63 @@ import util.Language;
 import util.SimplePanel;
 import util.Typeface;
 
+/**
+ * <h3>GeneralPanel view class.</h3>
+ * This class extends from JPanel and is used to display
+ * the most "general" options possible. What this means is
+ * that this panel will allow the user to access any site
+ * they want.
+ * 
+ * @see GeneralController
+ */
 @SuppressWarnings("serial")
 public class GeneralPanel extends JPanel{
+
+    /**
+     * Panel used to display all the entered <b>completed-game
+     * <i>registers</i></b>.
+     */
     private JPanel pCentral;
+
+    /**
+     * Icons used to be put in different buttons.
+     */
     private ImageIcon iconAdd, iconBackup, iconExport, iconHelp, iconView, iconEdit, iconRemove;
+
+    /**
+	 * Buttons used to different actions.
+	 */
     public JButton btAdd, btBackup, btExport, btHelp, btConfig, btAbout;
+
+    /**
+     * Label that displays the username at the top of the
+     * program.
+     */
     public JLabel lbUser;
+
+    /**
+     * Panel that works as a "placeholder" in case of
+     * no registers added.
+     */
     public FirstTimePanel pNothing;
     
+    /**
+     * Boolean that is used to tell if the icons have
+     * loaded successfully.
+     */
     private boolean loadedIcons;
 
+    /**
+     * Constructor of the GeneralPanel class. This
+     * will set the layout manager of the current 
+     * panel, its background color and finally 
+     * initialize all of its components.
+     * Also, will initialize the icons of some
+     * buttons and the {@link #pNothing} panel.
+     * 
+     * @see #initIcons()
+     * @see #initComponents()
+     */
     public GeneralPanel(){
         setLayout(new BorderLayout());
         setBackground(Colour.getBackgroundColor());
@@ -40,17 +87,52 @@ public class GeneralPanel extends JPanel{
         initComponents();
     }
 
+    /**
+     * <h3>GameRegisterPanel view class.</h3>
+     * <h4>(from GeneralPanel)</h4>
+     * This class extends from JPanel and is used to display,
+     * clearly, a <b>completed-game <i>register</i></b>.
+     */
     public class GameRegisterPanel extends JPanel{
+
+        /**
+         * Buttons used to different actions.
+         */
         public JButton btView, btEdit, btRemove, btRecent;
+
+        /**
+         * Text area that displays the name of the game.
+         */
         public JTextArea aName;
 
+        /**
+         * Constructor of the GameRegisterPanel class.
+         * 
+         * @param game String which contains the name of the
+         * game
+         * @param recent Boolean that determines if the new
+         * register was added recently ({@code true}) or not
+         * ({@code false})
+         * @see #initComponents(String, boolean)
+         */
         public GameRegisterPanel(String game, boolean recent){
             setLayout(new BorderLayout());
             setBackground(Colour.getBackgroundColor());
             initComponents(game, recent);
         }
 
+        /**
+         * Initializes every visual component inside of this panel.
+         * 
+         * @param game String which contains the name of the
+         * game
+         * @param recent Boolean that determines if the new
+         * register was added recently ({@code true}) or not
+         * ({@code false})
+         */
         public void initComponents(String game, boolean recent){
+
+            // Establishing the title of the register
 
             JPanel title = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
             title.setBackground(this.getBackground());
@@ -67,8 +149,12 @@ public class GeneralPanel extends JPanel{
 
             add(title,BorderLayout.WEST);
 
+            // Establishing panel that will be at the right
+
             JPanel rightSide = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
             rightSide.setBackground(this.getBackground());
+
+            // - Establishing buttons
 
             SimplePanel buttons = new SimplePanel(this.getBackground());
 
@@ -100,6 +186,8 @@ public class GeneralPanel extends JPanel{
 
             buttons.add(options);
 
+            // - Establishing "recently added" button (if it's true)
+
             if(recent){
                 JPanel pRecent = new JPanel(new FlowLayout(FlowLayout.CENTER,0,2));
                 pRecent.setBackground(this.getBackground());
@@ -120,7 +208,18 @@ public class GeneralPanel extends JPanel{
         }
     }
 
+    /**
+     * <h3>FirstTimePanel view class.</h3>
+     * <h4>(from GeneralPanel)</h4>
+     * This class extends from JPanel and is used to display
+     * a "placeholder" text, in case of non-existence of
+     * registers.
+     */
     public class FirstTimePanel extends JPanel{
+
+        /**
+         * Constructor of the FirsTimePanel class.
+         */
         public FirstTimePanel(){
             setLayout(new BorderLayout());
             setBackground(Colour.getBackgroundColor());
@@ -134,6 +233,9 @@ public class GeneralPanel extends JPanel{
         }
     }
 
+    /**
+     * Initializes every icon that will be used in this panel.
+     */
     public void initIcons(){
     	try{
 	    	ImageResource res = new ImageResource();
@@ -151,7 +253,12 @@ public class GeneralPanel extends JPanel{
     	}
     }
 
+    /**
+     * Initializes every visual component inside of this panel.
+     */
     public void initComponents(){
+
+        // Establishing title
 
         JPanel pWelcome = new JPanel(new FlowLayout(FlowLayout.CENTER,0,21));
         pWelcome.setBackground(Colour.getPrimaryColor());
@@ -167,11 +274,15 @@ public class GeneralPanel extends JPanel{
         pWelcome.add(lbUser);
         add(pWelcome,BorderLayout.NORTH);
 
+        // Establishing centered panel
+        
         pCentral = new JPanel(new GridLayout(0,1,10,6));
         pCentral.setBackground(Colour.getPrimaryColor());
         JScrollPane scroll = Component.createScrollPane(pCentral);
 
         add(scroll,BorderLayout.CENTER);
+
+        // Establishing left-side panel
 
         SimplePanel leftSide = new SimplePanel(Colour.getPrimaryColor());
         
@@ -206,24 +317,47 @@ public class GeneralPanel extends JPanel{
 
         add(leftSide,BorderLayout.WEST);
         
+        // Establishing general options
+
         btConfig = new JButton(Language.loadMessage("m_config"));
         btAbout = new JButton(Language.loadMessage("m_about"));
         
         add(Component.createGeneralOptions(new JButton[]{btConfig,btAbout},Colour.getPrimaryColor()),BorderLayout.SOUTH);
     }
 
+    /**
+     * Appends the given component in the center of this panel.
+     * 
+     * @param component Component that will be appended to
+     * {@link #pCentral}
+     */
     public void addToCenter(JComponent component){
         pCentral.add(component);
     }
 
+    /**
+     * Removes the given component from the center of this
+     * panel.
+     * 
+     * @param component Component that will be removed
+     * from {@link #pCentral}
+     */
     public void removeFromCenter(JComponent component){
         pCentral.remove(component);
     }
 
+    /**
+     * Appends the {@link #pNothing} panel to the
+     * center of this panel.
+     */
     public void addPlaceHolder(){
         pCentral.add(pNothing);
     }
 
+    /**
+     * Removes the {@link #pNothing} panel from
+     * the center of this panel.
+     */
     public void removePlaceHolder(){
         pCentral.remove(pNothing);
     }

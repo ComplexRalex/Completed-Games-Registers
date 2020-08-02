@@ -24,28 +24,133 @@ import util.Language;
 import util.SimplePanel;
 import util.Typeface;
 
+/**
+ * <h3>ViewGamePanel view class.</h3>
+ * This class extends from JPanel and is used to display
+ * an already created <b>completed-game <i>register</i></b>.
+ * <p>
+ * Also, it includes information related to that game
+ * such as their developers, publishers, user tags, genres,
+ * description, etcetera.
+ * 
+ * @see ViewGameController
+ * @see GameStat
+ * @see GameData
+ * @see GameRegister
+ */
 @SuppressWarnings("serial")
 public class ViewGamePanel extends JPanel{
+
+    /**
+     * Panels with different components.
+     */
     private JPanel pGameFields, pAreaSpoiler;
+
+    /**
+     * Panels used to be show/hide depending of the
+     * content of such field in a {@link GameStat}
+     * field.
+     * <p>
+     * If a field is "empty" it will simply hide
+     * the panel.
+     */
     public JPanel pRate, pYear, pComment, pNote;
+
+    /**
+     * Panel containing the {@link #btSpoiler} and
+     * {@link #aSpoiler} components.
+     * 
+     * @see #btSpoiler
+     * @see #aSpoiler
+     */
     public SimplePanel pSpoiler;
+
+    /**
+     * Constraints of the {@link GridBagLayout} class
+     * to center the components.
+     */
     private GridBagConstraints c;
+
+    /**
+     * Text fields used to show different values.
+     */
     public JTextField txtName, txtYear, txtRate;
+
+    /**
+     * Text areas used to show a large amount of text.
+     */
     public JTextArea aComment, aNote, aSpoiler;
+
+    /**
+     * Buttons used to different actions.
+     */
     public JButton btSpoiler, btReturn;
+
+    /**
+     * Panel containing most of the game information
+     * downloaded using the RAWG's API through the
+     * {@link GameData#downloadGameInfo(String)} method.
+     * 
+     * @see #addDatabaseInfo(GameData)
+     * @see #removeDatabaseInfo()
+     */
     public GameDataPanel pGameData;
+
+    /**
+     * Scrollbar used in the {@link JScrollPane} of the central
+     * pane.
+     */
     public JScrollBar scrollBar;
 
+    /**
+     * <h3>GameDataPanel view class.</h3>
+     * <h4>(from ViewGamePanel)</h4>
+     * This class extends from {@link SimplePanel} and is used to 
+     * create a panel that displays some of the fields of a
+     * JSON file downloaded through {@link GameData#downloadGameInfo(String)}.
+     * <p>
+     * All the information is obtained by the <i>getter</i>
+     * methods of the {@link GameData} class.
+     * 
+     * @see GameData
+     */
     public class GameDataPanel extends SimplePanel{
+
+        /**
+         * Button that is used to link to a RAWG's website page
+         * related to the game.
+         */
         public JButton btMoreDetails;
+
+        /**
+         * Text fields used to show different values.
+         */
         public JTextField txtName, txtDevelopers, txtPublishers, txtRelease, txtRating;
+        
+        /**
+         * Text areas used to show different values.
+         */
         public JTextArea aPlatforms, aGenres, aTags;
+
+        /**
+         * Image related to the game.
+         */
         public BufferedImage image;
 
+        /**
+         * Constructor of the GameDataPanel class.
+         * 
+         * @param gd GameData where all the information
+         * is going to be collected.
+         * @see #initComponents(GameData)
+         */
         public GameDataPanel(GameData gd){
             initComponents(gd);
         }
 
+        /**
+         * Initializes every visual component inside of this panel.
+         */
         public void initComponents(GameData gd){
 
             // Establishing subtitle
@@ -138,6 +243,24 @@ public class ViewGamePanel extends JPanel{
             add(Component.createGap(35,Colour.getBackgroundColor()));
         }
 
+        /**
+         * Appends to a single String all array of elements.
+         * If the current evaluated String is NOT the last
+         * of the array, will append it a "{@code , }" at
+         * the end of the string. Otherwise, will be appended
+         * a "{@code .}" at the end.
+         * <p>
+         * For instance, if the array is the following:
+         * <blockquote><pre>
+         *     String names[] = {"Alejandro","José","Antonio","Laura","Marco"};
+         * </pre></blockquote>
+         * then the result will be: "<b>Alejandro, José, Antonio,
+         * Laura, Marco.</b>"
+         * 
+         * @param elements String array containing the elements
+         * @return String variable containing all the elements
+         * separated by "<b>,</b>" an a "<b>.</b>" at the end.
+         */
         private String oneLineList(String[] elements){
             if(elements.length == 0) throw new NullPointerException();
             String string = "";
@@ -152,12 +275,22 @@ public class ViewGamePanel extends JPanel{
         }
     }
 
+    /**
+     * Constructor of the ViewGamePanel class. This will set
+     * the layout manager of the current panel, its background
+     * color and finally initialize all of its components.
+     * 
+     * @see #initComponents()
+     */
     public ViewGamePanel(){
         this.setLayout(new BorderLayout());
         this.setBackground(Colour.getBackgroundColor());
         initComponents();
     }
 
+    /**
+	 * Initializes every visual component inside of this panel.
+	 */
     public void initComponents(){
 
         // Establishing title
@@ -178,19 +311,19 @@ public class ViewGamePanel extends JPanel{
         JScrollPane scroll = Component.createScrollPane(pGameFields);
         scrollBar = scroll.getVerticalScrollBar();
 
-        // Establishing subtitle
+        // - Establishing subtitle
 
         pGameFields.add(Component.createSubtitle(Language.loadMessage("ge_user_info"), Colour.getPrimaryColor()),c);
         c.gridy++;
 
-        // Establishing game name
+        // - Establishing game name
 
         txtName = new JTextField();
         txtName.setEditable(false);
         pGameFields.add(Component.createTextField(Language.loadMessage("ge_name"), txtName, true, Colour.getBackgroundColor()),c);
         c.gridy++;
 
-        // Establishing year of completion
+        // - Establishing year of completion
 
         txtYear = new JTextField();
         txtYear.setEditable(false);
@@ -198,7 +331,7 @@ public class ViewGamePanel extends JPanel{
         pGameFields.add(pYear,c);
         c.gridy++;
 
-        // Establishing local user rating
+        // - Establishing local user rating
 
         txtRate = new JTextField();
         txtRate.setEditable(false);
@@ -206,7 +339,7 @@ public class ViewGamePanel extends JPanel{
         pGameFields.add(pRate,c);
         c.gridy++;
 
-        // Establishing comments
+        // - Establishing comments
 
         aComment = new JTextArea();
         aComment.setEditable(false);
@@ -214,7 +347,7 @@ public class ViewGamePanel extends JPanel{
         pGameFields.add(pComment,c);
         c.gridy++;
 
-        // Establishing notes
+        // - Establishing notes
 
         aNote = new JTextArea();
         aNote.setEditable(false);
@@ -222,18 +355,18 @@ public class ViewGamePanel extends JPanel{
         pGameFields.add(pNote,c);
         c.gridy++;
 
-        // Establishing panel of spoiler text and spoiler button
+        // - Establishing panel of spoiler text and spoiler button
 
         pSpoiler = new SimplePanel(Colour.getPrimaryColor());
         pGameFields.add(pSpoiler,c);
         c.gridy = 0;
 
-        // Establishing show/hide spoiler button
+        // - Establishing show/hide spoiler button
 
         btSpoiler = new JButton(Language.loadMessage("gv_show_spoiler"));
         pSpoiler.add(Component.createSingleButton(btSpoiler, Colour.getPrimaryColor()));
 
-        // Establishing spoiler
+        // - Establishing spoiler
 
         aSpoiler = new JTextArea();
         aSpoiler.setEditable(false);
@@ -247,15 +380,34 @@ public class ViewGamePanel extends JPanel{
         add(Component.createGeneralOptions(new JButton[]{btReturn}, Colour.getPrimaryColor()),BorderLayout.SOUTH);
     }
 
+    /**
+     * Displays (or hides) the spoiler text area.
+     * 
+     * @param flag Boolean which determines if {@link #pAreaSpoiler}
+     * will be shown ({@code true}) or not ({@code false})
+     */
     public void viewSpoiler(boolean flag){
         btSpoiler.setText(flag ? Language.loadMessage("gv_hide_spoiler") : Language.loadMessage("gv_show_spoiler"));
         pAreaSpoiler.setVisible(flag);
     }
 
+    /**
+     * Tells if the spoiler is currently visible.
+     * 
+     * @return {@code true} if {@link #pAreaSpoiler} is
+     * visible. {@code false} otherwise.
+     */
     public boolean spoilerVisible(){
         return pAreaSpoiler.isVisible();
     }
 
+    /**
+     * Appends a {@link GameDataPanel} to the current panel.
+     * 
+     * @param gd {@link GameData} variable which will be
+     * used to obtain the game information
+     * @return an instance of {@link GameDataPanel}.
+     */
     public GameDataPanel addDatabaseInfo(GameData gd){
         c.gridy = 0;
         pGameData = new GameDataPanel(gd);
@@ -266,6 +418,10 @@ public class ViewGamePanel extends JPanel{
         return pGameData;
     }
 
+    /**
+     * Removes the current {@link GameDataPanel} appended
+     * in the panel.
+     */
     public void removeDatabaseInfo(){
         pGameFields.remove(pGameData);
         pGameData.image = null;
@@ -273,5 +429,4 @@ public class ViewGamePanel extends JPanel{
         validate();
         repaint();
     }
-
 }
