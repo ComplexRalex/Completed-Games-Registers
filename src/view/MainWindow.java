@@ -11,12 +11,12 @@ import system.Software;
 import util.ImageResource;
 
 /**
- * <h3>MainWindow view class.</h3>
+ * <h2>MainWindow view class.</h2>
  * This class extends from {@link JFrame} and is
  * used to display every menu created in this
  * software.
  * <p>
- * MainWindow contains the following panels:
+ * MainWindow initializes the following panels:
  * <ul>
  * <li>{@link #pGeneral}: The main "section" of this
  * program. Here the usar can access to the rest of

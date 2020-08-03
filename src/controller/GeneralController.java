@@ -15,13 +15,50 @@ import java.util.HashMap;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * <h3>GeneralController controller class.</h3>
+ * This class implements the {@link ActionListener} interface
+ * and is used to manage the actions of the visual components
+ * of {@link GeneralPanel}.
+ * <p>
+ * It uses a instance of {@link GameRegister} which is used
+ * to give logic functions to some of the visual components.
+ * 
+ * @see GameRegister
+ * @see GeneralPanel
+ */
 public class GeneralController implements ActionListener{
 
+    /**
+     * Parent controller.
+     */
     private MainController parent;
+
+    /**
+     * Logic of the controller.
+     */
     private GameRegister model;
+
+    /**
+     * Attached panel to the controller.
+     */
     private GeneralPanel view;
+
+    /**
+     * HashMap which manages the created <b>completed-game
+     * <i>registers</i></b> with its visual representation.
+     * 
+     * @see #add(GameStat, boolean)
+     */
     private HashMap<GameStat,GameRegisterPanel> games;
 
+    /**
+     * Constructor of the GeneralController class.
+     * 
+     * @param m Logic of the controller
+     * @param v Set of visual components
+     * @param p Parent controller
+     */
     public GeneralController(GameRegister m, GeneralPanel v, MainController p){
         model = m;
         view = v;
@@ -29,6 +66,14 @@ public class GeneralController implements ActionListener{
         games = new HashMap<>();
     }
 
+    /**
+     * Sets listeners to all the visual "action" components
+     * in the {@link #view}.
+     * <p>
+     * Also, it will call {@link #obtainInitialValues()}.
+     * 
+     * @see #obtainInitialValues()
+     */
     public void initialize(){
         view.btAdd.addActionListener(this);
         view.btBackup.addActionListener(this);
@@ -40,6 +85,15 @@ public class GeneralController implements ActionListener{
         obtainInitialValues();
     }
 
+    /**
+     * Initializes the visual components with the current
+     * values retrieved from the {@link #model} object.
+     * <p>
+     * In this case, will set the username and will put
+     * the stored register (if they exist). In case that
+     * there are no registers entered, this will put a
+     * "placeholder" panel instead.
+     */
     public void obtainInitialValues(){
         view.lbUser.setText(parent.mConfig.getUsername());
 
@@ -50,6 +104,19 @@ public class GeneralController implements ActionListener{
             add(gs, false);
     }
 
+    /**
+     * Appends a new {@link GameRegisterPanel} to the
+     * visual array of <b>completed-game <i>register</i></b>.
+     * <p>
+     * This method will put a {@link GameStat} object with
+     * a new instance of {@link GameRegisterPanel} into
+     * {@link #games}.
+     * 
+     * @param gs new {@link GameStat} object
+     * @param recent Boolean which determines was created
+     * recently ({@code true}) or not ({@code false})
+     * @see #addActions(GameStat, boolean)
+     */
     public void add(GameStat gs, boolean recent){
         if(games.isEmpty()) view.removePlaceHolder();
         model.addGameStat(gs);
@@ -60,6 +127,15 @@ public class GeneralController implements ActionListener{
         addActions(gs, recent);
     }
 
+    /**
+     * Sets the listeners to all the visual "action" components.
+     * 
+     * @param gs GameStat which will be referenced to these
+     * components
+     * @param recent Boolean which determines was created
+     * recently ({@code true}) or not ({@code false})
+     * @see #addActions(GameStat, boolean)
+     */
     private void addActions(GameStat gs, boolean recent){
         GameRegisterPanel panel = games.get(gs);
         panel.btView.addActionListener(new ActionListener(){
@@ -116,6 +192,13 @@ public class GeneralController implements ActionListener{
             });
     }
 
+    /**
+     * Updates the displayed title in the {@link GameRegisterPanel}
+     * which is referenced to the {@link GameStat} object received.
+     * 
+     * @param gs GameStat which is referenced to some instance of
+     * {@link GameRegisterPanel}
+     */
     public void updateName(GameStat gs){
         games.get(gs).aName.setText(gs.getGame());
     }

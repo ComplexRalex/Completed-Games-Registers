@@ -15,16 +15,41 @@ import java.awt.event.ActionEvent;
 
 import view.AboutPanel;
 
+/**
+ * <h3>AboutController controller class.</h3>
+ * This class implements the {@link ActionListener} interface
+ * and is used to manage the actions of the visual components
+ * of {@link AboutPanel}.
+ * 
+ * @see AboutPanel
+ */
 public class AboutController implements ActionListener{
 
+    /**
+     * Parent controller.
+     */
     private MainController parent;
+
+    /**
+     * Attached panel to the controller.
+     */
     private AboutPanel view;
 
+    /**
+     * Constructor of the AboutController class.
+     * 
+     * @param v Set of visual components
+     * @param p Parent controller
+     */
     public AboutController(AboutPanel v, MainController p){
         view = v;
         parent = p;
     }
 
+    /**
+     * Sets listeners to all the visual "action" components
+     * in the {@link #view}.
+     */
     public void initialize(){
         view.btTwitter.addActionListener(this);
         view.btSource.addActionListener(this);
@@ -65,6 +90,12 @@ public class AboutController implements ActionListener{
             goToPage(Software.API_DETAILS.get(Software.API[0]).get("website_url"));
     }
 
+    /**
+     * Pops up a {@link Advice} dialog asking to open a
+     * web page in the default configured browser.
+     * 
+     * @param url URL of the web page
+     */
     private void goToPage(String url){
         if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
             if(Advice.showOptionTextAreaAdvice(
@@ -102,5 +133,4 @@ public class AboutController implements ActionListener{
             );
         }
     }
-
 }

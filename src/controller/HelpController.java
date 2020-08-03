@@ -14,16 +14,41 @@ import util.Advice;
 import util.Colour;
 import util.Language;
 
+/**
+ * <h3>HelpController controller class.</h3>
+ * This class implements the {@link ActionListener} interface
+ * and is used to manage the actions of the visual components
+ * of {@link HelpPanel}.
+ * 
+ * @see HelpPanel
+ */
 public class HelpController implements ActionListener{
 
+    /**
+     * Parent controller.
+     */
     private MainController parent;
+
+    /**
+     * Attached panel to the controller.
+     */
     private HelpPanel view;
 
+    /**
+     * Constructor of the HelpController class.
+     * 
+     * @param v Set of visual components
+     * @param p Parent controller
+     */
     public HelpController(HelpPanel v, MainController p){
         view = v;
         parent = p;
     }
 
+    /**
+     * Sets listeners to all the visual "action" components
+     * in the {@link #view}.
+     */
     public void initialize(){
         view.btReportIssue.addActionListener(this);
         view.btReturn.addActionListener(this);

@@ -17,15 +17,59 @@ import util.Component;
 import util.Language;
 import util.Advice;
 
+/**
+ * <h3>ConfigurationController controller class.</h3>
+ * This class implements the {@link ActionListener} and
+ * {@link KeyListener} interfaces and is used to manage
+ * the actions of the visual components of {@link ConfigurationPanel}.
+ * <p>
+ * It uses a instance of {@link Configuration} which is used
+ * to give logic functions to some of the visual components.
+ * 
+ * @see Configuration
+ * @see ConfigurationPanel
+ */
 public class ConfigurationController implements ActionListener, KeyListener{
 	
+	/**
+     * Parent controller.
+     */
 	private MainController parent;
-	private ConfigurationPanel view;
+
+	/**
+     * Logic of the controller.
+     */
 	private Configuration model;
+
+	/**
+     * Attached panel to the controller.
+     */
+	private ConfigurationPanel view;
+
+	/**
+	 * Temporal number which determines the current status
+	 * of the "auto backup" switch option.
+	 */
 	private int autoBackupStatus;
+
+	/**
+	 * Temporal number which determines the current status
+	 * of the "exit dialog" switch option.
+	 */
 	private int exitDialogStatus;
+
+	/**
+	 * Number of maximum characters in a String.
+	 */
 	private int maxLength;
 	
+	/**
+     * Constructor of the ConfigurationController class.
+     * 
+     * @param m Logic of the controller
+     * @param v Set of visual components
+     * @param p Parent controller
+     */
 	public ConfigurationController(Configuration m, ConfigurationPanel v, MainController p){
 		model = m;
 		view = v;
@@ -33,6 +77,14 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		maxLength = 45;
 	}
 	
+	/**
+     * Sets listeners to all the visual "action" components
+     * in the {@link #view}.
+     * <p>
+     * Also, it will call {@link #obtainInitialConfig()}.
+     * 
+     * @see #obtainInitialConfig()
+     */
 	public void initialize(){
 		view.txtUser.addKeyListener(this);
 
@@ -61,6 +113,14 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		obtainInitialConfig();
 	}
 	
+	/**
+	 * Initializes the visual components with the current
+     * values retrieved from the {@link #model} object.
+     * <p>
+	 * In this case, will fill the content of the visual
+	 * components with their respective field in the
+	 * {@link #model} object.
+	 */
 	public void obtainInitialConfig(){
 		view.txtUser.setText(model.getUsername());
 		
@@ -91,6 +151,15 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		view.spRead.setValue(model.getReadTimeout());
 	}
 
+	/**
+     * Tells if there were not changes made in the
+     * current session.
+	 * This will compare the entered values with the
+	 * saved data in the {@link #model} variable.
+	 * 
+     * @return {@code true} if the values are the
+     * same as at the beginning. {@code false} otherwise.
+     */
 	private boolean sameValues(){
 		boolean flag = true;
 		flag = (flag && model.getUsername().equals(view.txtUser.getText().trim()));
@@ -102,6 +171,14 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		return flag;
 	}
 	
+	/**
+	 * Tells if it is necessary to reset the program
+	 * to save the entered settings an to take effect.
+	 * 
+	 * @return {@code true} if there were changes made
+     * in the settings which require a reset. {@code false}
+	 * otherwise.
+	 */
 	private boolean resetRequest(){
 		boolean flag = true;
 		for(int i = 0; i < view.btTheme.length; i++){
@@ -115,6 +192,14 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		return !flag;
 	}
 
+	/**
+	 * Updates all the {@link #model} variables related with
+	 * its specific fields in the visual components.
+	 * At the end, it will call {@link #saveSettings()} to
+	 * finally save the changes.
+	 * 
+	 * @see #saveSettings()
+	 */
 	private void saveCurrentSettings(){
 		// Change username (if qualify)
 		if(view.txtUser.getText().length() > 0){
@@ -157,6 +242,9 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		saveSettings();
 	}
 
+	/**
+	 * Calls {@link Configuration#saveConfiguration()} method.
+	 */
 	public void saveSettings(){
 		try {
 			model.saveConfiguration();
@@ -288,5 +376,4 @@ public class ConfigurationController implements ActionListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {}
-
 }

@@ -130,7 +130,7 @@ public class Language{
 		map.get("English").put("g_apply",				"Apply");
 		map.get("English").put("g_cancel",				"Cancel");
 		map.get("English").put("g_return",				"Return");
-		map.get("English").put("g_change", 				"Change");
+		map.get("English").put("g_change", 				"Modify");
 		map.get("English").put("g_message",				"Message");
 		map.get("English").put("g_warning",				"Warning!");
 		map.get("English").put("g_success",				"Success!");
@@ -294,7 +294,7 @@ public class Language{
 		map.get("Spanish").put("g_apply",				"Aplicar");
 		map.get("Spanish").put("g_cancel",				"Cancelar");
 		map.get("Spanish").put("g_return",				"Regresar");
-		map.get("Spanish").put("g_change", 				"Cambiar");
+		map.get("Spanish").put("g_change", 				"Modificar");
 		map.get("Spanish").put("g_message",				"Mensaje");
 		map.get("Spanish").put("g_warning",				"¡Advertencia!");
 		map.get("Spanish").put("g_success",				"¡Éxito!");

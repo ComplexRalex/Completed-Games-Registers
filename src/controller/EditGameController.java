@@ -19,26 +19,110 @@ import util.Advice;
 import util.Colour;
 import util.Language;
 
+/**
+ * <h3>EditGameController controller class.</h3>
+ * This class implements the {@link ActionListener} and
+ * {@link KeyListener} interfaces and is used to manage
+ * the actions of the visual components of {@link EditGamePanel}.
+ * It uses a instance of {@link GameStat} to get its fields
+ * and put them into the visual components.
+ * <p>
+ * If the user wants to download information about the game,
+ * then the {@link GameData#downloadGameInfo(String)} method
+ * will be used.
+ * 
+ * @see GameStat
+ * @see GameData
+ * @see EditGamePanel
+ */
 public class EditGameController implements ActionListener, KeyListener{
 
+    /**
+     * Parent controller.
+     */
     private MainController parent;
+
+    /**
+     * Attached panel to the controller.
+     */
     private EditGamePanel view;
+
+    /**
+     * Game information provided by the user (if it exists).
+     */
     private GameStat actual;
+
+    /**
+     * Last name of the recent game information downloaded.
+     * 
+     * @see #sameValues()
+     */
     private String downloaded;
 
+    /**
+     * First value of the name of the game.
+     * 
+     * @see #sameValues()
+     */
     private String oldName;
+
+    /**
+     * First name of the game information downloaded.
+     * 
+     * @see #sameValues()
+     */
     private String oldInfoName;
+
+    /**
+     * First value of the year of completion.
+     * 
+     * @see #sameValues()
+     */
     private int oldYear;
+
+    /**
+     * First value of the rate of the game.
+     * 
+     * @see #sameValues()
+     */
     private int oldRate;
+
+    /**
+     * First value of the comments about the game.
+     * 
+     * @see #sameValues()
+     */
     private String oldComment;
+
+    /**
+     * First value of the annotations of the games.
+     * 
+     * @see #sameValues()
+     */
     private String oldNote;
+
+    /**
+     * First value of the spoilers about the game.
+     * 
+     * @see #sameValues()
+     */
     private String oldSpoiler;
 
+    /**
+     * Constructor of the EditGameController class.
+     * 
+     * @param v Set of visual components
+     * @param p Parent controller
+     */
     public EditGameController(EditGamePanel v, MainController p){
         view = v;
         parent = p;
     }
 
+    /**
+     * Sets listeners to all the visual "action" components
+     * in the {@link #view}.
+     */
     public void initialize(){
         view.btDownload.addActionListener(this);
         view.btDelete.addActionListener(this);
@@ -49,6 +133,17 @@ public class EditGameController implements ActionListener, KeyListener{
         view.txtYear.addKeyListener(this);
     }
 
+    /**
+     * Verifies the content of the fields to determine if
+     * there is information to put into the respective
+     * components, or let them empty.
+     * <p>
+     * Also, note that if {@code initial == null}, then the
+     * visual fields will be empty by default.
+     * 
+     * @param initial GameStat which contains game information
+     * provided by the user
+     */
     public void setInitialValues(GameStat initial){
         actual = initial;
         if(actual != null){
@@ -95,6 +190,21 @@ public class EditGameController implements ActionListener, KeyListener{
         oldSpoiler = view.aSpoiler.getText();
     }
 
+    /**
+     * Tells if there were not changes made in the
+     * current session.
+     * 
+     * @see #oldName
+     * @see #oldInfoName
+     * @see #downloaded
+     * @see #oldYear
+     * @see #oldRate
+     * @see #oldComment
+     * @see #oldNote
+     * @see #oldSpoiler
+     * @return {@code true} if the values are the
+     * same as at the beginning. {@code false} otherwise.
+     */
     private boolean sameValues(){
         boolean flag = true;
         flag = (flag && oldName.equals(view.txtName.getText().trim()));
@@ -113,6 +223,12 @@ public class EditGameController implements ActionListener, KeyListener{
         return flag;
     }
 
+    /**
+     * Calls {@link GameData#downloadGameInfo(String)} and
+     * {@link GameData#downloadGameImage(String)} methods to 
+     * obtain information about the game described in
+     * {@link EditGamePanel#txtName}.
+     */
     public void downloadGameInfo(){
         try{
             if(GameData.downloadGameInfo(view.txtName.getText().trim())){
@@ -159,6 +275,12 @@ public class EditGameController implements ActionListener, KeyListener{
         }
     }
 
+    /**
+     * Calls {@link GameData#deleteGameInfo(String)} and
+     * {@link GameData#deleteGameImage(String)} methods to
+     * delete the lastest game information downloaded
+     * ({@link #downloaded}'s value).
+     */
     public void deleteGameInfo(){
         view.btDelete.setEnabled(!GameData.deleteGameInfo(downloaded));
         GameData.deleteGameImage(downloaded);
@@ -209,12 +331,9 @@ public class EditGameController implements ActionListener, KeyListener{
                                 Colour.getPrimaryColor()
                             );
                         }
-    
                     }else if(e.getSource() == view.btDelete && downloaded != null)
                         deleteGameInfo();
-    
                     else if(e.getSource() == view.btCreate || e.getSource() == view.btChange){
-    
                         int year;
                         try{
                             year = Integer.parseInt(view.txtYear.getText().trim());
@@ -241,12 +360,12 @@ public class EditGameController implements ActionListener, KeyListener{
                             downloadGameInfo();
                         }
                         
+                        // Determines which button was pressed.
                         if(e.getSource() == view.btCreate){
                             parent.cGeneral.add(
                                 new GameStat(game,year,rate,comment,note,spoiler),
                                 true
                             );
-    
                         }else if(e.getSource() == view.btChange){
                             actual.setGame(game);
                             actual.setYear(year);
@@ -260,8 +379,8 @@ public class EditGameController implements ActionListener, KeyListener{
                         // Finally, saves the data (only registers) and changes panel
                         parent.saveStats();
                         parent.frame.changePanel(parent.frame.pGeneral,null);
+                        actual = null;
                     }
-                    
                 }else{
                     Advice.showSimpleAdvice(
                         parent.frame, 

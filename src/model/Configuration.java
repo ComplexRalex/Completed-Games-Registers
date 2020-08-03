@@ -16,13 +16,17 @@ import util.Path;
  * This class sets the settings of the current session of the
  * program. These are the available options:
  * <ul>
- * <li><b>{@link #username}</b> (String)
- * <li><b>{@link #autoBackup}</b> (boolean)
- * <li><b>{@link #exitDialog}</b> (boolean)
- * <li><b>{@link #theme}</b> (int)
- * <li><b>{@link #lang}</b> (String)
- * <li><b>{@link #connectionTimeout}</b> (int)
- * <li><b>{@link #readTimeout}</b> (int)
+ * <li><b>{@link #username}</b>: String which contains the username
+ * <li><b>{@link #autoBackup}</b>:  Boolean which determines if the
+ * auto backup is enabled
+ * <li><b>{@link #exitDialog}</b>: Boolean which determines if the
+ * exit dialog is enabled
+ * <li><b>{@link #theme}</b>: Number corresponding to the theme of
+ * program
+ * <li><b>{@link #lang}</b>: String which contains the name of the
+ * current language
+ * <li><b>{@link #connectionTimeout}</b>: The connect timeout limit
+ * <li><b>{@link #readTimeout}</b>: The read timeout limit
  * </ul>
  * Some of the {@link Path} variables are used to save and load
  * the configuration file.

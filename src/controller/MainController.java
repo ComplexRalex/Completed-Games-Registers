@@ -12,24 +12,145 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+/**
+ * <h2>MainController controller class.</h2>
+ * This class is used to manage <b>everything</b> about this program.
+ * <p>
+ * Its purpose is to connect all the important classes to each other.
+ * Also, it manages important actions. For instance, verify the files
+ * stored into the {@link Path#dataPath} folder, like the <b>save.dat</b>
+ * and <b>config.dat</b> files.
+ * <p>
+ * Here, all the <b>controllers</b> and <b>models</b> are initialized
+ * (all the class from the <b>view</b> package are initialized in the
+ * {@link MainWindow} class).
+ * <p>
+ * The used models are:
+ * <ul>
+ * <li>{@link #mGeneral}: The logic behind the management of the
+ * <b>completed-games <i>registers</i></b>.
+ * <li>{@link #mConfig}: The logic behind the customization and
+ * advanced options in the program.
+ * </ul>
+ * The used controllers are:
+ * <ul>
+ * <li>{@link #cGeneral}: Management of the current <b>completed-games
+ * <i>registers</i></b> and navigation options.
+ * <li>{@link #cEditGame}: Management of the editing/creation menu of
+ * <b>completed-games <i>registers</i></b>.
+ * <li>{@link #cViewGame}: Management of the visualization of
+ * <b>completed-games <i>registers</i></b> with additional
+ * information.
+ * <li>{@link #cHelp}: Management of the "repport issue" and return
+ * buttons.
+ * <li>{@link #cConfig}: Management of every available setting in the
+ * program.
+ * <li>{@link #cAbout}: Management of the references and licenses/terms
+ * of use options.
+ * </ul>
+ */
 public class MainController{
 
+    /**
+     * Logic about the management of the <b>completed-games
+     * <i>registers</i></b>.
+     */
     public GameRegister mGeneral;
+
+    /**
+     * Logic about the management of the settings in the
+     * program.
+     */
     public Configuration mConfig;
 
+    /**
+     * Window that will show up every visual component <i>and
+     * life</i>.
+     */
     public MainWindow frame;
     
+    /**
+     * Management of the <b>completed-games <i>registers</i></b>
+     * and navigation options, including two more options related
+     * to the creation of files.
+     */
     public GeneralController cGeneral;
+
+    /**
+     * Management of the editing/creation menu of <b>completed-games
+     * <i>registers</i></b> with some options that give the chance
+     * to obtain additional information about that game.
+     */
     public EditGameController cEditGame;
+
+    /**
+     * Management of the visualization menu of <b>completed-games
+     * <i>registers</i></b> that can display additional information
+     * about the game.
+     */
     public ViewGameController cViewGame;
+
+    /**
+     * Management of the "repport issue" and return buttons.
+     */
     public HelpController cHelp;
+
+    /**
+     * Management of every available setting in the program,
+     * including advanced options and <i>delicate</i>
+     * options.
+     */
     public ConfigurationController cConfig;
+    
+    /**
+     * Management of the references and licenses/terms of use
+     * options.
+     */
     public AboutController cAbout;
 
+    /**
+     * Constructor of the MainController class.
+     * It just calls the {@link #set()} method.
+     * 
+     * @see #set
+     */
     public MainController(){
         set();
     }
 
+    /**
+     * Initializes <b>verything</b>.
+     * <p>
+     * Here are the setps of the initialization.
+     * <ol>
+     * <li>Create {@link Configuration} and {@link GameRegister}
+     * instances.
+     * <li>Make additional GUI changes (like the color of the 
+     * scrollbar).
+     * <li>Verify external directories (like {@link Path#gameInfo}).
+     * <li>Verify the existence of the <b>save.dat</b> and
+     * <b>config.dat</b> files. In case of non-existence, they
+     * will be created.
+     * <li>Load the <b>save.dat</b> and <b>config.dat</b> files.
+     * <li>Initialize unmodifiable values (language and theme). Also
+     * initialize some additional settings.
+     * <li>Make additional GUI changes (again).
+     * <li>Initialize the <b>frame</b> and add a WindowAdapter to it.
+     * <li>Initialize all the <b>controllers</b>.
+     * <li>Set additional frame settings.
+     * </ol>
+     * 
+     * @see #makeUIchanges()
+     * @see #verifyDirectories()
+     * @see #verifyConfigFile()
+     * @see #verifySaveFile()
+     * @see #loadData()
+     * @see Colour#setCurrentTheme(int)
+     * @see Language#setCurrentLanguage(String)
+     * @see GameData#setConnectionTimeout(int)
+     * @see GameData#setReadTimeout(int)
+     * @see #createWindowAdapter()
+     */
     private void set(){
         
         // Initialize models (with default values)
@@ -84,14 +205,26 @@ public class MainController{
         setFrameSettings();
     }
     
+    /**
+     * Verifies if all the used directories in the program
+     * are currently created. In case that they are not
+     * created yet, then they will be.
+     */
     public void verifyDirectories(){
         // The "data" folder will be created with these if necessary
         Path.resolve(Path.backupPath);
+        Path.resolve(Path.exportPath);
         Path.resolve(Path.gameInfo);
         Path.resolve(Path.gameImage);
     }
 
-    // Probably require much validation...
+    /**
+     * It creates a new <b>save.dat</b> file if there is
+     * none in {@link Path#saveFile}.
+     * (NOTE: this must require more validation than this).
+     * 
+     * @see #saveStats()
+     */
     public void verifySaveFile(){
         /**
          * Creates a save.dat file in case that doesn't already exist.
@@ -101,7 +234,13 @@ public class MainController{
         if(!Path.exists(Path.saveFile)) saveStats();
     }
 
-    // Probably require much validation...
+    /**
+     * It creates a new <b>config.dat</b> file if there is
+     * none in {@link Path#configFile}.
+     * (NOTE: this must require more validation than this).
+     * 
+     * @see #saveConfig()
+     */
     public void verifyConfigFile(){
         /**
          * Creates a config.dat file in case that doesn't already exist.
@@ -111,6 +250,14 @@ public class MainController{
         if(!Path.exists(Path.configFile)) saveConfig();
     }
 
+    /**
+     * Calls the {@link Configuration#loadConfiguration()} and
+     * {@link GameRegister#loadGameStats()} methods, catching any
+     * possible exception.
+     * 
+     * @see Configuration#loadConfiguration()
+     * @see GameRegister#loadGameStats()
+     */
     private void loadData(){
         try {
             mConfig.loadConfiguration();
@@ -138,12 +285,24 @@ public class MainController{
 		}
     }
 
+    /**
+     * Sets the following {@link #frame} properties:
+     * <ul>
+     * <li>Default close operation
+     * <li>Screen location
+     * <li>Visibility
+     * </ul>
+     */
     private void setFrameSettings(){
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
+    /**
+     * Make changes to some GUI elements that cannot be
+     * changed directly.
+     */
     private void makeUIchanges(){
         // This is because I want to color the ScrollBar and I don't see another way to do it...
 		UIManager.put("ScrollBar.thumb",Colour.getPrimaryColor());
@@ -153,6 +312,12 @@ public class MainController{
 		UIManager.put("ScrollBar.track",Colour.getButtonColor());
     }
 
+    /**
+     * Closes the the current {@link #frame} and calls the
+     * {@link #set()} method.
+     * 
+     * @see #set()
+     */
     public void reset(){
         frame.setVisible(false);
         frame.dispose();
@@ -160,6 +325,10 @@ public class MainController{
         set();
     }
 
+    /**
+     * Calls the {@link GameRegister#saveGameStats()} method,
+     * catching any possible exception.
+     */
     public void saveStats(){
         try {
             mGeneral.saveGameStats();
@@ -175,6 +344,10 @@ public class MainController{
 		}
     }
 
+    /**
+     * Calls the {@link Configuration#saveConfiguration()} method,
+     * catching any possible exception.
+     */
     public void saveConfig(){
         try {
             mConfig.saveConfiguration();
@@ -190,6 +363,10 @@ public class MainController{
 		}
     }
 
+    /**
+     * Calls the {@link GameRegister#doBackup()} method,
+     * catching any possible exception.
+     */
     private void doBackup(){
         try {
             mGeneral.doBackup();
@@ -205,16 +382,42 @@ public class MainController{
         }
     }
 
+    /**
+     * Empties the array of {@link GameStat}s and
+     * save to the file.
+     * <p>
+     * This means that the registers were removed and
+     * then saved the file with no-registers. So,
+     * there is no chance to recover the previous file.
+     */
     public void resetStats(){
         mGeneral.getGameStats().clear();
         saveStats();
     }
 
+    /**
+     * Calls {@link Configuration#setDefaultValues()}
+     * and save to the file.
+     * <p>
+     * This means that the current {@link Configuration}
+     * instance were "reset" to its default values, and
+     * then saved the file with those values. So, there
+     * is no chance to recover the previous file.
+     */
     public void resetConfig(){
         mConfig.setDefaultValues();
         saveConfig();
     }
 
+    /**
+     * Takes an {@link File} array list of the files inside
+     * {@link Path#gameInfo} and {@link Path#gameImage} and
+     * delete them.
+     * <p>
+     * WARNING: This will delete EVERYTHING inside those
+     * folders. There is no validation of what files must
+     * be deleted.
+     */
     public void deleteDownloadedInfo(){
         Path.resolve(Path.gameInfo);
         File info[] = (new File(Path.gameInfo)).listFiles();
@@ -227,6 +430,14 @@ public class MainController{
             f.delete();
     }
 
+    /**
+     * Takes an {@link File} array list of the files inside
+     * {@link Path#backupPath} and delete them.
+     * <p>
+     * WARNING: This will delete EVERYTHING inside that
+     * folders. There is no validation of what files must
+     * be deleted.
+     */
     public void deleteBackups(){
         Path.resolve(Path.backupPath);
         File backup[] = (new File(Path.backupPath)).listFiles();
@@ -234,6 +445,14 @@ public class MainController{
             f.delete();
     }
 
+    /**
+     * Takes an {@link File} array list of the files inside
+     * {@link Path#exportPath} and delete them.
+     * <p>
+     * WARNING: This will delete EVERYTHING inside that
+     * folders. There is no validation of what files must
+     * be deleted.
+     */
     public void deleteExports(){
         Path.resolve(Path.exportPath);
         File export[] = (new File(Path.exportPath)).listFiles();
@@ -241,6 +460,9 @@ public class MainController{
             f.delete();
     }
 
+    /**
+     * Default close instructions.
+     */
     public void defaultClose(){
         if(mConfig.getAutoBackup() && mGeneral.changesMade())
             doBackup();
@@ -250,6 +472,9 @@ public class MainController{
         verifySaveFile();
     }
 
+    /**
+     * Quick close operation.
+     */
     public void suddenClose(){
         System.exit(0);
     }

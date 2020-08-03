@@ -17,22 +17,73 @@ import view.ViewGamePanel;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * <h3>ViewGameController controller class.</h3>
+ * This class implements the {@link ActionListener} interface
+ * and is used to manage the actions of the visual components
+ * of {@link ViewGamePanel}.
+ * It uses a instance of {@link GameStat} to get its fields
+ * and put them into the visual components.
+ * <p>
+ * If there is game information downloaded from RAWG's
+ * database available, then a {@link GameData} instance will
+ * be used to obtain such information.
+ * 
+ * @see GameStat
+ * @see GameData
+ * @see ViewGamePanel
+ */
 public class ViewGameController implements ActionListener{
     
+    /**
+     * Parent controller.
+     */
     private MainController parent;
+
+    /**
+     * Attached panel to the controller.
+     */
     private ViewGamePanel view;
+
+    /**
+     * Game information provided by the user.
+     */
     private GameStat actual;
 
+    /**
+     * Boolean which determines if there was
+     * additional game information added.
+     */
+    private boolean loadedGameData;
+
+    /**
+     * Constructor of the ViewGameController class.
+     * 
+     * @param v Set of visual components
+     * @param p Parent controller
+     */
     public ViewGameController(ViewGamePanel v, MainController p){
         view = v;
         parent = p;
+        loadedGameData = false;
     }
 
+    /**
+     * Sets listeners to all the visual "action" components
+     * in the {@link #view}.
+     */
     public void initialize(){
         view.btSpoiler.addActionListener(this);
         view.btReturn.addActionListener(this);
     }
 
+    /**
+     * Verifies the content of the fields to determine if the
+     * components will be shown or will be hidden.
+     * 
+     * @param gs GameStat which contains game information
+     * provided by the user
+     */
     public void setInitialValues(GameStat gs){
         actual = gs;
         view.txtName.setText(actual.getGame());
@@ -68,7 +119,8 @@ public class ViewGameController implements ActionListener{
         }
         view.viewSpoiler(false);
 
-        if(actual.isInfoAvailable()){
+        // Creating a GameDataPanel and adding reference to RAWG's website.
+        if(loadedGameData = actual.isInfoAvailable()){
             try{
                 GameData gd = new GameData(actual.getGame());
                 ViewGamePanel.GameDataPanel panel = view.addDatabaseInfo(gd);
@@ -135,8 +187,9 @@ public class ViewGameController implements ActionListener{
                 view.btSpoiler.setText(Language.loadMessage("gv_show_spoiler"));
         }else{
             parent.frame.changePanel(parent.frame.pGeneral,null);
-            if(actual.isInfoAvailable()) view.removeDatabaseInfo();
+            if(loadedGameData) view.removeDatabaseInfo();
+            loadedGameData = false;
+            actual = null;
         }
-
     }
 }
