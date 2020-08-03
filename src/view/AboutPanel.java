@@ -196,6 +196,8 @@ public class AboutPanel extends JPanel{
 
         // - Establishing logo
 
+        centeredPanel.add(Component.createGap(25, Colour.getBackgroundColor()));
+
         try{
             centeredPanel.add(Component.createImage((new ImageResource()).resource(ImageResource.LOGOTYPE), Colour.getBackgroundColor()));
 		}catch(IllegalArgumentException | NullPointerException e){
@@ -266,6 +268,14 @@ public class AboutPanel extends JPanel{
 
         pJsonJavaLicense = new LicenseTermsPanel(Software.LIBRARY[0], Software.LIBRARY_DETAILS.get(Software.LIBRARY[0]).get("license"), 23, true);
         centeredPanel.add(pJsonJavaLicense);
+
+        centeredPanel.add(Component.createGap(35, Colour.getBackgroundColor()));
+
+        // - Establishing ...
+
+        centeredPanel.add(createField("En memoria de", Software.MEMORY_OF_LIFE));
+
+        centeredPanel.add(Component.createGap(35, Colour.getBackgroundColor()));
 
         add(scroll, BorderLayout.CENTER);
 

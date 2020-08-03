@@ -198,4 +198,12 @@ public class Software{
 
         return map;
     }
+
+    /**
+     * Recordando a dos excelentes personas. <3
+     */
+    public static final String[] MEMORY_OF_LIFE = new String[]{
+        "Wicho Luna (YipeSkull)",
+        "Alejandro Miguel Taboada Sanchez (Programación ATS)"
+    };
 }

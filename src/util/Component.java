@@ -88,7 +88,7 @@ public class Component{
     /**
      * Movement units of the scroll wheel of the mouse.
      */
-    public final static int SCROLLBAR_INCREMENT = 5;
+    public final static int SCROLLBAR_INCREMENT = 10;
 
     /**
      * Creates a title with predefined configurations and the string provided.
