@@ -1,3 +1,24 @@
+/**
+ * Completed-Games Registers, a software where you can record every
+ * game you have beaten (completed) so far!
+ * Copyright (C) 2020  Alejandro Batres
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * Contact by email: alejandro.batres37@gmail.com
+ */
+
 package view;
 
 import java.awt.BorderLayout;
@@ -23,6 +44,7 @@ import javax.swing.JButton;
  * everything related to the developers, used libraries,
  * used APIs, contributors, etc. in the program.
  * 
+ * @author Alejandro Batres
  * @see AboutController
  */
 @SuppressWarnings("serial")
@@ -57,7 +79,9 @@ public class AboutPanel extends JPanel{
      * <li>A <b>JButton</b> that will allow the user to show/hide
      * the license/terms of use,
      * <li>and a <b>JTextArea</b> that will contain such
-     * license/terms of use. 
+     * license/terms of use.
+     * 
+     * @author Alejandro Batres
      */
     public class LicenseTermsPanel extends SimplePanel{
 

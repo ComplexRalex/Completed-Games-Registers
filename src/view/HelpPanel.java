@@ -1,3 +1,24 @@
+/**
+ * Completed-Games Registers, a software where you can record every
+ * game you have beaten (completed) so far!
+ * Copyright (C) 2020  Alejandro Batres
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * Contact by email: alejandro.batres37@gmail.com
+ */
+
 package view;
 
 import java.awt.BorderLayout;
@@ -27,6 +48,7 @@ import util.Typeface;
  * a {@link #btReportIssue} if the user thinks that
  * there is a bug and want to report it.
  * 
+ * @author Alejandro Batres
  * @see HelpController
  */
 @SuppressWarnings("serial")
@@ -50,6 +72,7 @@ public class HelpPanel extends JPanel{
      * panel that displays an icon with a JLabel including
      * its description and usage.
      * 
+     * @author Alejandro Batres
      * @see Component#createPlainText(String, java.awt.Font, boolean, Color)
      */
     public class IconDescription extends JPanel{

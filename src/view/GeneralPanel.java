@@ -1,3 +1,24 @@
+/**
+ * Completed-Games Registers, a software where you can record every
+ * game you have beaten (completed) so far!
+ * Copyright (C) 2020  Alejandro Batres
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * 
+ * Contact by email: alejandro.batres37@gmail.com
+ */
+
 package view;
 
 import java.awt.BorderLayout;
@@ -27,6 +48,7 @@ import util.Typeface;
  * that this panel will allow the user to access any site
  * they want.
  * 
+ * @author Alejandro Batres
  * @see GeneralController
  */
 @SuppressWarnings("serial")
@@ -92,6 +114,8 @@ public class GeneralPanel extends JPanel{
      * <h4>(from GeneralPanel)</h4>
      * This class extends from JPanel and is used to display,
      * clearly, a <b>completed-game <i>register</i></b>.
+     * 
+     * @author Alejandro Batres
      */
     public class GameRegisterPanel extends JPanel{
 
@@ -214,6 +238,8 @@ public class GeneralPanel extends JPanel{
      * This class extends from JPanel and is used to display
      * a "placeholder" text, in case of non-existence of
      * registers.
+     * 
+     * @author Alejandro Batres
      */
     public class FirstTimePanel extends JPanel{
 
