@@ -60,7 +60,7 @@ public class ConfigurationPanel extends JPanel{
 		btAutoBackupON, btAutoBackupOFF,
 		btExitDialogON, btExitDialogOFF,
 		btResetConfig, btResetSave, btResetBackups,
-		btResetExports, btSuddenClose,
+		btResetExports, btResetLogs, btSuddenClose,
 		btDeleteGameInfo, btWipeOut,
 		btAccept, btReturn;
 
@@ -229,6 +229,11 @@ public class ConfigurationPanel extends JPanel{
 
 		btResetExports = new JButton(Language.loadMessage("cf_reset_exports"));
 		pGeneralOptions.add(Component.createSingleButton(btResetExports, Colour.getBackgroundColor()));
+
+		// - Establishing reset log files button
+
+		btResetLogs = new JButton(Language.loadMessage("cf_reset_logs"));
+		pGeneralOptions.add(Component.createSingleButton(btResetLogs, Colour.getBackgroundColor()));
 
 		// - Establishing wipe out all data button
 

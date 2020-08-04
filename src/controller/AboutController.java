@@ -21,16 +21,10 @@
 
 package controller;
 
-import java.awt.Desktop;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import system.Software;
-import util.Advice;
-import util.Colour;
-import util.Language;
+import util.Navigation;
 
 import java.awt.event.ActionEvent;
 
@@ -103,56 +97,12 @@ public class AboutController implements ActionListener{
         if(e.getSource() == view.btReturn)
             parent.frame.changePanel(parent.frame.pGeneral,null);
         else if(e.getSource() == view.btTwitter)
-            goToPage(Software.TWITTER_PROFILE);
+            Navigation.goToPage(Software.TWITTER_PROFILE, parent.frame);
         else if(e.getSource() == view.btSource)
-            goToPage(Software.SOURCE_CODE_PAGE);
+            Navigation.goToPage(Software.SOURCE_CODE_PAGE, parent.frame);
         else if(e.getSource() == view.btJSONSource)
-            goToPage(Software.LIBRARY_DETAILS.get(Software.LIBRARY[0]).get("website_url"));
+            Navigation.goToPage(Software.LIBRARY_DETAILS.get(Software.LIBRARY[0]).get("website_url"), parent.frame);
         else if(e.getSource() == view.btAPI)
-            goToPage(Software.API_DETAILS.get(Software.API[0]).get("website_url"));
-    }
-
-    /**
-     * Pops up a {@link Advice} dialog asking to open a
-     * web page in the default configured browser.
-     * 
-     * @param url URL of the web page
-     */
-    private void goToPage(String url){
-        if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
-            if(Advice.showOptionTextAreaAdvice(
-                parent.frame,
-                Language.loadMessage("g_message"),
-                Language.loadMessage("g_will_browse"),
-                url, 50, 2,
-                new String[]{
-                    Language.loadMessage("g_accept"),
-                    Language.loadMessage("g_cancel")
-                },
-                Colour.getPrimaryColor()
-            ) == 0){
-                try {
-                    Desktop.getDesktop().browse(new URI(url));
-                } catch (IOException | URISyntaxException e) {
-                    e.printStackTrace();
-                    Advice.showTextAreaAdvice(
-                        parent.frame,
-                        Language.loadMessage("g_oops"),
-                        Language.loadMessage("g_wentworng")+": ",
-                        Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
-                        Language.loadMessage("g_accept"),
-                        Colour.getPrimaryColor()
-                    );
-                }
-            }
-        }else{
-            Advice.showSimpleAdvice(
-                parent.frame,
-                Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentworng"),
-                Language.loadMessage("g_accept"),
-                Colour.getPrimaryColor()
-            );
-        }
+            Navigation.goToPage(Software.API_DETAILS.get(Software.API[0]).get("website_url"), parent.frame);
     }
 }

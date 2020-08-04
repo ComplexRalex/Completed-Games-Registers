@@ -63,6 +63,11 @@ public class Path{
 	public static final String exportPath = dataPath+"export/";
 
 	/**
+	 * Log files folder path.
+	 */
+	public static final String logPath = dataPath+"log/";
+
+	/**
 	 * Game Database API data folder.
 	 */
 	public static final String gamePath = dataPath+"game/";

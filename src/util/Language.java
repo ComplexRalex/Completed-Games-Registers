@@ -179,6 +179,7 @@ public class Language{
 		map.get("English").put("m_text_recent",			"This register will be ordered in the next reset");
 		map.get("English").put("m_backedup",			"The registers were successfully backed up");
 		map.get("English").put("m_exported",			"The registers were successfully exported");
+		map.get("English").put("m_needed_font",			"To get a better experience, download the \"Open Sans\" font!");
 		map.get("English").put("m_remove",				"Do you want to remove this register?");
 		map.get("English").put("m_config",				"Configuration");
 		map.get("English").put("m_about",				"About this program");
@@ -209,6 +210,7 @@ public class Language{
 		map.get("English").put("cf_reset_db_info", 		"Delete game info downloaded from RAWG database");
 		map.get("English").put("cf_reset_backups", 		"Delete currently stored backups");
 		map.get("English").put("cf_reset_exports", 		"Delete currently stored exports");
+		map.get("English").put("cf_reset_logs", 		"Delete currently stored logs");
 		map.get("English").put("cf_wipeout", 			"Wipe out all data");
 		map.get("English").put("cf_sudden_close",		"Quit program suddenly, without validations (Not recommended)");
 		map.get("English").put("cf_yousure",			"Do you really want to do it?");
@@ -343,6 +345,7 @@ public class Language{
 		map.get("Spanish").put("m_text_recent",			"Este registro se ordenará en el próximo reinicio.");
 		map.get("Spanish").put("m_backedup",			"Se han respaldado los registros correctamente");
 		map.get("Spanish").put("m_exported",			"Se han exportado los registros correctamente");
+		map.get("Spanish").put("m_needed_font",			"¡Para tener una mejor experiencia, descarga la fuente \"Open Sans\"!");
 		map.get("Spanish").put("m_remove",				"¿Quieres quitar este registro?");
 		map.get("Spanish").put("m_config",				"Configuración");
 		map.get("Spanish").put("m_about",				"Acerca del programa");
@@ -373,6 +376,7 @@ public class Language{
 		map.get("Spanish").put("cf_reset_db_info", 		"Borrar información de juegos descargada de la base de datos de RAWG");
 		map.get("Spanish").put("cf_reset_backups", 		"Borrar backups creados hasta el momento");
 		map.get("Spanish").put("cf_reset_exports", 		"Borrar exportaciones creadas hasta el momento");
+		map.get("Spanish").put("cf_reset_logs", 		"Borrar logs creados hasta el momento");
 		map.get("Spanish").put("cf_wipeout",			"Pulverizar todo los datos");
 		map.get("Spanish").put("cf_sudden_close",		"Cerrar el programa repentinamente, sin validaciones (No recomendado)");
 		map.get("Spanish").put("cf_yousure",			"¿De verdad quieres hacerlo?");

@@ -25,9 +25,11 @@ import model.*;
 import view.*;
 import util.*;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -154,6 +156,7 @@ public class MainController{
      * <li>Verify the existence of the <b>save.dat</b> and
      * <b>config.dat</b> files. In case of non-existence, they
      * will be created.
+     * <li>Verify additional things, like the <i>installed fonts</i>.
      * <li>Load the <b>save.dat</b> and <b>config.dat</b> files.
      * <li>Initialize unmodifiable values (language and theme). Also
      * initialize some additional settings.
@@ -192,6 +195,8 @@ public class MainController{
          */
         verifyConfigFile();
         verifySaveFile();
+        // Check additional stuff
+        verifyAdditional();
         
         // Necessary because of the custom settings and the saved files
         loadData();
@@ -237,6 +242,7 @@ public class MainController{
         // The "data" folder will be created with these if necessary
         Path.resolve(Path.backupPath);
         Path.resolve(Path.exportPath);
+        Path.resolve(Path.logPath);
         Path.resolve(Path.gameInfo);
         Path.resolve(Path.gameImage);
     }
@@ -271,6 +277,55 @@ public class MainController{
          * every file and directory in order to work properly.
          */
         if(!Path.exists(Path.configFile)) saveConfig();
+    }
+
+    /**
+     * It checks additional things. In this case, it looks up for the
+     * "Open Sans" font if it does exists in the system. If not, a
+     * pop up will show up and tell to the user that it's recommended
+     * to install it.
+     * After this, it will create a new file in {@link Path#logPath}
+     * named {@code fonts.log}. This will be used just to not to display
+     * the same dialog again (unless the user deletes the file).
+     */
+    private void verifyAdditional(){
+        GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String fonts[] = g.getAvailableFontFamilyNames();
+        for(int i = 0; i < fonts.length; i++)
+            if("Open Sans".equals(fonts[i]))
+                return;
+        if(!Path.exists(Path.logPath+"font.log")){
+            if(Advice.showOptionAdvice(
+                frame,
+                Language.loadMessage("g_message"),
+                Language.loadMessage("m_needed_font"),
+                new String[]{
+                    Language.loadMessage("g_accept"),
+                    Language.loadMessage("g_cancel")
+                },
+                Colour.getPrimaryColor()
+            ) == 0)
+                Navigation.goToPage("https://fonts.google.com/specimen/Open+Sans", frame);
+            try {
+                FileWriter file = new FileWriter(Path.logPath+"font.log");
+                file.append(
+                    "It's recommended to install the \"Open Sans\" font to get the best experience in this program!\n"+
+                    "\n"+
+                    "Go to the following link, and click \"Download family\":\n"+
+                    "https://fonts.google.com/specimen/Open+Sans"
+                );
+                file.close();
+            } catch (IOException e) {
+                Advice.showTextAreaAdvice(
+                    frame,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_went_wrong") + ": ",
+                    Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+            }
+        }
     }
 
     /**
@@ -480,6 +535,21 @@ public class MainController{
         Path.resolve(Path.exportPath);
         File export[] = (new File(Path.exportPath)).listFiles();
         for(File f: export)
+            f.delete();
+    }
+
+    /**
+     * Takes an {@link File} array list of the files inside
+     * {@link Path#logPath} and delete them.
+     * <p>
+     * WARNING: This will delete EVERYTHING inside that
+     * folders. There is no validation of what files must
+     * be deleted.
+     */
+    public void deleteLogs(){
+        Path.resolve(Path.logPath);
+        File log[] = (new File(Path.logPath)).listFiles();
+        for(File f: log)
             f.delete();
     }
 

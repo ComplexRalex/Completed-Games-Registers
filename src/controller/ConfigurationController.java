@@ -127,6 +127,7 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		view.btDeleteGameInfo.addActionListener(this);
 		view.btResetBackups.addActionListener(this);
 		view.btResetExports.addActionListener(this);
+		view.btResetLogs.addActionListener(this);
 		view.btWipeOut.addActionListener(this);
 		
 		view.btAccept.addActionListener(this);
@@ -322,14 +323,17 @@ public class ConfigurationController implements ActionListener, KeyListener{
 					parent.deleteDownloadedInfo();
 					parent.deleteBackups();
 					parent.deleteExports();
+					parent.deleteLogs();
 				}
 				parent.reset();
 			}
-		}else if(source == view.btResetBackups || source == view.btResetExports || source == view.btDeleteGameInfo){
+		}else if(source == view.btResetBackups || source == view.btResetExports || source == view.btResetLogs || source == view.btDeleteGameInfo){
 			if(source == view.btResetBackups)
 				parent.deleteBackups();
 			else if(source == view.btResetExports)
 				parent.deleteExports();
+			else if(source == view.btResetLogs)
+				parent.deleteLogs();
 			else
 				parent.deleteDownloadedInfo();
 			Advice.showSimpleAdvice(

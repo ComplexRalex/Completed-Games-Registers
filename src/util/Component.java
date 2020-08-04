@@ -82,7 +82,6 @@ public class Component{
         dim1LinePanel = new Dimension(width,44),
         dim2LinesPanel = new Dimension(width,80),
         dimTextField = new Dimension(width-24,25),
-        dimSwitchButton = new Dimension(62,22),
         dimTitle = new Dimension(width,75);
 
     /**
@@ -417,14 +416,12 @@ public class Component{
         ON.setFont(Typeface.buttonBold);
         ON.setBackground(Colour.getButtonColor());
         ON.setForeground(Colour.getFontColor());
-        ON.setPreferredSize(dimSwitchButton);
         panel.add(ON);
 
         // Initializing OFF button
         OFF.setFont(Typeface.buttonBold);
         OFF.setBackground(Colour.getButtonColor());
         OFF.setForeground(Colour.getFontColor());
-        OFF.setPreferredSize(dimSwitchButton);
         panel.add(OFF);
 
         return panel;
