@@ -31,7 +31,7 @@ All the ``run`` files are inside of the ``bin`` folder. Be sure to run them **at
 ![Completed-Games Registers screenshot 1](https://i.imgur.com/l1GdgwX.png "screenshot 1")
 ![Completed-Games Registers screenshot 2](https://i.imgur.com/Gfcct3x.png "screenshot 2")
 ![Completed-Games Registers screenshot 3](https://i.imgur.com/7yJZlRr.png "screenshot 3")
-![Completed-Games Registers screenshot 4](https://i.imgur.com/NFlhVUx.png "screenshot 4")
+![Completed-Games Registers screenshot 4](https://i.imgur.com/cHPfpFu.png "screenshot 4")
 
 ## Disclaimer
 All the icons and images that are used in this program (except for those which can be downloaded through [RAWG's database API](https://rawg.io/apidocs)) are entirely made by me, from zero.
