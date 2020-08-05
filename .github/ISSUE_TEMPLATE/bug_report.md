@@ -29,3 +29,6 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
+
+**Log file content**
+The log files are a support to find the issue.

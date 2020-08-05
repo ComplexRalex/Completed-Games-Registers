@@ -31,6 +31,7 @@ import model.GameStat;
 import util.Advice;
 import util.Colour;
 import util.Language;
+import util.Log;
 import util.Navigation;
 import view.ViewGamePanel;
 
@@ -151,11 +152,13 @@ public class ViewGameController implements ActionListener{
                     }
                 });
 			}catch(IOException | JSONException e){
+                String error = Log.getDetails(e);
+                Log.toFile(error, Log.ERROR);
 				Advice.showTextAreaAdvice(
                     parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("g_went_wrong"),
-                    Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                    error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );

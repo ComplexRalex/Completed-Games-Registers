@@ -480,8 +480,13 @@ public class GameData{
 		file.close();
 
 		JSONObject json = new JSONObject(jsonString);
-			
-		BufferedImage image = ImageIO.read(new URL(json.getString("background_image")));
+		
+		BufferedImage image = null;
+		try{
+			image = ImageIO.read(new URL(json.getString("background_image")));
+		}catch(JSONException e){
+			throw new JSONException("\"background_image\" value does not exist.");
+		}
 
 		if (image != null) {
 			int

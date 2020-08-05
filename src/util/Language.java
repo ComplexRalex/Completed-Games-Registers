@@ -241,6 +241,7 @@ public class Language{
 		map.get("English").put("ge_fail_download",		"Couldn't find coincidences...");
 		map.get("English").put("ge_success_delete",		"The game info has been deleted!");
 		map.get("English").put("ge_downloaded",			"You've already downloaded the game info");
+		map.get("English").put("ge_downloading",		"Downloading the game information will take a few seconds");
 		map.get("English").put("ge_update_data",		"The game info will be re-downloaded");
 
 		map.get("English").put("gv_title",				"Game info viewer");
@@ -407,6 +408,7 @@ public class Language{
 		map.get("Spanish").put("ge_fail_download",		"No se encontraron coincidencias...");
 		map.get("Spanish").put("ge_success_delete",		"Se borró la información del juego correctamente");
 		map.get("Spanish").put("ge_downloaded",			"Ya haz descargado la información del juego");
+		map.get("Spanish").put("ge_downloading",		"Descargar información sobre el juego tomará unos segundos");
 		map.get("Spanish").put("ge_update_data",		"La información del juego se volverá a descargar");
 
 		map.get("Spanish").put("gv_title",				"Datos del juego");

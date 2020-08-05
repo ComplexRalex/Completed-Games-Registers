@@ -29,7 +29,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -294,7 +293,8 @@ public class MainController{
         for(int i = 0; i < fonts.length; i++)
             if("Open Sans".equals(fonts[i]))
                 return;
-        if(!Path.exists(Path.logPath+"font.log")){
+        Path.resolve(Path.logPath);
+        if(!Path.exists(Path.logPath+Log.getValue(Log.MESSAGE)+"-font.log")){
             if(Advice.showOptionAdvice(
                 frame,
                 Language.loadMessage("g_message"),
@@ -306,25 +306,12 @@ public class MainController{
                 Colour.getPrimaryColor()
             ) == 0)
                 Navigation.goToPage("https://fonts.google.com/specimen/Open+Sans", frame);
-            try {
-                FileWriter file = new FileWriter(Path.logPath+"font.log");
-                file.append(
-                    "It's recommended to install the \"Open Sans\" font to get the best experience in this program!\n"+
-                    "\n"+
-                    "Go to the following link, and click \"Download family\":\n"+
-                    "https://fonts.google.com/specimen/Open+Sans"
-                );
-                file.close();
-            } catch (IOException e) {
-                Advice.showTextAreaAdvice(
-                    frame,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_went_wrong") + ": ",
-                    Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
-            }
+            String content =
+                "It's recommended to install the \"Open Sans\" font to get the best experience in this program!\n"+
+                "\n"+
+                "Go to the following link, and click \"Download family\":\n"+
+                "https://fonts.google.com/specimen/Open+Sans";
+            Log.toFile(content, "font", Log.MESSAGE);
         }
     }
 
@@ -340,11 +327,13 @@ public class MainController{
         try {
             mConfig.loadConfiguration();
         } catch (ClassNotFoundException | IOException | ClassCastException e) {
+            String error = Log.getDetails(e);
+            Log.toFile(error, Log.ERROR);
             Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong") + ": ",
-                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -352,11 +341,13 @@ public class MainController{
         try {
             mGeneral.loadGameStats();
 		} catch (IOException | ClassNotFoundException | ClassCastException e) {
+            String error = Log.getDetails(e);
+            Log.toFile(error, Log.ERROR);
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong") + ": ",
-                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -411,11 +402,13 @@ public class MainController{
         try {
             mGeneral.saveGameStats();
 		} catch (IOException e) {
+            String error = Log.getDetails(e);
+            Log.toFile(error, Log.ERROR);
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong")+": ",
-                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -430,11 +423,13 @@ public class MainController{
         try {
             mConfig.saveConfiguration();
 		} catch (IOException e) {
+            String error = Log.getDetails(e);
+            Log.toFile(error, Log.ERROR);
 			Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong") + ": ",
-                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -449,11 +444,13 @@ public class MainController{
         try {
             mGeneral.doBackup();
         } catch (IOException e) {
+            String error = Log.getDetails(e);
+            Log.toFile(error, Log.ERROR);
             Advice.showTextAreaAdvice(
                 frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong")+": ",
-                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );

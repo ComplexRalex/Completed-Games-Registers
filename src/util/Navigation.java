@@ -57,12 +57,13 @@ public class Navigation{
                 try {
                     Desktop.getDesktop().browse(new URI(url));
                 } catch (IOException | URISyntaxException e) {
-                    e.printStackTrace();
+                    String error = Log.getDetails(e);
+                    Log.toFile(error, Log.ERROR);
                     Advice.showTextAreaAdvice(
                         container,
                         Language.loadMessage("g_oops"),
                         Language.loadMessage("g_wentworng")+": ",
-                        Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                        error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                         Language.loadMessage("g_accept"),
                         Colour.getPrimaryColor()
                     );

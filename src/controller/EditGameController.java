@@ -39,6 +39,7 @@ import model.GameStat;
 import util.Advice;
 import util.Colour;
 import util.Language;
+import util.Log;
 
 /**
  * <h3>EditGameController controller class.</h3>
@@ -266,12 +267,14 @@ public class EditGameController implements ActionListener, KeyListener{
                 downloaded = view.txtName.getText().trim();
                 try{
                     GameData.downloadGameImage(view.txtName.getText().trim());
-                }catch(IOException | JSONException e){
+                }catch(IllegalArgumentException | IOException | JSONException e){
+                    String error = Log.getDetails(e);
+                    Log.toFile(error, Log.ERROR);
                     Advice.showTextAreaAdvice(
                         parent.frame,
                         Language.loadMessage("g_oops"),
                         Language.loadMessage("g_went_wrong")+": ",
-                        Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                        error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                         Language.loadMessage("g_accept"),
                         Colour.getPrimaryColor()
                     );
@@ -286,11 +289,13 @@ public class EditGameController implements ActionListener, KeyListener{
                 );
             }
         }catch(IOException | JSONException | URISyntaxException e){
+            String error = Log.getDetails(e);
+            Log.toFile(error, Log.ERROR);
             Advice.showTextAreaAdvice(
                 parent.frame,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong")+": ",
-                Advice.getStackTrace(e), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
@@ -328,6 +333,13 @@ public class EditGameController implements ActionListener, KeyListener{
                     if(downloaded != null) deleteGameInfo();
                     if(oldInfoName != null){
                         view.txtName.setText(oldInfoName);
+                        Advice.showSimpleAdvice(
+                            parent.frame,
+                            Language.loadMessage("g_message"),
+                            Language.loadMessage("ge_update_data"),
+                            Language.loadMessage("g_accept"),
+                            Colour.getPrimaryColor()
+                        );
                         downloadGameInfo();
                     }
                 }
@@ -341,9 +353,20 @@ public class EditGameController implements ActionListener, KeyListener{
 
                     if(e.getSource() == view.btDownload){
                         if(!game.equals(downloaded)){
-                            if(downloaded != null)
-                                deleteGameInfo();
-                            downloadGameInfo();
+                            if(Advice.showOptionAdvice(
+                                parent.frame,
+                                Language.loadMessage("g_message"),
+                                Language.loadMessage("ge_downloading"),
+                                new String[]{
+                                    Language.loadMessage("g_accept"),
+                                    Language.loadMessage("g_cancel")
+                                },
+                                Colour.getPrimaryColor()
+                            ) == 0){
+                                if(downloaded != null)
+                                    deleteGameInfo();
+                                downloadGameInfo();
+                            }
                         }else{
                             Advice.showSimpleAdvice(
                                 parent.frame,

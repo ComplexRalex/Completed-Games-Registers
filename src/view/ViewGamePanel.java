@@ -185,7 +185,7 @@ public class ViewGamePanel extends JPanel{
             try{
                 image = gd.getImage();
                 add(Component.createImage(image, Colour.getBackgroundColor()));
-            }catch(IOException e){}
+            } catch(NullPointerException | IllegalArgumentException | IOException e){}
         
             // Establishing game name
 

@@ -27,6 +27,7 @@ import model.GameStat;
 import util.Advice;
 import util.Colour;
 import util.Language;
+import util.Log;
 import view.GeneralPanel;
 import view.GeneralPanel.GameRegisterPanel;
 
@@ -241,11 +242,13 @@ public class GeneralController implements ActionListener{
                     Colour.getPrimaryColor()
                 );
 			} catch (IOException e1) {
+                String error = Log.getDetails(e1);
+                Log.toFile(error, Log.ERROR);
 				Advice.showTextAreaAdvice(
                     parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("g_went_wrong")+": ",
-                    Advice.getStackTrace(e1), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                    error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
@@ -261,11 +264,13 @@ public class GeneralController implements ActionListener{
                     Colour.getPrimaryColor()
                 );
 			} catch (IOException e1) {
+                String error = Log.getDetails(e1);
+                Log.toFile(error, Log.ERROR);
 				Advice.showTextAreaAdvice(
                     parent.frame,
                     Language.loadMessage("g_oops"),
                     Language.loadMessage("g_went_wrong")+": ",
-                    Advice.getStackTrace(e1), Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                    error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );

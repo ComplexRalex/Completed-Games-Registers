@@ -21,9 +21,6 @@
 
 package util;
 
-import java.io.StringWriter;
-import java.util.Calendar;
-import java.io.PrintWriter;
 import java.awt.Container;
 import java.awt.Toolkit;
 import java.awt.Color;
@@ -304,42 +301,5 @@ public class Advice{
                 return i;
             };
         return -1;
-    }
-
-    /**
-     * Converts a stack trace (by a thrown Exception) into a string.
-     * 
-     * @param e Throwable
-     * @return String containing the stack trace
-     */
-    public static String getStackTrace(Throwable e){
-        StringWriter writer = new StringWriter();
-        Calendar today = Calendar.getInstance();
-        
-        writer.append(" > Time: "+
-            (today.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "")+today.get(Calendar.HOUR_OF_DAY)+":"+
-            (today.get(Calendar.MINUTE) < 10 ? "0" : "")+today.get(Calendar.MINUTE)+":"+
-            (today.get(Calendar.SECOND) < 10 ? "0" : "")+today.get(Calendar.SECOND)+"\n");
-        writer.append(" > Day: "+today.get(Calendar.DAY_OF_MONTH)+"\n");
-        writer.append(" > Month: "+today.get(Calendar.MONTH)+"\n");
-        writer.append(" > Year: "+today.get(Calendar.YEAR)+"\n\n");
-        
-        writer.append(" | --- --- --- --- --- --- --- |"+"\n\n");
-        
-        writer.append(" > Exception.toString(): "+e.toString()+"\n\n");
-        
-        writer.append(" | --- --- --- --- --- --- --- |"+"\n\n");
-
-        writer.append(" > Class: "+e.getClass()+"\n");
-        writer.append(" > Message: "+e.getMessage()+"\n");
-        writer.append(" > Localized message: "+e.getLocalizedMessage()+"\n");
-        writer.append(" > Cause: "+e.getCause()+"\n\n");
-        
-        writer.append(" | --- --- --- --- --- --- --- |"+"\n\n");
-
-        writer.append(" > Stack trace:\n");
-        e.printStackTrace(new PrintWriter(writer));
-
-        return writer.toString();
     }
 }
