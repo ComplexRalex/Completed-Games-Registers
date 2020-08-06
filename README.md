@@ -1,5 +1,6 @@
 # Completed-Games Registers
 ![Logotype of the program 'Completed-Games Registers'](https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png "Logotype of the program.")
+
 If you are using a **release** of this program (``.jar`` file), please [read this section](#about-release-jar-files).
 
 ## Description
