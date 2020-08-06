@@ -1,5 +1,6 @@
 # Completed-Games Registers
 ![Logotype of the program 'Completed-Games Registers'](https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png "Logotype of the program.")
+If you are using a **release** of this program (``.jar`` file), please [read this section](#about-release-jar-files).
 
 ## Description
 Software (made in **Java**) where you can have a record of every game you have beaten (completed) so far!
@@ -23,6 +24,9 @@ These things are thanks to the [RAWG's database API](https://rawg.io/apidocs).
 * This program requires _at least_ **Java 1.8** to be executed (in fact, is recommended to run it at that version). You can download it [here](https://java.com/en/download/).
 * This program uses the **Open Sans** font by default, but it isn't necessary to run it. Anyways, if you want to download it, click [here](https://fonts.google.com/specimen/Open+Sans).
 * When you are downloading game information, it will take a few seconds to process it (be patient).
+
+## About "_release JAR_" files
+It's recommended to save that JAR file into an empty folder. This is because this program **creates a new folder** named ``data``, where all the files are going to be saved and modified.
 
 ## How to run
 All the ``run`` files are inside of the ``bin`` folder. Be sure to run them **at that same location**.
