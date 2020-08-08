@@ -26,6 +26,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import javax.swing.ImageIcon;
@@ -81,6 +82,12 @@ public class GeneralPanel extends JPanel{
      * no registers added.
      */
     public FirstTimePanel pNothing;
+
+    /**
+     * Scrollbar used in the {@link JScrollPane} of the central
+     * pane.
+     */
+    public JScrollBar scrollBar;
     
     /**
      * Boolean that is used to tell if the icons have
@@ -305,6 +312,7 @@ public class GeneralPanel extends JPanel{
         pCentral = new JPanel(new GridLayout(0,1,10,6));
         pCentral.setBackground(Colour.getPrimaryColor());
         JScrollPane scroll = Component.createScrollPane(pCentral);
+        scrollBar = scroll.getVerticalScrollBar();
 
         add(scroll,BorderLayout.CENTER);
 

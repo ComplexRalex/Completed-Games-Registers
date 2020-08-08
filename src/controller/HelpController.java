@@ -73,7 +73,7 @@ public class HelpController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btReturn)
-            parent.frame.changePanel(parent.frame.pGeneral,null);
+            parent.frame.changePanel(parent.frame.pGeneral,null,0);
         else if(e.getSource() == view.btReportIssue){
             Navigation.goToPage(Software.ISSUES_PAGE, parent.frame);
         }

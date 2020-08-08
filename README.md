@@ -29,6 +29,16 @@ These things are thanks to the [RAWG's database API](https://rawg.io/apidocs).
 ## About "_release JAR_" files
 It's recommended to save that JAR file into an empty folder. This is because this program **creates a new folder** named ``data``, where all the files are going to be saved and modified.
 
+### How can I update my JAR file?
+You just need to download the JAR file and put it in the same location as the previous one. In fact, you can delete the old one and let there the new one. **Note:** Please read the notes provided in the _release_ versions, so you can finally decide to update or to stay in the same version.
+
+### [WARNING] If you want to update to a new version from 1.0.0, please read this!
+Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you got them in the version 1.0.0 and want to access them in future versions. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
+
+If you are currently using the 1.0.0 version and you downloaded game information (only ``.json`` files) but you want to update you JAR file, it's recommendable to _delete_ and re-download these files.
+
+Sorry for the inconvenience.
+
 ## How to run
 All the ``run`` files are inside of the ``bin`` folder. Be sure to run them **at that same location**.
 

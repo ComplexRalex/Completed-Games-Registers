@@ -253,8 +253,30 @@ public class EditGameController implements ActionListener, KeyListener{
      * {@link EditGamePanel#txtName}.
      */
     public void downloadGameInfo(){
+        Log.toConsole("Entering to \"downloadGameInfo\" function","EditGameController",Log.DEBUG);
         try{
+            Log.toConsole("Information about "+view.txtName.getText().trim()+" will be downloaded...", "EditGameController", Log.DEBUG);
             if(GameData.downloadGameInfo(view.txtName.getText().trim())){
+                Log.toConsole("The download was successful","EditGameController",Log.DEBUG);
+                view.btDelete.setEnabled(true);
+                downloaded = view.txtName.getText().trim();
+                try{
+                    Log.toConsole("Background image about "+view.txtName.getText().trim()+" will be downloaded...", "EditGameController", Log.DEBUG);
+                    GameData.downloadGameImage(view.txtName.getText().trim());
+                    Log.toConsole("The download was successful","EditGameController",Log.DEBUG);
+                }catch(IllegalArgumentException | IOException | JSONException e){
+                    Log.toConsole("The download was unsuccessful =(","EditGameController",Log.DEBUG);
+                    String error = Log.getDetails(e);
+                    Log.toFile(error, Log.ERROR);
+                    Advice.showTextAreaAdvice(
+                        parent.frame,
+                        Language.loadMessage("g_oops"),
+                        Language.loadMessage("g_went_wrong")+" (couldn't find an image): ",
+                        error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                        Language.loadMessage("g_accept"),
+                        Colour.getPrimaryColor()
+                    );
+                }
                 Advice.showTextAreaAdvice(
                     parent.frame,
                     Language.loadMessage("g_success"),
@@ -263,23 +285,8 @@ public class EditGameController implements ActionListener, KeyListener{
                     Language.loadMessage("g_accept"),
                     Colour.getPrimaryColor()
                 );
-                view.btDelete.setEnabled(true);
-                downloaded = view.txtName.getText().trim();
-                try{
-                    GameData.downloadGameImage(view.txtName.getText().trim());
-                }catch(IllegalArgumentException | IOException | JSONException e){
-                    String error = Log.getDetails(e);
-                    Log.toFile(error, Log.ERROR);
-                    Advice.showTextAreaAdvice(
-                        parent.frame,
-                        Language.loadMessage("g_oops"),
-                        Language.loadMessage("g_went_wrong")+": ",
-                        error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
-                        Language.loadMessage("g_accept"),
-                        Colour.getPrimaryColor()
-                    );
-                }
             }else{
+                Log.toConsole("The download was unsuccessful =(","EditGameController",Log.DEBUG);
                 Advice.showSimpleAdvice(
                     parent.frame,
                     Language.loadMessage("g_oops"),
@@ -289,6 +296,7 @@ public class EditGameController implements ActionListener, KeyListener{
                 );
             }
         }catch(IOException | JSONException | URISyntaxException e){
+            Log.toConsole("The download was unsuccessful =(","EditGameController",Log.DEBUG);
             String error = Log.getDetails(e);
             Log.toFile(error, Log.ERROR);
             Advice.showTextAreaAdvice(
@@ -300,6 +308,7 @@ public class EditGameController implements ActionListener, KeyListener{
                 Colour.getPrimaryColor()
             );
         }
+        Log.toConsole("Exiting \"downloadGameInfo\" function","EditGameController",Log.DEBUG);
     }
 
     /**
@@ -317,9 +326,10 @@ public class EditGameController implements ActionListener, KeyListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btCancel){
-            if(sameValues())
-                parent.frame.changePanel(parent.frame.pGeneral,null);
-            else if(Advice.showOptionAdvice(
+            if(sameValues()){
+				parent.frame.setBusy(false);
+                parent.frame.changePanel(parent.frame.pGeneral,null,0);
+            }else if(Advice.showOptionAdvice(
                 parent.frame,
                 Language.loadMessage("g_warning"),
                 Language.loadMessage("g_unsaved"),
@@ -343,7 +353,8 @@ public class EditGameController implements ActionListener, KeyListener{
                         downloadGameInfo();
                     }
                 }
-                parent.frame.changePanel(parent.frame.pGeneral,null);
+				parent.frame.setBusy(false);
+                parent.frame.changePanel(parent.frame.pGeneral,null,0);
             }
         }else{
             String game = view.txtName.getText().trim();
@@ -406,24 +417,39 @@ public class EditGameController implements ActionListener, KeyListener{
                         }
                         
                         // Determines which button was pressed.
+                        boolean newGameStat = false;
                         if(e.getSource() == view.btCreate){
                             parent.cGeneral.add(
                                 new GameStat(game,year,rate,comment,note,spoiler),
                                 true
                             );
+                            newGameStat = true;
                         }else if(e.getSource() == view.btChange){
-                            actual.setGame(game);
-                            actual.setYear(year);
-                            actual.setRate(rate);
-                            actual.setComment(comment);
-                            actual.setNote(note);
-                            actual.setSpoiler(spoiler);
-                            parent.cGeneral.updateName(actual);
+                            if(oldName.toLowerCase().equals(game.toLowerCase())){
+                                actual.setGame(game);
+                                actual.setYear(year);
+                                actual.setRate(rate);
+                                actual.setComment(comment);
+                                actual.setNote(note);
+                                actual.setSpoiler(spoiler);
+                                parent.cGeneral.updateName(actual);
+                            }else{
+                                parent.cGeneral.remove(actual);
+                                parent.cGeneral.add(
+                                    new GameStat(game,year,rate,comment,note,spoiler),
+                                    true
+                                );
+                                newGameStat = true;
+                            }
                         }
 
                         // Finally, saves the data (only registers) and changes panel
                         parent.saveStats();
-                        parent.frame.changePanel(parent.frame.pGeneral,null);
+                        parent.frame.setBusy(false);
+                        if(newGameStat)
+                            parent.frame.changePanel(parent.frame.pGeneral,parent.frame.pGeneral.scrollBar,parent.frame.pGeneral.scrollBar.getMaximum());
+                        else
+                            parent.frame.changePanel(parent.frame.pGeneral,null,0);
                         actual = null;
                     }
                 }else{

@@ -185,6 +185,7 @@ public class Language{
 		map.get("English").put("m_about",				"About this program");
 		map.get("English").put("m_help",				"How to use it?");
 		map.get("English").put("m_nothing",				"...there's nothing here!");
+		map.get("English").put("m_busy_frame",			"You can't close the window right now");
 		map.get("English").put("m_closing",				"Do you really want to exit?");
 
 		map.get("English").put("cf_title",		 		"Configuration menu");
@@ -352,6 +353,7 @@ public class Language{
 		map.get("Spanish").put("m_about",				"Acerca del programa");
 		map.get("Spanish").put("m_help",				"¿Cómo se usa?");
 		map.get("Spanish").put("m_nothing",				"...esto se ve muy vacío!");
+		map.get("Spanish").put("m_busy_frame",			"No puedes cerrar la ventana en este momento");
 		map.get("Spanish").put("m_closing",				"¿De verdad quieres salir?");
 
 		map.get("Spanish").put("cf_title", 				"Menú de configuración");

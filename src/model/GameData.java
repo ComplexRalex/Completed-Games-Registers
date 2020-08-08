@@ -393,15 +393,9 @@ public class GameData{
 	 * and {@link #readTimeout} respectively.
 	 * <p>
 	 * The downloaded game information will be stored
-	 * into {@link Path#gameInfo} named with the String
-	 * {@code game} provided <i>lowcased</i>, using the regex
-	 * {@code [^ ()a-z0-9+-]} to replace every occurrence
-	 * with a "" (nothing), and then
-	 * replacing every <b>space</b> with "<b>_</b>" and adding
-	 * the extension "<b>.json</b>". For example if the
-	 * {@code game}'s value is "<b>So_me Game!!!!</b>":
-	 * {@code some_game.json}. This is because of the 
-	 * {@link Path#validFileName(String, String)}.
+	 * into {@link Path#gameInfo} named on function of
+	 * {@link Path#validFileName(String, String)} with
+	 * a {@code .json} extension.
 	 * 
 	 * @param game String containing the name of the
 	 * game which its ID will be used in the request.
@@ -449,15 +443,9 @@ public class GameData{
 	 * provided in the downloaded JSON file.
 	 * <p>
 	 * The downloaded image will be stored into
-	 * {@link Path#gameImage} named with the String
-	 * {@code game} provided <i>lowcased</i>, using the regex
-	 * {@code [^ ()a-z0-9+-]} to replace every occurrence
-	 * with a "" (nothing), and then
-	 * replacing every <b>space</b> with "<b>_</b>" and adding
-	 * the extension "<b>.img</b>". For example if the
-	 * {@code game}'s value is "<b>So_me Game!!!!</b>":
-	 * {@code some_game.img}. This is because of the 
-	 * {@link Path#validFileName(String, String)}.
+	 * {@link Path#gameImage} named named on function of
+	 * {@link Path#validFileName(String, String)} with
+	 * a {@code .jpg} extension.
 	 * 
 	 * @param game String containing the name of the
 	 * game which its {@code background_image} will

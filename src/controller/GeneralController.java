@@ -33,6 +33,7 @@ import view.GeneralPanel.GameRegisterPanel;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.awt.event.ActionEvent;
@@ -123,7 +124,8 @@ public class GeneralController implements ActionListener{
         if(model.getGameStats().isEmpty())
             view.addPlaceHolder();
 
-        for(GameStat gs: model.getGameStats())
+        ArrayList<GameStat> gameStats = model.getGameStats();
+        for(GameStat gs: gameStats)
             add(gs, false);
     }
 
@@ -134,6 +136,9 @@ public class GeneralController implements ActionListener{
      * This method will put a {@link GameStat} object with
      * a new instance of {@link GameRegisterPanel} into
      * {@link #games}.
+     * <p>
+     * Note that the GameStat won't be added into the array
+     * of registers if the boolean value is {@code false}.
      * 
      * @param gs new {@link GameStat} object
      * @param recent Boolean which determines was created
@@ -142,7 +147,7 @@ public class GeneralController implements ActionListener{
      */
     public void add(GameStat gs, boolean recent){
         if(games.isEmpty()) view.removePlaceHolder();
-        model.addGameStat(gs);
+        if(recent) model.addGameStat(gs);
         games.put(gs,view.new GameRegisterPanel(gs.getGame(), recent));
         view.addToCenter(games.get(gs));
         view.repaint();
@@ -165,14 +170,15 @@ public class GeneralController implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.cViewGame.setInitialValues(gs);
-                parent.frame.changePanel(parent.frame.pViewGame,parent.frame.pViewGame.scrollBar);
+                parent.frame.changePanel(parent.frame.pViewGame,parent.frame.pViewGame.scrollBar,0);
             }
         });
         panel.btEdit.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                parent.frame.setBusy(true);
                 parent.cEditGame.setInitialValues(gs);
-                parent.frame.changePanel(parent.frame.pEditGame,parent.frame.pEditGame.scrollBar);
+                parent.frame.changePanel(parent.frame.pEditGame,parent.frame.pEditGame.scrollBar,0);
             }
         });
         panel.btRemove.addActionListener(new ActionListener(){
@@ -185,18 +191,7 @@ public class GeneralController implements ActionListener{
                     new String[]{Language.loadMessage("g_accept"),Language.loadMessage("g_cancel")},
                     Colour.getPrimaryColor()
                 ) == 0){
-                    model.removeGameStat(gs);
-                    GameData.deleteGameInfo(gs.getGame());
-                    GameData.deleteGameImage(gs.getGame());
-
-                    view.removeFromCenter(games.get(gs));
-                    if(model.getGameStats().isEmpty())
-                        view.addPlaceHolder();
-                    view.validate();
-                    view.repaint();
-
-                    games.remove(gs);
-                    parent.saveStats();
+                    remove(gs);
                 }
             }
         });
@@ -216,6 +211,26 @@ public class GeneralController implements ActionListener{
     }
 
     /**
+     * Remove {@link GameStat} instructions.
+     * 
+     * @param gs GameStat that will be deleted
+     */
+    public void remove(GameStat gs){
+        model.removeGameStat(gs);
+        GameData.deleteGameInfo(gs.getGame());
+        GameData.deleteGameImage(gs.getGame());
+
+        view.removeFromCenter(games.get(gs));
+        if(model.getGameStats().isEmpty())
+            view.addPlaceHolder();
+        view.validate();
+        view.repaint();
+
+        games.remove(gs);
+        parent.saveStats();
+    }
+
+    /**
      * Updates the displayed title in the {@link GameRegisterPanel}
      * which is referenced to the {@link GameStat} object received.
      * 
@@ -229,8 +244,9 @@ public class GeneralController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btAdd){
+            parent.frame.setBusy(true);
             parent.cEditGame.setInitialValues(null);
-            parent.frame.changePanel(parent.frame.pEditGame,parent.frame.pEditGame.scrollBar);
+            parent.frame.changePanel(parent.frame.pEditGame,parent.frame.pEditGame.scrollBar,0);
         }else if(e.getSource() == view.btBackup){
             try {
                 Advice.showTextAreaAdvice(
@@ -276,12 +292,13 @@ public class GeneralController implements ActionListener{
                 );
             }
         }else if(e.getSource() == view.btHelp){
-            parent.frame.changePanel(parent.frame.pHelp,parent.frame.pHelp.scrollBar);
+            parent.frame.changePanel(parent.frame.pHelp,parent.frame.pHelp.scrollBar,0);
         }else if(e.getSource() == view.btConfig){
+            parent.frame.setBusy(true);
             parent.cConfig.obtainInitialConfig();
-            parent.frame.changePanel(parent.frame.pConfig,parent.frame.pConfig.scrollBar);
+            parent.frame.changePanel(parent.frame.pConfig,parent.frame.pConfig.scrollBar,0);
         }else if(e.getSource() == view.btAbout){
-            parent.frame.changePanel(parent.frame.pAbout,parent.frame.pAbout.scrollBar);
+            parent.frame.changePanel(parent.frame.pAbout,parent.frame.pAbout.scrollBar,0);
         }else{
             Advice.showSimpleAdvice(
                 parent.frame,

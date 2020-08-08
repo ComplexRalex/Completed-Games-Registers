@@ -573,20 +573,29 @@ public class MainController{
         return new WindowAdapter(){
             @Override
             public void windowClosing(WindowEvent e){
-                if(mConfig.getExitDialog()){
-                    if(Advice.showOptionAdvice(
-                        frame,
-                        Language.loadMessage("g_warning"),
-                        Language.loadMessage("m_closing"),
-                        new String[]{
-                            Language.loadMessage("g_accept"),
-                            Language.loadMessage("g_cancel")
-                        },
-                        Colour.getPrimaryColor()
-                    ) == 0)
+                if(!frame.isBusy()){
+                    if(mConfig.getExitDialog()){
+                        if(Advice.showOptionAdvice(
+                            frame,
+                            Language.loadMessage("g_warning"),
+                            Language.loadMessage("m_closing"),
+                            new String[]{
+                                Language.loadMessage("g_accept"),
+                                Language.loadMessage("g_cancel")
+                            },
+                            Colour.getPrimaryColor()
+                        ) == 0)
+                            defaultClose();
+                    }else
                         defaultClose();
                 }else
-                    defaultClose();
+                    Advice.showSimpleAdvice(
+                        frame,
+                        Language.loadMessage("g_message"),
+                        Language.loadMessage("m_busy_frame"),
+                        Language.loadMessage("g_accept"),
+                        Colour.getPrimaryColor()
+                    );
             }
         };
     }

@@ -372,9 +372,10 @@ public class ConfigurationController implements ActionListener, KeyListener{
 				);
 			}
 		}else if(source == view.btReturn){
-			if(sameValues() && !resetRequest())
-				parent.frame.changePanel(parent.frame.pGeneral,null);
-			else
+			if(sameValues() && !resetRequest()){
+				parent.frame.setBusy(false);
+				parent.frame.changePanel(parent.frame.pGeneral,null,0);
+			}else
 				if(Advice.showOptionAdvice(
 					parent.frame,
 					Language.loadMessage("g_warning"),
@@ -386,7 +387,8 @@ public class ConfigurationController implements ActionListener, KeyListener{
 					Colour.getPrimaryColor()
 				) == 0){
 					obtainInitialConfig();
-					parent.frame.changePanel(parent.frame.pGeneral,null);
+					parent.frame.setBusy(false);
+					parent.frame.changePanel(parent.frame.pGeneral,null,0);
 				}
 		}
 	}

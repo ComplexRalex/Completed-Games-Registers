@@ -182,4 +182,33 @@ public class Log{
             );
 		}
     }
+
+    /**
+     * Prints the given content to the command line. Example:
+     * <blockquote><pre>
+     * String content = "Hi there."; int code = Log.DEBUG;
+     * </blockquote></pre>
+     * Output: {@code (debug): Hi there.}
+     * @param content Text that will be displayed in the console
+     * @param code Type of log message
+     */
+    public static void toConsole(String content, int code){
+        toConsole(content, null, code);
+    }
+
+    /**
+     * Prints the given content to the command line. Example:
+     * <blockquote><pre>
+     * String content = "Hi there."; int code = Log.DEBUG;
+     * String name = "Log";
+     * </blockquote></pre>
+     * Output: {@code [Log](debug): Hi there.}
+     * 
+     * @param content Text that will be displayed in the console
+     * @param name Name or title related to the displayed message.
+     * @param code Type of log message
+     */
+    public static void toConsole(String content, String name, int code){
+        System.out.println("> "+(name != null ? "["+name+"]" : "")+"("+getValue(code)+")"+": "+content);
+    }
 }

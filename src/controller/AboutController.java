@@ -95,7 +95,7 @@ public class AboutController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == view.btReturn)
-            parent.frame.changePanel(parent.frame.pGeneral,null);
+            parent.frame.changePanel(parent.frame.pGeneral,null,0);
         else if(e.getSource() == view.btTwitter)
             Navigation.goToPage(Software.TWITTER_PROFILE, parent.frame);
         else if(e.getSource() == view.btSource)

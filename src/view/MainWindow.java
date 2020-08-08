@@ -137,6 +137,15 @@ public class MainWindow extends JFrame{
 	 * @see AboutPanel
 	 */
 	public AboutPanel pAbout;
+
+	/**
+	 * Boolean which determines if the frame is
+	 * busy right now.
+	 * 
+	 * @see #isBusy()
+	 * @see #setBusy(boolean)
+	 */
+	private boolean busy;
 	
 	/**
 	 * Constructor of the MainWindow class. First,
@@ -160,9 +169,30 @@ public class MainWindow extends JFrame{
 		pHelp = new HelpPanel();
 		pConfig = new ConfigurationPanel();
 		pAbout = new AboutPanel();
+
+		// Initialize "busy" variable
+		busy = false;
 		
 		// Put the main panel at the beginning
-		changePanel(pGeneral,null);
+		changePanel(pGeneral,null,0);
+	}
+
+	/**
+	 * Checks if the frame is busy.
+	 * 
+	 * @return {@link #busy}'s value.
+	 */
+	public boolean isBusy(){
+		return busy;
+	}
+
+	/**
+	 * Sets the busy-state of the frame.
+	 * 
+	 * @param flag New {@link #busy}'s value
+	 */
+	public void setBusy(boolean flag){
+		busy = flag;
 	}
 
 	/**
@@ -180,20 +210,22 @@ public class MainWindow extends JFrame{
 	
 	/**
 	 * Switches the panels and set its scrollbar to the
-	 * top of the "page".
+	 * given vertical position.
 	 * 
 	 * @param pNuevo Destiny {@link JPanel} that will be
 	 * put in the frame, closing the previous one
 	 * @param scrollBar {@link JScrollBar} of such panel
-	 * which will be set to <b>0</b> (this means that the
-	 * panel will be scrolled at the top)
+	 * which will be set to the given value
+	 * @param value New vertical position of the scroll
+	 * bar ({@code 0} means the top). Note that this will
+	 * take effect if {@code scrollBar != null}
 	 */
-	public void changePanel(JPanel pNuevo, JScrollBar scrollBar){
+	public void changePanel(JPanel pNuevo, JScrollBar scrollBar, int value){
 		getContentPane().removeAll();
 		add(pNuevo);
 		pNuevo.setVisible(true);
 		if(scrollBar != null) 
-			scrollBar.setValue(0);
+			scrollBar.setValue(value);
 		getContentPane().validate();
 		getContentPane().repaint();
 		validate();

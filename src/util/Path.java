@@ -93,16 +93,28 @@ public class Path{
 	public static final String guiPath = "gui/";
 
 	/**
-	 * Creates a file name with the given name in lower case, without any
-	 * symbols different from:
-	 * <ul>
-	 * <li>"<b>a</b>" to "<b>z</b>" characters,<p>
-	 * <li>"<b>()</b>" parenthesis,<p>
-	 * <li>space character,<p>
-	 * <li>"<b>0</b>" to "<b>9</b>" numbers,<p>
-	 * <li>and "<b>+</b>", "<b>-</b>" symbols.<p>
-	 * </ul>
-	 * Also, the space characters will be replaced to "<b>_</b>" characters.
+	 * Char array containing illegal characters.
+	 */
+	public static final char[] ILLEGAL = new char[]{
+		'/','\n','\r','\t','\0','\f','`','´','?','*','\\','<','>','|','\"',':'
+	};
+
+	/**
+	 * Creates a file name with the given {@code name} in lower case, replacing with
+	 * the respective hexadecimal value any {@link #ILLEGAL} character found
+	 * in the {@code name} String, and preceded by {@code %} character.
+	 * <p>
+	 * If {@code name} contains a {@code %} character, then the file name will
+	 * include double it.
+	 * <p>
+	 * An example of a name could be the following:
+	 * <blockquote><pre>
+	 * String name = "Am I an example? %lol";
+	 * String extension = "json";
+	 * </pre></blockquote>
+	 * The result will be:
+	 * <p>
+	 * {@code am i an example%003f %%lol.json}
 	 * 
 	 * @param name String which contains the name of the file
 	 * @param extension String which contains the format of the file. Note
@@ -110,7 +122,29 @@ public class Path{
 	 * @return String with the mentioned changes
 	 */
 	public static final String validFileName(String name, String extension){
-		return name.toLowerCase().replaceAll("[^ ()a-z0-9+-]","").replaceAll(" ","_")+"."+extension;
+		String validName = "";
+		for(int i = 0; i < name.length(); i++){
+			if(name.charAt(i) == '%')
+				validName += "%%";
+			else
+				validName += (isValid(name.charAt(i)) ? name.charAt(i) : "%"+String.format("%04x", (int)name.charAt(i)));
+		}
+		return validName.toLowerCase()+"."+extension;
+	}
+
+	/**
+	 * Verifies if the given char is valid to be
+	 * put into a name of a file.
+	 * 
+	 * @param c Char to be compared
+	 * @return {@code true} if the given char is
+	 * not included into the {@link #ILLEGAL} char
+	 * array. {@code false} otherwise.
+	 */
+	public static final boolean isValid(char c){
+		for(int i = 0; i < ILLEGAL.length; i++)
+			if(c == ILLEGAL[i]) return false;
+		return true;
 	}
 
 	/**

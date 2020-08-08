@@ -175,7 +175,7 @@ public class ViewGameController implements ActionListener{
             else
                 view.btSpoiler.setText(Language.loadMessage("gv_show_spoiler"));
         }else{
-            parent.frame.changePanel(parent.frame.pGeneral,null);
+            parent.frame.changePanel(parent.frame.pGeneral,null,0);
             if(loadedGameData) view.removeDatabaseInfo();
             loadedGameData = false;
             actual = null;
