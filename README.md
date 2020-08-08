@@ -37,6 +37,8 @@ Most of the game information files (``.json``, inside ``data/game/json`` folder)
 
 If you are currently using the 1.0.0 version and you downloaded game information (only ``.json`` files) but you want to update you JAR file, it's recommendable to _delete_ and re-download these files.
 
+**Note:** This won't affect the game register that you have created. This is related to the ``.json`` files which are inside the ``data/game/json`` folder.
+
 Sorry for the inconvenience.
 
 ## How to run
