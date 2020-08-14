@@ -1,7 +1,7 @@
 # Completed-Games Registers
-![Logotype of the program 'Completed-Games Registers'](https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png "Logotype of the program.")
+[![Logotype of the program 'Completed-Games Registers'](https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png "Logotype of the program.")](https://github.com/ComplexRalex/Completed-Games-Registers/releases/latest)
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/ComplexRalex/Completed-Games-Registers)](https://github.com/ComplexRalex/Completed-Games-Registers/releases/latest) ![GitHub Release Date](https://img.shields.io/github/release-date/ComplexRalex/Completed-Games-Registers) ![GitHub last commit](https://img.shields.io/github/last-commit/ComplexRalex/Completed-Games-Registers) ![GitHub](https://img.shields.io/github/license/ComplexRalex/Completed-Games-Registers)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/ComplexRalex/Completed-Games-Registers)](https://github.com/ComplexRalex/Completed-Games-Registers/releases/latest) [![GitHub Release Date](https://img.shields.io/github/release-date/ComplexRalex/Completed-Games-Registers)](https://github.com/ComplexRalex/Completed-Games-Registers/releases/latest) [![GitHub last commit](https://img.shields.io/github/last-commit/ComplexRalex/Completed-Games-Registers)](https://github.com/ComplexRalex/Completed-Games-Registers/commit/master) [![GitHub](https://img.shields.io/github/license/ComplexRalex/Completed-Games-Registers)](https://github.com/ComplexRalex/Completed-Games-Registers/blob/master/LICENSE)
 
 If you are using the **1.0.0** version, please [read this section](#warning-are-you-using-the-100-version).
 Also, if you are using a **release** of this program (``.jar`` file), please [read this section](#about-release-jar-files).
