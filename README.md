@@ -1,7 +1,10 @@
 # Completed-Games Registers
 ![Logotype of the program 'Completed-Games Registers'](https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png "Logotype of the program.")
 
-If you are using a **release** of this program (``.jar`` file), please [read this section](#about-release-jar-files).
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/ComplexRalex/Completed-Games-Registers)](https://github.com/ComplexRalex/Completed-Games-Registers/releases/latest) ![GitHub Release Date](https://img.shields.io/github/release-date/ComplexRalex/Completed-Games-Registers) ![GitHub last commit](https://img.shields.io/github/last-commit/ComplexRalex/Completed-Games-Registers) ![GitHub](https://img.shields.io/github/license/ComplexRalex/Completed-Games-Registers)
+
+If you are using the **1.0.0** version, please [read this section](#warning-are-you-using-the-100-version).
+Also, if you are using a **release** of this program (``.jar`` file), please [read this section](#about-release-jar-files).
 
 ## Description
 Software (made in **Java**) where you can have a record of every game you have beaten (completed) so far!
@@ -22,24 +25,27 @@ Also, you can see additional information about the game like _its description_, 
 These things are thanks to the [RAWG's database API](https://rawg.io/apidocs).
 
 ## Notes & Advices
+
+### General
 * This program requires _at least_ **Java 1.8** to be executed (in fact, is recommended to run it at that version). You can download it [here](https://java.com/en/download/).
 * This program uses the **Open Sans** font by default, but it isn't necessary to run it. Anyways, if you want to download it, click [here](https://fonts.google.com/specimen/Open+Sans).
 * When you are downloading game information, it will take a few seconds to process it (be patient).
+
+### Updates
+#### [WARNING] Are you using the _1.0.0_ version?
+Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you got them in the version 1.0.0 and want to access them **in future versions**. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
+
+If you are currently using the **1.0.0 version** and you downloaded game information (only ``.json`` files) but you want to update your JAR file (or update from git), it's recommendable to _delete_ and re-download these files.
+
+**Note:** This won't affect the game registers that you have created. **This is related to the ``.json`` files which are inside the ``data/game/json`` folder.**
+
+Sorry for the inconvenience.
 
 ## About "_release JAR_" files
 It's recommended to save that JAR file into an empty folder. This is because this program **creates a new folder** named ``data``, where all the files are going to be saved and modified.
 
 ### How can I update my JAR file?
 You just need to download the JAR file and put it in the same location as the previous one. In fact, you can delete the old one and let there the new one. **Note:** Please read the notes provided in the _release_ versions, so you can finally decide to update or to stay in the same version.
-
-### [WARNING] If you want to update to a new version from 1.0.0, please read this!
-Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you got them in the version 1.0.0 and want to access them in future versions. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
-
-If you are currently using the 1.0.0 version and you downloaded game information (only ``.json`` files) but you want to update you JAR file, it's recommendable to _delete_ and re-download these files.
-
-**Note:** This won't affect the game register that you have created. This is related to the ``.json`` files which are inside the ``data/game/json`` folder.
-
-Sorry for the inconvenience.
 
 ## How to run
 All the ``run`` files are inside of the ``bin`` folder. Be sure to run them **at that same location**.
