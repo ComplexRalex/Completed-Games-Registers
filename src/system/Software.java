@@ -41,7 +41,7 @@ public class Software{
     /**
      * Current version of the project.
      */
-    public static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.0.2";
 
     /**
      * Necessary java version to run the project.
@@ -200,9 +200,10 @@ public class Software{
     }
 
     /**
-     * Recordando a dos excelentes personas. <3
+     * Recordando a conocidos y seres queridos. <3
      */
     public static final String[] MEMORY_OF_LIFE = new String[]{
+        "Bichi (Mi hermanito perruno)",
         "Wicho Luna (YipeSkull)",
         "Alejandro Miguel Taboada Sanchez (Programación ATS)"
     };
