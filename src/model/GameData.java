@@ -45,7 +45,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import system.Software;
 import util.Component;
+import util.Log;
 import util.Path;
 
 /**
@@ -333,7 +335,9 @@ public class GameData{
 	 * page with the given name as a search value.
 	 * <p>
 	 * The full GET request String is the following:
-	 * {@code https://api.rawg.io/api/games?search=name&page_size=1}.
+	 * {@code https://api.rawg.io/api/games?search=name&page_size=1&key=API_KEY}.
+	 * <p>
+	 * The previous API_KEY can be found in {@link Software} class.
 	 * <p>
 	 * This function looks for the first occurrence
 	 * (game) in the search and returns its ID.
@@ -349,13 +353,15 @@ public class GameData{
 	 * @throws URISyntaxException
 	 * @see #connectionTimeout
 	 * @see #readTimeout
+	 * @see Software
 	 * @return ID of the first occurrence in the
 	 * search.
 	 */
 	private static int searchGame(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 
-		URI uri = new URI("https","api.rawg.io","/api/games","search="+game,"page_size=1");
+		URI uri = new URI("https","api.rawg.io","/api/games","search="+game+"&page_size=1&key="+Software.API_KEY,"");
 		URL url = new URL(uri.toASCIIString());
+		Log.toConsole("Request -> "+url,"GameData",Log.DEBUG);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setRequestMethod("GET");
@@ -385,7 +391,9 @@ public class GameData{
 	 * with the given ID.
 	 * <p>
 	 * The full GET request String is the following:
-	 * {@code https://api.rawg.io/api/games/id}.
+	 * {@code https://api.rawg.io/api/games/id?key=API_KEY}.
+	 * <p>
+	 * The previous API_KEY can be found in {@link Software} class.
 	 * <p>
 	 * This function will download the game information
 	 * from the RAWG database. Also, the connect and read
@@ -406,13 +414,15 @@ public class GameData{
 	 * @see Path#gameInfo
 	 * @see #connectionTimeout
 	 * @see #readTimeout
+	 * @see Software
 	 * @return {@code ture} if the download was
 	 * successful. {@code false} otherwise.
 	 */
     public static boolean downloadGameInfo(String game) throws MalformedURLException, IOException, JSONException, URISyntaxException{
 
-		URI uri = new URI("https","api.rawg.io","/api/games/"+searchGame(game),"");
+		URI uri = new URI("https","api.rawg.io","/api/games/"+searchGame(game),"key="+Software.API_KEY,"");
 		URL url = new URL(uri.toASCIIString());
+		Log.toConsole("Request -> "+url,"GameData",Log.DEBUG);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setRequestMethod("GET");

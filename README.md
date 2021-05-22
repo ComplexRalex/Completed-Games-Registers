@@ -32,6 +32,10 @@ These things are thanks to the [RAWG's database API](https://rawg.io/apidocs).
 * When you are downloading game information, it will take a few seconds to process it (be patient).
 
 ### Updates
+
+#### [WARNING] RAWG Database now requires an API key in order to accept requests
+This problem is fixed in the 1.0.3 version.
+
 #### [WARNING] Are you using the _1.0.0_ version?
 Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you got them in the version 1.0.0 and want to access them **in future versions**. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
 
