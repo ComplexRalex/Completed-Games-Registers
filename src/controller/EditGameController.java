@@ -417,13 +417,12 @@ public class EditGameController implements ActionListener, KeyListener{
                         }
                         
                         // Determines which button was pressed.
-                        boolean newGameStat = false;
                         if(e.getSource() == view.btCreate){
                             parent.cGeneral.add(
                                 new GameStat(game,year,rate,comment,note,spoiler),
                                 true
                             );
-                            newGameStat = true;
+                            parent.cGeneral.updateList();
                         }else if(e.getSource() == view.btChange){
                             if(oldName.toLowerCase().equals(game.toLowerCase())){
                                 actual.setGame(game);
@@ -439,17 +438,14 @@ public class EditGameController implements ActionListener, KeyListener{
                                     new GameStat(game,year,rate,comment,note,spoiler),
                                     true
                                 );
-                                newGameStat = true;
+                                parent.cGeneral.updateList();
                             }
                         }
 
                         // Finally, saves the data (only registers) and changes panel
                         parent.saveStats();
                         parent.frame.setBusy(false);
-                        if(newGameStat)
-                            parent.frame.changePanel(parent.frame.pGeneral,parent.frame.pGeneral.scrollBar,parent.frame.pGeneral.scrollBar.getMaximum());
-                        else
-                            parent.frame.changePanel(parent.frame.pGeneral,null,0);
+                        parent.frame.changePanel(parent.frame.pGeneral,null,0);
                         actual = null;
                     }
                 }else{

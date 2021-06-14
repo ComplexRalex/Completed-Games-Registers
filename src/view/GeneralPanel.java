@@ -96,6 +96,12 @@ public class GeneralPanel extends JPanel{
     private boolean loadedIcons;
 
     /**
+     * Boolean that is used to tell if the place holder
+     * is added at the moment.
+     */
+    private boolean placeHolder;
+
+    /**
      * Constructor of the GeneralPanel class. This
      * will set the layout manager of the current 
      * panel, its background color and finally 
@@ -143,7 +149,7 @@ public class GeneralPanel extends JPanel{
          * game
          * @param recent Boolean that determines if the new
          * register was added recently ({@code true}) or not
-         * ({@code false})
+         * ({@code false}) (not in use anymore: use <b>false</b>)
          * @see #initComponents(String, boolean)
          */
         public GameRegisterPanel(String game, boolean recent){
@@ -381,11 +387,31 @@ public class GeneralPanel extends JPanel{
     }
 
     /**
+     * Removes all components from the center of this panel.
+     */
+    public void removeAllFromCenter(){
+        pCentral.removeAll();
+    }
+
+    /**
+     * Tells if the placeholder is currntly added on the
+     * central panel.
+     * 
+     * @return The truth (about the mentioned above).
+     */
+    public boolean isPlaceHolderPut(){
+        return placeHolder;
+    }
+
+    /**
      * Appends the {@link #pNothing} panel to the
      * center of this panel.
      */
     public void addPlaceHolder(){
-        pCentral.add(pNothing);
+        if(!placeHolder){
+            pCentral.add(pNothing);
+            placeHolder = true;
+        }
     }
 
     /**
@@ -393,6 +419,9 @@ public class GeneralPanel extends JPanel{
      * the center of this panel.
      */
     public void removePlaceHolder(){
-        pCentral.remove(pNothing);
+        if(placeHolder){
+            pCentral.remove(pNothing);
+            placeHolder = false;
+        }
     }
 }

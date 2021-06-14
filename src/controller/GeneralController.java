@@ -121,38 +121,59 @@ public class GeneralController implements ActionListener{
     public void obtainInitialValues(){
         view.lbUser.setText(parent.mConfig.getUsername());
 
-        if(model.getGameStats().isEmpty())
-            view.addPlaceHolder();
-
         ArrayList<GameStat> gameStats = model.getGameStats();
         for(GameStat gs: gameStats)
             add(gs, false);
+
+        updateList();
     }
 
     /**
-     * Appends a new {@link GameRegisterPanel} to the
-     * visual array of <b>completed-game <i>register</i></b>.
+     * Adds a game register ({@link GameStat} object) to
+     * the {@link #model}, and build the visual component
+     * of that game register as well.
      * <p>
-     * This method will put a {@link GameStat} object with
-     * a new instance of {@link GameRegisterPanel} into
-     * {@link #games}.
-     * <p>
-     * Note that the GameStat won't be added into the array
-     * of registers if the boolean value is {@code false}.
+     * This panel is being added to the {@link #games}
+     * HashMap.
      * 
-     * @param gs new {@link GameStat} object
-     * @param recent Boolean which determines was created
-     * recently ({@code true}) or not ({@code false})
-     * @see #addActions(GameStat, boolean)
+     * @param gs Game register
+     * @param recent Tells if the register has already been
+     * added to the {@link #model} (<b>false</b>). If that's
+     * the case, the game register won't be added.
      */
     public void add(GameStat gs, boolean recent){
-        if(games.isEmpty()) view.removePlaceHolder();
         if(recent) model.addGameStat(gs);
-        games.put(gs,view.new GameRegisterPanel(gs.getGame(), recent));
-        view.addToCenter(games.get(gs));
-        view.repaint();
+        games.put(gs,view.new GameRegisterPanel(gs.getGame(), false));
+        addActions(gs, false);
+    }
 
-        addActions(gs, recent);
+    /**
+     * Updates the visual list of the game registers. This
+     * function is only called when either an element has
+     * changed its name or one was added.
+     * <p>
+     * Note that this function removes all existing elements
+     * from the view, found inside {@link #games} HashMap, and
+     * re-enters them to the view, keeping the ordering of the
+     * components.
+     * <p>
+     * It is not necessary to call this function when a
+     * component is being deleted.
+     */
+    public void updateList(){
+        if(!model.getGameStats().isEmpty()){
+            if(view.isPlaceHolderPut())
+                view.removePlaceHolder();
+            else
+                view.removeAllFromCenter();
+            ArrayList<GameStat> gameStats = model.getGameStats();
+            for(GameStat gs: gameStats)
+                view.addToCenter(games.get(gs));
+            view.validate();
+            view.repaint();
+        }else{
+            view.addPlaceHolder();
+        }
     }
 
     /**
@@ -162,6 +183,7 @@ public class GeneralController implements ActionListener{
      * components
      * @param recent Boolean which determines was created
      * recently ({@code true}) or not ({@code false})
+     * (not in use anymore: use <b>false</b>)
      * @see #addActions(GameStat, boolean)
      */
     private void addActions(GameStat gs, boolean recent){
