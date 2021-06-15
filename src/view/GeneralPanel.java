@@ -34,6 +34,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import util.Colour;
 import util.Component;
@@ -67,15 +68,20 @@ public class GeneralPanel extends JPanel{
     private ImageIcon iconAdd, iconBackup, iconExport, iconHelp, iconView, iconEdit, iconRemove;
 
     /**
+     * TextField that works as part of the searchbar.
+     */
+    private JTextField txtSearch;
+
+    /**
 	 * Buttons used to different actions.
 	 */
-    public JButton btAdd, btBackup, btExport, btHelp, btConfig, btAbout;
+    public JButton btAdd, btBackup, btExport, btHelp, btConfig, btAbout, btSearch;
 
     /**
      * Label that displays the username at the top of the
      * program.
      */
-    public JLabel lbUser;
+    public JLabel lbUser, lbCount;
 
     /**
      * Panel that works as a "placeholder" in case of
@@ -314,13 +320,41 @@ public class GeneralPanel extends JPanel{
         add(pWelcome,BorderLayout.NORTH);
 
         // Establishing centered panel
+
+        JPanel centeredPanel = new JPanel(new BorderLayout());
+        centeredPanel.setBackground(Colour.getBackgroundColor());
         
+        // - Establishing central-central panel
+
         pCentral = new JPanel(new GridLayout(0,1,10,6));
         pCentral.setBackground(Colour.getPrimaryColor());
         JScrollPane scroll = Component.createScrollPane(pCentral);
         scrollBar = scroll.getVerticalScrollBar();
+        centeredPanel.add(scroll,BorderLayout.CENTER);
 
-        add(scroll,BorderLayout.CENTER);
+        // - Establishing central-upper panel
+        
+        txtSearch = new JTextField();
+        btSearch = new JButton();
+        centeredPanel.add(Component.createTexFieldAndButton(Language.loadMessage("g_search"), txtSearch, btSearch, Colour.getBackgroundColor()),BorderLayout.NORTH);
+        
+        // - Establishing central-bottom panel
+        
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+        bottomPanel.setBackground(Colour.getBackgroundColor());
+        JLabel lbCountMSG = new JLabel(Language.loadMessage("m_count"));
+        lbCountMSG.setFont(Typeface.labelPlain);
+        lbCountMSG.setBackground(this.getBackground());
+        lbCountMSG.setForeground(Colour.getFontColor());
+        bottomPanel.add(lbCountMSG);
+        lbCount = new JLabel("0");
+        lbCount.setFont(Typeface.labelBold);
+        lbCount.setBackground(this.getBackground());
+        lbCount.setForeground(Colour.getFontColor());
+        bottomPanel.add(lbCount);
+        centeredPanel.add(bottomPanel,BorderLayout.SOUTH);
+        
+        add(centeredPanel,BorderLayout.CENTER);
 
         // Establishing left-side panel
 
@@ -373,6 +407,16 @@ public class GeneralPanel extends JPanel{
      */
     public void addToCenter(JComponent component){
         pCentral.add(component);
+    }
+
+    /**
+     * Sets the count of the {@link #lbCount} label, referred to
+     * the actual count of the registers entered.
+     * 
+     * @param count of registers
+     */
+    public void setCount(int count){
+        lbCount.setText(String.valueOf(count));
     }
 
     /**

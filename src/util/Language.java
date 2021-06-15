@@ -154,6 +154,7 @@ public class Language{
 		map.get("English").put("g_cancel",				"Cancel");
 		map.get("English").put("g_return",				"Return");
 		map.get("English").put("g_change", 				"Modify");
+		map.get("English").put("g_search",				"Search");
 		map.get("English").put("g_message",				"Message");
 		map.get("English").put("g_warning",				"Warning!");
 		map.get("English").put("g_success",				"Success!");
@@ -185,6 +186,7 @@ public class Language{
 		map.get("English").put("m_about",				"About this program");
 		map.get("English").put("m_help",				"How to use it?");
 		map.get("English").put("m_nothing",				"...there's nothing here!");
+		map.get("English").put("m_count",				"Current number of registers:");
 		map.get("English").put("m_busy_frame",			"You can't close the window right now");
 		map.get("English").put("m_closing",				"Do you really want to exit?");
 
@@ -305,7 +307,7 @@ public class Language{
 		map.get("English").put("ac_source_code",		"Source code");
 		map.get("English").put("ac_website",			"Website");
 
-		map.get("English").put("m_chale",				"Duuude, that's not fair!");
+		map.get("English").put("misc_chale",			"Duuude, that's not fair!");
 	}
 	
 	/**
@@ -322,6 +324,7 @@ public class Language{
 		map.get("Spanish").put("g_cancel",				"Cancelar");
 		map.get("Spanish").put("g_return",				"Regresar");
 		map.get("Spanish").put("g_change", 				"Modificar");
+		map.get("Spanish").put("g_search",				"Buscar");
 		map.get("Spanish").put("g_message",				"Mensaje");
 		map.get("Spanish").put("g_warning",				"¡Advertencia!");
 		map.get("Spanish").put("g_success",				"¡Éxito!");
@@ -353,6 +356,7 @@ public class Language{
 		map.get("Spanish").put("m_about",				"Acerca del programa");
 		map.get("Spanish").put("m_help",				"¿Cómo se usa?");
 		map.get("Spanish").put("m_nothing",				"...esto se ve muy vacío!");
+		map.get("Spanish").put("m_count",				"Número actual de registros:");
 		map.get("Spanish").put("m_busy_frame",			"No puedes cerrar la ventana en este momento");
 		map.get("Spanish").put("m_closing",				"¿De verdad quieres salir?");
 
@@ -473,6 +477,6 @@ public class Language{
 		map.get("Spanish").put("ac_source_code",		"Código fuente");
 		map.get("Spanish").put("ac_website",			"Sitio web");
 
-		map.get("Spanish").put("m_chale",				"Chaaale... quería ver qué onda");
+		map.get("Spanish").put("misc_chale",			"Chaaale... quería ver qué onda");
 	}
 }

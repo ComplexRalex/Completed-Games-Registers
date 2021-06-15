@@ -326,6 +326,51 @@ public class Component{
     }
 
     /**
+     * Creates a text field with a button, with predefined configurations.
+     * <p>
+     * Note that this function will change the following properties to these
+     * variables:
+     * <p>
+     * <b>field</b>: Changes on <i>Font</i>, <i>Background</i>, <i>Foreground</i>,
+     * <i>CaretColor</i> and <i>PreferredSize</i>.
+     * <p>
+     * <b>button</b>: Change on <i>Font</i>, <i>Background</i>,
+     * <i>Foreground</i> and <i>PreferredSize</i>.
+     * 
+     * @param buttonText Text that will be in the button
+     * @param field JTextField that will be added to this panel
+     * @param button JButton that will be inside this JPanel
+     * @param bg Background color
+     * @return JPanel containing the mentioned elements
+     */
+    public static JPanel createTexFieldAndButton(String buttonText, JTextField field, JButton button, Color bg){
+        // Initializing new panel
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
+        panel.setBackground(bg);
+        panel.setPreferredSize(dim1LinePanel);
+        
+        // Initialize button specified
+        button.setText(buttonText);
+        button.setFont(Typeface.buttonPlain);
+        button.setBackground(Colour.getButtonColor());
+        button.setForeground(Colour.getFontColor());
+        button.setPreferredSize(new Dimension(button.getFontMetrics(Typeface.labelPlain).stringWidth(buttonText)+30,25));
+
+        // Initializing the text field specified
+        field.setFont(Typeface.labelPlain);
+        field.setBackground(bg == Colour.getBackgroundColor() ? Colour.getPrimaryColor() : Colour.getBackgroundColor());
+        field.setForeground(Colour.getFontColor());
+        field.setCaretColor(Colour.getFontColor());
+        field.setPreferredSize(new Dimension(width-20-(int)button.getPreferredSize().getWidth(),25));
+
+        // Adding components
+        panel.add(field);
+        panel.add(button);
+
+        return panel;
+    }
+
+    /**
      * Creates a text area and a description text with predefined configurations.
      * <p>
      * Note that this function will change the following properties to these
@@ -436,7 +481,6 @@ public class Component{
      * <p>
      * <b>buttons</b>: Change on <i>Font</i>, <i>Background</i> and
      * <i>Foreground</i>.
-     * <p>
      * 
      * @param info Brief explanation of what is the purpose of the radio buttons
      * @param names String array containing the options

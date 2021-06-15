@@ -63,6 +63,7 @@ public class GameRegister{
 	 * @see #exportStats()
 	 * @see #getGameStats()
 	 * @see #setGameStats()
+	 * @see #getCount()
 	 */
 	private ArrayList<GameStat> gameStats;
 
@@ -338,4 +339,14 @@ public class GameRegister{
 	 * @param gs ArrayList of {@link GameStat} objects
 	 */
 	public void setGameStats(ArrayList<GameStat> gs){gameStats = gs;}
+
+
+	/**
+	 * Tells the number of elements in the list.
+	 * 
+	 * @return Count of registers entered currently.
+	 */
+	public int getCount(){
+		return gameStats.size();
+	}
 }

@@ -99,6 +99,7 @@ public class GeneralController implements ActionListener{
      * @see #obtainInitialValues()
      */
     public void initialize(){
+        view.btSearch.addActionListener(this);
         view.btAdd.addActionListener(this);
         view.btBackup.addActionListener(this);
         view.btExport.addActionListener(this);
@@ -161,6 +162,7 @@ public class GeneralController implements ActionListener{
      * component is being deleted.
      */
     public void updateList(){
+        view.setCount(model.getCount());
         if(!model.getGameStats().isEmpty()){
             if(view.isPlaceHolderPut())
                 view.removePlaceHolder();
@@ -242,6 +244,7 @@ public class GeneralController implements ActionListener{
         GameData.deleteGameInfo(gs.getGame());
         GameData.deleteGameImage(gs.getGame());
 
+        view.setCount(model.getCount());
         view.removeFromCenter(games.get(gs));
         if(model.getGameStats().isEmpty())
             view.addPlaceHolder();
