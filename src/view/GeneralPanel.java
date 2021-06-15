@@ -60,7 +60,7 @@ public class GeneralPanel extends JPanel{
      * Panel used to display all the entered <b>completed-game
      * <i>registers</i></b>.
      */
-    private JPanel pCentral;
+    private JPanel pCentral, pSearchCount;
 
     /**
      * Icons used to be put in different buttons.
@@ -70,7 +70,7 @@ public class GeneralPanel extends JPanel{
     /**
      * TextField that works as part of the searchbar.
      */
-    private JTextField txtSearch;
+    public JTextField txtSearch;
 
     /**
 	 * Buttons used to different actions.
@@ -81,7 +81,7 @@ public class GeneralPanel extends JPanel{
      * Label that displays the username at the top of the
      * program.
      */
-    public JLabel lbUser, lbCount;
+    public JLabel lbUser, lbCount, lbSearchCount;
 
     /**
      * Panel that works as a "placeholder" in case of
@@ -106,6 +106,12 @@ public class GeneralPanel extends JPanel{
      * is added at the moment.
      */
     private boolean placeHolder;
+
+    /**
+     * Boolean that is used to tell if the search is
+     * currently active.
+     */
+    private boolean searchAvailable;
 
     /**
      * Constructor of the GeneralPanel class. This
@@ -336,22 +342,41 @@ public class GeneralPanel extends JPanel{
         
         txtSearch = new JTextField();
         btSearch = new JButton();
-        centeredPanel.add(Component.createTexFieldAndButton(Language.loadMessage("g_search"), txtSearch, btSearch, Colour.getBackgroundColor()),BorderLayout.NORTH);
+        centeredPanel.add(Component.createTexFieldAndButton("NUM 'BEEF' IS HEX", txtSearch, btSearch, Colour.getBackgroundColor()),BorderLayout.NORTH);
         
         // - Establishing central-bottom panel
         
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+        JPanel bottomPanel = new JPanel(new BorderLayout(10,10));
         bottomPanel.setBackground(Colour.getBackgroundColor());
+
+        JPanel bottomLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT,10,10));
+        bottomLeftPanel.setBackground(Colour.getBackgroundColor());
         JLabel lbCountMSG = new JLabel(Language.loadMessage("m_count"));
         lbCountMSG.setFont(Typeface.labelPlain);
         lbCountMSG.setBackground(this.getBackground());
         lbCountMSG.setForeground(Colour.getFontColor());
-        bottomPanel.add(lbCountMSG);
+        bottomLeftPanel.add(lbCountMSG);
         lbCount = new JLabel("0");
         lbCount.setFont(Typeface.labelBold);
         lbCount.setBackground(this.getBackground());
         lbCount.setForeground(Colour.getFontColor());
-        bottomPanel.add(lbCount);
+        bottomLeftPanel.add(lbCount);
+        bottomPanel.add(bottomLeftPanel,BorderLayout.WEST);
+        
+        pSearchCount = new JPanel(new FlowLayout(FlowLayout.RIGHT,10,10));
+        pSearchCount.setBackground(Colour.getBackgroundColor());
+        JLabel lbSearchCountMSG = new JLabel(Language.loadMessage("m_search_count"));
+        lbSearchCountMSG.setFont(Typeface.labelPlain);
+        lbSearchCountMSG.setBackground(this.getBackground());
+        lbSearchCountMSG.setForeground(Colour.getFontColor());
+        pSearchCount.add(lbSearchCountMSG);
+        lbSearchCount = new JLabel("0");
+        lbSearchCount.setFont(Typeface.labelBold);
+        lbSearchCount.setBackground(this.getBackground());
+        lbSearchCount.setForeground(Colour.getFontColor());
+        pSearchCount.add(lbSearchCount);
+        bottomPanel.add(pSearchCount,BorderLayout.EAST);
+
         centeredPanel.add(bottomPanel,BorderLayout.SOUTH);
         
         add(centeredPanel,BorderLayout.CENTER);
@@ -428,6 +453,7 @@ public class GeneralPanel extends JPanel{
      */
     public void removeFromCenter(JComponent component){
         pCentral.remove(component);
+        if(component == pNothing) placeHolder = false;
     }
 
     /**
@@ -435,6 +461,7 @@ public class GeneralPanel extends JPanel{
      */
     public void removeAllFromCenter(){
         pCentral.removeAll();
+        placeHolder = false;
     }
 
     /**
@@ -467,5 +494,49 @@ public class GeneralPanel extends JPanel{
             pCentral.remove(pNothing);
             placeHolder = false;
         }
+    }
+
+    /**
+     * Tells if the search is currently active.
+     * 
+     * @return the mentioned above.
+     */
+    public boolean isSearchAvailable(){
+        return searchAvailable;
+    }
+
+    /**
+     * Sets the status of the search bar.
+     * 
+     * @param flag status of the search bar.
+     */
+    public void setSearchAvailable(boolean flag){
+        txtSearch.setEnabled(flag);
+        if(flag)
+            btSearch.setText(Language.loadMessage("g_search"));
+        else
+            btSearch.setText(Language.loadMessage("g_return"));
+        searchAvailable = flag;
+    }
+
+    /**
+     * Sets the count of the {@link #lbSearcgCount} label,
+     * referred to the number of results of the search.
+     * 
+     * @param count of registers
+     */
+    public void setSearchCount(int count){
+        lbSearchCount.setText(String.valueOf(count));
+    }
+
+    /**
+     * Shows up the number of results of the serch. As
+     * simple as that.
+     * 
+     * @param flag <b>true</b> for a <b>YEAH BOI</b>!.
+     * Otherwise, <b>false</b>.
+     */
+    public void showResultsCount(boolean flag){
+        pSearchCount.setVisible(flag);
     }
 }

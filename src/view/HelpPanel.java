@@ -166,6 +166,11 @@ public class HelpPanel extends JPanel{
         panel.add(Component.createSubtitle(Language.loadMessage("h_register"), Colour.getPrimaryColor()));
         panel.add(Component.createPlainText(Language.loadMessage("h_register_text"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
 
+        // - Establishing "what's that text field from above" stuff
+
+        panel.add(Component.createSubtitle(Language.loadMessage("h_search_bar"), Colour.getPrimaryColor()));
+        panel.add(Component.createPlainText(Language.loadMessage("h_search_bar_text"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
+
         // - Establishing explanation of every icon
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_options"), Colour.getPrimaryColor()));

@@ -422,7 +422,7 @@ public class EditGameController implements ActionListener, KeyListener{
                                 new GameStat(game,year,rate,comment,note,spoiler),
                                 true
                             );
-                            parent.cGeneral.updateList();
+                            parent.cGeneral.showList();
                         }else if(e.getSource() == view.btChange){
                             if(oldName.toLowerCase().equals(game.toLowerCase())){
                                 actual.setGame(game);
@@ -438,7 +438,7 @@ public class EditGameController implements ActionListener, KeyListener{
                                     new GameStat(game,year,rate,comment,note,spoiler),
                                     true
                                 );
-                                parent.cGeneral.updateList();
+                                parent.cGeneral.showList();
                             }
                         }
 

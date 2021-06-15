@@ -77,6 +77,11 @@ public class GeneralController implements ActionListener{
     private HashMap<GameStat,GameRegisterPanel> games;
 
     /**
+     * String that stores the last search (lol).
+     */
+    private String lastSearch;
+
+    /**
      * Constructor of the GeneralController class.
      * 
      * @param m Logic of the controller
@@ -88,6 +93,7 @@ public class GeneralController implements ActionListener{
         view = v;
         parent = p;
         games = new HashMap<>();
+        lastSearch = "";
     }
 
     /**
@@ -106,6 +112,8 @@ public class GeneralController implements ActionListener{
         view.btHelp.addActionListener(this);
         view.btConfig.addActionListener(this);
         view.btAbout.addActionListener(this);
+        view.setSearchAvailable(true);
+        view.showResultsCount(false);
 
         obtainInitialValues();
     }
@@ -126,7 +134,7 @@ public class GeneralController implements ActionListener{
         for(GameStat gs: gameStats)
             add(gs, false);
 
-        updateList();
+        showList();
     }
 
     /**
@@ -157,25 +165,71 @@ public class GeneralController implements ActionListener{
      * from the view, found inside {@link #games} HashMap, and
      * re-enters them to the view, keeping the ordering of the
      * components.
-     * <p>
-     * It is not necessary to call this function when a
-     * component is being deleted.
      */
     public void updateList(){
-        view.setCount(model.getCount());
-        if(!model.getGameStats().isEmpty()){
-            if(view.isPlaceHolderPut())
-                view.removePlaceHolder();
-            else
-                view.removeAllFromCenter();
-            ArrayList<GameStat> gameStats = model.getGameStats();
-            for(GameStat gs: gameStats)
+        ArrayList<GameStat> gameStats = model.getGameStats();
+        // view.setCount(model.getCount()); // Note that this is already done
+        showStats(gameStats);
+    }
+
+    /**
+     * Sets the title to look up into the list of registers.
+     * This is used to save the last search in case the user
+     * wants to open a register when searching, so the
+     * external components can use it even if they don't know
+     * what's going on.
+     * 
+     * @param search Title of the game to search
+     */
+    public void setSearch(String search){
+        lastSearch = search;
+    }
+
+    /**
+     * Updates the visual list of searched game registers.
+     * This function is called in similar cases as
+     * {@link #updateList()} and when the user request a search.
+     * <p>
+     * Note that this function removes all existing elements
+     * from the view, found inside {@link #games} HashMap, and
+     * re-enters them to the view, keeping the ordering of the
+     * components.
+     */
+    public void showSearchResults(){
+        ArrayList<GameStat> results = model.getGameStatsOccurrences(lastSearch);
+        view.setSearchCount(results.size());
+        showStats(results);
+    }
+
+    /**
+     * Finally displays the list of {@link GameStat}s from
+     * the given ArrayList.
+     * 
+     * @param stats Array list of game registers.
+     */
+    private void showStats(ArrayList<GameStat> stats){        
+        view.removeAllFromCenter();
+        if(!stats.isEmpty()){
+            for(GameStat gs: stats)
                 view.addToCenter(games.get(gs));
-            view.validate();
-            view.repaint();
         }else{
             view.addPlaceHolder();
         }
+        view.validate();
+        view.repaint();
+    }
+
+    /**
+     * Calls either {@link #updateList()} or
+     * {@link #showSearchResults()}, depending on the current
+     * search status of the search bar from {@link #view}.
+     */
+    public void showList(){
+        view.setCount(model.getCount());
+        if(view.isSearchAvailable())
+            updateList();
+        else
+            showSearchResults();
     }
 
     /**
@@ -216,6 +270,7 @@ public class GeneralController implements ActionListener{
                     Colour.getPrimaryColor()
                 ) == 0){
                     remove(gs);
+                    showList();
                 }
             }
         });
@@ -243,13 +298,6 @@ public class GeneralController implements ActionListener{
         model.removeGameStat(gs);
         GameData.deleteGameInfo(gs.getGame());
         GameData.deleteGameImage(gs.getGame());
-
-        view.setCount(model.getCount());
-        view.removeFromCenter(games.get(gs));
-        if(model.getGameStats().isEmpty())
-            view.addPlaceHolder();
-        view.validate();
-        view.repaint();
 
         games.remove(gs);
         parent.saveStats();
@@ -324,6 +372,29 @@ public class GeneralController implements ActionListener{
             parent.frame.changePanel(parent.frame.pConfig,parent.frame.pConfig.scrollBar,0);
         }else if(e.getSource() == view.btAbout){
             parent.frame.changePanel(parent.frame.pAbout,parent.frame.pAbout.scrollBar,0);
+        }else if(e.getSource() == view.btSearch){
+            if(view.isSearchAvailable()){
+                String search = view.txtSearch.getText().trim();
+                if(search.length() > 0){
+                    setSearch(search);
+                    view.setSearchAvailable(false);
+                    view.showResultsCount(true);
+                    showList();
+                }else{
+                    Advice.showSimpleAdvice(
+                        parent.frame,
+                        Language.loadMessage("g_oops"),
+                        Language.loadMessage("m_no_search"),
+                        Language.loadMessage("g_accept"),
+                        Colour.getPrimaryColor()
+                    );
+                }
+            }else{
+                view.setSearchAvailable(true);
+                view.txtSearch.setText("");
+                view.showResultsCount(false);
+                showList();
+            }
         }else{
             Advice.showSimpleAdvice(
                 parent.frame,

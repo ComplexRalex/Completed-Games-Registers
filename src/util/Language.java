@@ -187,6 +187,8 @@ public class Language{
 		map.get("English").put("m_help",				"How to use it?");
 		map.get("English").put("m_nothing",				"...there's nothing here!");
 		map.get("English").put("m_count",				"Current number of registers:");
+		map.get("English").put("m_search_count",		"Results:");
+		map.get("English").put("m_no_search",			"What are you looking for...?");
 		map.get("English").put("m_busy_frame",			"You can't close the window right now");
 		map.get("English").put("m_closing",				"Do you really want to exit?");
 
@@ -284,6 +286,8 @@ public class Language{
 		map.get("English").put("h_options_view",		"This kind-of eye will show you the information you entered about that game and will include its online information (in case you downloaded it).");
 		map.get("English").put("h_options_edit",		"If you click this, you can modify anything about that register you created before. Displays the same panel as the one where you entered a new register, but now with the given information.");
 		map.get("English").put("h_options_remove",		"I present to you: the trash can!. If you think that was not a good choice adding that game register, you can remove it just by clicking this!");
+		map.get("English").put("h_search_bar",			"What's that text field from above for?");
+		map.get("English").put("h_search_bar_text",		"It's the search bar. You can look for specific game-registers at any moment!");
 		map.get("English").put("h_report_issue",		"Did you see any bug?");
 		map.get("English").put("h_report_issue_text",	"Report an issue (GitHub page)");
 
@@ -357,6 +361,8 @@ public class Language{
 		map.get("Spanish").put("m_help",				"¿Cómo se usa?");
 		map.get("Spanish").put("m_nothing",				"...esto se ve muy vacío!");
 		map.get("Spanish").put("m_count",				"Número actual de registros:");
+		map.get("Spanish").put("m_search_count",		"Resultados:");
+		map.get("Spanish").put("m_no_search",			"¿Cuál es ese juego...?");
 		map.get("Spanish").put("m_busy_frame",			"No puedes cerrar la ventana en este momento");
 		map.get("Spanish").put("m_closing",				"¿De verdad quieres salir?");
 
@@ -454,6 +460,8 @@ public class Language{
 		map.get("Spanish").put("h_options_view",		"Esta especie de... ojo, te mostrará la información que ingresaste sobre dicho juego e incluirá su información online (en caso de haberla descargado).");
 		map.get("Spanish").put("h_options_edit",		"Si haces click aquí, podrás modificar cualquier cosa sobre ese registro que agregaste. Muestra el mismo panel en donde sueles agregar registros, pero esta vez con la información previa.");
 		map.get("Spanish").put("h_options_remove",		"Te presento: ¡el bote de basura!. Si crees que no fue una buena idea agregar ese registro, ¡lo puedes borrar con solo dar click a esto!");
+		map.get("Spanish").put("h_search_bar",			"¿Para qué es ese campo de texto de arriba?");
+		map.get("Spanish").put("h_search_bar_text",		"Es la barra de búsqueda. ¡Puedes buscar <i>game-registers</i> en cualquier momento!");
 		map.get("Spanish").put("h_report_issue",		"¿Viste algún error?");
 		map.get("Spanish").put("h_report_issue_text",	"Reportar problema (página GitHub)");
 
