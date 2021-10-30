@@ -1,7 +1,7 @@
 @echo off
 
 echo " >> Building class files"
-cd ..
+cd ../..
 if not exist "build/" (
     mkdir build
 )
@@ -16,5 +16,5 @@ if not exist "gui/" (
     mkdir gui
 )
 copy "..\res\gui\*.png" "gui\*.png" /Y
-cd ..\run
+cd ..\run\windows
 echo " >> Building class files done."

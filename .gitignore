@@ -2,7 +2,10 @@ jar/
 bin/
 build/
 trash/
-run/run/
+run/linux/run/
+run/linux/jar/
+run/windows/run/
+run/windows/jar/
 .settings/
 .vscode/
 .project
