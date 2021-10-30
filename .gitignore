@@ -3,7 +3,6 @@ bin/
 build/
 trash/
 run/run/
-.github/
 .settings/
 .vscode/
 .project
