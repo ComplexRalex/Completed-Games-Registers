@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./
+Class-Path: . lib\json-20200518.jar
+Rsrc-Main-Class: MainLauncher
+Main-Class: MainLauncher
