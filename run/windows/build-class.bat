@@ -6,6 +6,11 @@ if not exist "build/" (
     mkdir build
 )
 javac -d build\ -cp "lib\json-20200518.jar" -encoding "UTF-8" src\MainLauncher.java src\model\* src\view\* src\controller\* src\util\* src\system\Software.java
+if %errorlevel% neq 0 (
+    echo " >> An error ocurred when generating class files!"
+    echo " >> Error code: %errorlevel%"
+    exit
+)
 cd build
 echo " >> Copying resources"
 if not exist "icon/" (
