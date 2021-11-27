@@ -281,13 +281,20 @@ public class Language{
 		map.get("English").put("h_options",				"What does each option do?");
 		map.get("English").put("h_options_add",			"If you want to add a completed-game register, click this button. It will display a panel where you can add the game name and more information you'd like to save.");
 		map.get("English").put("h_options_backup",		"You don't feel comfortable just by knowing that the program saves automatically the registers? Hey, it's okay! you can make a backup with this option!");
-		map.get("English").put("h_options_export",		"This option will allow you to export the current registers into a JSON file which will contain everything you entered! Except, of course, the game info downloaded from the database).");
+		map.get("English").put("h_options_export",		"This option will allow you to export the current registers into a JSON file which will contain everything you entered! (except the info downloaded from the database).");
 		map.get("English").put("h_options_help",		"Well... as you can see, this option will show you a panel explaining stuff shown in this program!");
 		map.get("English").put("h_options_view",		"This kind-of eye will show you the information you entered about that game and will include its online information (in case you downloaded it).");
 		map.get("English").put("h_options_edit",		"If you click this, you can modify anything about that register you created before. Displays the same panel as the one where you entered a new register, but now with the given information.");
 		map.get("English").put("h_options_remove",		"I present to you: the trash can!. If you think that was not a good choice adding that game register, you can remove it just by clicking this!");
 		map.get("English").put("h_search_bar",			"What's that text field from above for?");
-		map.get("English").put("h_search_bar_text",		"It's the search bar. You can look for specific game-registers at any moment!");
+		map.get("English").put("h_search_bar_text_1",	"It's the search bar. You can look for specific <i>game-registers</i> at any moment!");
+		map.get("English").put("h_search_bar_text_2",	"Write the name of the game you've registered, and click on \"Search\". On the lower part of the screen, it will show up the number of coincidences in the search.");
+		map.get("English").put("h_search_bar_text_3",	"After you click, it will search registers that contains:");
+		map.get("English").put("h_search_bar_text_3_5",	"After you click, if the text field contains something, it will search for it.");
+		map.get("English").put("h_search_bar_text_4",	"When you want to go back to see all the registers, click on \"Return\".");
+		map.get("English").put("h_search_bar_text_5",	"After you click, it will show up all the registers.");
+		map.get("English").put("h_search_bar_extra_1",	"... a name of");
+		map.get("English").put("h_search_bar_extra_2",	"letters.");
 		map.get("English").put("h_report_issue",		"Did you see any bug?");
 		map.get("English").put("h_report_issue_text",	"Report an issue (GitHub page)");
 
@@ -455,13 +462,20 @@ public class Language{
 		map.get("Spanish").put("h_options",				"¿Qué hace cada opción?");
 		map.get("Spanish").put("h_options_add",			"Si quieres agregar un registro de juego completado, presiona este botón. Te mostrará un panel en donde podrás agregar el nombre del juego y más información que quisieras guardar.");
 		map.get("Spanish").put("h_options_backup",		"¿No es suficiente para tí saber que el programa guarda los registros automáticamente? Si gustas, ¡puedes hacer una copia de seguridad con esta opción!");
-		map.get("Spanish").put("h_options_export",		"Esta opción te permitirá exportar los registros actuales a un archivo JSON que contendrá toda la información que ingresaste, excepto la que descargaste de la base de datos.");
+		map.get("Spanish").put("h_options_export",		"Esta opción te permitirá exportar los registros actuales a un archivo JSON que contendrá toda la información que ingresaste (excepto la que descargaste de la base de datos).");
 		map.get("Spanish").put("h_options_help",		"Bueno... como puedes ver, ¡esta opción te mostrará un panel explicando las cosas mostradas en este programa!");
 		map.get("Spanish").put("h_options_view",		"Esta especie de... ojo, te mostrará la información que ingresaste sobre dicho juego e incluirá su información online (en caso de haberla descargado).");
 		map.get("Spanish").put("h_options_edit",		"Si haces click aquí, podrás modificar cualquier cosa sobre ese registro que agregaste. Muestra el mismo panel en donde sueles agregar registros, pero esta vez con la información previa.");
 		map.get("Spanish").put("h_options_remove",		"Te presento: ¡el bote de basura!. Si crees que no fue una buena idea agregar ese registro, ¡lo puedes borrar con solo dar click a esto!");
 		map.get("Spanish").put("h_search_bar",			"¿Para qué es ese campo de texto de arriba?");
-		map.get("Spanish").put("h_search_bar_text",		"Es la barra de búsqueda. ¡Puedes buscar <i>game-registers</i> en cualquier momento!");
+		map.get("Spanish").put("h_search_bar_text_1",	"Es la barra de búsqueda. ¡Puedes buscar <i>game-registers</i> en cualquier momento!");
+		map.get("Spanish").put("h_search_bar_text_2",	"Escribe el nombre del juego que has registrado y dale click en \"Buscar\". En la parte inferior de la pantalla saldrá el número de registros que coincidieron con la búsqueda.");
+		map.get("Spanish").put("h_search_bar_text_3",	"Luego de haber dado click, se buscarán registros que contengan:");
+		map.get("Spanish").put("h_search_bar_text_3_5",	"Luego de haber dado click, si escribiste algo, se buscará.");
+		map.get("Spanish").put("h_search_bar_text_4",	"Cuando quieras volver a ver todos los registros, dale click en \"Regresar\".");
+		map.get("Spanish").put("h_search_bar_text_5",	"Luego de haber dado click, se verán todos los registros.");
+		map.get("Spanish").put("h_search_bar_extra_1",	"... un nombre de");
+		map.get("Spanish").put("h_search_bar_extra_2",	"letras.");
 		map.get("Spanish").put("h_report_issue",		"¿Viste algún error?");
 		map.get("Spanish").put("h_report_issue_text",	"Reportar problema (página GitHub)");
 

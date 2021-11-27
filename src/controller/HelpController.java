@@ -28,6 +28,9 @@ import java.awt.event.ActionEvent;
 
 import system.Software;
 import util.Navigation;
+import util.Language;
+import util.Colour;
+import util.Advice;
 
 /**
  * <h3>HelpController controller class.</h3>
@@ -66,15 +69,51 @@ public class HelpController implements ActionListener{
      * in the {@link #view}.
      */
     public void initialize(){
+        view.btDummy1.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.txtDummy2.setText(view.txtDummy1.getText());
+                Advice.showSimpleAdvice(
+                    parent.frame,
+                    Language.loadMessage("g_message"),
+                    view.txtDummy1.getText().length() == 0 ?
+                        Language.loadMessage("h_search_bar_text_3_5") :
+                        Language.loadMessage("h_search_bar_text_3")+" "+(
+                            view.txtDummy1.getText().length() <= 16 ?
+                            "\""+view.txtDummy1.getText()+"\"." :
+                            Language.loadMessage("h_search_bar_extra_1")+" "+view.txtDummy1.getText().length()+" "+Language.loadMessage("h_search_bar_extra_2")
+                        ),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+            }
+        });
+        view.btDummy2.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.txtDummy1.setText("");
+                view.txtDummy2.setText("");
+                Advice.showSimpleAdvice(
+                    parent.frame,
+                    Language.loadMessage("g_message"),
+                    Language.loadMessage("h_search_bar_text_5"),
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
+            }
+        });
+
         view.btReportIssue.addActionListener(this);
         view.btReturn.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == view.btReturn)
+        if(e.getSource() == view.btReturn){
+            view.txtDummy1.setText("");
+            view.txtDummy2.setText("");
             parent.frame.changePanel(parent.frame.pGeneral,null,0);
-        else if(e.getSource() == view.btReportIssue){
+        }else if(e.getSource() == view.btReportIssue){
             Navigation.goToPage(Software.ISSUES_PAGE, parent.frame);
         }
     }
