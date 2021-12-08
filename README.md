@@ -48,6 +48,8 @@ Because of a change made in the construction of jar files, it's necessary to mak
 
 If you want to update from older versions to this one (or above), you can simply copy the contents of the new release into the folder of the previous jar version (replacing the old jar file and including the ``lib`` folder contents).
 
+Also, now the ``jar`` file no longer works for both Windows and Linux systems _at the same time_. That is, there are different ``jar`` files for every system (only two, but you get the idea).
+
 In case this is the first version you downloaded, you can ignore this and simply extract the contents of the release version.
 
 ### [[v1.0.3](https://github.com/ComplexRalex/Completed-Games-Registers/releases/tag/v1.0.3)] RAWG Database now requires an API key in order to accept requests
@@ -85,6 +87,14 @@ All the ``run`` files are inside the ``run`` folder. Be sure to run them **at th
      */
     public static final String API_KEY = "INSERT-YOUR-RAWG-API-KEY-HERE";
 ```
+
+**Note 3:** There are more runnables you can execute, so here's a brief explanation about them.
+
+* ``build`` will generate ``class`` files and finally a ``jar`` file.
+* ``build-and-run`` will generate ``class`` files and run the program from them.
+* ``build-class`` will only generate ``class`` files. These files will be stored in the ``build`` folder.
+* ``build-jar`` will only generate a ``jar`` file (which requires ``class`` files). The ``jar`` file will be stored in the path ``run/<system-you-selected>/jar``, containing the ``data`` and ``lib`` folders as well.
+* ``run`` will only run the program (which won't work if there were no ``class`` files found). This will store all the program data in the path ``run/<system-you-selected>/run/data``.
 
 ## Screenshots
 
