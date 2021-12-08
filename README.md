@@ -1,7 +1,7 @@
 # Completed-Games Registers
 
 <p align="center">
-    <img src="https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png" title="Logotype of Completed-Games Register software" alt="Logotype of the program 'Completed-Games Registers'">
+    <img src="https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png" title="Logotype of Completed-Games Register software" alt="Completed-Games Registers">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
     <a href="https://github.com/ComplexRalex/Completed-Games-Registers/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ComplexRalex/Completed-Games-Registers" alt="GitHub"/></a>
 </p>
 
-There were some changes across versions of this software. I encourage you to check out the details [here](#updates).
+There were some changes across versions of this software. I encourage you to check out the details [here](#important-notes-about-updates).
 Also, if you are using a **release** of this program (``.jar`` file), please [read this section](#about-release-versions).
 
 ## Description
@@ -34,17 +34,16 @@ The only one of the above mentioned that isn't optional is the first field: the 
 Also, you can see additional information about the game like _its description_, _their publishers and developers_, _its genres_, and even an _image or screenshot_!
 These things are thanks to the [RAWG's database API](https://rawg.io/apidocs).
 
-## Notes & Advices
+**Note:** *When you are downloading game information, it will take a few seconds to process it (be patient).*
 
-### General
+## Requirements
 
 * This program requires _at least_ **Java 1.8** to be executed (in fact, is recommended to run it at that version). You can download it [here](https://java.com/en/download/).
 * This program uses the **Open Sans** font by default, but it isn't necessary to run it. Anyways, if you want to download it, click [here](https://fonts.google.com/specimen/Open+Sans).
-* When you are downloading game information, it will take a few seconds to process it (be patient).
 
-### Updates
+## Important notes about updates
 
-#### [WARNING] Versions from _1.1.1_ requires ``lib`` folder
+### [[v1.1.1](https://github.com/ComplexRalex/Completed-Games-Registers/releases/tag/v1.1.0)] Versions from _1.1.1_ requires ``lib`` folder
 
 Because of a change made in the construction of jar files, it's necessary to make a ``lib`` folder and include all the libraries inside of them in order to run the program correctly.
 
@@ -52,11 +51,11 @@ If you want to update from older versions to this one (or above), you can simply
 
 In case this is the first version you downloaded, you can ignore this and simply extract the contents of the release version.
 
-#### [WARNING] RAWG Database now requires an API key in order to accept requests
+### [[v1.0.3](https://github.com/ComplexRalex/Completed-Games-Registers/releases/tag/v1.0.3)] RAWG Database now requires an API key in order to accept requests
 
-This problem is fixed in the 1.0.3 version.
+This problem is fixed in the 1.0.3 version. However, this implies that previous versions will not allow downloading game information from RAWG Database.
 
-#### [WARNING] Are you using the _1.0.0_ version?
+### [[v1.0.0](https://github.com/ComplexRalex/Completed-Games-Registers/releases/tag/v1.0.0)] Downloaded game information
 
 Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you got them in the version 1.0.0 and want to access them **in future versions**. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
 
@@ -68,15 +67,7 @@ Sorry for the inconvenience.
 
 ## About *release* versions
 
-It's recommended to put the contents of those versions inside a folder. This is because the ``jar`` file **creates a new folder** named ``data``, where all the files are going to be saved and modified.
-
-### How can I *update* my JAR file?
-
-You just need to download the JAR file and put it in the same location as the previous one. In fact, you can delete the old one and let there the new one.
-
-**Note 1:** From versions upper or equal to 1.1.1 now you will need to copy the ``lib`` folder as well [(for more details click here)](#warning-versions-from-1.1.1-requires-lib-folder).
-
-**Note 2:** Please read the notes provided in the _release_ versions, so you can finally decide to update or to stay in the same version.
+Everything you need to know about ``jar`` file releases can be consulted [here](https://github.com/ComplexRalex/Completed-Games-Registers/releases).
 
 ## How to build from source files and run
 
@@ -85,9 +76,9 @@ All the ``run`` files are inside of the ``run`` folder. Be sure to run them **at
 * In *Windows*, go to ``run/windows``, execute ``build-class.bat`` and then execute ``run.bat``.
 * In *Linux*, go to ``run/linux``, execute ``build-class.sh`` and then execute ``run.sh``.
 
-**Note 1**: *After running the ``build-class`` file, every time you want to run the program you only need to execute the ``run`` file.*
+**Note 1:** After running the ``build-class`` file, every time you want to run the program *you only need to execute the ``run`` file.*
 
-**Note 2**: From now on, you must **get a new RAWG API key** in order to download information from their database. This can be obtained [here](https://rawg.io/login?forward=developer). The location where you need to put it in is on the API_KEY String on the **Software** java class (that is ``src/system/Software.java``).
+**Note 2:** From now on, you must **get a new RAWG API key** in order to download information from their database. This can be obtained [here](https://rawg.io/login?forward=developer). The location where you need to put it in is on the API_KEY String on the **Software** java class (that is ``src/system/Software.java``).
 
 ```java
     /**
