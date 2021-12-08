@@ -93,15 +93,15 @@ All the ``run`` files are inside the ``run`` folder. Be sure to run them **at th
 * ``build`` will generate ``class`` files and finally a ``jar`` file.
 * ``build-and-run`` will generate ``class`` files and run the program from them.
 * ``build-class`` will only generate ``class`` files. These files will be stored in the ``build`` folder.
-* ``build-jar`` will only generate a ``jar`` file (which requires ``class`` files). The ``jar`` file will be stored in the path ``run/<system-you-selected>/jar``, containing the ``data`` and ``lib`` folders as well.
+* ``build-jar`` will only generate a ``jar`` file (which requires ``class`` files). The ``jar`` file will be stored in the path ``run/<system-you-selected>/jar``, containing the ``data`` and ``lib`` folders as well. In case you want to run the jar file, you can do it with ``java -jar CGR.jar``.
 * ``run`` will only run the program (which won't work if there were no ``class`` files found). This will store all the program data in the path ``run/<system-you-selected>/run/data``.
 
 ## Screenshots
 
-![Completed-Games Registers screenshot 1](https://i.imgur.com/l1GdgwX.png "screenshot 1")
-![Completed-Games Registers screenshot 2](https://i.imgur.com/Gfcct3x.png "screenshot 2")
-![Completed-Games Registers screenshot 3](https://i.imgur.com/7yJZlRr.png "screenshot 3")
-![Completed-Games Registers screenshot 4](https://i.imgur.com/cHPfpFu.png "screenshot 4")
+![Completed-Games Registers screenshot 1](https://i.imgur.com/vpPljiA.png "screenshot 1")
+![Completed-Games Registers screenshot 2](https://i.imgur.com/o2P3vJv.png "screenshot 2")
+![Completed-Games Registers screenshot 3](https://i.imgur.com/64DRt3m.png "screenshot 3")
+![Completed-Games Registers screenshot 4](https://i.imgur.com/HCWn506.png "screenshot 4")
 
 ## Report issues!
 
