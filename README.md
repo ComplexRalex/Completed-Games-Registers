@@ -11,8 +11,7 @@
     <a href="https://github.com/ComplexRalex/Completed-Games-Registers/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ComplexRalex/Completed-Games-Registers" alt="GitHub"/></a>
 </p>
 
-There were some changes across versions of this software. I encourage you to check out the details [here](#important-notes-about-updates).
-Also, if you are using a **release** of this program (``.jar`` file), please [read this section](#about-release-versions).
+There were some changes across versions of this software. I encourage you to check out the details [here](#important-notes-about-updates). In case you want to download a _release_ version, go [here](#about-release-versions).
 
 ## Description
 
@@ -31,15 +30,15 @@ If you want to save a list with all the games that you have completed so far, yo
 
 The only one of the above mentioned that isn't optional is the first field: the **title of the game**.
 
-Also, you can see additional information about the game like _its description_, _their publishers and developers_, _its genres_, and even an _image or screenshot_!
-These things are thanks to the [RAWG's database API](https://rawg.io/apidocs).
+Also, you can see additional information about the game like _its description_, _its publishers and developers_, _its genres_, and even an _image or screenshot_!
+These things are thanks to [RAWG's database API](https://rawg.io/apidocs).
 
-**Note:** *When you are downloading game information, it will take a few seconds to process it (be patient).*
+**Note:** When you are downloading game information, it will take a few seconds to process it. *Be patient*.
 
 ## Requirements
 
 * This program requires _at least_ **Java 1.8** to be executed (in fact, is recommended to run it at that version). You can download it [here](https://java.com/en/download/).
-* This program uses the **Open Sans** font by default, but it isn't necessary to run it. Anyways, if you want to download it, click [here](https://fonts.google.com/specimen/Open+Sans).
+* This program uses the **Open Sans** font by default, but _it isn't necessary_ to run it. Anyways, if you want to download it, click [here](https://fonts.google.com/specimen/Open+Sans).
 
 ## Important notes about updates
 
@@ -57,7 +56,7 @@ This problem is fixed in the 1.0.3 version. However, this implies that previous 
 
 ### [[v1.0.0](https://github.com/ComplexRalex/Completed-Games-Registers/releases/tag/v1.0.0)] Downloaded game information
 
-Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you got them in the version 1.0.0 and want to access them **in future versions**. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
+Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you downloaded them in version 1.0.0 and want to access them **in future versions**. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
 
 If you are currently using the **1.0.0 version** and you downloaded game information (only ``.json`` files) but you want to update your JAR file (or update from git), it's recommendable to _delete_ and re-download these files.
 
@@ -71,10 +70,10 @@ Everything you need to know about ``jar`` file releases can be consulted [here](
 
 ## How to build from source files and run
 
-All the ``run`` files are inside of the ``run`` folder. Be sure to run them **at that same location**.
+All the ``run`` files are inside the ``run`` folder. Be sure to run them **at that same location**.
 
-* In *Windows*, go to ``run/windows``, execute ``build-class.bat`` and then execute ``run.bat``.
-* In *Linux*, go to ``run/linux``, execute ``build-class.sh`` and then execute ``run.sh``.
+* In *Windows*, go to ``run/windows``, execute ``build-class.bat``, and then execute ``run.bat``.
+* In *Linux*, go to ``run/linux``, execute ``build-class.sh``, and then execute ``run.sh``.
 
 **Note 1:** After running the ``build-class`` file, every time you want to run the program *you only need to execute the ``run`` file.*
 
