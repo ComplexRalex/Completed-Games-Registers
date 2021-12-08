@@ -56,11 +56,11 @@ This problem is fixed in the 1.0.3 version. However, this implies that previous 
 
 ### [[v1.0.0](https://github.com/ComplexRalex/Completed-Games-Registers/releases/tag/v1.0.0)] Downloaded game information
 
-Most of the game information files (``.json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you downloaded them in version 1.0.0 and want to access them **in future versions**. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
+Most of the game information files (``json``, inside ``data/game/json`` folder), which can be downloaded from the creation/editing menu of a **completed-game _register_**, won't be accessible if you downloaded them in version 1.0.0 and want to access them **in future versions**. This is because of a modification made in the name of the files, doing it more compatible with more special characters.
 
-If you are currently using the **1.0.0 version** and you downloaded game information (only ``.json`` files) but you want to update your JAR file (or update from git), it's recommendable to _delete_ and re-download these files.
+If you are currently using the **1.0.0 version** and you downloaded game information (only ``json`` files) but you want to update your JAR file (or update from git), it's recommendable to _delete_ and re-download these files.
 
-**Note:** This won't affect the game registers that you have created. **This is related to the ``.json`` files which are inside the ``data/game/json`` folder.**
+**Note:** This won't affect the game registers that you have created. **This is related to the ``json`` files which are inside the ``data/game/json`` folder.**
 
 Sorry for the inconvenience.
 
