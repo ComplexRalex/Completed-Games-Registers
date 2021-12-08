@@ -1,10 +1,10 @@
 # Completed-Games Registers
 
-<p style="text-align: center;">
+<p align="center">
     <img src="https://raw.githubusercontent.com/ComplexRalex/Completed-Games-Registers/master/res/gui/logotype.png" title="Logotype of Completed-Games Register software" alt="Logotype of the program 'Completed-Games Registers'">
 </p>
 
-<p style="text-align: center;">
+<p align="center">
     <a href="https://github.com/ComplexRalex/Completed-Games-Registers/releases/latest"><img src="https://img.shields.io/github/v/release/ComplexRalex/Completed-Games-Registers" alt="GitHub release (latest by date)"/></a>
     <a href="https://github.com/ComplexRalex/Completed-Games-Registers/releases/latest"><img src="https://img.shields.io/github/release-date/ComplexRalex/Completed-Games-Registers" alt="GitHub Release Date"/></a>
     <a href="https://github.com/ComplexRalex/Completed-Games-Registers/commit/master"><img src="https://img.shields.io/github/last-commit/ComplexRalex/Completed-Games-Registers" alt="GitHub last commit"/></a>
