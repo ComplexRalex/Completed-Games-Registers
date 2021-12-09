@@ -48,8 +48,6 @@ Because of a change made in the construction of jar files, it's necessary to mak
 
 If you want to update from older versions to this one (or above), you can simply copy the contents of the new release into the folder of the previous jar version (replacing the old jar file and including the ``lib`` folder contents).
 
-Also, now the ``jar`` file no longer works for both Windows and Linux systems _at the same time_. That is, there are different ``jar`` files for every system (only two, but you get the idea).
-
 In case this is the first version you downloaded, you can ignore this and simply extract the contents of the release version.
 
 ### [[v1.0.3](https://github.com/ComplexRalex/Completed-Games-Registers/releases/tag/v1.0.3)] RAWG Database now requires an API key in order to accept requests

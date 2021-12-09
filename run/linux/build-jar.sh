@@ -3,7 +3,7 @@ cd ../../build
 if [ ! -d "../run/linux/jar" ]; then
     mkdir ../run/linux/jar
 fi
-jar -cmf ../ManifestFS.mf ../run/linux/jar/CGR.jar MainLauncher.class model/* view/* controller/* util/* system/Software.class gui/* icon/*
+jar -cmf ../Manifest.mf ../run/linux/jar/CGR.jar MainLauncher.class model/* view/* controller/* util/* system/Software.class gui/* icon/*
 okay=$?
 if [ $okay -ne 0 ]; then
     echo " >> An error ocurred when generating jar file!"
