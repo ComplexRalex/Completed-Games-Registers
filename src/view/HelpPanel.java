@@ -32,6 +32,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import util.Colour;
 import util.Component;
@@ -57,7 +58,12 @@ public class HelpPanel extends JPanel{
     /**
 	 * Buttons used to different actions.
 	 */
-    public JButton btReportIssue, btReturn;
+    public JButton btReportIssue, btReturn, btDummy1, btDummy2;
+
+    /**
+     * TextFields used for some reason...
+     */
+    public JTextField txtDummy1, txtDummy2;
 
     /**
      * Scrollbar used in the {@link JScrollPane} of the central
@@ -169,7 +175,26 @@ public class HelpPanel extends JPanel{
         // - Establishing "what's that text field from above" stuff
 
         panel.add(Component.createSubtitle(Language.loadMessage("h_search_bar"), Colour.getPrimaryColor()));
-        panel.add(Component.createPlainText(Language.loadMessage("h_search_bar_text"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
+        panel.add(Component.createPlainText(Language.loadMessage("h_search_bar_text_1"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
+        panel.add(Component.createPlainText(Language.loadMessage("h_search_bar_text_2"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
+        txtDummy1 = new JTextField();
+        btDummy1 = new JButton();
+        panel.add(Component.createTexFieldAndButton(
+            Language.loadMessage("g_search"),
+            txtDummy1,
+            btDummy1,
+            Colour.getBackgroundColor()
+        ));
+        panel.add(Component.createPlainText(Language.loadMessage("h_search_bar_text_4"), Typeface.labelPlain, false, Colour.getBackgroundColor()));
+        txtDummy2 = new JTextField();
+        txtDummy2.setEnabled(false);
+        btDummy2 = new JButton();
+        panel.add(Component.createTexFieldAndButton(
+            Language.loadMessage("g_return"),
+            txtDummy2,
+            btDummy2,
+            Colour.getBackgroundColor()
+        ));
 
         // - Establishing explanation of every icon
 

@@ -361,7 +361,9 @@ public class GameData{
 
 		URI uri = new URI("https","api.rawg.io","/api/games","search="+game+"&page_size=1&key="+Software.API_KEY,"");
 		URL url = new URL(uri.toASCIIString());
-		Log.toConsole("Request -> "+url,"GameData",Log.DEBUG);
+		if(Software.API_KEY.equals("INSERT-YOUR-RAWG-API-KEY-HERE"))
+			Log.toConsole("Hey, make sure to change the RAWG API key!!!","GameData",Log.DEBUG);
+		Log.toConsole("Making search request...","GameData",Log.DEBUG);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setRequestMethod("GET");
@@ -422,7 +424,7 @@ public class GameData{
 
 		URI uri = new URI("https","api.rawg.io","/api/games/"+searchGame(game),"key="+Software.API_KEY,"");
 		URL url = new URL(uri.toASCIIString());
-		Log.toConsole("Request -> "+url,"GameData",Log.DEBUG);
+		Log.toConsole("Making download request...","GameData",Log.DEBUG);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		
 		connection.setRequestMethod("GET");

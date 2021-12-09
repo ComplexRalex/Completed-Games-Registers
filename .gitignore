@@ -1,1 +1,14 @@
 jar/
+bin/
+build/
+trash/
+run/linux/run/
+run/linux/jar/
+run/windows/run/
+run/windows/jar/
+.settings/
+.vscode/
+.project
+.classpath
+secret.txt
+something.txt
