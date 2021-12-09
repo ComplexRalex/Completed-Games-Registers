@@ -72,7 +72,7 @@ Everything you need to know about ``jar`` file releases can be consulted [here](
 
 ## How to build from source files and run
 
-All the ``run`` files are inside the ``run`` folder. Be sure to run them **at that same location**.
+All the ``run`` files are inside the ``run`` folder. Be sure to run them **at that same location** (that location is ``run/<system-you-selected>``).
 
 * In *Windows*, go to ``run/windows``, execute ``build-class.bat``, and then execute ``run.bat``.
 * In *Linux*, go to ``run/linux``, execute ``build-class.sh``, and then execute ``run.sh``.
