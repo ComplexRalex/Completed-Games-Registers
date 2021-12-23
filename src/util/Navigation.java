@@ -71,7 +71,7 @@ public class Navigation{
             }
         }else{
             Advice.showTextAreaAdvice(
-                null,
+                container,
                 Language.loadMessage("g_oops"),
                 Language.loadMessage("g_went_wrong")+": ",
                 "Opening browser is not supported.", 40, 2,
