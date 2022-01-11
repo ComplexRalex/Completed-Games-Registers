@@ -62,7 +62,7 @@ public class Navigation{
                     Advice.showTextAreaAdvice(
                         container,
                         Language.loadMessage("g_oops"),
-                        Language.loadMessage("g_wentworng")+": ",
+                        Language.loadMessage("g_went_wrong")+": ",
                         error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
                         Language.loadMessage("g_accept"),
                         Colour.getPrimaryColor()
@@ -70,10 +70,11 @@ public class Navigation{
                 }
             }
         }else{
-            Advice.showSimpleAdvice(
+            Advice.showTextAreaAdvice(
                 container,
                 Language.loadMessage("g_oops"),
-                Language.loadMessage("g_wentworng"),
+                Language.loadMessage("g_went_wrong")+": ",
+                "Opening browser is not supported.", 40, 2,
                 Language.loadMessage("g_accept"),
                 Colour.getPrimaryColor()
             );
