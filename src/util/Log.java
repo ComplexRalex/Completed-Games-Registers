@@ -72,7 +72,8 @@ public class Log{
         StringWriter writer = new StringWriter();
         Calendar today = Calendar.getInstance();
         
-        writer.append(" > Version: "+Software.VERSION+"\n\n");
+        writer.append(" > Software version: "+Software.VERSION+"\n");
+        writer.append(" > Operative System: "+System.getProperty("os.name")+"\n\n");
 
         writer.append(" | --- --- --- --- --- --- --- |"+"\n\n");
 

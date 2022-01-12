@@ -77,6 +77,18 @@ public class ConfigurationController implements ActionListener, KeyListener{
 
 	/**
 	 * Temporal number which determines the current status
+	 * of the "confirm backup" switch option.
+	 */
+	private int confirmBackupStatus;
+
+	/**
+	 * Temporal number which determines the current status
+	 * of the "confirm export" switch option.
+	 */
+	private int confirmExportStatus;
+
+	/**
+	 * Temporal number which determines the current status
 	 * of the "exit dialog" switch option.
 	 */
 	private int exitDialogStatus;
@@ -113,6 +125,12 @@ public class ConfigurationController implements ActionListener, KeyListener{
 
 		view.btAutoBackupON.addActionListener(this);
 		view.btAutoBackupOFF.addActionListener(this);
+		
+		view.btConfirmBackupON.addActionListener(this);
+		view.btConfirmBackupOFF.addActionListener(this);
+		
+		view.btConfirmExportON.addActionListener(this);
+		view.btConfirmExportOFF.addActionListener(this);
 		
 		view.btExitDialogON.addActionListener(this);
 		view.btExitDialogOFF.addActionListener(this);
@@ -157,6 +175,26 @@ public class ConfigurationController implements ActionListener, KeyListener{
 			Component.toggleEnabledButton(view.btAutoBackupOFF, false, Colour.colorOFF);
 			autoBackupStatus = 0;
 		}
+
+		if(model.getConfirmBackupDialog()){
+			Component.toggleEnabledButton(view.btConfirmBackupON, false, Colour.colorON);
+			Component.toggleEnabledButton(view.btConfirmBackupOFF, true, Colour.getButtonColor());
+			confirmBackupStatus = 1;
+		}else{
+			Component.toggleEnabledButton(view.btConfirmBackupON, true, Colour.getButtonColor());
+			Component.toggleEnabledButton(view.btConfirmBackupOFF, false, Colour.colorOFF);
+			confirmBackupStatus = 0;
+		}
+
+		if(model.getConfirmExportDialog()){
+			Component.toggleEnabledButton(view.btConfirmExportON, false, Colour.colorON);
+			Component.toggleEnabledButton(view.btConfirmExportOFF, true, Colour.getButtonColor());
+			confirmExportStatus = 1;
+		}else{
+			Component.toggleEnabledButton(view.btConfirmExportON, true, Colour.getButtonColor());
+			Component.toggleEnabledButton(view.btConfirmExportOFF, false, Colour.colorOFF);
+			confirmExportStatus = 0;
+		}
 		
 		if(model.getExitDialog()){
 			Component.toggleEnabledButton(view.btExitDialogON, false, Colour.colorON);
@@ -188,6 +226,8 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		boolean flag = true;
 		flag = (flag && model.getUsername().equals(view.txtUser.getText().trim()));
 		flag = (flag && (model.getAutoBackup() == (autoBackupStatus == 1)));
+		flag = (flag && (model.getConfirmBackupDialog() == (confirmBackupStatus == 1)));
+		flag = (flag && (model.getConfirmExportDialog() == (confirmExportStatus == 1)));
 		flag = (flag && (model.getExitDialog() == (exitDialogStatus == 1)));
 		flag = (flag && model.getConnectionTimeout() == (int)view.spConnect.getValue());
 		flag = (flag && model.getReadTimeout() == (int)view.spRead.getValue());
@@ -234,16 +274,16 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		}
 		
 		// Toggle enable/disable autoBackup option
-		switch(autoBackupStatus){
-			case 1: model.enableAutoBackup(true); break;
-			case 0: model.enableAutoBackup(false);
-		}
+		model.enableAutoBackup(autoBackupStatus == 1);
+
+		// Toggle enable/disable confirmBackup option
+		model.enableConfirmBackupDialog(confirmBackupStatus == 1);
+
+		// Toggle enable/disable confirmExport option
+		model.enableConfirmExportDialog(confirmExportStatus == 1);
 
 		// Toggle enable/disable exitDialog option
-		switch(exitDialogStatus){
-			case 1: model.enableExitDialog(true); break;
-			case 0: model.enableExitDialog(false);
-		}
+		model.enableExitDialog(exitDialogStatus == 1);
 		
 		// Change to selected theme
 		for(int i = 0; i < view.btTheme.length; i++){
@@ -292,8 +332,9 @@ public class ConfigurationController implements ActionListener, KeyListener{
 		int value;
 		
 		autoBackupStatus = ((value = Component.runSwitchButtonEffect(e, view.btAutoBackupON, view.btAutoBackupOFF)) != -1) ? value : autoBackupStatus;
-		
-		exitDialogStatus = ((value = Component.runSwitchButtonEffect(e, view.btExitDialogON, view.btExitDialogOFF)) != -1) ? value : exitDialogStatus; 
+		confirmBackupStatus = ((value = Component.runSwitchButtonEffect(e, view.btConfirmBackupON, view.btConfirmBackupOFF)) != -1) ? value : confirmBackupStatus; 
+		confirmExportStatus = ((value = Component.runSwitchButtonEffect(e, view.btConfirmExportON, view.btConfirmExportOFF)) != -1) ? value : confirmExportStatus; 
+		exitDialogStatus = ((value = Component.runSwitchButtonEffect(e, view.btExitDialogON, view.btExitDialogOFF)) != -1) ? value : exitDialogStatus;
 		
 		if(source == view.btSuddenClose)
 			parent.suddenClose();

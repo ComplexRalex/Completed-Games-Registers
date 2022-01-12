@@ -178,7 +178,9 @@ public class Language{
 		map.get("English").put("m_option_remove",		"Remove");
 		map.get("English").put("m_option_recent",		"Recently added");
 		map.get("English").put("m_text_recent",			"This register will be ordered in the next reset");
+		map.get("English").put("m_confirm_backup",		"Do you want to do a backup?");
 		map.get("English").put("m_backedup",			"The registers were successfully backed up");
+		map.get("English").put("m_confirm_export",		"Do you want to export the registers into a JSON file?");
 		map.get("English").put("m_exported",			"The registers were successfully exported");
 		map.get("English").put("m_needed_font",			"To get a better experience, download the \"Open Sans\" font!");
 		map.get("English").put("m_remove",				"Do you want to remove this register?");
@@ -197,6 +199,8 @@ public class Language{
 		map.get("English").put("cf_change_user",		"Change username:");
 		map.get("English").put("cf_auto_backup_note",	"Note: Automatic backup only works when changes have been made in the current session (avoiding duplicate files).");
 		map.get("English").put("cf_auto_backup", 		"Auto-backup data before closing the program:");
+		map.get("English").put("cf_confirm_backup",		"Show dialog before doing backup:");
+		map.get("English").put("cf_confirm_export",		"Show dialog to before exporting:");
 		map.get("English").put("cf_ask_on_close",		"Show a dialog before exiting the program:");
 		map.get("English").put("cf_theme", 				"Program theme (requires restart): ");
 		map.get("English").put("cf_lang", 				"Program language (requires restart):");
@@ -359,7 +363,9 @@ public class Language{
 		map.get("Spanish").put("m_option_remove",		"Borrar");
 		map.get("Spanish").put("m_option_recent",		"Agregado recientemente");
 		map.get("Spanish").put("m_text_recent",			"Este registro se ordenará en el próximo reinicio.");
+		map.get("Spanish").put("m_confirm_backup",		"¿Quieres hacer una copia de seguridad?");
 		map.get("Spanish").put("m_backedup",			"Se han respaldado los registros correctamente");
+		map.get("Spanish").put("m_confirm_export",		"¿Quieres exportar los registros en un archivo JSON?");
 		map.get("Spanish").put("m_exported",			"Se han exportado los registros correctamente");
 		map.get("Spanish").put("m_needed_font",			"¡Para tener una mejor experiencia, descarga la fuente \"Open Sans\"!");
 		map.get("Spanish").put("m_remove",				"¿Quieres quitar este registro?");
@@ -378,6 +384,8 @@ public class Language{
 		map.get("Spanish").put("cf_change_user",		"Cambiar nombre de usuario:");
 		map.get("Spanish").put("cf_auto_backup_note",	"Nota: El respaldo automático solamente funciona cuando se ha realizado algún cambio en la sesión actual (con el fin de evitar archivos duplicados).");
 		map.get("Spanish").put("cf_auto_backup", 		"Respaldo automático antes de finalizar el programa:");
+		map.get("Spanish").put("cf_confirm_backup",		"Mostrar dialogo antes de hacer un respaldo:");
+		map.get("Spanish").put("cf_confirm_export",		"Mostrar dialogo antes de exportar:");
 		map.get("Spanish").put("cf_ask_on_close",		"Mostrar un diálogo antes de salir del programa:");
 		map.get("Spanish").put("cf_theme", 				"Tema del programa (requiere reinicio): ");
 		map.get("Spanish").put("cf_lang",				"Idioma del programa (requiere reinicio):");
