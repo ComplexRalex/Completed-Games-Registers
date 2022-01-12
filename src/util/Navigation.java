@@ -42,42 +42,52 @@ public class Navigation{
      * @param url URL of the web page
      */
     public static void goToPage(String url, Container container){
-        if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)){
-            if(Advice.showOptionTextAreaAdvice(
-                container,
-                Language.loadMessage("g_message"),
-                Language.loadMessage("g_will_browse"),
-                url, 50, 2,
-                new String[]{
-                    Language.loadMessage("g_accept"),
-                    Language.loadMessage("g_cancel")
-                },
-                Colour.getPrimaryColor()
-            ) == 0){
-                try {
-                    Desktop.getDesktop().browse(new URI(url));
-                } catch (IOException | URISyntaxException e) {
-                    String error = Log.getDetails(e);
-                    Log.toFile(error, Log.ERROR);
+        String command, os = System.getProperty("os.name").toLowerCase();
+        Runtime rt = Runtime.getRuntime();
+
+        if(Advice.showOptionTextAreaAdvice(
+            container,
+            Language.loadMessage("g_message"),
+            Language.loadMessage("g_will_browse"),
+            url, 50, 2,
+            new String[]{
+                Language.loadMessage("g_accept"),
+                Language.loadMessage("g_cancel")
+            },
+            Colour.getPrimaryColor()
+        ) == 0){
+            try {
+                Log.toConsole("System: "+os, "Navigation.goToPage", Log.DEBUG);
+                if(os.indexOf("win") >= 0)
+                    command = "rundll32 url.dll,FileProtocolHandler "+url;
+                else if(os.indexOf("mac") >= 0)
+                    command = "open "+url;
+                else if(os.indexOf("nix") >=0 || os.indexOf("nux") >=0)
+                    command = "xdg-open "+url;
+                else{
                     Advice.showTextAreaAdvice(
                         container,
                         Language.loadMessage("g_oops"),
                         Language.loadMessage("g_went_wrong")+": ",
-                        error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                        "Opening browser is not supported at the moment...", 40, 2,
                         Language.loadMessage("g_accept"),
                         Colour.getPrimaryColor()
                     );
+                    return;
                 }
+                rt.exec(command);
+            } catch (IOException e) {
+                String error = Log.getDetails(e);
+                Log.toFile(error, Log.ERROR);
+                Advice.showTextAreaAdvice(
+                    container,
+                    Language.loadMessage("g_oops"),
+                    Language.loadMessage("g_went_wrong")+": ",
+                    error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                    Language.loadMessage("g_accept"),
+                    Colour.getPrimaryColor()
+                );
             }
-        }else{
-            Advice.showTextAreaAdvice(
-                container,
-                Language.loadMessage("g_oops"),
-                Language.loadMessage("g_went_wrong")+": ",
-                "Opening browser is not supported.", 40, 2,
-                Language.loadMessage("g_accept"),
-                Colour.getPrimaryColor()
-            );
         }
     }
 }
