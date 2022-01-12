@@ -58,6 +58,8 @@ public class ConfigurationPanel extends JPanel{
 	 */
 	public JButton
 		btAutoBackupON, btAutoBackupOFF,
+		btConfirmBackupON, btConfirmBackupOFF,
+		btConfirmExportON, btConfirmExportOFF,
 		btExitDialogON, btExitDialogOFF,
 		btResetConfig, btResetSave, btResetBackups,
 		btResetExports, btResetLogs, btSuddenClose,
@@ -144,6 +146,18 @@ public class ConfigurationPanel extends JPanel{
 		btAutoBackupON = new JButton("ON");
 		btAutoBackupOFF = new JButton("OFF");
 		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_auto_backup"), btAutoBackupON, btAutoBackupOFF, Colour.getBackgroundColor()));
+
+		// - Establishing the confirm backup dialog options
+				
+		btConfirmBackupON = new JButton("ON");
+		btConfirmBackupOFF = new JButton("OFF");
+		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_confirm_backup"), btConfirmBackupON, btConfirmBackupOFF, Colour.getBackgroundColor()));
+
+		// - Establishing the confirm export dialog options
+		
+		btConfirmExportON = new JButton("ON");
+		btConfirmExportOFF = new JButton("OFF");
+		pGeneralOptions.add(Component.createSwitchButton(Language.loadMessage("cf_confirm_export"), btConfirmExportON, btConfirmExportOFF, Colour.getBackgroundColor()));
 
 		// - Establishing "show dialog on close" options
 		

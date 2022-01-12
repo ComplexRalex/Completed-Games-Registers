@@ -76,6 +76,26 @@ public class Configuration{
 	 */
 	private boolean autoBackup;
 
+
+	/**
+	 * Boolean which determines if the confirm backup dialog
+	 * is enabled (true) or not (false).
+	 * 
+	 * @see #getConfirmBackupDialog()
+	 * @see #enableConfirmBackupDialog() 
+	 */
+	private boolean confirmBackup;
+
+
+	/**
+	 * Boolean which determines if the confirm export dialog
+	 * is enabled (true) or not (false).
+	 * 
+	 * @see #getConfirmExportDialog()
+	 * @see #enableConfirmExportDialog() 
+	 */
+	private boolean confirmExport;
+
 	/**
 	 * Boolean which determines if the exit dialog is enabled
 	 * (true) or not (false).
@@ -137,6 +157,8 @@ public class Configuration{
 	 * <ul>
 	 * <li>{@link #username} = "Username"
 	 * <li>{@link #autoBackup} = false
+	 * <li>{@link #confirmBackup} = true
+	 * <li>{@link #confirmExport} = true
 	 * <li>{@link #exitDialog} = true
 	 * <li>{@link #theme} = {@link Colour#NIGHT_THEME}
 	 * <li>{@link #lang} = {@link Language#available}[0] (English)
@@ -151,6 +173,8 @@ public class Configuration{
 		username = "Username";
 		autoBackup = false;
 		exitDialog = true;
+		confirmBackup = true;
+		confirmExport = true;
 		theme = Colour.NIGHT_THEME;
 		lang = Language.available[0];
 		connectionTimeout = 5000;
@@ -173,8 +197,10 @@ public class Configuration{
 		HashMap<String,Object> hashMap = new HashMap<>();
 
 		hashMap.put("username",username);
-		hashMap.put("exitDialog",exitDialog);
 		hashMap.put("autoBackup",autoBackup);
+		hashMap.put("confirmBackup",confirmBackup);
+		hashMap.put("confirmExport",confirmExport);
+		hashMap.put("exitDialog",exitDialog);
 		hashMap.put("theme",theme);
 		hashMap.put("lang",lang);
 		hashMap.put("connectionTimeout",connectionTimeout);
@@ -196,13 +222,24 @@ public class Configuration{
 	 * @see #createHashMap()
 	 */
 	private void copyConfigData(HashMap<String,Object> hashMap){
-		username = (String)hashMap.get("username");
-		exitDialog = (boolean)hashMap.get("exitDialog");
-		autoBackup = (boolean)hashMap.get("autoBackup");
-		theme = (int)hashMap.get("theme");
-		lang = (String)hashMap.get("lang");
-		connectionTimeout = (int)hashMap.get("connectionTimeout");
-		readTimeout = (int)hashMap.get("readTimeout");
+		if(hashMap.containsKey("username") && hashMap.get("username") != null)
+			username = (String)hashMap.get("username");
+		if(hashMap.containsKey("autoBackup") && hashMap.get("autoBackup") != null)
+			autoBackup = (boolean)hashMap.get("autoBackup");
+		if(hashMap.containsKey("confirmBackup") && hashMap.get("confirmBackup") != null)
+			confirmBackup = (boolean)hashMap.get("confirmBackup");
+		if(hashMap.containsKey("confirmExport") && hashMap.get("confirmExport") != null)
+			confirmExport = (boolean)hashMap.get("confirmExport");
+		if(hashMap.containsKey("exitDialog") && hashMap.get("exitDialog") != null)
+			exitDialog = (boolean)hashMap.get("exitDialog");
+		if(hashMap.containsKey("theme") && hashMap.get("theme") != null)
+			theme = (int)hashMap.get("theme");
+		if(hashMap.containsKey("lang") && hashMap.get("lang") != null)
+			lang = (String)hashMap.get("lang");
+		if(hashMap.containsKey("connectionTimeout") && hashMap.get("connectionTimeout") != null)
+			connectionTimeout = (int)hashMap.get("connectionTimeout");
+		if(hashMap.containsKey("readTimeout") && hashMap.get("readTimeout") != null)
+			readTimeout = (int)hashMap.get("readTimeout");
 	}
 
 	/**
@@ -277,6 +314,45 @@ public class Configuration{
 	 */
 	public void enableAutoBackup(boolean flag){
 		autoBackup = flag;
+	}
+
+	/**
+	 * Returns if the confirm backup dialog is enabled (true) or
+	 * not (false).
+	 * 
+	 * @return {@link #confirmBackup}'s value 
+	 */
+	public boolean getConfirmBackupDialog(){
+		return confirmBackup;
+	}
+
+	/**
+	 * Sets if the confirm backup dialog will be enabled.
+	 * 
+	 * @param flag New {@link #confirmBackup}'s value
+	 */
+	public void enableConfirmBackupDialog(boolean flag){
+		confirmBackup = flag;
+	}
+
+	/**
+	 * Returns if the confirm export dialog is enabled (true) or
+	 * not (false).
+	 * 
+	 * @return {@link #confirmExport}'s value 
+	 */
+	public boolean getConfirmExportDialog(){
+		return confirmExport;
+	}
+
+	
+	/**
+	 * Sets if the confirm export dialog will be enabled.
+	 * 
+	 * @param flag New {@link #confirmExport}'s value
+	 */
+	public void enableConfirmExportDialog(boolean flag){
+		confirmExport = flag;
 	}
 	
 	/**

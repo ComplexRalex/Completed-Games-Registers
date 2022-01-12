@@ -316,53 +316,84 @@ public class GeneralController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        boolean yes;
         if(e.getSource() == view.btAdd){
             parent.frame.setBusy(true);
             parent.cEditGame.setInitialValues(null);
             parent.frame.changePanel(parent.frame.pEditGame,parent.frame.pEditGame.scrollBar,0);
         }else if(e.getSource() == view.btBackup){
-            try {
-                Advice.showTextAreaAdvice(
+            yes = true;
+            if(parent.mConfig.getConfirmBackupDialog()){
+                yes = Advice.showOptionAdvice(
                     parent.frame,
-                    Language.loadMessage("g_success"),
-                    Language.loadMessage("m_backedup"),
-                    "Name of the backup file: "+parent.mGeneral.doBackup(), 40, 2,
-                    Language.loadMessage("g_accept"),
+                    Language.loadMessage("g_message"),
+                    Language.loadMessage("m_confirm_backup"),
+                    new String[]{
+                        Language.loadMessage("g_accept"),
+                        Language.loadMessage("g_cancel")
+                    },
                     Colour.getPrimaryColor()
-                );
-			} catch (IOException e1) {
-                String error = Log.getDetails(e1);
-                Log.toFile(error, Log.ERROR);
-				Advice.showTextAreaAdvice(
-                    parent.frame,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_went_wrong")+": ",
-                    error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
+                ) == 0;
+            }
+            if(yes){
+                try {
+                    Advice.showTextAreaAdvice(
+                        parent.frame,
+                        Language.loadMessage("g_success"),
+                        Language.loadMessage("m_backedup"),
+                        "Name of the backup file: "+parent.mGeneral.doBackup(), 40, 2,
+                        Language.loadMessage("g_accept"),
+                        Colour.getPrimaryColor()
+                    );
+                } catch (IOException e1) {
+                    String error = Log.getDetails(e1);
+                    Log.toFile(error, Log.ERROR);
+                    Advice.showTextAreaAdvice(
+                        parent.frame,
+                        Language.loadMessage("g_oops"),
+                        Language.loadMessage("g_went_wrong")+": ",
+                        error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                        Language.loadMessage("g_accept"),
+                        Colour.getPrimaryColor()
+                    );
+                }
             }
         }else if(e.getSource() == view.btExport){
-            try {
-                Advice.showTextAreaAdvice(
+            yes = true;
+            if(parent.mConfig.getConfirmExportDialog()){
+                yes = Advice.showOptionAdvice(
                     parent.frame,
-                    Language.loadMessage("g_success"),
-                    Language.loadMessage("m_exported"),
-                    "Name of the exported file: "+parent.mGeneral.exportStats(), 40, 2,
-                    Language.loadMessage("g_accept"),
+                    Language.loadMessage("g_message"),
+                    Language.loadMessage("m_confirm_export"),
+                    new String[]{
+                        Language.loadMessage("g_accept"),
+                        Language.loadMessage("g_cancel")
+                    },
                     Colour.getPrimaryColor()
-                );
-			} catch (IOException e1) {
-                String error = Log.getDetails(e1);
-                Log.toFile(error, Log.ERROR);
-				Advice.showTextAreaAdvice(
-                    parent.frame,
-                    Language.loadMessage("g_oops"),
-                    Language.loadMessage("g_went_wrong")+": ",
-                    error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
-                    Language.loadMessage("g_accept"),
-                    Colour.getPrimaryColor()
-                );
+                ) == 0;
+            }
+            if(yes){
+                try {
+                    Advice.showTextAreaAdvice(
+                        parent.frame,
+                        Language.loadMessage("g_success"),
+                        Language.loadMessage("m_exported"),
+                        "Name of the exported file: "+parent.mGeneral.exportStats(), 40, 2,
+                        Language.loadMessage("g_accept"),
+                        Colour.getPrimaryColor()
+                    );
+                } catch (IOException e1) {
+                    String error = Log.getDetails(e1);
+                    Log.toFile(error, Log.ERROR);
+                    Advice.showTextAreaAdvice(
+                        parent.frame,
+                        Language.loadMessage("g_oops"),
+                        Language.loadMessage("g_went_wrong")+": ",
+                        error, Advice.EXCEPTION_WIDTH, Advice.EXCEPTION_HEIGHT,
+                        Language.loadMessage("g_accept"),
+                        Colour.getPrimaryColor()
+                    );
+                }
             }
         }else if(e.getSource() == view.btHelp){
             parent.frame.changePanel(parent.frame.pHelp,parent.frame.pHelp.scrollBar,0);
